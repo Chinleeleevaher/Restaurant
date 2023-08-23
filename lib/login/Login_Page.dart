@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/component/language_dailog.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
 import 'package:myproject/signin/Sign_page.dart';
@@ -26,8 +31,42 @@ class _Login_pageState extends State<Login_page> {
                 style: TextStyle(color: Colors.white),
               ),
               backgroundColor: Colors.red,
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        onSelectLanguage(context, cubit);
+                      },
+                      child: Container(
+                        height: 80,
+                        width: 60,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.language,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              LocaleKeys.changeLanguage
+                                  .tr(), // <-- here is make change language
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             body: Container(
+              color: Colors.white,
               alignment: Alignment.center,
               padding: EdgeInsets.all(20),
               child: Form(
@@ -36,11 +75,15 @@ class _Login_pageState extends State<Login_page> {
                     children: [
                       Column(
                         children: [
+                          SizedBox(
+                            height: 100,
+                          ),
                           Container(
                             alignment: Alignment.center,
                             height: 30,
-                            child: const Text(
-                              'Login',
+                            child: Text(
+                              LocaleKeys.login
+                                  .tr(), // <---here is to make change lagguage
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
@@ -49,8 +92,8 @@ class _Login_pageState extends State<Login_page> {
                           ),
                           TextFormField(
                             controller: cubit.UserNameControllerr,
-                            decoration: const InputDecoration(
-                                hintText: 'Username',
+                            decoration: InputDecoration(
+                                hintText: LocaleKeys.userName.tr(),
                                 border: OutlineInputBorder()),
                           ),
                           const SizedBox(
@@ -80,8 +123,8 @@ class _Login_pageState extends State<Login_page> {
                             //   EmailValidator(
                             //       errorText: 'enter correct password form')
                             // ]),
-                            decoration: const InputDecoration(
-                              hintText: 'password',
+                            decoration: InputDecoration(
+                              hintText: LocaleKeys.password.tr(),
                               border: OutlineInputBorder(),
                             ),
                             keyboardType: TextInputType.emailAddress,
@@ -89,13 +132,31 @@ class _Login_pageState extends State<Login_page> {
                           ),
                           Padding(
                             padding: EdgeInsets.all(1),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                TextButton(
-                                    onPressed: () {},
-                                    child: const Text('for get passwor'))
-                              ],
+                            child: GestureDetector(
+                              onTap: () {
+                                cubit.onChangedRemember();
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Checkbox(
+                                    checkColor: Colors.white,
+                                    //  side: BorderSide(color: ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4)),
+                                    //  fillColor: MaterialStatePropertyAll(AppColor.primary),
+                                    value: state.rememberme,
+                                    onChanged: (bool? value) {
+                                      cubit.onChangedRemember();
+                                    },
+                                  ),
+                                  TextButton(
+                                      onPressed: () {},
+                                      child:
+                                          Text(LocaleKeys.forgotPassword.tr()))
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -115,7 +176,9 @@ class _Login_pageState extends State<Login_page> {
                               onPressed: () {
                                 cubit.Login(context);
                               },
-                              child: Text('Login')),
+                              child: Text(
+                                LocaleKeys.login.tr(),
+                              )),
                           const SizedBox(
                             height: 20,
                           ),
@@ -124,7 +187,7 @@ class _Login_pageState extends State<Login_page> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text('No account'),
+                                Text(LocaleKeys.noAccount.tr()),
                                 TextButton(
                                     onPressed: () {
                                       Navigator.push(context,
@@ -135,7 +198,7 @@ class _Login_pageState extends State<Login_page> {
                                         );
                                       }));
                                     },
-                                    child: const Text('Signin'))
+                                    child: Text(LocaleKeys.signin.tr()))
                               ],
                             ),
                           ),
@@ -145,6 +208,21 @@ class _Login_pageState extends State<Login_page> {
                   )),
             ));
       },
+    );
+  }
+
+  onSelectLanguage(BuildContext context, CubitCubit cubit) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        content: AlertLanguage(
+          //------- here is mean onLanguageChange to get the value from cubit.onChangedLanguage--------//
+          onLanguageChange: (value) => cubit.onChangedLanguage(value),
+        ),
+      ),
     );
   }
 }

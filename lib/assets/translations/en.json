@@ -1,0 +1,37 @@
+{
+    "hello": "Hello",
+    "userName": "Username",
+    "password": "Password",
+    "fingerOrFace": "Finger or face",
+    "byPassword": "By password",
+    "login":"Login",
+    "welcomBack":"Welcome back!",
+    "userNameOrEmail":"Username or Email...",
+    "rememberMe":"Remember Me",
+    "forgotPassword":"Forgot password",
+    "pleaseEnterUsernameOrEmail":"Please enter username or email",
+    "pleaseEnterPassword":"Please enter password",
+    "selectLanguage":"Select language",
+    "newPassword":"New password",
+    "pleaseActiveYourNewPasswordForAccessSystem":"Please active your new password for access system",
+    "confirmPassword":"Confirm password",
+    "yourPasswordMustbeAtLeast6CharacterAndCannotContainSpacesOrMatchYourEmailAddress":"Your password must be at least 6 character and cannot contain spaces or match your email address",
+    "resetPassword":"Reset password",
+    "pleaseEnterNewPassword":"Please enter new password",
+    "pleaseConfirmNewPassword":"Please confirm new password",
+    "passwordMustBeAtLeast6Character":"Password must be at least 6 characters",
+    "passworNotMatch":"Password not match!",
+    "verify":"Verify",
+    "pleaseCheckYourEmail":"Please check your email",
+    "weAlreadySendLinkTo":"We already send link to",
+    "changeLanguage":"Change language",
+    "signin":"signin",
+    "noAccount":"No account",
+    "setting":"setting" ,
+    "logout":"Logout" ,
+    "favorite":"Favorite" ,
+    "people":"Member" 
+
+
+
+}

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/signin/cubit/sign_in_cubit.dart';
 
@@ -31,7 +33,7 @@ class _SignIn_PageState extends State<SignIn_Page>
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state.status == liststatuse.loading) {
-           Center(
+          Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -41,7 +43,7 @@ class _SignIn_PageState extends State<SignIn_Page>
         var signCubit = context.read<SignInCubit>();
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Sigin page'),
+            title: Text(LocaleKeys.signin.tr()),
           ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -59,8 +61,8 @@ class _SignIn_PageState extends State<SignIn_Page>
                           color: Colors.red,
                           size: 40,
                         ),
-                        const Text(
-                          "Sign In",
+                        Text(
+                          LocaleKeys.signin.tr(),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -69,8 +71,8 @@ class _SignIn_PageState extends State<SignIn_Page>
                         ),
                         TextFormField(
                           controller: signCubit.UserNameControllerr,
-                          decoration: const InputDecoration(
-                            hintText: 'UserName',
+                          decoration: InputDecoration(
+                            hintText: LocaleKeys.userName.tr(),
                             border: OutlineInputBorder(),
                             suffixIcon: Icon(Icons.person),
                           ),
@@ -80,8 +82,8 @@ class _SignIn_PageState extends State<SignIn_Page>
                         ),
                         TextFormField(
                           controller: signCubit.EmailControllerr,
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
+                          decoration: InputDecoration(
+                            hintText: LocaleKeys.userNameOrEmail.tr(),
                             border: OutlineInputBorder(),
                             suffixIcon: Icon(Icons.email_sharp),
                           ),
@@ -92,8 +94,8 @@ class _SignIn_PageState extends State<SignIn_Page>
                         TextFormField(
                           controller: signCubit.PasswordeControllerr,
                           obscureText: true,
-                          decoration: const InputDecoration(
-                            hintText: 'Password',
+                          decoration: InputDecoration(
+                            hintText: LocaleKeys.password.tr(),
                             border: OutlineInputBorder(),
                             suffixIcon: Icon(Icons.lock),
                           ),
@@ -115,7 +117,7 @@ class _SignIn_PageState extends State<SignIn_Page>
                             onPressed: () {
                               signCubit.creatUser(context);
                             },
-                            child: const Text('Save'))
+                            child: Text(LocaleKeys.signin.tr()))
                       ],
                     )),
               ],

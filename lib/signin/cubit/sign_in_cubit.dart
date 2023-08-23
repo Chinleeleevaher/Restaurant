@@ -25,7 +25,7 @@ class SignInCubit extends Cubit<SignInState> {
     if (formkey.currentState!.validate()) {
       emit(state.coppywith(status_c: statuslist.loading, message: ''));
     }
-
+// ----this dailog is work when we make signin and waitting
     showDialog(
         context: context,
         builder: (BuildContext context) {
