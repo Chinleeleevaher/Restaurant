@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -198,6 +199,47 @@ class AuthenService {
       }
     } else {
       print(response.reasonPhrase);
+    }
+  }
+  //-------<update method>--------------
+
+  Future<bool?> updateproduct(
+      {required String Pro_id,
+      required String Pro_name,
+      required String Protype_id,
+      required String unit_id,
+      required String pro_price,
+      required String pro_cost,
+      required String imagname}) async {
+    try {
+      var request = http.MultipartRequest(
+          'PATCH', Uri.parse('http://192.168.237.61:3005/update-product'));
+      request.fields.addAll({
+        "product_id": Pro_id,
+        "product_name": Pro_name,
+        "protype_id": Protype_id,
+        "unit_id": unit_id,
+        "price": pro_price,
+        "cost": pro_cost,
+        "image": imagname
+      });
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        // print(await response.stream.bytesToString());
+        var body = jsonDecode(await response.stream.bytesToString());
+        log("Body: $body");
+        if (body["status"] == true) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print("error $e");
     }
   }
 }

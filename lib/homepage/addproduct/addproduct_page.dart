@@ -62,7 +62,6 @@ class _AddproductState extends State<Addproduct> {
                 children: [
                   Column(
                     children: [
-                      //hkhkjhkhk
                       Container(
                         alignment: Alignment.topCenter,
                         child: Row(
@@ -77,11 +76,19 @@ class _AddproductState extends State<Addproduct> {
                                       height: 160,
                                       fit: BoxFit.cover,
                                     )
-                                  : Icon(
-                                      Icons.image,
-                                      size: 180,
-                                      color: Colors.red,
-                                    ),
+                                  : state.imagenetword != null &&
+                                          state.imagenetword!.isNotEmpty
+                                      ? Image.network(
+                                          state.imagenetword!,
+                                          width: 160,
+                                          height: 160,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Icon(
+                                          Icons.image,
+                                          size: 180,
+                                          color: Colors.red,
+                                        ),
                             ),
                             SizedBox(
                               width: 30,
@@ -262,7 +269,17 @@ class _AddproductState extends State<Addproduct> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                cubit.adproduct();
+                                //cubit.adproduct();
+                                // if (state.typeSelecimage != null) {
+                                //   cubit.adproduct();
+                                // } else {
+                                //   cubit.updateProduct();
+                                // }
+                                if (cubit.productmodel != null) {
+                                  cubit.adproduct();
+                                } else {
+                                  cubit.updateProduct();
+                                }
                               },
                               child: Container(
                                 height: 46,

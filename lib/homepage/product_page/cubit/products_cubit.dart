@@ -98,7 +98,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(state.coppywith(typeSelectunit_c: value));
     getproduct();
   }
-//----of product item to model-------
+//----of product item to model it fucntion to send the argument to the addproduct cubit-------
    onTypeSelectproduct(value) {
     emit(state.coppywith(typeSelectproductItem_c: value));
     navService.pushNamed(AppRount.addproduct, args: state.typeSelectproductItem);

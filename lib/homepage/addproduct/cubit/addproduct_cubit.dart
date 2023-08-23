@@ -1,14 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/repository/authen_sipository.dart';
@@ -47,6 +42,7 @@ class AddproductCubit extends Cubit<AddproductState> {
         emit(state.coppywith(
             listtabltype_c: state.listproducttypes! + data!,
             status_c: producttypestatuse.success));
+        unitlist();
       },
     );
   }
@@ -64,11 +60,12 @@ class AddproductCubit extends Cubit<AddproductState> {
         emit(state.coppywith(
             listunit_c: state.listunit! + data!,
             status_c: producttypestatuse.success));
+        initialDataForm();
       },
     );
   }
 
-  Future<String?> upload() async {
+  Future<String?> uploadImage() async {
     String? imagename;
     try {
       emit(state.coppywith(status_c: producttypestatuse.loading));
@@ -81,7 +78,7 @@ class AddproductCubit extends Cubit<AddproductState> {
         (data) {
           log('success ' + data.profileUrl.toString());
           print('data: $data');
-          imagename = data.profileUrl;
+          imagename = data.profileUrl; // <---here is ເຂົ້າຫາ list in the model
         },
       );
       return imagename;
@@ -93,7 +90,7 @@ class AddproductCubit extends Cubit<AddproductState> {
 //------of add product------------
   Future<void> adproduct() async {
     emit(state.coppywith(status_c: producttypestatuse.loading));
-    String? imagname = await upload();
+    String? imagname = await uploadImage(); // <--is from above
     if (imagname == null) {
       return;
     }
@@ -102,7 +99,7 @@ class AddproductCubit extends Cubit<AddproductState> {
       Pro_name: ProductName.text,
       Protype_id: state.typeSelect!.protypeId,
       unit_id: state.typeSelectunit!.unitId,
-      imagname: imagname!,
+      imagname: imagname,
       pro_cost: double.parse(SalePriceProduct.text),
       pro_price: double.parse(BuyPriceProduct.text),
     );
@@ -115,6 +112,7 @@ class AddproductCubit extends Cubit<AddproductState> {
         print('data: $data');
         Fluttertoast.showToast(
             msg: "Upload sucessful", gravity: ToastGravity.CENTER);
+        // make clear data
         ProdcutId.clear();
         ProductName.clear();
         SalePriceProduct.clear();
@@ -127,6 +125,40 @@ class AddproductCubit extends Cubit<AddproductState> {
     );
   }
 
+//------of update product------------
+  Future<void> updateProduct() async {
+    emit(state.coppywith(status_c: producttypestatuse.loading));
+   
+    var result = await authenRepositorys.updatepro(
+      Pro_id: ProdcutId.text,
+      Pro_name: ProductName.text,
+      Protype_id: state.typeSelect!.protypeId.toString(),
+      unit_id: state.typeSelectunit!.unitId.toString(),
+      imagname: state.imagenetword!,
+      pro_cost: SalePriceProduct.text,
+      pro_price: BuyPriceProduct.text,
+    );
+    result.fold(
+      (f) {
+        log('errro');
+      },
+      (data) async {
+        //   log('success ' + data.length.toString());
+        print('data: $data');
+        Fluttertoast.showToast(
+            msg: "Upload sucessful", gravity: ToastGravity.CENTER);
+        // make clear data
+        ProdcutId.clear();
+        ProductName.clear();
+        SalePriceProduct.clear();
+        BuyPriceProduct.clear();
+        emit(state.coppywith(
+            typeSelecimage_c: File(""),
+            typeSelectunit_c: punit(unitId: 0, unitName: ""),
+            typeSelect_c: Producttype(protypeId: 0, protypeName: "")));
+      },
+    );
+  }
 //-----------to corect value from the addproduct page--------------------
   //-----of product type---------
   onTypeSelectprotype(value) {
@@ -145,7 +177,7 @@ class AddproductCubit extends Cubit<AddproductState> {
     emit(state.coppywith(typeSelecimage_c: value));
     // adproduct();
   }
-
+// of take data from the product page to update page
   initialDataForm() {
     if (productmodel != null) {
       log('data not null');
@@ -153,7 +185,22 @@ class AddproductCubit extends Cubit<AddproductState> {
       ProductName.text = productmodel!.productName;
       SalePriceProduct.text = productmodel!.price.toString();
       BuyPriceProduct.text = productmodel!.cost.toString();
-       emit(state.coppywith(imagenetword_c: productmodel!.image));
+      emit(state.coppywith(
+        imagenetword_c: productmodel!.image,
+      ));
+      getunitId();
+      gettypeId();
     }
+  }
+// of take data from the product page to update page 
+  getunitId() {
+    var unit = state.listunit!
+        .firstWhere((element) => element.unitId == productmodel!.unitId); // <--it make loop to compare the id and correct to emit
+    emit(state.coppywith(typeSelectunit_c: unit));
+  }
+    gettypeId() {
+    var protype = state.listproducttypes!
+        .firstWhere((element) => element.protypeId == productmodel!.protypeId);
+    emit(state.coppywith(typeSelect_c: protype));
   }
 }

@@ -98,11 +98,11 @@ class AppRount {
           builder: (context) => BlocProvider(
             create: (context) => AddproductCubit(
               authenRepositorys: context.read<AuthenRepository>(),
-              productmodel: settings.arguments as ProductModel?,
+              productmodel: settings.arguments as ProductModel?, // <---here is to make send arguments from ProductModel to the addproduct page to make update
             )
-              ..producttypelist()
-              ..unitlist()
-              ..initialDataForm(), // <---here is mean to access to two fucntion in the cubit
+              ..producttypelist(),
+              // ..unitlist()
+              // ..initialDataForm(), // <---here is mean to access to two fucntion in the cubit
             child: Addproduct(),
           ),
         );
