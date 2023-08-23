@@ -62,13 +62,15 @@ class _AddproductState extends State<Addproduct> {
                 children: [
                   Column(
                     children: [
+                      //hkhkjhkhk
                       Container(
                         alignment: Alignment.topCenter,
                         child: Row(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 20, top: 20),
-                              child: state.typeSelecimage != null && state.typeSelecimage!.path.isNotEmpty
+                              child: state.typeSelecimage != null &&
+                                      state.typeSelecimage!.path.isNotEmpty
                                   ? Image.file(
                                       state.typeSelecimage!,
                                       width: 160,
