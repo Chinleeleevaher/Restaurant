@@ -15,6 +15,7 @@ import 'package:myproject/homepage/table_page/table_page.dart';
 import 'package:myproject/login/Login_Page.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
 import 'package:myproject/login/home_provider/provider.dart';
+import 'package:myproject/provider/ProductProvider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 import 'package:myproject/signin/Sign_page.dart';
 import 'package:myproject/signin/cubit/sign_in_cubit.dart';
@@ -85,7 +86,7 @@ class AppRount {
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => ProductsCubit(
-                authenRepositorys: context.read<AuthenRepository>())
+                authenRepositorys: context.read<AuthenRepository>()) // <--here is to read provider and Repository
               ..producttypelist()
               ..unitlist()
               ..getproduct(), // <---here is mean to access to two fucntion in the cubit

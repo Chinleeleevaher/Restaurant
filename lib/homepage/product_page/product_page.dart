@@ -35,8 +35,15 @@ class _ProductPageState extends State<ProductPage> {
                         width: 30,
                       ),
                       GestureDetector(
-                          onTap: () =>
-                              navService.pushNamed(AppRount.addproduct),
+                          onTap: () => navService
+                                  .pushNamed(AppRount.addproduct)
+                                  .then((value) {
+                                // <----here is to get value ("true") from addproduct cubit to here for make refresh
+                                if (value == true) {
+                                  // <---i use Navigator.pop(context) to link betreen this 2 page so it can understand auto the value
+                                  cubit.getproduct();
+                                }
+                              }),
                           child: Icon(Icons.add))
                     ],
                   ),
@@ -253,7 +260,12 @@ class _ProductPageState extends State<ProductPage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 15),
-                                  child: Icon(Icons.delete),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        cubit.deletepro(
+                                            int.parse(prolist[i].productId));
+                                      },
+                                      child: Icon(Icons.delete)),
                                 ),
                               ],
                             ),
@@ -265,68 +277,6 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ),
               )
-
-              // Container(
-              //   height: 360,
-              //   width: 360,
-              //   child: Column(
-              //     children: [
-              //       Expanded(
-              //           child: Column(
-              //         children: List.generate(10, (index) {
-              //           return Container(
-              //             height: 50,
-              //             width: 360,
-              //             margin: EdgeInsets.all(10),
-              //             decoration: BoxDecoration(color: Colors.red),
-              //           );
-              //         }),
-              //       ))
-              //           //  ListView.builder(
-              //           //     // shrinkWrap: true,
-              //           //     itemCount: cubit.state.listproduct!.length,
-              //           //     physics: BouncingScrollPhysics(),
-              //           //     itemBuilder: (c, i) {
-              //           //       var prolist = state.listproduct;
-              //           //       return Container(
-              //           //         child: Padding(
-              //           //           padding:
-              //           //               const EdgeInsets.only(left: 20, right: 20),
-              //           //           child: Row(
-              //           //             mainAxisAlignment:
-              //           //                 MainAxisAlignment.spaceBetween,
-              //           //             children: [
-              //           //               Text("1"),
-              //           //               // ListTile(
-              //           //               //   leading: Image.network(
-              //           //               //     prolist![i].image,
-              //           //               //     height: 80,
-              //           //               //     width: 80,
-              //           //               //   ),
-              //           //               // ),
-              //           //               Padding(
-              //           //                   padding: const EdgeInsets.only(
-              //           //                       right: 30, top: 10),
-              //           //                   child: Image.network(
-              //           //                     prolist![i].image,
-              //           //                     height: 80,
-              //           //                     width: 80,
-              //           //                   )),
-              //           //               Padding(
-              //           //                 padding: const EdgeInsets.only(right: 30),
-              //           //                 child: Text(prolist![i].productName),
-              //           //               ),
-              //           //               Icon(Icons.edit)
-              //           //             ],
-              //           //           ),
-              //           //         ),
-              //           //       );
-              //           //     }
-              //           //     ),
-
-              //     ],
-              //   ),
-              // )
             ],
           ),
         );

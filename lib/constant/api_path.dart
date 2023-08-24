@@ -1,6 +1,6 @@
 class ApiPaths {
   // static const baseURL = 'https://';
-  static const baseURL = 'http://192.168.237.61:3005';
+  static const baseURL = 'http://192.168.133.61:3005';
 
   /// HTTP request methods
   static const String getRequest = 'get';

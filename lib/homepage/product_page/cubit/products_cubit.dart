@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/config/app_rount.dart';
@@ -9,22 +10,27 @@ import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
+import '../../../provider/ProductProvider.dart';
 import '../../menu_page/model/product_model.dart';
 
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final AuthenRepository authenRepositorys;
-  ProductsCubit({required this.authenRepositorys})
-      : super(ProductsState(
-          listproducttype: [
-            Producttype(
-              protypeId: 0,
-              protypeName: 'ທັງໝົດ',
-            ),
-          ],
-          listunit: [punit(unitId: 0, unitName: 'ທັງໝົດ')],
-        ),
+  //final ProductProvider proProvider;
+  ProductsCubit({
+    required this.authenRepositorys,
+    // required this.proProvider,
+  }) : super(
+          ProductsState(
+            listproducttype: [
+              Producttype(
+                protypeId: 0,
+                protypeName: 'ທັງໝົດ',
+              ),
+            ],
+            listunit: [punit(unitId: 0, unitName: 'ທັງໝົດ')],
+          ),
         );
 
   Future<void> producttypelist() async {
@@ -86,7 +92,17 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
-
+  //----of delete product------
+  Future<void> deletepro(int pro_id) async {
+    emit(state.coppywith(status_c: productliststatuse.loading));
+    var result = await authenRepositorys.deletepro(pro_id: pro_id);
+    result!.fold((Left) {
+      log("erro $Left");
+    }, (Right) {
+      getproduct();
+      emit(state.coppywith(status_c: productliststatuse.success));
+    });
+  }
 
   onTypeSelectprotype(value) {
     emit(state.coppywith(typeSelect_c: value));
@@ -98,9 +114,16 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(state.coppywith(typeSelectunit_c: value));
     getproduct();
   }
+
 //----of product item to model it fucntion to send the argument to the addproduct cubit-------
-   onTypeSelectproduct(value) {
+  onTypeSelectproduct(value) {
     emit(state.coppywith(typeSelectproductItem_c: value));
-    navService.pushNamed(AppRount.addproduct, args: state.typeSelectproductItem);
+    navService
+        .pushNamed(AppRount.addproduct, args: state.typeSelectproductItem)
+        .then((value) { // <--- (.then ) is to get the value form the update product page
+      if (value == true) {
+        getproduct();
+      }
+    });
   }
 }

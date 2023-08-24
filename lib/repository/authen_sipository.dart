@@ -71,6 +71,7 @@ class AuthenRepository {
       //throw Exception('Failed to load table type');
     }
   }
+
 //----------of image---------------
   Future<Either<Failure, ImageModel>> imageP({required File imagepath}) async {
     try {
@@ -107,7 +108,7 @@ class AuthenRepository {
     }
   }
 
-    //----of update product data---------
+  //----of update product data---------
   Future<Either<Failure, bool>> updatepro(
       {required String Pro_id,
       required String Pro_name,
@@ -125,6 +126,16 @@ class AuthenRepository {
           pro_price: pro_price,
           pro_cost: pro_cost,
           imagname: imagname);
+      return right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //-----of delete product-----
+  Future<Either<Failure, bool>?> deletepro({required int pro_id}) async {
+    try {
+      final result = await services.deleteproduct(pro_id: pro_id);
       return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));

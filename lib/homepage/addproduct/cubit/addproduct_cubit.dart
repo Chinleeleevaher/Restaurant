@@ -88,7 +88,7 @@ class AddproductCubit extends Cubit<AddproductState> {
   }
 
 //------of add product------------
-  Future<void> adproduct() async {
+  Future<void> adproduct(BuildContext context) async {
     emit(state.coppywith(status_c: producttypestatuse.loading));
     String? imagname = await uploadImage(); // <--is from above
     if (imagname == null) {
@@ -121,22 +121,27 @@ class AddproductCubit extends Cubit<AddproductState> {
             typeSelecimage_c: File(""),
             typeSelectunit_c: punit(unitId: 0, unitName: ""),
             typeSelect_c: Producttype(protypeId: 0, protypeName: "")));
+        Navigator.pop(context, true);
       },
     );
   }
 
 //------of update product------------
-  Future<void> updateProduct() async {
+  Future<void> updateProduct(BuildContext context) async {
     emit(state.coppywith(status_c: producttypestatuse.loading));
-   
+    String? imagname =
+        await uploadImage(); // <--is from above and to send the image
+    if (imagname == null) {
+      imagname = state.imagenetword!;
+    }
     var result = await authenRepositorys.updatepro(
       Pro_id: ProdcutId.text,
       Pro_name: ProductName.text,
       Protype_id: state.typeSelect!.protypeId.toString(),
       unit_id: state.typeSelectunit!.unitId.toString(),
-      imagname: state.imagenetword!,
-      pro_cost: SalePriceProduct.text,
-      pro_price: BuyPriceProduct.text,
+      imagname: imagname,
+      pro_cost: BuyPriceProduct.text,
+      pro_price: SalePriceProduct.text,
     );
     result.fold(
       (f) {
@@ -146,19 +151,23 @@ class AddproductCubit extends Cubit<AddproductState> {
         //   log('success ' + data.length.toString());
         print('data: $data');
         Fluttertoast.showToast(
-            msg: "Upload sucessful", gravity: ToastGravity.CENTER);
-        // make clear data
+            msg: "update sucessful", gravity: ToastGravity.CENTER);
+        //----make clear data------
         ProdcutId.clear();
         ProductName.clear();
         SalePriceProduct.clear();
         BuyPriceProduct.clear();
         emit(state.coppywith(
             typeSelecimage_c: File(""),
+            imagenetword_c: "",
             typeSelectunit_c: punit(unitId: 0, unitName: ""),
             typeSelect_c: Producttype(protypeId: 0, protypeName: "")));
+        Navigator.pop(context,
+            true); // <--here is to back to the product page and send value ( true ) back to the cubit of product cubit to make reflesh
       },
     );
   }
+
 //-----------to corect value from the addproduct page--------------------
   //-----of product type---------
   onTypeSelectprotype(value) {
@@ -177,7 +186,8 @@ class AddproductCubit extends Cubit<AddproductState> {
     emit(state.coppywith(typeSelecimage_c: value));
     // adproduct();
   }
-// of take data from the product page to update page
+
+// to take data from the product page to update page
   initialDataForm() {
     if (productmodel != null) {
       log('data not null');
@@ -188,17 +198,23 @@ class AddproductCubit extends Cubit<AddproductState> {
       emit(state.coppywith(
         imagenetword_c: productmodel!.image,
       ));
-      getunitId();
-      gettypeId();
+      get_unit_Id();
+      get_producttype_Id();
     }
   }
-// of take data from the product page to update page 
-  getunitId() {
-    var unit = state.listunit!
-        .firstWhere((element) => element.unitId == productmodel!.unitId); // <--it make loop to compare the id and correct to emit
+
+// of take data from the product page to update page
+//-------<to get unit id value>---------
+  get_unit_Id() {
+    var unit = state.listunit!.firstWhere((element) =>
+        element.unitId ==
+        productmodel!
+            .unitId); // <--it make loop to compare the id and correct to emit work as loop
     emit(state.coppywith(typeSelectunit_c: unit));
   }
-    gettypeId() {
+
+//----to get product type value----
+  get_producttype_Id() {
     var protype = state.listproducttypes!
         .firstWhere((element) => element.protypeId == productmodel!.protypeId);
     emit(state.coppywith(typeSelect_c: protype));

@@ -33,8 +33,7 @@ class Nabar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //this code below is to access or read UserProvider
-    var homeState = context.read<
-        UserProvider>(); // <-- here is to access the provider of login provider to show the data of user to her
+    var homeState = context.read<UserProvider>(); // <-- here is to access the provider of login provider to show the data of user to her
     //print("user " + homeState.userlist.toString());
     return Drawer(
       child: ListView(
@@ -49,8 +48,7 @@ class Nabar extends StatelessWidget {
                 ),
                 // backgroundImage: AssetImage("lib/assets/image/people.png"),
               ),
-              accountName: Text(homeState.userlist[0]
-                  .username), // <-- why it is [0] because UserProvider is get the data from the user cubit as model and in side are come as list ite mean can login only one user that why is came only one list
+              accountName: Text(homeState.userlist[0].username), // <-- why it is [0] because UserProvider is get the data from the user cubit as model and in side are come as list ite mean can login only one user that why is came only one list
               accountEmail: Text(homeState.userlist[0].email)),
           ListTile(
             leading: Icon(Icons.people),
@@ -80,7 +78,7 @@ class Nabar extends StatelessWidget {
             leading: Icon(Icons.logout),
             title: Text(LocaleKeys.logout.tr()),
             onTap: () async {
-              await storage.delete(key: 'token');
+              await storage.delete(key: 'token'); // <-- here is to make logout
               await storage.delete(key: 'username');
               await storage.delete(key: 'password');
               Navigator.pop(context);

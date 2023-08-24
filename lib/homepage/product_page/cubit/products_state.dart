@@ -11,6 +11,7 @@ class ProductsState extends Equatable {
       this.typeSelectproductItem,
       this.typeSelect,
       this.typeSelectunit,
+
       this.status = productliststatuse.initial});
   final List<Producttype>? listproducttype;
   final List<punit>? listunit;
@@ -19,7 +20,6 @@ class ProductsState extends Equatable {
   final Producttype? typeSelect;
   final punit? typeSelectunit;
   final ProductModel? typeSelectproductItem;
-
   //final Color? changecolor;
 
   @override
@@ -30,8 +30,7 @@ class ProductsState extends Equatable {
         typeSelect,
         typeSelectunit,
         listproduct,
-        typeSelectproductItem
-        // changecolor
+        typeSelectproductItem,
       ];
 
   ProductsState coppywith(
@@ -41,9 +40,8 @@ class ProductsState extends Equatable {
       productliststatuse? status_c,
       Producttype? typeSelect_c,
       punit? typeSelectunit_c,
-      ProductModel? typeSelectproductItem_c
-      // Color? changecolor_c
-      }) {
+      ProductModel? typeSelectproductItem_c,
+      String? product_id_c}) {
     return ProductsState(
       listproducttype: listtabltype_c ?? this.listproducttype,
       listunit: listunit_c ?? this.listunit,
