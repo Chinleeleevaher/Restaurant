@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:myproject/homepage/order/cubit/lisproduct_cubit.dart';
+import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 import 'package:myproject/repository/authen_sipository.dart';
@@ -11,9 +13,11 @@ import 'package:myproject/repository/authen_sipository.dart';
 part 'tabletype_state.dart';
 
 class TabletypeCubit extends Cubit<TabletypeState> {
+  final tableProvider tableprovider;
   final AuthenRepository authenRepository;
   TabletypeCubit({
     required this.authenRepository,
+    required this.tableprovider,
   }) : super(
           TabletypeState(
               listtabletype: [Tabletype(tabletypeId: 0, tabletypeName: 'all')]),
@@ -42,7 +46,8 @@ class TabletypeCubit extends Cubit<TabletypeState> {
       //if (state.typeSelect != "") {
       emit(state.coppywith(status_c: tableliststatuse.loading));
       var result = await authenRepository.getTables(
-          typeids: state.typeSelect == null? 0 : state.typeSelect!.tabletypeId);
+          typeids:
+              state.typeSelect == null ? 0 : state.typeSelect!.tabletypeId);
       result.fold(
         (f) {
           log('errro');
@@ -58,8 +63,23 @@ class TabletypeCubit extends Cubit<TabletypeState> {
       throw Exception("error: $e");
     }
   }
+
   onTypeSelect(value) {
     emit(state.coppywith(typeSelect_c: value));
     getTables();
+  }
+
+  //----------<to order product list>-----------
+  ontypetablelist(Tables value) {
+    tableprovider.settablelist(value);
+    // var tablelist = Tables(
+    //     tableId: value.tableId,
+    //     tableName: value.tableName,
+    //     tableSize: value.tableSize,
+    //     tableStatus: value.tableStatus,
+    //     tabletypeId: value.tabletypeId);
+    // if (tableprovider.gettablelist.isEmpty) {
+    //   tableprovider.settablelist(tablelist);
+    // }
   }
 }

@@ -48,7 +48,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
             homeProvider.setIsUserlist(model);
             navService.pushReplacementNamed(AppRount.menupage);
           } else {
-            navService.pushReplacementNamed(AppRount.loginpage);
+            navService.pushNamedAndRemoveUntil(AppRount.loginpage);
           }
         } else {
           print(response.reasonPhrase);
@@ -57,7 +57,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
         log('Error $e');
       }
     } else {
-      navService.pushReplacementNamed(AppRount.loginpage);
+      navService.pushNamedAndRemoveUntil(AppRount.loginpage);// here is the first run it will come to the login page if not make remember
     }
 
     //---not ready here is need to check if the token is not yet spire then log to the homegae and if the token is spire already then log in to the login page. here we can check the token or username it is ok but for to do this we need to write in API ------------------

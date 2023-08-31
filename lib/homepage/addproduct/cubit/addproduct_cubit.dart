@@ -73,7 +73,7 @@ class AddproductCubit extends Cubit<AddproductState> {
           await authenRepositorys.imageP(imagepath: state.typeSelecimage!);
       result.fold(
         (f) {
-          log('errro');
+          log('errro 101');
         },
         (data) {
           log('success ' + data.profileUrl.toString());
@@ -105,7 +105,7 @@ class AddproductCubit extends Cubit<AddproductState> {
     );
     result.fold(
       (f) {
-        log('errro');
+        log('errro 123');
       },
       (data) async {
         //   log('success ' + data.length.toString());

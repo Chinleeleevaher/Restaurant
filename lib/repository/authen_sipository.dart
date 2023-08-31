@@ -136,7 +136,27 @@ class AuthenRepository {
   Future<Either<Failure, bool>?> deletepro({required int pro_id}) async {
     try {
       final result = await services.deleteproduct(pro_id: pro_id);
-      return right(result!);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //----to order product------
+  Future<Either<Failure, bool>?> orderpro(
+      {
+      required int order_qty,
+      required int order_amount,
+       required int order_status,
+      required int order_table}) async {
+    try {
+      final result = await services.orderproduct(
+          order_qty: order_qty,
+          order_amount: order_amount,
+           order_status: order_status,
+          order_table: order_table,
+          );
+      return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
     }

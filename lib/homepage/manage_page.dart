@@ -62,7 +62,7 @@ class _Manage_pageState extends State<Manage_page>
                                     spreadRadius: 2,
                                     blurRadius: 5)
                               ]),
-                          child:const Column(
+                          child: const Column(
                             children: [
                               SizedBox(
                                 height: 10,
@@ -93,7 +93,7 @@ class _Manage_pageState extends State<Manage_page>
                                   spreadRadius: 2,
                                   blurRadius: 5)
                             ]),
-                        child:const Column(
+                        child: const Column(
                           children: [
                             SizedBox(
                               height: 10,
@@ -150,7 +150,7 @@ class _Manage_pageState extends State<Manage_page>
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
-                            boxShadow: const[
+                            boxShadow: const [
                               BoxShadow(
                                   offset: const Offset(0, 5),
                                   color: Color.fromARGB(77, 11, 11, 11),
@@ -187,7 +187,7 @@ class _Manage_pageState extends State<Manage_page>
                                   spreadRadius: 2,
                                   blurRadius: 5)
                             ]),
-                        child:const Column(
+                        child: const Column(
                           children: [
                             SizedBox(
                               height: 10,
@@ -217,41 +217,7 @@ class _Manage_pageState extends State<Manage_page>
                                   spreadRadius: 2,
                                   blurRadius: 5)
                             ]),
-                        child:const Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.security,
-                              size: 50,
-                              color: Colors.red,
-                            ),
-                            Text("Security")
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child:const Column(
+                        child: const Column(
                           children: [
                             SizedBox(
                               height: 10,
@@ -259,9 +225,9 @@ class _Manage_pageState extends State<Manage_page>
                             Icon(
                               Icons.person,
                               size: 50,
-                              color: Colors.blue,
+                              color: Colors.red,
                             ),
-                            Text("Manage user")
+                            Text("User Manger")
                           ],
                         ),
                       ),

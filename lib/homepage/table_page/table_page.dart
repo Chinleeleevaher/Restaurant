@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/config/app_rount.dart';
+import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/nabar_page.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
+import 'package:myproject/homepage/table_page/model/table.dart';
 
 class Table_page extends StatefulWidget {
   const Table_page({super.key});
@@ -35,9 +38,9 @@ class _Table_pageState extends State<Table_page>
       builder: (context, state) {
         var cubit = context.read<TabletypeCubit>();
         return Scaffold(
-          appBar: AppBar(
-            title: Text('Manage '),
-          ),
+          // appBar: AppBar(
+          //   title: Text('Manage '),
+          // ),
           body: Container(
             child: ListView(
               children: [
@@ -143,9 +146,13 @@ class _Table_pageState extends State<Table_page>
                             (index) {
                           var listtable = state.listtable;
                           return itemDashboard(
-                              listtable![index].tableName.toString(),
-                              listtable![index].tableSize.toString(),
-                              Icon(Icons.table_bar));
+                       // -- here is to send the value to the (itemDashboard)---
+                            cubit, // <-- this line is to connect the cubit to below code (itemDashboard)
+                            listtable![index].tableName.toString(),
+                            listtable[index].tableSize.toString(),
+                            Icon(Icons.table_bar),
+                            listtable[index]
+                          );
                         })
                         // List.generate(
                         //     cubit.state.listtabletype!.length, (index) {
@@ -167,39 +174,47 @@ class _Table_pageState extends State<Table_page>
   }
 
   itemDashboard(
-    String title,
-    String size,
-    Icon IconData,
-  ) =>
-      Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 5),
-                  color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
-                  spreadRadius: 2,
-                  blurRadius: 5)
-            ]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Icon(
-                    IconData.icon,
-                    color: Colors.green,
-                  ),
-                  Text(title, style: Theme.of(context).textTheme.titleMedium),
-                  Text("size: $size",
-                      style: Theme.of(context).textTheme.titleMedium)
-                ],
+          TabletypeCubit cubits, // here is to accept the value from above to show here
+          String title,
+          String size,
+          Icon IconData,
+          Tables table) =>
+      GestureDetector(
+        onTap: () {
+          cubits.ontypetablelist(table); // <-- here is to send the value to cubit
+          cubits; // <--here to make access to the above wedget i just use cubits here then it can connect to the cubit above auto
+          navService.pushNamed(AppRount.ListProduct);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 5),
+                    color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                    spreadRadius: 2,
+                    blurRadius: 5)
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Icon(
+                      IconData.icon,
+                      color: Colors.green,
+                    ),
+                    Text(title, style: Theme.of(context).textTheme.titleMedium),
+                    Text("size: $size",
+                        style: Theme.of(context).textTheme.titleMedium)
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }

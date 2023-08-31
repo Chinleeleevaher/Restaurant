@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:ffi';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -85,7 +86,7 @@ class AuthenService {
         var jsonData = jsonDecode(response.body);
         if (jsonData['data'] != null) {
           var data = producttypeFromJson(jsonEncode(jsonData['data']));
-          
+
           return data;
         }
         Exception('data is null');
@@ -146,7 +147,7 @@ class AuthenService {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse('http://192.168.133.61:3005/upload'));
+        'POST', Uri.parse("http://192.168.102.61:3005/upload"));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -174,8 +175,7 @@ class AuthenService {
       required double pro_cost,
       required String imagname}) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse('http://192.168.133.61:3005/add-product'));
+    var request = http.Request('POST', Uri.parse(ApiPaths.add_productPath));
     request.body = json.encode({
       "product_id": Pro_id,
       "product_name": Pro_name,
@@ -213,8 +213,8 @@ class AuthenService {
       required String imagname}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'PATCH', Uri.parse('http://192.168.133.61:3005/update-product'));
+      var request =
+          http.Request('PATCH', Uri.parse(ApiPaths.upadte_productPath));
       request.body = json.encode({
         "product_id": Pro_id,
         "product_name": Pro_name, //should be string
@@ -245,10 +245,10 @@ class AuthenService {
   }
 
   //-----of delete product-----------
-  Future<bool?> deleteproduct({required int pro_id }) async {
+  Future<bool?> deleteproduct({required int pro_id}) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'DELETE', Uri.parse('http://192.168.133.61:3005/delete-product'));
+    var request =
+        http.Request('DELETE', Uri.parse(ApiPaths.delete_productPath));
     request.body = json.encode({"product_id": pro_id});
     request.headers.addAll(headers);
 
@@ -257,13 +257,51 @@ class AuthenService {
     if (response.statusCode == 200) {
       var body = jsonDecode(await response.stream.bytesToString());
       if (body["status"] == true) {
-  
         return true;
       } else {
         return false;
       }
     } else {
       print(response.reasonPhrase);
+    }
+  }
+
+  //-----of order product-----------
+
+ // String datetimes = DateFormat('YYYY-MM-DD HH:MI:SS').format(DateTime.now());
+  String datetimes = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+  Future<bool?> orderproduct(
+      {required int order_qty,
+      required int order_amount,
+      required int order_status,
+      required int order_table}) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request =
+          http.Request('POST', Uri.parse('http://192.168.102.61:3005/order'));
+      request.body = json.encode({
+        "or_date": datetimes,
+        "or_qty": order_qty,
+        "or_amount": order_amount,
+        "or_status": order_table,
+        "table_id": order_table
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == true) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print("server Error: " + e.toString());
     }
   }
 }

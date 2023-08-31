@@ -1,27 +1,39 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:math';
+
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
-import 'package:myproject/login/cubit/login_state.dart';
 import 'package:http/http.dart' as http;
+import 'package:myproject/homepage/order/model/orderproductmodel.dart';
+import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
+import 'package:myproject/repository/authen_sipository.dart';
 
-part 'menu_state.dart';
+import 'lisproduct_cubit.dart';
 
-class MenuCubit extends Cubit<MenuState> {
-  MenuCubit()
-      : super(MenuState(listproductype: [
-          Producttype(protypeId: 0,  protypeName: 'All',)
-        ] // <-- here is to set default value as 0 and set it to select product from API. protypeName --> is to set default index name as "ALL"
-            ));
+part 'lisproduct_state.dart';
+
+class LisproductCubit extends Cubit<LisproductState> {
+  final orderprovider orderproviders;
+  final tableProvider tableproviders;
+  final AuthenRepository authenRepository;
+  LisproductCubit({
+    required this.orderproviders,
+    required this.tableproviders,
+    required this.authenRepository,
+  }) : super(LisproductState(listproductype: [
+          Producttype(
+            protypeId: 0,
+            protypeName: 'All',
+          )
+        ]));
+
   //----getproducttype------
   Future<void> getProductTypes() async {
-    emit(state.coppywith(status_c: menuliststatuse.loading));
+    emit(state.coppywith(status_c: listproduct_status.loading));
 
     final url = Uri.parse(ApiPaths.producttypepath);
     final response = await http.get(url);
@@ -30,7 +42,7 @@ class MenuCubit extends Cubit<MenuState> {
       final productTypes = producttypeFromJson(jsonEncode(jsonData['data']));
       print('print $jsonData');
       emit(state.coppywith(
-          status_c: menuliststatuse.sucess,
+          status_c: listproduct_status.sucess,
           listproductype_c: state.listproductype! +
               productTypes)); // <-- here is to plus listproductype it is make a containner on the first
     } else {
@@ -43,10 +55,11 @@ class MenuCubit extends Cubit<MenuState> {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse(ApiPaths.productpath));
     request.body = json.encode({
-      "typeId": state.typeSelect == null? ''
+      "typeId": state.typeSelect == null
+          ? ''
           : state.typeSelect!
               .protypeId, // <-- meaning in first time is to send null or "" to API. if we make ontap then send the index to API
-      "unitId":0
+      "unitId": 0
     });
     request.headers.addAll(headers);
 
@@ -61,7 +74,7 @@ class MenuCubit extends Cubit<MenuState> {
         final product = productFromJson(jsonEncode(body['data']));
 
         emit(state.coppywith(
-            status_c: menuliststatuse.sucess,
+            status_c: listproduct_status.sucess,
             listproduct_c:
                 product)); // <-- send value of product to listproduct_c
       }
@@ -71,9 +84,42 @@ class MenuCubit extends Cubit<MenuState> {
     }
   }
 
-// -----this below fucntion is to get the value: index from menu page and keep to select product from AIP. on the above fucntion-----
   onTypeSelect(value) {
     emit(state.coppywith(typeSelect_c: value));
     getproduct(); // <-- here is make to reload and again when i ontap in the product type then reflesh
+  }
+
+  //----------<to order product list>-----------
+  otypeorder(ProductModel value) {
+    var orderlist = OrderproductModel(
+        productId: value.productId,
+        productName: value.productName,
+        protypeId: value.protypeId,
+        unitId: value.unitId,
+        price: value.price,
+        cost: value.cost,
+        image: value.image,
+        qty: 1,
+        total: 0.0,
+        amount: 0.0);
+
+    if (orderproviders.getorderlist.length >= 0) {
+      orderproviders.setOrderlist(orderlist);
+    }
+  }
+
+  //----to insert oder product--------
+  Future<void> postorderlist() async {
+    emit(state.coppywith(status_c: listproduct_status.loading));
+    var result = await authenRepository.orderpro(
+        order_qty: 0,
+        order_amount: 0,
+        order_table: tableproviders.gettablelist.tableId,
+        order_status: tableproviders.gettablelist.tableStatus);
+    result!.fold((Left) {
+      log("Error");
+    }, (Right) {
+      emit(state.coppywith(status_c: listproduct_status.sucess));
+    });
   }
 }

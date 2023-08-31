@@ -13,14 +13,16 @@ class TabletypeState extends Equatable {
   final List<Tables>? listtable;
   final tableliststatuse status;
   final Tabletype? typeSelect;
+
   @override
-  List<Object?> get props => [listtabletype, status, typeSelect,listtable];
+  List<Object?> get props => [listtabletype, status, typeSelect,listtable,];
 
   TabletypeState coppywith(
       {List<Tabletype>? listtabltype_c,
       List<Tables>? listtable_c,
       tableliststatuse? status_c,
-      Tabletype? typeSelect_c
+      Tabletype? typeSelect_c ,
+     Tables? ordertablelist_c
       }) {
     return TabletypeState(
       listtabletype: listtabltype_c ?? this.listtabletype,

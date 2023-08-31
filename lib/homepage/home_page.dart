@@ -24,7 +24,7 @@ class _HomepageState extends State<Homepage>
     super.initState();
     _controller = AnimationController(vsync: this);
   }
-  
+
   @override
   void dispose() {
     _controller.dispose();
@@ -94,7 +94,7 @@ class _HomepageState extends State<Homepage>
                       padding: const EdgeInsets.all(10.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context,
+                          Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
                             return Table_page();
                           }));
@@ -200,7 +200,7 @@ class _HomepageState extends State<Homepage>
                               size: 50,
                               color: Colors.blue,
                             ),
-                            Text("List")
+                            Text("Report")
                           ],
                         ),
                       ),
