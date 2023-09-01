@@ -3,7 +3,7 @@ part of 'order_cubit.dart';
 enum orderproductstatuse { initial, loading, success, error }
 
 class OrderState extends Equatable {
-  const OrderState( {
+  const OrderState({
     this.or_amount,
     this.or_qty,
     this.or_table,
@@ -19,12 +19,14 @@ class OrderState extends Equatable {
   final DateTime? or_datetime;
   final orderproductstatuse status;
 
+
   @override
   List<Object?> get props =>
       [or_amount, or_qty, or_table, or_status, or_datetime, status];
 
   OrderState coppywith(
-      {int? or_amount_c,
+      {
+      int? or_amount_c,
       int? or_qty_c,
       int? or_table_c,
       bool? or_status_c,

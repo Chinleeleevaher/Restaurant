@@ -3,6 +3,12 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/model/orderproductmodel.dart';
+import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
+import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
+import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
+
+import '../table_page/model/orderlistmodel.dart';
+import '../table_page/model/orderlistmodel.dart';
 
 class orderprovider extends ChangeNotifier {
   bool _isprocessing = true;
@@ -53,6 +59,7 @@ class orderprovider extends ChangeNotifier {
     notifyListeners();
   }
 
+
 //------here is for add bage------------
   int _bageqty = 0;
   int get getbageqty => _bageqty;
@@ -100,6 +107,19 @@ class orderprovider extends ChangeNotifier {
       _totalqty = 0;
       _totalprice = 0.00;
     }
+    notifyListeners();
+  }
+
+  //-----get back tableorderlist from Api when i finsh insert table and status. this purpos is to send to the orderlist for insert again--------------
+  Ordertable? _Ordertable;
+  Ordertable? get getOrdertables => _Ordertable;
+  int _order = 0;
+  int get order => _order;
+  orderlisttable(Ordertable value) {
+    if (getOrdertables != 0) {
+      _Ordertable = value;
+    }
+    print(getOrdertables);
     notifyListeners();
   }
 }

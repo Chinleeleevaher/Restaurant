@@ -146,7 +146,7 @@ class AppRount {
             create: (context) => OrderCubit(
                 authenRepositorys: context.read<AuthenRepository>(),
                 orderproviders: context.read<orderprovider>(),
-                tableproviders: context.read<tableProvider>()),
+                tableproviders: context.read<tableProvider>())..postorderdetail(),
              // ..postorderlist(),
             child: CheckBill_Page(),
           ),

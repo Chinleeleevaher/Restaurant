@@ -119,6 +119,8 @@ class LisproductCubit extends Cubit<LisproductState> {
     result!.fold((Left) {
       log("Error");
     }, (Right) {
+      orderproviders.orderlisttable(Right!); // <--here is to keep value to the provider
+      print("respomse $Right");
       emit(state.coppywith(status_c: listproduct_status.sucess));
     });
   }

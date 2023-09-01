@@ -249,7 +249,8 @@ class _OrderListState extends State<OrderList> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                               // cubit.postorderlist();
+                                // cubit.postorderlist();
+                                cubit.postorderdetail();
                                 navService.pushNamed(AppRount.checkbill);
                               },
                               child: Text("Check in"),

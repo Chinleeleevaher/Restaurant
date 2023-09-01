@@ -8,6 +8,7 @@ import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/homepage/table_page/model/failure.dart';
+import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 import 'package:myproject/service/authen_service.dart';
@@ -142,20 +143,40 @@ class AuthenRepository {
     }
   }
 
-  //----to order product------
-  Future<Either<Failure, bool>?> orderpro(
-      {
-      required int order_qty,
+  //----to post order product------
+  Future<Either<Failure, Ordertable?>> orderpro(
+      {required int order_qty,
       required int order_amount,
-       required int order_status,
+      required int order_status,
       required int order_table}) async {
     try {
       final result = await services.orderproduct(
-          order_qty: order_qty,
-          order_amount: order_amount,
-           order_status: order_status,
-          order_table: order_table,
-          );
+        order_qty: order_qty,
+        order_amount: order_amount,
+        order_status: order_status,
+        order_table: order_table,
+      );
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //-----to post order detail product-------
+  Future<Either<Failure, bool>?> orderproductdetail({
+    required int order_id,
+    required String product_id,
+    required String product_name,
+    required int qty,
+    required double amount,
+  }) async {
+    try {
+      final result = await services.orderproductlist(
+          order_id: order_id,
+          product_id: product_id,
+          product_name: product_name,
+          qty: qty,
+          amount: amount);
       return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));

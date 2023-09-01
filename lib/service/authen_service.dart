@@ -13,6 +13,7 @@ import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
+import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 
@@ -147,7 +148,7 @@ class AuthenService {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.102.61:3005/upload"));
+        'POST', Uri.parse("http://192.168.116.61:3005/upload"));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -268,9 +269,9 @@ class AuthenService {
 
   //-----of order product-----------
 
- // String datetimes = DateFormat('YYYY-MM-DD HH:MI:SS').format(DateTime.now());
+  // String datetimes = DateFormat('YYYY-MM-DD HH:MI:SS').format(DateTime.now());
   String datetimes = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
-  Future<bool?> orderproduct(
+  Future<Ordertable?> orderproduct(
       {required int order_qty,
       required int order_amount,
       required int order_status,
@@ -278,12 +279,12 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse('http://192.168.102.61:3005/order'));
+          http.Request('POST', Uri.parse('http://192.168.116.61:3005/order'));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
         "or_amount": order_amount,
-        "or_status": order_table,
+        "or_status": order_status,
         "table_id": order_table
       });
       request.headers.addAll(headers);
@@ -292,16 +293,51 @@ class AuthenService {
 
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        if (body["status"] == true) {
-          return true;
+        if (body["status"] == 200) {
+          final ordertable = ordertableFromJson(jsonEncode(body["data"]));
+          return ordertable;
         } else {
-          return false;
+          Exception('data is null');
         }
       } else {
         print(response.reasonPhrase);
       }
     } catch (e) {
       print("server Error: " + e.toString());
+    }
+  }
+
+  //----to post order detail------
+  Future<bool?> orderproductlist({
+    required int order_id,
+    required String product_id,
+    required String product_name,
+    required int qty,
+    required double amount,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'POST', Uri.parse('http://192.168.116.61:3005/order-details'));
+      request.body = json.encode({
+        "or_id": order_id,
+        "product_id": product_id,
+        "product_name": product_name,
+        "qty": qty,
+        "amount": amount,
+        "ord_date": datetimes
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 }
