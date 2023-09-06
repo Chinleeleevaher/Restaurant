@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
+import 'package:myproject/homepage/internet/nointernet.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/order_history/cubit/orderstatus_cubit.dart';
 import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
@@ -13,28 +15,52 @@ import 'package:provider/provider.dart';
 
 import '../../login/home_provider/provider.dart';
 
-class OrderList extends StatefulWidget {
-  const OrderList({super.key});
+class OrderstatusPage extends StatefulWidget {
+  const OrderstatusPage({super.key});
 
   @override
-  State<OrderList> createState() => _OrderListState();
+  State<OrderstatusPage> createState() => _OrderstatusPageState();
 }
 
-class _OrderListState extends State<OrderList> {
+class _OrderstatusPageState extends State<OrderstatusPage> {
   @override
   Widget build(BuildContext context) {
     var orderlist = context.read<orderprovider>();
     var tableprovide = context.read<tableProvider>();
-    return BlocConsumer<OrderCubit, OrderState>(
+    return BlocConsumer<OrderstatusCubit, OrderstatusState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = context.read<OrderCubit>();
+        if (state.status == selectorderdata.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state.status == selectorderdata.error) {
+          if (state.error == 'No Internet connection') {
+            return Center(
+              child: NoInternetPage(
+                  // onPressed: ()=>cubit.fetchProvider(),
+                  ),
+            );
+          }
+          // return ErrorPage(
+          //   onPressed: ()=>cubit.fetchProvider(),
+          // );
+        }
+        var cubit = context.read<OrderstatusCubit>();
         return Scaffold(
           appBar: AppBar(
-            leading: Container(),
-            title: Text("Order"),
+            leading: Container(
+              child: GestureDetector(
+                  onTap: () {
+                    //orderlist.clearorderlist();
+                    Navigator.pop(context);
+                  },
+                  child: Icon(Icons.reset_tv_outlined)),
+            ),
+            title: Text("Order select"),
             actions: [
               Padding(
                   padding: const EdgeInsets.only(right: 20),
@@ -60,14 +86,6 @@ class _OrderListState extends State<OrderList> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 80,
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(Icons.add))
                     ],
                   ))
             ],
@@ -87,109 +105,51 @@ class _OrderListState extends State<OrderList> {
                     ),
                   ],
                 ),
-                child: Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text("ລ/ດ"),
-                      VerticalDivider(),
-                      Text("ລາຍການ"),
-                      VerticalDivider(),
-                      Text("ຈໍານວນ"),
-                      VerticalDivider(),
-                      Text("ທັງໝົດ"),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text("ລ/ດ"),
+                    VerticalDivider(),
+                    Text("ລາຍການ"),
+                    VerticalDivider(),
+                    Text("ຈໍານວນ"),
+                    VerticalDivider(),
+                    Text("ລາຄາລວມ"),
+                  ],
                 ),
+              ),
+              SizedBox(
+                height: 2,
               ),
               Expanded(
                 child: // orderlist.orderlist.productId != null && orderlist.orderlist.productId.isNotEmpty?
                     ListView.builder(
-                        itemCount: orderlist.getorderlist.length,
+                        itemCount: orderlist.selectorderdata!.length,
                         itemBuilder: (c, i) {
-                          var list = orderlist.getorderlist;
+                          var list = orderlist.selectorderdata;
                           return Card(
                             margin:
                                 EdgeInsets.only(bottom: i + 1 == 10 ? 10 : 3),
                             elevation: 1,
-                            child: InkWell(
-                              onTap: () {
-                                // do something when the tile is tapped
-                              },
-                              child: Dismissible(
-                                key: Key("1"), // <--here is to make key
-                                direction: DismissDirection.startToEnd,
-                                background: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.symmetric(horizontal: 30),
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                confirmDismiss: (direction) {
-                                  return showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return StatefulBuilder(
-                                        builder: (context, setState) {
-                                          return AlertDialog(
-                                            title: Text('Delete Data'),
-                                            content: const Text(
-                                                'Are you sure to delete data?'),
-                                            actions: [
-                                              // TextButton(
-                                              //   onPressed: () async {
-                                              //     bool response =
-                                              //         await service.deleteData(person.id);
-                                              //     if (response) {
-                                              //       // ignore: use_build_context_synchronously
-                                              //       Navigator.pop(context, true);
-                                              //     } else {
-                                              //       // ignore: use_build_context_synchronously
-                                              //       Navigator.pop(context, false);
-                                              //     }
-                                              //   },
-                                              //   child: const Text('Yes'),
-                                              // ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  // Close the dialog box
-                                                  Navigator.pop(context, false);
-                                                },
-                                                child: Text('No'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Expanded(
-                                  child: ListTile(
-                                    leading: Text((i + 1).toString()),
-                                    title: Text(list[i].productName),
-                                    subtitle: Row(
-                                      children: [
-                                        Text(
-                                          (list[i].price).toString() + " Kip  ",
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                        SizedBox(
-                                          width: 50,
-                                        ),
-                                        Text(list[i].qty.toString()),
-                                      ],
-                                    ),
-                                    trailing: Text(
-                                      (list[i].price * list[i].qty).toString() +
-                                          " Kip  ",
+                            child: Expanded(
+                              child: ListTile(
+                                leading: Text((i + 1).toString()),
+                                title: Text(list![i].productName),
+                                subtitle: Row(
+                                  children: [
+                                    Text(
+                                      (list[i].price).toString() + " Kip  ",
                                       style: TextStyle(color: Colors.red),
                                     ),
-                                  ),
+                                    SizedBox(
+                                      width: 60,
+                                    ),
+                                    Text(list[i].qty.toString()),
+                                  ],
+                                ),
+                                trailing: Text(
+                                  (list[i].amount).toString() + " Kip  ",
+                                  style: TextStyle(color: Colors.red),
                                 ),
                               ),
                             ),
@@ -223,7 +183,7 @@ class _OrderListState extends State<OrderList> {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: orderlist.totalprice.toString() +
+                              text: orderlist.selectorderdata![0].orAmount.toString() +
                                   " Kip", // here of total price
                               style: TextStyle(color: Colors.red),
                             ),
@@ -252,9 +212,9 @@ class _OrderListState extends State<OrderList> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                cubit.updatetablestatus();
+                                navService.pushNamed(AppRount.checkbill);
                               },
-                              child: Text("ok"),
+                              child: Text("Check in"),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green,
                                 shape: RoundedRectangleBorder(

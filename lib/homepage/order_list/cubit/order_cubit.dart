@@ -13,46 +13,72 @@ part 'order_state.dart';
 
 class OrderCubit extends Cubit<OrderState> {
   final orderprovider orderproviders;
+  final BuildContext context;
   final tableProvider tableproviders;
   final AuthenRepository authenRepositorys;
   OrderCubit({
     required this.authenRepositorys,
     required this.tableproviders,
     required this.orderproviders,
+    required this.context,
   }) : super(OrderState());
-
-// //----to insert oder product--------
-//   Future<void> postorderlist() async {
-//     emit(state.coppywith(status_c: orderproductstatuse.loading));
-//     var result = await authenRepositorys.orderpro(
-//         order_qty: orderproviders.totalqty,
-//         order_amount: orderproviders.totalprice.toInt(),
-//         order_table: int.parse(tableproviders.tablenumber), order_status: 0);
-//     result!.fold((Left) {
-//       log("Error");
-//     }, (Right) {
-//       emit(state.coppywith(status_c: orderproductstatuse.success));
-//     });
-//   }
-
-//--- get the value from order list table
-
-//----to inser oder detail product----
-Future<bool?> postorderdetail() async {
-  for (int i = 0; i < orderproviders.getorderlist.length; i++) {
+  //-----to update table status--------------
+  Future<void> updatetablestatus() async {
     emit(state.coppywith(status_c: orderproductstatuse.loading));
-    var result = await authenRepositorys.orderproductdetail(
-      order_id: orderproviders.getOrdertables!.orId,
-      product_id: orderproviders.getorderlist[i].productId,
-      product_name: orderproviders.getorderlist[i].productName,
-      qty: orderproviders.getorderlist[i].qty,
-      amount: orderproviders.getorderlist[i].amount,
-    );
+    var result = await authenRepositorys.updatetablestattus(
+        tablestatus: 1, table_id: tableproviders.gettablelist.tableId);
     result!.fold((l) {
-      log("Error");
-    }, (r) {
+      log("Update status error $l");
+    }, (Right) {
       emit(state.coppywith(status_c: orderproductstatuse.success));
+      orderproviders.ordertable(Right);
+      postorderlist();
     });
   }
-}
+
+//----to order product list-------
+  Future<void> postorderlist() async {
+    emit(state.coppywith(status_c: orderproductstatuse.loading));
+    var result = await authenRepositorys.orderpro(
+        order_qty: orderproviders.totalqty,
+        order_amount: orderproviders.totalprice.toInt(),
+        order_table: tableproviders.gettablelist.tableId,
+        order_status: orderproviders.tablestatus!.tableStatus);
+    result!.fold((Left) {
+      log("Error");
+    }, (Right) {
+      orderproviders.orderlisttable(
+          Right!); // <--here is to keep value to the orderprovider
+      print("respomse $Right");
+      emit(state.coppywith(status_c: orderproductstatuse.success));
+      postorderdetail().then((value) {
+        //---this below code is to make clear and send the value true back to the table page
+        orderproviders.clearorderlist();
+        Navigator.pop(context);
+        Navigator.pop(context, true);
+      }); // <--this is call from below fucntion
+      //  updatetablestatus();// <--this is call from below fucntion
+    });
+  }
+
+//----to inser oder detail product----
+  Future<bool?> postorderdetail() async {
+    for (int i = 0; i < orderproviders.getorderlist.length; i++) {
+      emit(state.coppywith(status_c: orderproductstatuse.loading));
+      var result = await authenRepositorys.orderproductdetail(
+        order_id: orderproviders
+            .getOrdertables!.orId, //--- get the value from order list table
+        product_id: orderproviders.getorderlist[i].productId,
+        product_name: orderproviders.getorderlist[i].productName,
+        qty: orderproviders.getorderlist[i].qty,
+        amount: orderproviders.getorderlist[i].price *
+            orderproviders.getorderlist[i].qty,
+      );
+      result!.fold((l) {
+        log("Error");
+      }, (r) {
+        emit(state.coppywith(status_c: orderproductstatuse.success));
+      });
+    }
+  }
 }

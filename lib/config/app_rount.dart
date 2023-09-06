@@ -10,6 +10,8 @@ import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/cubit/lisproduct_cubit.dart';
 import 'package:myproject/homepage/order/listproduct_page.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/order_history/cubit/orderstatus_cubit.dart';
+import 'package:myproject/homepage/order_history/order_status_page.dart';
 import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/order_list/orderlist_page.dart';
 import 'package:myproject/homepage/product_page/cubit/products_cubit.dart';
@@ -38,6 +40,7 @@ class AppRount {
   static const String addproduct = '/Addproduct';
   static const String ListProduct = '/ListProduct';
   static const String orderlist = '/orderlist';
+  static const String orderstatus = '/orderstatus';
   static const String checkbill = '/checkbill';
 
   static Route<dynamic> generateRount(RouteSettings settings) {
@@ -126,7 +129,9 @@ class AppRount {
             create: (context) =>
                 LisproductCubit(orderproviders: context.read<orderprovider>(), authenRepository: context.read<AuthenRepository>(), tableproviders: context.read<tableProvider>())
                   ..getProductTypes()
-                  ..getproduct()..postorderlist(),
+                  ..getproduct()
+                  //..postorderlist()
+                  ,
             child: ListProduct_page(),
           ),
         );
@@ -134,10 +139,21 @@ class AppRount {
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => OrderCubit(
+              context: context,
               authenRepositorys: context.read<AuthenRepository>(),
               tableproviders: context.read<tableProvider>(),
               orderproviders: context.read<orderprovider>()),
             child: OrderList(),
+          ),
+        );
+             case orderstatus:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => OrderstatusCubit(
+              tableproviders: context.read<tableProvider>(),
+              orderproviders: context.read<orderprovider>(), 
+              authenRepository: context.read<AuthenRepository>())..seletorderdata(),
+            child: OrderstatusPage(),
           ),
         );
       case checkbill:
@@ -146,8 +162,8 @@ class AppRount {
             create: (context) => OrderCubit(
                 authenRepositorys: context.read<AuthenRepository>(),
                 orderproviders: context.read<orderprovider>(),
-                tableproviders: context.read<tableProvider>())..postorderdetail(),
-             // ..postorderlist(),
+                tableproviders: context.read<tableProvider>(),
+                 context: context),
             child: CheckBill_Page(),
           ),
         );

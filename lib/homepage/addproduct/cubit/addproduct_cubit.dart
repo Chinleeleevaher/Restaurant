@@ -121,7 +121,7 @@ class AddproductCubit extends Cubit<AddproductState> {
             typeSelecimage_c: File(""),
             typeSelectunit_c: punit(unitId: 0, unitName: ""),
             typeSelect_c: Producttype(protypeId: 0, protypeName: "")));
-        Navigator.pop(context, true);
+        Navigator.pop(context, true); // here is to send the value true back to the product page
       },
     );
   }

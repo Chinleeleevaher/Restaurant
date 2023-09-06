@@ -27,10 +27,10 @@ class _ProductPageState extends State<ProductPage> {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: GestureDetector(
-                  onTap: () => cubit.getproduct(),
+                  onTap: () => cubit.getproduct(), // here is refresh
                   child: Row(
                     children: [
-                      Icon(Icons.restart_alt_outlined),
+                      Icon(Icons.refresh_outlined),
                       SizedBox(
                         width: 30,
                       ),

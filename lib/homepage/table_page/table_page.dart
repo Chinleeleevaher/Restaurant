@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/nabar_page.dart';
+import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 
@@ -29,6 +32,12 @@ class _Table_pageState extends State<Table_page>
     super.dispose();
   }
 
+  Color _containercolor = Colors.green;
+  String textcontrol = "";
+  Text k = Text(
+    "ok",
+    style: TextStyle(color: Colors.red),
+  );
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TabletypeCubit, TabletypeState>(
@@ -37,6 +46,7 @@ class _Table_pageState extends State<Table_page>
       },
       builder: (context, state) {
         var cubit = context.read<TabletypeCubit>();
+        var orderproviders = context.read<orderprovider>();
         return Scaffold(
           // appBar: AppBar(
           //   title: Text('Manage '),
@@ -145,24 +155,31 @@ class _Table_pageState extends State<Table_page>
                         children: List.generate(cubit.state.listtable!.length,
                             (index) {
                           var listtable = state.listtable;
-                          return itemDashboard(
-                       // -- here is to send the value to the (itemDashboard)---
-                            cubit, // <-- this line is to connect the cubit to below code (itemDashboard)
-                            listtable![index].tableName.toString(),
-                            listtable[index].tableSize.toString(),
-                            Icon(Icons.table_bar),
-                            listtable[index]
-                          );
-                        })
-                        // List.generate(
-                        //     cubit.state.listtabletype!.length, (index) {
-                        //   var listproduct = state.listtabletype;
-                        //   return itemDashboard(
-                        //       listproduct![index].tabletypeName,
-                        //       Icon(Icons.table_bar));
+                          if (listtable![index].tableStatus == 0) {
+                            _containercolor = Colors.green;
+                            textcontrol = "ຫວ່າງ";
+                          }
+                          if (listtable[index].tableStatus == 1) {
+                            _containercolor = Colors.red;
+                            textcontrol = "ບໍ່ຫວ່າງ";
+                          }
+                          if (listtable[index].tableStatus == 2) {
+                            _containercolor = Colors.yellow;
+                            textcontrol = "ກໍາລັງລໍຖ້າ";
+                          }
 
-                        // })
-                        ),
+                          return itemDashboard(
+                              // -- here is to send the value to the (itemDashboard)---
+                              cubit, // <-- this line is to connect the cubit to below code (itemDashboard)
+                              listtable[index].tableName.toString(),
+                              listtable[index].tableSize.toString(),
+                              Icon(
+                                Icons.table_bar,
+                              ),
+                              listtable[
+                                  index] // <---here is to send data to the cubit to the table below code
+                              );
+                        })),
                   ),
                 ),
               ],
@@ -174,16 +191,42 @@ class _Table_pageState extends State<Table_page>
   }
 
   itemDashboard(
-          TabletypeCubit cubits, // here is to accept the value from above to show here
+          TabletypeCubit
+              cubits, // here is to accept the value from above to show here
           String title,
           String size,
           Icon IconData,
           Tables table) =>
       GestureDetector(
         onTap: () {
-          cubits.ontypetablelist(table); // <-- here is to send the value to cubit
+          cubits
+              .ontypetablelist(table); // <-- here is to send the value to cubit
           cubits; // <--here to make access to the above wedget i just use cubits here then it can connect to the cubit above auto
-          navService.pushNamed(AppRount.ListProduct);
+          if (table.tableStatus == 0) {
+            navService.pushNamed(AppRount.ListProduct).then((value) {
+              if (value == true) {
+                cubits.getTables();
+
+                /// here is get the value true from the listproduct page to refresh here i use pop then can uderstand auto
+              }
+            });
+          }
+          if (table.tableStatus == 1) {
+             navService.pushNamed(AppRount.orderstatus);
+            // .then((value) {
+            //   if (value == true) {
+            //     cubits.getTables();
+            //   }
+            // });
+          }
+          if (table.tableStatus == 2) {
+            navService.pushNamed(AppRount.checkbill);
+            // .then((value) {
+            //   if (value == true) {
+            //     cubits.getTables();
+            //   }
+            // });
+          }
         },
         child: Container(
           decoration: BoxDecoration(
@@ -205,11 +248,10 @@ class _Table_pageState extends State<Table_page>
                   children: [
                     Icon(
                       IconData.icon,
-                      color: Colors.green,
+                      color: _containercolor,
                     ),
                     Text(title, style: Theme.of(context).textTheme.titleMedium),
-                    Text("size: $size",
-                        style: Theme.of(context).textTheme.titleMedium)
+                    Text(textcontrol, style: TextStyle(color: _containercolor)),
                   ],
                 ),
               ),

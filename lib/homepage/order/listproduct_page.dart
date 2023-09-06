@@ -32,7 +32,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
           appBar: AppBar(
             leading: GestureDetector(
               onTap: () {
-                orderlistprovider.clearorderlist();
+                orderlistprovider.clearorderlist();// to make clear the product list
                 Navigator.pop(context);
               },
               child: Container(

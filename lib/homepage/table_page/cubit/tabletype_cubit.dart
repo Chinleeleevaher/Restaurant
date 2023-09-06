@@ -69,17 +69,17 @@ class TabletypeCubit extends Cubit<TabletypeState> {
     getTables();
   }
 
-  //----------<to order product list>-----------
+  //----------<to ordertable product list>-----------
   ontypetablelist(Tables value) {
     tableprovider.settablelist(value);
-    // var tablelist = Tables(
-    //     tableId: value.tableId,
-    //     tableName: value.tableName,
-    //     tableSize: value.tableSize,
-    //     tableStatus: value.tableStatus,
-    //     tabletypeId: value.tabletypeId);
-    // if (tableprovider.gettablelist.isEmpty) {
-    //   tableprovider.settablelist(tablelist);
-    // }
+    var tablelist = Tables(
+        tableId: value.tableId,
+        tableName: value.tableName,
+        tableSize: value.tableSize,
+        tableStatus: value.tableStatus,
+        tabletypeId: value.tabletypeId);
+    tableprovider.settablelist(tablelist);
   }
+
+  
 }

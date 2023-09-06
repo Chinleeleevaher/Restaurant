@@ -3,9 +3,12 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/model/orderproductmodel.dart';
+import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
+import 'package:myproject/homepage/table_page/model/table.dart';
+import 'package:myproject/homepage/table_page/model/table_status.dart';
 
 import '../table_page/model/orderlistmodel.dart';
 import '../table_page/model/orderlistmodel.dart';
@@ -120,6 +123,29 @@ class orderprovider extends ChangeNotifier {
       _Ordertable = value;
     }
     print(getOrdertables);
+    notifyListeners();
+  }
+//------of table status--------------
+   Tablestatus? _tablestatus;
+   Tablestatus? get tablestatus => _tablestatus;
+
+  ordertable(Tablestatus value) {
+    if (tablestatus != 0) {
+      _tablestatus = value;
+    }
+    print(getOrdertables);
+    notifyListeners();
+  }
+
+  //------of select order data by table status--------------
+   List<SelectOrderByTableModel>? _selectorderstatus;
+List<SelectOrderByTableModel>? get selectorderdata => _selectorderstatus;
+
+  selectOrderStatus(List<SelectOrderByTableModel> value) {
+    if (selectorderdata != 0) {
+      _selectorderstatus = value;
+    }
+    print(selectorderdata);
     notifyListeners();
   }
 }

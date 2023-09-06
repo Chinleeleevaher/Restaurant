@@ -13,8 +13,10 @@ import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
+import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
+import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 
 import '../homepage/menu_page/model/product_model.dart';
@@ -148,7 +150,7 @@ class AuthenService {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.116.61:3005/upload"));
+        'POST', Uri.parse("http://192.168.251.61:3005/upload"));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -279,7 +281,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse('http://192.168.116.61:3005/order'));
+          http.Request('POST', Uri.parse('http://192.168.251.61:3005/order'));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
@@ -318,7 +320,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.116.61:3005/order-details'));
+          'POST', Uri.parse('http://192.168.251.61:3005/order-details'));
       request.body = json.encode({
         "or_id": order_id,
         "product_id": product_id,
@@ -330,7 +332,6 @@ class AuthenService {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -338,6 +339,62 @@ class AuthenService {
       }
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  //---of update table status-----
+  Future<Tablestatus?> updatetablestatus(
+      {required int tablestatus, required int table_id}) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'PUT', Uri.parse('http://192.168.251.61:3005/update-table'));
+      request.body =
+          json.encode({"table_status": tablestatus, "table_id": table_id});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == 200) {
+          final ordertable = tablestatusFromJson(jsonEncode(body["data"]));
+          return ordertable;
+        } else {
+          Exception('data is null');
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  //-----to select the data of product that we have already order--------------------
+  Future<List<SelectOrderByTableModel>?> SelectOrderBytable(
+      {required int table_id}) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'POST', Uri.parse('http://192.168.251.61:3005/order-by-table'));
+      request.body = json.encode({"tableId": table_id});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == true) {
+          final seletOrder =
+              selectOrderByTableModelFromJson(jsonEncode(body["data"]));
+          return seletOrder;
+        } else {
+          Exception('data is null');
+        }
+      } else {}
+    } catch (e) {
+      log(e.toString());
     }
   }
 }

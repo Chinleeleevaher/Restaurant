@@ -8,8 +8,10 @@ import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/homepage/table_page/model/failure.dart';
+import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
+import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 import 'package:myproject/service/authen_service.dart';
 
@@ -177,6 +179,29 @@ class AuthenRepository {
           product_name: product_name,
           qty: qty,
           amount: amount);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //-----to upadte table ststus-------
+  Future<Either<Failure, Tablestatus>?> updatetablestattus(
+      {required int tablestatus, required int table_id}) async {
+    try {
+      final result = await services.updatetablestatus(
+          tablestatus: tablestatus, table_id: table_id);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //-----to select the data of product that we have already order--------------------
+  Future<Either<Failure, List<SelectOrderByTableModel>>?> SelectByOrder(
+      {required int table_id}) async {
+    try {
+      final result = await services.SelectOrderBytable(table_id: table_id);
       return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));

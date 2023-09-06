@@ -1,9 +1,16 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:myproject/config/app_rount.dart';
+import 'package:myproject/config/navigation.dart';
+import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
+import 'package:myproject/homepage/table_page/table_page.dart';
 
 class CheckBill_Page extends StatefulWidget {
   const CheckBill_Page({Key? key}) : super(key: key);
@@ -15,23 +22,48 @@ class CheckBill_Page extends StatefulWidget {
 class _CheckBill_PageState extends State<CheckBill_Page> {
   int?
       _selectedRadio; // Declare a variable to hold the selected radio button value
-  String _currentDateTime = '';
+  String _currentDateTime =
+      DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
 
   @override
   void initState() {
     super.initState();
     _getCurrentDateTime();
+    gettotal();
   }
 
   void _getCurrentDateTime() {
     setState(() {
-      _currentDateTime = DateFormat('yyyy hh:mm:ss a').format(DateTime.now());
+      _currentDateTime;
     });
+  }
+
+  TextEditingController getmoney = TextEditingController();
+  TextEditingController backmoney = TextEditingController();
+
+  /// ---here is just to get the value of total price
+  double total = 0.0;
+  gettotal() {
+    var orderproviders = context.read<orderprovider>();
+    log("test" + orderproviders.totalprice.toString());
+    setState(() {
+      total =  orderproviders.selectorderdata![0].orAmount.toDouble();
+    });
+  }
+
+  ///-------this is a fucntion to make coculate
+  coculate() {
+    backmoney.text = (total - double.parse(getmoney.text)).toString();
+  }
+
+  coculates() {
+    backmoney.text = "0.0";
   }
 
   @override
   Widget build(BuildContext context) {
     var tableprovi = context.read<tableProvider>();
+    var orderproviders = context.read<orderprovider>();
     return Scaffold(
       appBar: AppBar(
         leading: Text(""),
@@ -101,7 +133,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
             Padding(
               padding: const EdgeInsets.only(right: 30),
               child: Text(
-                "1250000 Kip",
+                orderproviders.selectorderdata![0].orAmount.toString() + "  Kip",
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
                 textAlign: TextAlign.right,
@@ -112,6 +144,8 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
             ),
             Text("ຖອນເງີນ", style: TextStyle(fontWeight: FontWeight.bold)),
             TextField(
+              controller: backmoney,
+              enabled: false,
               decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -132,7 +166,13 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
             ),
             Text("ຮັບເງີນ", style: TextStyle(fontWeight: FontWeight.bold)),
             TextField(
+              controller: getmoney,
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly
+              ],
               decoration: InputDecoration(
+                hintText: "0.0",
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 border: OutlineInputBorder(
@@ -146,9 +186,21 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                   ),
                 ),
               ),
+              onChanged: (value) {
+                double? enteredValue = double.tryParse(value);
+                if (enteredValue != null) {
+                  // <---------to make coculate
+                  coculate();
+                }
+                if (enteredValue == null) {
+                  coculates();
+                }
+
+                log(value);
+              },
             ),
             SizedBox(
-              height: 20,
+              height: 50,
             ),
             ElevatedButton(
               onPressed: () {},
