@@ -15,6 +15,7 @@ import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
+import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
@@ -395,6 +396,78 @@ class AuthenService {
       } else {}
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+//----------------of cut stoke in tbproduct----------------------------
+  Future<bool?> cut_stock({required int table_id}) async {
+    try {
+      var headders = {'content-Type': 'application/json'};
+      var resqust = http.Request(
+          'POST', Uri.parse('http://192.168.251.61:3005/cut-stock'));
+      resqust.body = json.encode({"tableId": table_id});
+      resqust.headers.addAll(headders);
+      http.StreamedResponse response = await resqust.send();
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log("Error coneection " + e.toString());
+    }
+  }
+
+  //-------update tborder-------------------
+  Future<bool?> upadte_tbOrder({
+    required int or_id,
+    required double getmoney,
+    required double backmoney,
+    required String payment,
+  }) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'PATCH', Uri.parse('http://192.168.251.61:3005/order/:ids'));
+    request.body = json.encode({
+      "or_id": or_id,
+      "getmoney": getmoney,
+      "backmoney": backmoney,
+      "payment": payment,
+      "or_status": 0
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //-----Select order By table to provider------------
+  Future<SelectOrderToProviderMode?> SelectOrderToprovider(
+      {required int table_id}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse('http://192.168.251.61:3005/getOrderBytable'));
+    request.body = json.encode({"tableId": table_id});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body["status"] == 200) {
+        final seletOrderByTable =
+            selectOrderToProviderModeFromJson(jsonEncode(body["data"]));
+        return seletOrderByTable;
+      } else {
+        Exception('data is null');
+      }
+    } else {
+      print(response.reasonPhrase);
     }
   }
 }

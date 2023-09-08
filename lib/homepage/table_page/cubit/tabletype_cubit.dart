@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +43,6 @@ class TabletypeCubit extends Cubit<TabletypeState> {
 //--------of table--------------
   Future<void> getTables() async {
     try {
-      //if (state.typeSelect == null) return;
-      //if (state.typeSelect != "") {
       emit(state.coppywith(status_c: tableliststatuse.loading));
       var result = await authenRepository.getTables(
           typeids:
@@ -64,6 +63,7 @@ class TabletypeCubit extends Cubit<TabletypeState> {
     }
   }
 
+//-----------------------------------------------
   onTypeSelect(value) {
     emit(state.coppywith(typeSelect_c: value));
     getTables();
@@ -79,7 +79,17 @@ class TabletypeCubit extends Cubit<TabletypeState> {
         tableStatus: value.tableStatus,
         tabletypeId: value.tabletypeId);
     tableprovider.settablelist(tablelist);
+    getOrdertoprovider();
   }
 
-  
+  //----------to get ordert o provider to make update in payment---------
+  Future<void> getOrdertoprovider() async {
+    var result = await authenRepository.ToSelectOrderToprovider(
+        table_id: tableprovider.gettablelist.tableId);
+    result!.fold((Left) {
+      log("error");
+    }, (Right) {
+      tableprovider.getorderID(Right);
+    });
+  }
 }

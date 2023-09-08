@@ -66,11 +66,9 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
   }
 
-  //--------of table--------------
+  //--------of product--------------
   Future<void> getproduct() async {
     try {
-      //if (state.typeSelect == null) return;
-      //if (state.typeSelect != "") {
       emit(state.coppywith(status_c: productliststatuse.loading));
       var result = await authenRepositorys.getproduct(
           typeids: state.typeSelect == null ? 0 : state.typeSelect!.protypeId,

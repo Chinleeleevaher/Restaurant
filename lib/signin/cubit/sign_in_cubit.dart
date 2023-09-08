@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/login/Login_page.dart';
 
 part 'sign_in_state.dart';
@@ -44,7 +45,7 @@ class SignInCubit extends Cubit<SignInState> {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.213.61:3005/register'));
+          'POST', Uri.parse(ApiPaths.registerPath));
       request.body = json.encode({
         "username": UserNameControllerr.text,
         "password": PasswordeControllerr.text,

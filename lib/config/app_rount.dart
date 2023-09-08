@@ -29,6 +29,8 @@ import 'package:myproject/repository/authen_sipository.dart';
 import 'package:myproject/signin/Sign_page.dart';
 import 'package:myproject/signin/cubit/sign_in_cubit.dart';
 
+import '../homepage/check_bill/cubit/checkbill_cubit.dart';
+
 class AppRount {
   static const String splashScreenPage = '/splashScreenPage';
   static const String loginpage = '/Login_page';
@@ -159,11 +161,9 @@ class AppRount {
       case checkbill:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => OrderCubit(
-                authenRepositorys: context.read<AuthenRepository>(),
-                orderproviders: context.read<orderprovider>(),
-                tableproviders: context.read<tableProvider>(),
-                 context: context),
+            create: (context) => CheckbillCubit(
+             authenRepository: context.read<AuthenRepository>(),
+              tableproviders: context.read<tableProvider>(), context: context),
             child: CheckBill_Page(),
           ),
         );

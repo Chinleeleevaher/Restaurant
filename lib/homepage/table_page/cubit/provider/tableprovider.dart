@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
+import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 
 class tableProvider extends ChangeNotifier {
@@ -21,9 +23,13 @@ class tableProvider extends ChangeNotifier {
     _gettablelist = value; // <--here is to add the value to get table
   }
 
-  // late String _dateTime;
-  // String get currentdatetime => _dateTime;
-  // setdatime(){
-  //     _dateTime = DateFormat('yyyy hh:mm:ss a').format(DateTime.now());
-  // }
+  //------here is to coect the order id and send to make update again in the payment
+    SelectOrderToProviderMode? _getorderid;
+  SelectOrderToProviderMode? get getorderid => _getorderid;
+  getorderID(SelectOrderToProviderMode value) {
+    if (getorderid != 0) {
+      _getorderid = value;
+    }
+    notifyListeners();
+  }
 }

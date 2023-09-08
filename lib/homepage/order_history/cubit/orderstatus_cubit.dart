@@ -18,7 +18,7 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
       required this.tableproviders,
       required this.orderproviders})
       : super(OrderstatusState());
-
+//------of select order data to show to the order status page-------------
   Future<void> seletorderdata() async {
     emit(state.coppywith(status_c: selectorderdata.loading));
     var resault = await authenRepository.SelectByOrder(
@@ -27,7 +27,21 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
       log("No data it is error");
     }, (Right) {
       emit(state.coppywith(status_c: selectorderdata.success));
-      orderproviders.selectOrderStatus(Right); // <---to correct the data the Orderoriovider
+      orderproviders.selectOrderStatus(
+          Right); // <---to correct the data the Orderoriovider
+    });
+  }
+
+//-----------of to cut stock---------------------------
+
+  Future<bool?> cut_stock() async {
+    // emit(state.coppywith(status_c: selectorderdata.loading));
+    var result = await authenRepository.cut_Stock(
+        table_id: tableproviders.gettablelist.tableId);
+    result!.fold((l) {
+      log("Erro $l");
+    }, (r) {
+      //  emit(state.coppywith(status_c: selectorderdata.success));
     });
   }
 }

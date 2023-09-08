@@ -12,6 +12,7 @@ class ApiPaths {
 
   // Sub paths
   static const String loginPath = '$baseURL/login';
+  static const String registerPath = '$baseURL/register';
   static const String tabletypepath = '$baseURL/tableType';
   static const String tablepath = '$baseURL/table';
   static const String productpath = '$baseURL/food';

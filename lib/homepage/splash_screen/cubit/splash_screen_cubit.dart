@@ -46,7 +46,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
             final model = userLoginModelFromJson(jsonEncode(body['data']));
             //this below line is to save the model back to the "homeProvider.setIsUserlist"
             homeProvider.setIsUserlist(model);
-            navService.pushReplacementNamed(AppRount.menupage);
+            navService.pushNamedAndRemoveUntil(AppRount.menupage);
           } else {
             navService.pushNamedAndRemoveUntil(AppRount.loginpage);
           }

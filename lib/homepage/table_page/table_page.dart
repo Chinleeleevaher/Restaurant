@@ -212,20 +212,12 @@ class _Table_pageState extends State<Table_page>
             });
           }
           if (table.tableStatus == 1) {
-             navService.pushNamed(AppRount.orderstatus);
-            // .then((value) {
-            //   if (value == true) {
-            //     cubits.getTables();
-            //   }
-            // });
-          }
-          if (table.tableStatus == 2) {
-            navService.pushNamed(AppRount.checkbill);
-            // .then((value) {
-            //   if (value == true) {
-            //     cubits.getTables();
-            //   }
-            // });
+             navService.pushNamed(AppRount.orderstatus)
+            .then((value) {    /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
+              if (value == true) {
+                cubits.getTables();
+              }
+            });
           }
         },
         child: Container(

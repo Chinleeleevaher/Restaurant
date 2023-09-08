@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
@@ -10,6 +12,7 @@ import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/homepage/table_page/model/failure.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
+import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
@@ -203,6 +206,47 @@ class AuthenRepository {
     try {
       final result = await services.SelectOrderBytable(table_id: table_id);
       return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //--------------of cut stock-----------------
+  Future<Either<Failure, bool>?> cut_Stock({required int table_id}) async {
+    try {
+      final result = await services.cut_stock(table_id: table_id);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //-----of update tbproduct-----------
+  Future<Either<Failure, bool>?> update_tbOrder({
+    required int or_id,
+    required double getmoney,
+    required double backmoney,
+    required String payment,
+  }) async {
+    try {
+      final result = await services.upadte_tbOrder(
+          backmoney: backmoney,
+          getmoney: getmoney,
+          or_id: or_id,
+          payment: payment);
+      return right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //-----to Select order to provider by table_id-----------
+  Future<Either<Failure, SelectOrderToProviderMode>?> ToSelectOrderToprovider({
+    required int table_id,
+  }) async {
+    try {
+      final result = await services.SelectOrderToprovider(table_id: table_id);
+      return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
     }
