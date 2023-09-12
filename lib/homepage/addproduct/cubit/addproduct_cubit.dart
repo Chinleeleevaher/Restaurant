@@ -102,6 +102,7 @@ class AddproductCubit extends Cubit<AddproductState> {
       imagname: imagname,
       pro_cost: double.parse(SalePriceProduct.text),
       pro_price: double.parse(BuyPriceProduct.text),
+      quantity: int.parse(ProductQty.text),
     );
     result.fold(
       (f) {
@@ -142,6 +143,7 @@ class AddproductCubit extends Cubit<AddproductState> {
       imagname: imagname,
       pro_cost: BuyPriceProduct.text,
       pro_price: SalePriceProduct.text,
+      quantity: ProductQty.text,
     );
     result.fold(
       (f) {
@@ -168,7 +170,7 @@ class AddproductCubit extends Cubit<AddproductState> {
     );
   }
 
-//-----------to corect value from the addproduct page--------------------
+//-----------to collect value from the addproduct page--------------------
   //-----of product type---------
   onTypeSelectprotype(value) {
     emit(state.coppywith(typeSelect_c: value));
@@ -195,6 +197,7 @@ class AddproductCubit extends Cubit<AddproductState> {
       ProductName.text = productmodel!.productName;
       SalePriceProduct.text = productmodel!.price.toString();
       BuyPriceProduct.text = productmodel!.cost.toString();
+      ProductQty.text = productmodel!.quantity.toString();
       emit(state.coppywith(
         imagenetword_c: productmodel!.image,
       ));

@@ -195,85 +195,88 @@ class _ProductPageState extends State<ProductPage> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                width: 360,
-                height: 50,
-                decoration: BoxDecoration(color: Colors.green),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text("ລ/ດ"),
-                    Text("ສີນຄ້າ"),
-                    Text("ປະເພດ/ຫົວໜ່ອຍ"),
-                    Text("ຈັດການ"),
-                  ],
-                ),
-              ),
-              Container(
-                height: 400,
-                width: 360,
-                child: SingleChildScrollView(
-                  child: Column(
+                Container(
+                  width: 360,
+                  height: 50,
+                  decoration: BoxDecoration(color: Colors.green),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Column(
-                        children:
-                            List.generate(cubit.state.listproduct!.length, (i) {
-                          var prolist = state.listproduct;
-                          return Container(
-                            height: 50,
-                            width: double.infinity,
-                            margin: EdgeInsets.only(top: 3, bottom: 3),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      fit: BoxFit.fitHeight,
-                                      image: NetworkImage(
-                                        prolist![i].image,
+                      Text("ລ/ດ"),
+                      Text("ສີນຄ້າ"),
+                      Text("ປະເພດ/ຫົວໜ່ອຍ"),
+                      Text("ຈັດການ"),
+                    ],
+                  ),
+                ),
+              
+              Expanded(
+                child: Container(
+                  height: 400,
+                  width: 360,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Column(
+                          children:
+                              List.generate(cubit.state.listproduct!.length, (i) {
+                            var prolist = state.listproduct;
+                            return Container(
+                              height: 50,
+                              width: double.infinity,
+                              margin: EdgeInsets.only(top: 3, bottom: 3),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        fit: BoxFit.fitHeight,
+                                        image: NetworkImage(
+                                          prolist![i].image,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: Text(prolist![i].productName),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 40),
-                                  child: Text(prolist[i].price.toString()),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        cubit.onTypeSelectproduct(prolist[i]);
-                                      },
-                                      child: Icon(Icons.edit)),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 15),
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        cubit.deletepro(
-                                            int.parse(prolist[i].productId));
-                                      },
-                                      child: Icon(Icons.delete)),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                      ),
-                      // other widgets here
-                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Text(prolist![i].productName),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 40),
+                                    child: Text(prolist[i].price.toString()),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          cubit.onTypeSelectproduct(prolist[i]);
+                                        },
+                                        child: Icon(Icons.edit)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          cubit.deletepro(
+                                              int.parse(prolist[i].productId));
+                                        },
+                                        child: Icon(Icons.delete)),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                        ),
+                        // other widgets here
+                      ],
+                    ),
                   ),
                 ),
               )

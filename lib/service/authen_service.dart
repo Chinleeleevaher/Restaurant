@@ -46,20 +46,6 @@ class AuthenService {
 // -----of table-------------
   Future<List<Tables>?> getTable({required int typeids}) async {
     try {
-      // var headers = {'Content-Type': 'application/json'};
-      // final response = await http.post(Uri.parse(ApiPaths.tablepath), body: {"typeId": "$typeids"});
-      // response.headers.addAll(headers);
-      // if (response.statusCode == 200) {
-      //   var jsonData = jsonDecode(response.body);
-      //   if (jsonData['data'] != null) {
-      //     var datas = tableFromJson(jsonEncode(jsonData['data']));
-      //     return datas;
-      //   }
-      //   Exception('data is null');
-      // } else {
-      //   Exception('Failed to load table types');
-      // }
-
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiPaths.tablepath));
       request.body = json.encode({"typeId": typeids});
@@ -151,7 +137,7 @@ class AuthenService {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.251.61:3005/upload"));
+        'POST', Uri.parse("http://192.168.65.61:3005/upload"));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -177,6 +163,7 @@ class AuthenService {
       required int unit_id,
       required double pro_price,
       required double pro_cost,
+      required int quantity,
       required String imagname}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse(ApiPaths.add_productPath));
@@ -187,6 +174,7 @@ class AuthenService {
       "unit_id": unit_id,
       "price": pro_price,
       "cost": pro_cost,
+      "quantity": quantity,
       "image": imagname
     });
     request.headers.addAll(headers);
@@ -214,6 +202,7 @@ class AuthenService {
       required String unit_id,
       required String pro_price,
       required String pro_cost,
+      required String quantity,
       required String imagname}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
@@ -226,6 +215,7 @@ class AuthenService {
         "unit_id": unit_id,
         "price": pro_price,
         "cost": pro_cost,
+        "quantity": quantity,
         "image": imagname // should be string
       });
       request.headers.addAll(headers);
@@ -282,7 +272,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse('http://192.168.251.61:3005/order'));
+          http.Request('POST', Uri.parse('http://192.168.65.61:3005/order'));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
@@ -321,7 +311,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.251.61:3005/order-details'));
+          'POST', Uri.parse('http://192.168.65.61:3005/order-details'));
       request.body = json.encode({
         "or_id": order_id,
         "product_id": product_id,
@@ -349,7 +339,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'PUT', Uri.parse('http://192.168.251.61:3005/update-table'));
+          'PUT', Uri.parse('http://192.168.65.61:3005/update-table'));
       request.body =
           json.encode({"table_status": tablestatus, "table_id": table_id});
       request.headers.addAll(headers);
@@ -378,7 +368,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.251.61:3005/order-by-table'));
+          'POST', Uri.parse('http://192.168.65.61:3005/order-by-table'));
       request.body = json.encode({"tableId": table_id});
       request.headers.addAll(headers);
 
@@ -404,7 +394,7 @@ class AuthenService {
     try {
       var headders = {'content-Type': 'application/json'};
       var resqust = http.Request(
-          'POST', Uri.parse('http://192.168.251.61:3005/cut-stock'));
+          'POST', Uri.parse('http://192.168.65.61:3005/cut-stock'));
       resqust.body = json.encode({"tableId": table_id});
       resqust.headers.addAll(headders);
       http.StreamedResponse response = await resqust.send();
@@ -427,7 +417,7 @@ class AuthenService {
   }) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.251.61:3005/order/:ids'));
+        'PATCH', Uri.parse('http://192.168.65.61:3005/order/:ids'));
     request.body = json.encode({
       "or_id": or_id,
       "getmoney": getmoney,
@@ -451,7 +441,7 @@ class AuthenService {
       {required int table_id}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'POST', Uri.parse('http://192.168.251.61:3005/getOrderBytable'));
+        'POST', Uri.parse('http://192.168.65.61:3005/getOrderBytable'));
     request.body = json.encode({"tableId": table_id});
     request.headers.addAll(headers);
 

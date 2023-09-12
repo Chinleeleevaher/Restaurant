@@ -1,54 +1,42 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/config/app_rount.dart';
-import 'package:myproject/config/navigation.dart';
-import 'package:myproject/homepage/nabar_page.dart';
-import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
+import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
-import 'package:myproject/homepage/table_page/model/table.dart';
+import 'package:provider/provider.dart';
 
-class Table_page extends StatefulWidget {
-  const Table_page({super.key});
+import '../../config/app_rount.dart';
+import '../../config/navigation.dart';
+import '../table_page/model/table.dart';
+
+class ChangeTable extends StatefulWidget {
+  const ChangeTable({super.key});
 
   @override
-  State<Table_page> createState() => _Table_pageState();
+  State<ChangeTable> createState() => _ChangeTableState();
 }
 
-class _Table_pageState extends State<Table_page>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class _ChangeTableState extends State<ChangeTable> {
   Color _containercolor = Colors.green;
   String textcontrol = "";
-  Text k = Text("ok",style: TextStyle(color: Colors.red));
-  
+  Text k = Text("ok", style: TextStyle(color: Colors.red));
+  Color typeFromColor = Color.fromARGB(77, 219, 216, 216)
+      .withOpacity(1); // <--of type color of table
+  Color typeToColor = Color.fromARGB(77, 219, 216, 216)
+      .withOpacity(1); // <--of type color of table
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TabletypeCubit, TabletypeState>(
+    return BlocConsumer<ChangTableCubit, ChangTableState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = context.read<TabletypeCubit>();
-        var orderproviders = context.read<orderprovider>();
+        var cubit = context.read<ChangTableCubit>();
+        var tableprovider = context.read<tableProvider>();
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text('Manage '),
-          // ),
+          appBar: AppBar(
+            title: Text("Test"),
+          ),
           body: Container(
             child: ListView(
               children: [
@@ -131,12 +119,137 @@ class _Table_pageState extends State<Table_page>
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: Text(
+                    "ຍ້າຍໂຕະ",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        cubit.onTypeSelecttablefrom("1");
+                        if (tableprovider.FromTable == "1") {
+                          setState(() {
+                            typeFromColor = Colors.red;
+                            typeToColor = Color.fromARGB(77, 219, 216, 216)
+                                .withOpacity(1);
+                            ;
+                          });
+                        }
+                      },
+                      child: Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: Offset(0, 5),
+                                  color: typeFromColor,
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                )
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.table_bar,
+                                  color: Colors.red,
+                                ),
+                                Text("Table"),
+                                Consumer<tableProvider>(
+                                  //---here is make change the value imedlainly----
+                                  builder: (context, tableprovider, child) {
+                                    return Text(
+                                      tableprovider.fromtable,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    );
+                                  },
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                    Icon(
+                      Icons.queue_play_next,
+                      color: Colors.red,
+                      size: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        cubit.onTypeSelecttablefrom("2");
+                        if (tableprovider.ToTable == "2") {
+                          setState(() {
+                            typeToColor = Colors.red;
+                            typeFromColor = Color.fromARGB(77, 219, 216, 216)
+                                .withOpacity(1);
+                            ;
+                          });
+                        }
+                      },
+                      child: Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: Offset(0, 5),
+                                  color: typeToColor,
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                )
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.table_bar,
+                                  color: Colors.green,
+                                ),
+                                Text("Table"),
+                                Consumer<tableProvider>(
+                                  //---here is make change the value imedlainly----
+                                  builder: (context, tableprovider, child) {
+                                    return Text(
+                                      tableprovider.totable,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    );
+                                  },
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text(
                     "ໂຕະທັງໝົດ",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -189,7 +302,7 @@ class _Table_pageState extends State<Table_page>
   }
 
   itemDashboard(
-          TabletypeCubit
+          ChangTableCubit
               cubits, // here is to accept the value from above to show here
           String title,
           String size,
@@ -197,25 +310,25 @@ class _Table_pageState extends State<Table_page>
           Tables table) =>
       GestureDetector(
         onTap: () {
-          cubits
-              .ontypetablelist(table); // <-- here is to send the value to cubit
+          cubits.ontypechangetable(
+              table); // <-- here is to send the value to cubit
           cubits; // <--here to make access to the above wedget i just use cubits here then it can connect to the cubit above auto
-          if (table.tableStatus == 0) {
-            navService.pushNamed(AppRount.ListProduct).then((value) {
-              if (value == true) {
-                cubits.getTables();
+          if (table.tableStatus == 1) {
+            // navService.pushNamed(AppRount.ListProduct).then((value) {
+            //   if (value == true) {
+            //     cubits.getTables();
 
-                /// here is get the value true from the listproduct page to refresh here i use pop then can uderstand auto
-              }
-            });
+            //     /// here is get the value true from the listproduct page to refresh here i use pop then can uderstand auto
+            //   }
+            // });
           }
           if (table.tableStatus == 1) {
-             navService.pushNamed(AppRount.orderstatus)
-            .then((value) {    /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
-              if (value == true) {
-                cubits.getTables();
-              }
-            });
+            // navService.pushNamed(AppRount.orderstatus).then((value) {
+            //   /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
+            //   if (value == true) {
+            //     cubits.getTables();
+            //   }
+            // });
           }
         },
         child: Container(

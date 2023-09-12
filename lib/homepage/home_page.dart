@@ -6,6 +6,7 @@ import 'package:myproject/homepage/manage_page.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/nabar_page.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:myproject/homepage/table_change/change_table_page.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
 
 class Homepage extends StatefulWidget {
@@ -96,12 +97,12 @@ class _HomepageState extends State<Homepage>
                         onTap: () {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
-                            return Table_page();
+                            return ChangeTable();
                           }));
                         },
                         child: GestureDetector(
                           onTap: () {
-                            navService.pushNamed(AppRount.tabletype);
+                            navService.pushNamed(AppRount.changetable);
                           },
                           child: Container(
                             height: 100,
@@ -165,7 +166,10 @@ class _HomepageState extends State<Homepage>
                                 size: 50,
                                 color: Colors.blue,
                               ),
-                              Text("Manage")
+                              Text(
+                                "Product",
+                                overflow: TextOverflow.ellipsis,
+                              )
                             ],
                           ),
                         ),

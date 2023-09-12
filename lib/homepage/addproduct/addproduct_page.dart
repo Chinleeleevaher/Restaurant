@@ -206,46 +206,19 @@ class _AddproductState extends State<Addproduct> {
                         controller: cubit.SalePriceProduct,
                         hintext: 'ລາຄາຂາຍ',
                       ),
-                      Divider(),
-                      Text(
-                          "------------------ສີນຄ້າທີ່ຂາຍເປັນເກັດ-------------------"),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                              child: TextField(
-                                controller: cubit.ScanProdutId,
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 20),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    hintText: "ສະແກນ ລະຫັດສີນຄ້າ"),
-                              ),
-                            ),
                             SizedBox(
                               width: 10,
-                            ),
-                            Container(
-                              height: 46,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.green),
-                              child: Icon(
-                                Icons.qr_code_scanner_rounded,
-                                color: Colors.white,
-                              ),
                             ),
                           ],
                         ),
                       ),
-                      TextFeilds(
-                        controller: cubit.NameProduct,
-                        hintext: 'ຊື່ສິນຄ້າ',
+                      TextMess(
+                        texts: 'ຈໍານວນ',
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),

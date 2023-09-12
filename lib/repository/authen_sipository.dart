@@ -98,6 +98,7 @@ class AuthenRepository {
       required int unit_id,
       required double pro_price,
       required double pro_cost,
+      required int quantity,
       required String imagname}) async {
     try {
       final result = await services.addproduct(
@@ -107,7 +108,7 @@ class AuthenRepository {
           unit_id: unit_id,
           pro_price: pro_price,
           pro_cost: pro_cost,
-          imagname: imagname);
+          imagname: imagname, quantity: quantity);
       return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -122,6 +123,7 @@ class AuthenRepository {
       required String unit_id,
       required String pro_price,
       required String pro_cost,
+      required String quantity,
       required String imagname}) async {
     try {
       final result = await services.updateproduct(
@@ -131,6 +133,7 @@ class AuthenRepository {
           unit_id: unit_id,
           pro_price: pro_price,
           pro_cost: pro_cost,
+          quantity: quantity,
           imagname: imagname);
       return right(result!);
     } catch (e) {

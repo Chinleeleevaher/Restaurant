@@ -15,6 +15,7 @@ class ProductModel {
   String productName;
   int protypeId;
   int unitId;
+  int quantity;
   double price;
   double cost;
   String image;
@@ -24,6 +25,7 @@ class ProductModel {
     required this.productName,
     required this.protypeId,
     required this.unitId,
+    required this.quantity,
     required this.price,
     required this.cost,
     required this.image,
@@ -34,6 +36,7 @@ class ProductModel {
         productName: json["product_name"],
         protypeId: json["protype_id"],
         unitId: json["unit_id"],
+        quantity: json["quantity"],
         price: json["price"]?.toDouble(),
         cost: json["cost"]?.toDouble(),
         image: json["image"],
@@ -44,6 +47,7 @@ class ProductModel {
         "product_name": productName,
         "protype_id": protypeId,
         "unit_id": unitId,
+        "quantity": quantity,
         "price": price,
         "cost": cost,
         "image": image,

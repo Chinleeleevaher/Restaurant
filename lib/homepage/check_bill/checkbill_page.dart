@@ -118,7 +118,6 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                 //           cubit.selectedRadio = value;
                 //         });
                 //       },
-
                 //     ),
                 //     Text("cash"),
                 //     SizedBox(
@@ -144,7 +143,25 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                         FormField<String>(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return " choose";
+                              // showDialog(
+                              //   context: context,
+                              //   builder: (BuildContext context) {
+                              //     return AlertDialog(
+                              //       title: Text('Validation Error'),
+                              //       content:
+                              //           Text('Please select a payment method.'),
+                              //       actions: [
+                              //         ElevatedButton(
+                              //           onPressed: () {
+                              //             Navigator.of(context).pop();
+                              //           },
+                              //           child: Text('Close'),
+                              //         ),
+                              //       ],
+                              //     );
+                              //   },
+                              // );
+                              return null;
                             }
                             return null;
                           },
@@ -152,7 +169,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                             return Row(
                               children: [
                                 Radio<String>(
-                                  value: 'cash',
+                                  value: 'cash', // <---here is to set the value as cash it equa to the value of selectedRadio from the cubit
                                   groupValue: cubit.selectedRadio,
                                   onChanged: (value) {
                                     setState(() {

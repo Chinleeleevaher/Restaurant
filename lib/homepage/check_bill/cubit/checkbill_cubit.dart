@@ -22,7 +22,7 @@ class CheckbillCubit extends Cubit<CheckbillState> {
   TextEditingController getmoney = TextEditingController();
   TextEditingController backmoney = TextEditingController();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  String?selectedRadio; 
+  String?selectedRadio = "cash"; 
   //----here is update payment -------
   Future<bool?> update_tbOrder() async {
     if (formkey.currentState!.validate()) {

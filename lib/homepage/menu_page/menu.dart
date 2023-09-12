@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slider/carousel.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myproject/homepage/home_page.dart';
+import 'package:myproject/homepage/location/location.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
 import 'package:myproject/homepage/nabar_page.dart';
 import 'package:badges/badges.dart' as badges;
@@ -108,7 +109,7 @@ class _MenuState extends State<Menu> {
                 return const Center(child: Homepage());
               }
               if (currentPageIndex == 3) {
-                return const Center(child: Manage_page());
+                return const Center(child: Location());
               }
               return ListView(
                 children: [
