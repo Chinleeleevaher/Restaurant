@@ -9,6 +9,7 @@ List<SelectOrderByTableModel> selectOrderByTableModelFromJson(String str) => Lis
 String selectOrderByTableModelToJson(List<SelectOrderByTableModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class SelectOrderByTableModel {
+    String productId;
     int ordId;
     int qty;
     int amount;
@@ -19,6 +20,7 @@ class SelectOrderByTableModel {
     int tableId;
 
     SelectOrderByTableModel({
+        required this.productId,
         required this.ordId,
         required this.qty,
         required this.amount,
@@ -30,6 +32,7 @@ class SelectOrderByTableModel {
     });
 
     factory SelectOrderByTableModel.fromJson(Map<String, dynamic> json) => SelectOrderByTableModel(
+        productId: json["product_id"],
         ordId: json["ord_id"],
         qty: json["qty"],
         amount: json["amount"],
@@ -41,6 +44,7 @@ class SelectOrderByTableModel {
     );
 
     Map<String, dynamic> toJson() => {
+        "product_id": productId,
         "ord_id": ordId,
         "qty": qty,
         "amount": amount,

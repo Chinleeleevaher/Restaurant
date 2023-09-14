@@ -59,6 +59,33 @@ class ChangTableCubit extends Cubit<ChangTableState> {
       throw Exception("error: $e");
     }
   }
+  //----method of select data from table of ( from table) and then plus the data to table that want to move to-----------------
+
+  Future<void> getOrderFromTable() async {
+    var result = await authenRepository.SelectByOrder(
+        table_id: tableprovider.fromtable_Id);
+    result!.fold((Left) {
+      log("error");
+    }, (Right) {
+      tableprovider.getorderFromTableID(Right);
+      getOrderToTable();
+    });
+  }
+
+// ---method of select data from the table of (To table)-----
+  Future<void> getOrderToTable() async {
+    var result = await authenRepository. SelectByOrder(
+        table_id: tableprovider.totable_Id);
+    result!.fold((Left) {
+      log("error");
+    }, (Right) {
+      tableprovider.getorderToTableID(Right);
+    });
+  }
+//------------------------Update move table---------------------------
+
+
+
 
 //---------------of product type--------------------------------
   onTypeSelect(value) {
@@ -70,15 +97,16 @@ class ChangTableCubit extends Cubit<ChangTableState> {
   onTypeSelecttablefrom(value) {
     tableprovider.setfromtable(value);
   }
+
   //----------<to collect the table data>-----------
   ontypechangetable(Tables value) {
     tableprovider.movetable(value);
-    var tablelist = Tables(
+    var tablelist1 = Tables(
         tableId: value.tableId,
         tableName: value.tableName,
         tableSize: value.tableSize,
         tableStatus: value.tableStatus,
         tabletypeId: value.tabletypeId);
-    tableprovider.movetable(tablelist);
+    tableprovider.movetable(tablelist1);
   }
 }

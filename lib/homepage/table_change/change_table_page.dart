@@ -35,7 +35,21 @@ class _ChangeTableState extends State<ChangeTable> {
         var tableprovider = context.read<tableProvider>();
         return Scaffold(
           appBar: AppBar(
-            title: Text("Test"),
+            title: Text("Move table"),
+            actions: [
+              Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            navService.pushNamed(AppRount.orderstatus);
+                          },
+                          child: Icon(Icons.list_alt_sharp))
+                    ],
+                  ))
+            ],
           ),
           body: Container(
             child: ListView(
@@ -180,10 +194,15 @@ class _ChangeTableState extends State<ChangeTable> {
                             ),
                           )),
                     ),
-                    Icon(
-                      Icons.queue_play_next,
-                      color: Colors.red,
-                      size: 30,
+                    GestureDetector(
+                      onTap: () {
+                        cubit.getOrderFromTable();
+                      },
+                      child: Icon(
+                        Icons.queue_play_next,
+                        color: Colors.red,
+                        size: 30,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
