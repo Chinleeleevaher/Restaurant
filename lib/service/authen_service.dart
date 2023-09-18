@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
 import 'dart:io';
-import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -137,7 +135,7 @@ class AuthenService {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.65.61:3005/upload"));
+        'POST', Uri.parse("http://192.168.108.61:3005/upload"));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -272,7 +270,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse('http://192.168.65.61:3005/order'));
+          http.Request('POST', Uri.parse('http://192.168.108.61:3005/order'));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
@@ -311,7 +309,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.65.61:3005/order-details'));
+          'POST', Uri.parse('http://192.168.108.61:3005/order-details'));
       request.body = json.encode({
         "or_id": order_id,
         "product_id": product_id,
@@ -339,7 +337,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'PUT', Uri.parse('http://192.168.65.61:3005/update-table'));
+          'PUT', Uri.parse('http://192.168.108.61:3005/update-table'));
       request.body =
           json.encode({"table_status": tablestatus, "table_id": table_id});
       request.headers.addAll(headers);
@@ -368,7 +366,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.65.61:3005/order-by-table'));
+          'POST', Uri.parse('http://192.168.108.61:3005/order-by-table'));
       request.body = json.encode({"tableId": table_id});
       request.headers.addAll(headers);
 
@@ -394,7 +392,7 @@ class AuthenService {
     try {
       var headders = {'content-Type': 'application/json'};
       var resqust = http.Request(
-          'POST', Uri.parse('http://192.168.65.61:3005/cut-stock'));
+          'POST', Uri.parse('http://192.168.108.61:3005/cut-stock'));
       resqust.body = json.encode({"tableId": table_id});
       resqust.headers.addAll(headders);
       http.StreamedResponse response = await resqust.send();
@@ -417,7 +415,7 @@ class AuthenService {
   }) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.65.61:3005/order/:ids'));
+        'PATCH', Uri.parse('http://192.168.108.61:3005/order/:ids'));
     request.body = json.encode({
       "or_id": or_id,
       "getmoney": getmoney,
@@ -441,7 +439,7 @@ class AuthenService {
       {required int table_id}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'POST', Uri.parse('http://192.168.65.61:3005/getOrderBytable'));
+        'POST', Uri.parse('http://192.168.108.61:3005/getOrderBytable'));
     request.body = json.encode({"tableId": table_id});
     request.headers.addAll(headers);
 
@@ -458,6 +456,83 @@ class AuthenService {
       }
     } else {
       print(response.reasonPhrase);
+    }
+  }
+
+  //---to update menu list of move table-----------------------
+  Future<bool?> Update_MenuOfMoveTable({
+    required int ord_id,
+    required int or_id,
+    required String product_id,
+    required String product_name,
+    required int qty,
+    required double amount,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'POST', Uri.parse('http://192.168.108.61:3005/update-move-table'));
+      request.body = json.encode({
+        "ord_id": ord_id,
+        "orderId": or_id,
+        "productId": product_id,
+        "product_name": product_name,
+        "qty": qty,
+        "amount": amount,
+        "ord_date": datetimes,
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<bool?> Delete_Move_Table({required int or_id}) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'DELETE', Uri.parse('http://192.168.108.61:3005/delete-move-order'));
+      request.body = json.encode({"or_id": or_id});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  //----update table_id---------------
+  Future<bool?> updatetable_id(
+      {required int or_id,
+      required int table_id,
+      required int table_status}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'PATCH', Uri.parse('http://192.168.108.61:3005/order/table_id'));
+    request.body = json.encode(
+        {"or_id": or_id, "table_id": table_id, "table_status": table_status});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

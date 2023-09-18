@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../repository/authen_sipository.dart';
 import '../../table_page/cubit/provider/tableprovider.dart';
+import '../../table_page/model/order_table_Model.dart';
 import '../../table_page/model/table.dart';
 import '../../table_page/model/tabletype.dart';
 
@@ -74,18 +75,87 @@ class ChangTableCubit extends Cubit<ChangTableState> {
 
 // ---method of select data from the table of (To table)-----
   Future<void> getOrderToTable() async {
-    var result = await authenRepository. SelectByOrder(
+    var result = await authenRepository.SelectByOrder(
         table_id: tableprovider.totable_Id);
     result!.fold((Left) {
       log("error");
     }, (Right) {
       tableprovider.getorderToTableID(Right);
+      update_Move_table();
     });
   }
 //------------------------Update move table---------------------------
 
+  Future<void> update_Move_table() async {
+    for (int i = 0; i < tableprovider.getMOvetableorder!.length; i++) {
+      var result = await authenRepository.MoveTable(
+        ord_id: tableprovider.getMOvetableorder![i].ordId,
+        or_id: tableprovider.getMOvetableorder![i].orId,
+        product_id: tableprovider.getMOvetableorder![i].productId,
+        product_name: tableprovider.getMOvetableorder![i].productName,
+        qty: tableprovider.getMOvetableorder![i].qty,
+        amount: tableprovider.getMOvetableorder![i].amount.toDouble(),
+      );
+      result!.fold((l) {
+        log("error");
+      }, (r) {
+        log("update sucessfull");
+      });
+    }
+    if (tableprovider.getorderToTableid!.isNotEmpty) {
+      // <---i just make check the table before i delete
+      delete_move_table().then((value) {
+         tableprovider.clearTable();// <---this is make clear the two table ble that i move above in the ui page
+        tableprovider.clearData(); //<----clear
+      });
+    } else {
+      update_tbOrder_tableId(); // <----this is update the table_id in tborder and update table_status in tbtable
+      updatetablestatus(); // <---this status update is working when the above finis update( it upda the from table to the emty status)
+      tableprovider.clearTable();// <---this is make clear the two table ble that i move above in the ui page
+      tableprovider
+          .clearData(); // <---- this make clear the provider in table provider
+    }
+  }
 
+//--------of delete move table------------------
+  Future<void> delete_move_table() async {
+    for (int i = 0; i < tableprovider.getorderFromTableid!.length; i++) {
+      var result = await authenRepository.delete_move_table(
+        or_id: tableprovider.getorderFromTableid![i].orId,
+      );
+      result!.fold((l) {
+        log("error");
+      }, (r) {
+        log("update sucessfull");
+      });
+    }
+    updatetablestatus();
+  }
 
+//------------update table_id in order table---------------
+  Future<bool?> update_tbOrder_tableId() async {
+    var result = await authenRepository.updateTable_id(
+        or_id: tableprovider.getMOvetableorder![0].orId,
+        table_id: tableprovider.totable_Id,
+        table_status: 1);
+    result!.fold((l) {
+      log("error");
+    }, (r) {
+      log("sucess");
+    });
+  }
+
+  //-----to update From table status again--------------
+  Future<void> updatetablestatus() async {
+    for (int i = 0; i < tableprovider.getorderFromTableid!.length; i++) {
+      var result = await authenRepository.updatetablestattus(
+          tablestatus: 0,
+          table_id: tableprovider.getorderFromTableid![i].tableId);
+      result!.fold((l) {
+        log("Update status error $l");
+      }, (Right) {});
+    }
+  }
 
 //---------------of product type--------------------------------
   onTypeSelect(value) {

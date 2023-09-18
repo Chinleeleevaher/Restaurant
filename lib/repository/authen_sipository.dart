@@ -108,7 +108,8 @@ class AuthenRepository {
           unit_id: unit_id,
           pro_price: pro_price,
           pro_cost: pro_cost,
-          imagname: imagname, quantity: quantity);
+          imagname: imagname,
+          quantity: quantity);
       return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -252,6 +253,60 @@ class AuthenRepository {
       return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
+    }
+  }
+
+  //----to move menu list of table---------------------
+  Future<Either<Failure, bool>?> MoveTable({
+    required int ord_id,
+    required int or_id,
+    required String product_id,
+    required String product_name,
+    required int qty,
+    required double amount,
+  }) async {
+    try {
+      final result = await services.Update_MenuOfMoveTable(
+        ord_id: ord_id,
+        or_id: or_id,
+        product_id: product_id,
+        product_name: product_name,
+        qty: qty,
+        amount: amount,
+      );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  //----deletemove table---------------------
+  Future<Either<Failure, bool>?> delete_move_table({
+    required int or_id,
+  }) async {
+    try {
+      final result = await services.Delete_Move_Table(
+        or_id: or_id,
+      );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+  
+  //----deletemove table---------------------
+  Future<Either<Failure, bool>?> updateTable_id({
+    required int or_id,
+    required int table_id,
+    required int table_status,
+  }) async {
+    try {
+      final result = await services.updatetable_id(
+        or_id: or_id, table_id: table_id, table_status: table_status,
+      );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
     }
   }
 }

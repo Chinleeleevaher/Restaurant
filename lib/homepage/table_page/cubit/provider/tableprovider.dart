@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -30,6 +29,7 @@ class tableProvider extends ChangeNotifier {
     // <--here is to add the value to get table
     notifyListeners();
   }
+
 //********************************** Move table ***************************************************************** */
   ///----this below code is make for where change table-------
   String _FromTable = ".....";
@@ -81,6 +81,12 @@ class tableProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  clearTable() {
+    _from_table = "...";
+    _to_table = "...";
+  }
+
 //-------------the above is mange for chose and the below code is manage the the menu list------------------------------
   //----here is to get data of table that we want to move to the other-------
   List<SelectOrderByTableModel>? _getorderFromTableid;
@@ -108,40 +114,82 @@ class tableProvider extends ChangeNotifier {
 
 //-----this is get loop the move table order data--------------
   List<SelectOrderByTableModel>? _getMOvetableorder;
-  List<SelectOrderByTableModel>? get getMOvetableorder => _getMOvetableorder;  // <-- keep every thing inside this just bring it to use or show
+  List<SelectOrderByTableModel>? get getMOvetableorder =>
+      _getMOvetableorder; // <-- keep every thing inside this just bring it to use or show
 
   set getMovetableOrderlist(List<SelectOrderByTableModel>? value) {
     if ((_getMOvetableorder == null || _getMOvetableorder!.isEmpty) &&
-        getorderToTableid!.isEmpty) {   // <---if the table that i want to move to emty so come to this case and just move the list menu to it.
+        getorderToTableid!.isEmpty) {
+      // <---if the table that i want to move to emty so come to this case and just move the list menu to it.
       _getMOvetableorder = [];
       _getMOvetableorder!.addAll(getorderFromTableid!);
-    } else { // <----if the table i want to move to is not emty so come to this case and loop if any menu match so just add the qty and amount to it. if not match then go the next case 
-      for (int i = 0; i < getorderToTableid!.length; i++) {
+    } else {
+      // <----if the table i want to move to is not emty so come to this case and loop if any menu match so just add the qty and amount to it. if not match then go the next case
+      for (int i = 0; i < getorderFromTableid!.length; i++) {
         bool foundMatch = false;
-        for (int j = 0; j < getorderFromTableid!.length; j++) {
-          if (getorderToTableid![i].productId ==
-              getorderFromTableid![j].productId) {
-            getorderToTableid![i].qty += getorderFromTableid![j].qty;
-            log(getorderToTableid![i].qty.toString());
-            getorderToTableid![i].amount += getorderFromTableid![j].amount;
+        for (int j = 0; j < getorderToTableid!.length; j++) {
+          if (getorderToTableid![j].productId ==
+              getorderFromTableid![i].productId) {
+            getorderToTableid![j].qty += getorderFromTableid![i].qty;
+            getorderToTableid![j].amount += getorderFromTableid![i].amount;
+            _getMOvetableorder ??= [];
+            _getMOvetableorder!.add(getorderToTableid![j]);
             foundMatch = true;
             break;
           }
         }
-        if (!foundMatch) { // <---- in this case if the list menu above not match then come to this case and then check a gain is the _getMOvetableorder emty? if emty so add the getorderToTableid plus menu list together in to it. if not emty so just add the menu list to it
+        if (!foundMatch) {
+          // <---- in this case if the list menu above not match then come to this case and then check a gain is the _getMOvetableorder emty? if emty so add the getorderToTableid plus menu list together in to it. if not emty so just add the menu list to it
           _getMOvetableorder ??= [];
           if (_getMOvetableorder!.isEmpty) {
+            SelectOrderByTableModel
+                model = // <----this function i have to do this be cose i need to update the orId of getfromtable to getTotable
+                SelectOrderByTableModel(
+                    orId: getorderToTableid![1].orId,
+                    productId: getorderFromTableid![i].productId,
+                    amount: getorderFromTableid![i].amount,
+                    orAmount: getorderFromTableid![i].orAmount,
+                    orDate: getorderFromTableid![i].orDate,
+                    ordId: getorderFromTableid![i].ordId,
+                    price: getorderFromTableid![i].price,
+                    productName: getorderFromTableid![i].productName,
+                    qty: getorderFromTableid![i].qty,
+                    tableId: getorderFromTableid![i].tableId);
             List<SelectOrderByTableModel> combinedList =
-                getorderToTableid! + [getorderFromTableid![i]];
+                getorderToTableid! + [model];
             _getMOvetableorder!.addAll(combinedList);
           } else {
-            _getMOvetableorder!.add(getorderFromTableid![i]);
+            // if(_getMOvetableorder!.isNotEmpty &&getorderFromTableid![i].isNull){
+            //   return _getMOvetableorder!.add(value) //<--- continuse tomorow
+            // }
+            SelectOrderByTableModel moduls = SelectOrderByTableModel(
+                orId: getorderToTableid![0].orId,
+                productId: getorderFromTableid![i].productId,
+                amount: getorderFromTableid![i].amount,
+                orAmount: getorderFromTableid![i].orAmount,
+                orDate: getorderFromTableid![i].orDate,
+                ordId: getorderFromTableid![i].ordId,
+                price: getorderFromTableid![i].price,
+                productName: getorderFromTableid![i].productName,
+                qty: getorderFromTableid![i].qty,
+                tableId: getorderFromTableid![i].tableId);
+            _getMOvetableorder!.add(moduls);
+            //  break;
           }
         }
+        //  }
       }
+      notifyListeners();
     }
+  }
+
+  void clearData() {
+    _getMOvetableorder = []; // this is make clear
+    _getorderToTableid = [];
+    _getorderFromTableid = [];
     notifyListeners();
   }
+
   //************************************************************************************************* */
   //------here is to collect the order id and send to make update again in the payment
   SelectOrderToProviderMode? _getorderid;
