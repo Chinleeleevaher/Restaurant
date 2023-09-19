@@ -34,9 +34,12 @@ class AuthenRepository {
 
 //--------of table-------------
   Future<Either<Failure, List<Tables>>> getTables(
-      {required int typeids}) async {
+      {
+        required int typeids,
+        required int table_status
+      }) async {
     try {
-      final result = await services.getTable(typeids: typeids);
+      final result = await services.getTable(typeids: typeids, table_status: table_status);
       return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -309,4 +312,5 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
+
 }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
@@ -59,6 +60,7 @@ class tableProvider extends ChangeNotifier {
 //-------------of id-------------
   late int _from_table_Id = 0;
   int get fromtable_Id => _from_table_Id;
+
   late int _to_table_Id = 0;
   int get totable_Id => _to_table_Id;
   movetable(Tables value) {
@@ -85,6 +87,9 @@ class tableProvider extends ChangeNotifier {
   clearTable() {
     _from_table = "...";
     _to_table = "...";
+    _FromTable = ".....";
+    _ToTable = ".....";
+    notifyListeners();
   }
 
 //-------------the above is mange for chose and the below code is manage the the menu list------------------------------

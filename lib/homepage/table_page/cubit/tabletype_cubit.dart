@@ -46,7 +46,7 @@ class TabletypeCubit extends Cubit<TabletypeState> {
       emit(state.coppywith(status_c: tableliststatuse.loading));
       var result = await authenRepository.getTables(
           typeids:
-              state.typeSelect == null ? 0 : state.typeSelect!.tabletypeId);
+              state.typeSelect == null ? 0 : state.typeSelect!.tabletypeId, table_status: 0);
       result.fold(
         (f) {
           log('errro');

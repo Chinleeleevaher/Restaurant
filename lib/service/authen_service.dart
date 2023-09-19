@@ -42,11 +42,14 @@ class AuthenService {
   }
 
 // -----of table-------------
-  Future<List<Tables>?> getTable({required int typeids}) async {
+  Future<List<Tables>?> getTable({
+    required int typeids,
+    required int table_status,
+    }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiPaths.tablepath));
-      request.body = json.encode({"typeId": typeids});
+      request.body = json.encode({"typeId": typeids, "table_status":table_status});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -535,4 +538,5 @@ class AuthenService {
       return false;
     }
   }
+
 }
