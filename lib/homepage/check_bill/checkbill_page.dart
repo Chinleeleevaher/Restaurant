@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dotted_line/dotted_line.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,35 +108,6 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                 ),
                 Text(" ປະເພດການຈ່າຍ",
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: [
-                //     Radio(
-                //       value: "cash",
-                //       groupValue: cubit.selectedRadio,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           cubit.selectedRadio = value;
-                //         });
-                //       },
-                //     ),
-                //     Text("cash"),
-                //     SizedBox(
-                //       width: 25,
-                //     ),
-                //     Radio(
-                //       value: "Transfer",
-                //       groupValue:cubit.selectedRadio,
-                //       onChanged: (value) {
-                //         setState(() {
-                //          cubit.selectedRadio = value;
-                //         });
-                //       },
-                //     ),
-                //     Text("transfer"),
-                //   ],
-                // ),
-
                 Form(
                     key: cubit.formkey,
                     child: Column(
@@ -169,7 +141,8 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                             return Row(
                               children: [
                                 Radio<String>(
-                                  value: 'cash', // <---here is to set the value as cash it equa to the value of selectedRadio from the cubit
+                                  value:
+                                      'cash', // <---here is to set the value as cash it equa to the value of selectedRadio from the cubit
                                   groupValue: cubit.selectedRadio,
                                   onChanged: (value) {
                                     setState(() {
@@ -313,7 +286,204 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                   height: 50,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: MediaQuery.of(context).size.height * 0.8,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Bill',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.restaurant,
+                                        color: Colors.red,
+                                        size: 50,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: Text("BM Restautrant"),
+                                      ),
+                                      Text(""),
+                                    ],
+                                  ),
+                                ),
+                                Text("Tel: +8562093551639"),
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text("Bill No:  " +
+                                          "VT" +
+                                          tableprovi.tablenumber),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text("Date: " + _currentDateTime),
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(right: 8, left: 8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text("Description"),
+                                      Text("Qty"),
+                                      Text("Amount "),
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Expanded(
+                                  child: ListView(
+                                    children: List.generate(
+                                        orderproviders.selectorderdata!.length,
+                                        (index) {
+                                      return Column(
+                                        children: [
+                                          ListTile(
+                                            title: Text(orderproviders
+                                                .selectorderdata![index]
+                                                .productName),
+                                            subtitle: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Text(
+                                                  orderproviders
+                                                          .selectorderdata![
+                                                              index]
+                                                          .price
+                                                          .toString() +
+                                                      " Kip",
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                                SizedBox(
+                                                  width: 40,
+                                                ),
+                                                Text(orderproviders
+                                                    .selectorderdata![index].qty
+                                                    .toString()),
+                                              ],
+                                            ),
+                                            trailing: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10, left: 10),
+                                              child: Text(orderproviders
+                                                      .selectorderdata![index]
+                                                      .amount
+                                                      .toString() +
+                                                  " Kip"),
+                                            ),
+                                            onTap: () {
+                                              // do something when the tile is tapped
+                                            },
+                                          ),
+                                          DottedLine(
+                                            //<---this is make draw the dotted line
+                                            dashGapLength: 5,
+                                            dashLength: 5,
+                                            dashColor: Colors.black,
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 8, left: 8, top: 5),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(""),
+                                      Text(
+                                        "Total:",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        orderproviders
+                                                .selectorderdata![0].orAmount
+                                                .toString() +
+                                            "  Kip",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                            fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(),
+                                Icon(
+                                  Icons.qr_code,
+                                  color: Colors.green,
+                                  size: 80,
+                                ),
+                                Text("thank you! Visit again"),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      ElevatedButton(
+                                        child: Text('CANCEL'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        child: Text('OK'),
+                                        onPressed: () {
+                                          // do something
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   child: Text("ພິມບິນ"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,

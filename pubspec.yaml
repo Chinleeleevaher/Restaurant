@@ -49,6 +49,8 @@ dependencies:
   easy_localization: ^3.0.0
   image_picker: ^1.0.2
   material_design_icons_flutter: ^5.0.0
+  bluetooth_print: ^4.3.0
+  dotted_line: ^3.2.2
 
 
 

@@ -186,7 +186,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
   onTypeSelecttablefrom(value) {
     if (value == "1") {
       tableprovider.setfromtable(value);
-      selectTableByStatus_Of_FromTable();//<---this is make select the table status by table you want to select
+      selectTableByStatus_Of_FromTable(); //<---this is make select the table status by table you want to select
     } else {
       tableprovider.setfromtable(value);
       selectTableByStatus_Of_ToTable();
@@ -215,7 +215,8 @@ class ChangTableCubit extends Cubit<ChangTableState> {
       throw Exception("error: $e");
     }
   }
-    // ------here is to select only the table of status = 1. ot use only for move table----
+
+  // ------here is to select only the table of status = 1. ot use only for move table----
   //--------of table--------------
   Future<void> selectTableByStatus_Of_ToTable() async {
     try {
@@ -247,7 +248,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
     //     tableSize: value.tableSize,
     //     tableStatus: value.tableStatus,
     //     tabletypeId: value.tabletypeId);
-   // tableprovider.movetable(tablelist1);
+    // tableprovider.movetable(tablelist1);
     //----------this is must call this fucntion to collect the data first befor go to the order list page------------------------------
     tableprovider.settablelist(value);
     var tablelist = Tables(

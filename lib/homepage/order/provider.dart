@@ -148,7 +148,6 @@ List<SelectOrderByTableModel>? get selectorderdata => _selectorderstatus;
     if (selectorderdata != 0) {
       _selectorderstatus = value;
     }
-    print(selectorderdata);
     notifyListeners();
   }
 }
