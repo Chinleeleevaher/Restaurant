@@ -1,11 +1,13 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/manage_page.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/nabar_page.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_change/change_table_page.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
 
@@ -34,7 +36,9 @@ class _HomepageState extends State<Homepage>
 
   @override
   Widget build(BuildContext context) {
+    var orderproviders = context.read<orderprovider>();
     return Scaffold(
+     
       body: Container(
         color: Color.fromARGB(255, 255, 255, 255),
         child: ListView(
@@ -181,31 +185,37 @@ class _HomepageState extends State<Homepage>
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.list,
-                              size: 50,
-                              color: Colors.blue,
-                            ),
-                            Text("Report")
-                          ],
+                      child: GestureDetector(
+                        onTap: () {
+                       //   orderproviders.orderReport
+                          navService.pushNamed(AppRount.report);
+                        },
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: const Offset(0, 5),
+                                    color: Color.fromARGB(77, 11, 11, 11),
+                                    spreadRadius: 2,
+                                    blurRadius: 5)
+                              ]),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Icon(
+                                Icons.list,
+                                size: 50,
+                                color: Colors.blue,
+                              ),
+                              Text("Report")
+                            ],
+                          ),
                         ),
                       ),
                     ),

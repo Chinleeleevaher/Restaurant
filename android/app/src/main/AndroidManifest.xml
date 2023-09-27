@@ -9,6 +9,11 @@
         android:label="myproject"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+            <!--this below code is to make coonect to google map it is goole map API -->
+          <meta-data
+              android:name="com.google.android.geo.API_KEY"
+              android:value="AIzaSyAoifpc6bVZcaJgNqzLKuU42ROZNhIBUH0"
+              />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -23,7 +28,7 @@
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
+              android:resource="@style/NormalTheme"  
               />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

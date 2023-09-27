@@ -18,6 +18,11 @@ import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 import 'package:myproject/service/authen_service.dart';
 
+import '../homepage/report/getproductmodel.dart';
+import '../homepage/report/orderDetailModel.dart';
+import '../homepage/report/reportmodel.dart';
+import '../homepage/report/selecorderdetailreport.dart';
+
 class AuthenRepository {
   final AuthenService services = AuthenService();
   //@override
@@ -34,12 +39,10 @@ class AuthenRepository {
 
 //--------of table-------------
   Future<Either<Failure, List<Tables>>> getTables(
-      {
-        required int typeids,
-        required int table_status
-      }) async {
+      {required int typeids, required int table_status}) async {
     try {
-      final result = await services.getTable(typeids: typeids, table_status: table_status);
+      final result =
+          await services.getTable(typeids: typeids, table_status: table_status);
       return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -296,7 +299,7 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
-  
+
   //----deletemove table---------------------
   Future<Either<Failure, bool>?> updateTable_id({
     required int or_id,
@@ -305,7 +308,9 @@ class AuthenRepository {
   }) async {
     try {
       final result = await services.updatetable_id(
-        or_id: or_id, table_id: table_id, table_status: table_status,
+        or_id: or_id,
+        table_id: table_id,
+        table_status: table_status,
       );
       return Right(result!);
     } catch (e) {
@@ -313,4 +318,45 @@ class AuthenRepository {
     }
   }
 
+//-----------ge order report-----------------------
+  Future<Either<Failure, List<SelectOrderReportModel>>?> getOrderReport(
+      {required DateTime fromdate, required DateTime todate}) async {
+    try {
+      final result =
+          await services.getOrderReport(Fromdate: fromdate, Todate: todate);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+//-----------ge order detail for report-----------------------
+  Future<Either<Failure, List<SelectOrderDetailReportModel>>?>
+      SelectordertoReport({required int or_id}) async {
+    try {
+      final result = await services.SelectordertoReport(or_id: or_id);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  //------------select product to make report---------------
+  Future<Either<Failure, List<GetProductModel>>?> getproductmakeReport() async {
+    try {
+      final result = await services.getproduct_makeReport();
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+    //------------select product to make report---------------
+  Future<Either<Failure, List<GetOrderDetailModel>>?> getorderdetailmakeReport({required DateTime fromdate, required DateTime todate}) async {
+    try {
+      final result = await services.getorderdetail_makeReport(Fromdate: fromdate, Todate: todate);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }

@@ -51,7 +51,12 @@ dependencies:
   material_design_icons_flutter: ^5.0.0
   bluetooth_print: ^4.3.0
   dotted_line: ^3.2.2
-
+  datetime_picker_formfield_new: ^2.1.0
+  intl: ^0.18.0
+  google_maps_flutter: ^2.5.0
+  flutter_polyline_points: ^2.0.0
+  location: ^5.0.3
+  flutter_svg: ^2.0.7
 
 
 dev_dependencies:

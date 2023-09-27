@@ -10,6 +10,8 @@ import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 
+import '../report/reportmodel.dart';
+import '../report/selecorderdetailreport.dart';
 import '../table_page/model/orderlistmodel.dart';
 import '../table_page/model/orderlistmodel.dart';
 
@@ -61,7 +63,6 @@ class orderprovider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
 
 //------here is for add bage------------
   int _bageqty = 0;
@@ -127,8 +128,8 @@ class orderprovider extends ChangeNotifier {
   }
 
 //------of table status--------------
-   Tablestatus? _tablestatus;
-   Tablestatus? get tablestatus => _tablestatus;
+  Tablestatus? _tablestatus;
+  Tablestatus? get tablestatus => _tablestatus;
 
   ordertable(Tablestatus value) {
     if (tablestatus != 0) {
@@ -138,15 +139,45 @@ class orderprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   //------of select order data by table status--------------
-   List<SelectOrderByTableModel>? _selectorderstatus;
-List<SelectOrderByTableModel>? get selectorderdata => _selectorderstatus;
+  List<SelectOrderByTableModel>? _selectorderstatus;
+  List<SelectOrderByTableModel>? get selectorderdata => _selectorderstatus;
 
   selectOrderStatus(List<SelectOrderByTableModel> value) {
     if (selectorderdata != 0) {
       _selectorderstatus = value;
+    }
+    notifyListeners();
+  }
+
+  //--------order report------------------
+  //------of select order data by table status--------------
+  List<SelectOrderReportModel>? _orderReport;
+  List<SelectOrderReportModel>? get orderReport => _orderReport;
+  OrderReport(List<SelectOrderReportModel> value) {
+    if (orderReport != 0) {
+      _orderReport = value;
+    }
+    notifyListeners();
+  }
+
+  // ------to get order list of report-----------
+  late SelectOrderReportModel _getorderlistReport;
+  SelectOrderReportModel get getorderlistReport => _getorderlistReport;
+
+  setOrderlistReport(SelectOrderReportModel value) {
+    _getorderlistReport = value;
+     notifyListeners();
+  }
+
+  // ------to get order detail for report-----------
+  List<SelectOrderDetailReportModel>? _selectOrderDetailReport;
+  List<SelectOrderDetailReportModel>? get selectOrderDetailReport =>
+      _selectOrderDetailReport;
+
+  selectOrderdetailreport(List<SelectOrderDetailReportModel> value) {
+    if (selectOrderDetailReport != 0) {
+      _selectOrderDetailReport = value;
     }
     notifyListeners();
   }

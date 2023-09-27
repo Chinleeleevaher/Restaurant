@@ -150,7 +150,7 @@ class tableProvider extends ChangeNotifier {
             SelectOrderByTableModel
                 model = // <----this function i have to do this be cose i need to update the orId of getfromtable to getTotable
                 SelectOrderByTableModel(
-                    orId: getorderToTableid![1].orId,
+                    orId: getorderToTableid![0].orId,
                     productId: getorderFromTableid![i].productId,
                     amount: getorderFromTableid![i].amount,
                     orAmount: getorderFromTableid![i].orAmount,

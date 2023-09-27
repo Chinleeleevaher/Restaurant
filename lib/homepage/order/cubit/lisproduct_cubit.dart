@@ -108,20 +108,4 @@ class LisproductCubit extends Cubit<LisproductState> {
     }
   }
 
-  //----to insert oder product--------
-  // Future<void> postorderlist() async {
-  //   emit(state.coppywith(status_c: listproduct_status.loading));
-  //   var result = await authenRepository.orderpro(
-  //       order_qty: 0,
-  //       order_amount: 0,
-  //       order_table: tableproviders.gettablelist.tableId,
-  //       order_status: tableproviders.gettablelist.tableStatus);
-  //   result!.fold((Left) {
-  //     log("Error");
-  //   }, (Right) {
-  //     orderproviders.orderlisttable(Right!); // <--here is to keep value to the provider
-  //     print("respomse $Right");
-  //     emit(state.coppywith(status_c: listproduct_status.sucess));
-  //   });
-  // }
 }

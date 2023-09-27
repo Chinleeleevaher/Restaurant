@@ -6,6 +6,7 @@ import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/login/Login_Page.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
@@ -28,7 +29,7 @@ Future<void> main() async {
       ],
       fallbackLocale: const Locale('en'),
 
-      //-----of provider------------------
+      //-----of provider when you create provider you should call it haere------------------
       child: MultiBlocProvider(
         providers: [
           RepositoryProvider(create: (_) => AuthenRepository()),
@@ -37,6 +38,7 @@ Future<void> main() async {
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => orderprovider()),
           ChangeNotifierProvider(create: (_) => tableProvider()),
+          ChangeNotifierProvider(create: (_) => ReportProvider()),
         ], child: const MyApp()),
       ),
     ),

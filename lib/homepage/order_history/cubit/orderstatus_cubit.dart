@@ -18,7 +18,7 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
       required this.tableproviders,
       required this.orderproviders})
       : super(OrderstatusState());
-//------of select order data to show to the order status page-------------
+//------of select order data to show to the order status page it is of order detail-------------
   Future<void> seletorderdata() async {
     emit(state.coppywith(status_c: selectorderdata.loading));
     var resault = await authenRepository.SelectByOrder(

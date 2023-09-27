@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/addproduct/addproduct_page.dart';
@@ -16,6 +17,9 @@ import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/order_list/orderlist_page.dart';
 import 'package:myproject/homepage/product_page/cubit/products_cubit.dart';
 import 'package:myproject/homepage/product_page/product_page.dart';
+import 'package:myproject/homepage/report/cubit/order_cubit.dart';
+import 'package:myproject/homepage/report/providerReport.dart';
+import 'package:myproject/homepage/report/report.dart';
 import 'package:myproject/homepage/splash_screen/cubit/splash_screen_cubit.dart';
 import 'package:myproject/homepage/splash_screen/splash_screen_page.dart';
 import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
@@ -47,6 +51,7 @@ class AppRount {
   static const String orderlist = '/orderlist';
   static const String orderstatus = '/orderstatus';
   static const String checkbill = '/checkbill';
+  static const String report = '/report';
 
   static Route<dynamic> generateRount(RouteSettings settings) {
     switch (settings.name) {
@@ -185,6 +190,13 @@ class AppRount {
             child: CheckBill_Page(),
           ),
         );
+      case report:
+        return MaterialPageRoute(builder: (context) => BlocProvider(
+          create: (context) => OrderReportCubit(
+            authenRepository: context.read<AuthenRepository>(),
+             orderproviders: context.read<orderprovider>(), context: context, reportProvider: context.read<ReportProvider>())..getOrderReport(),
+             child: ReportPage(),
+          ));
 
       default:
         return MaterialPageRoute(builder: (context) => const DefaulPage());

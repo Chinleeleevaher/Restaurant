@@ -20,6 +20,10 @@ import 'package:myproject/homepage/table_page/model/tabletype.dart';
 
 import '../homepage/menu_page/model/product_model.dart';
 import '../homepage/menu_page/model/unit.dart';
+import '../homepage/report/getproductmodel.dart';
+import '../homepage/report/orderDetailModel.dart';
+import '../homepage/report/reportmodel.dart';
+import '../homepage/report/selecorderdetailreport.dart';
 
 class AuthenService {
   //-----of tabletype
@@ -45,11 +49,12 @@ class AuthenService {
   Future<List<Tables>?> getTable({
     required int typeids,
     required int table_status,
-    }) async {
+  }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiPaths.tablepath));
-      request.body = json.encode({"typeId": typeids, "table_status":table_status});
+      request.body =
+          json.encode({"typeId": typeids, "table_status": table_status});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -138,7 +143,7 @@ class AuthenService {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.108.61:3005/upload"));
+        'POST', Uri.parse("http://192.168.90.61:3005/upload"));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -273,7 +278,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse('http://192.168.108.61:3005/order'));
+          http.Request('POST', Uri.parse('http://192.168.90.61:3005/order'));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
@@ -312,7 +317,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.108.61:3005/order-details'));
+          'POST', Uri.parse('http://192.168.90.61:3005/order-details'));
       request.body = json.encode({
         "or_id": order_id,
         "product_id": product_id,
@@ -340,7 +345,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'PUT', Uri.parse('http://192.168.108.61:3005/update-table'));
+          'PUT', Uri.parse('http://192.168.90.61:3005/update-table'));
       request.body =
           json.encode({"table_status": tablestatus, "table_id": table_id});
       request.headers.addAll(headers);
@@ -369,7 +374,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.108.61:3005/order-by-table'));
+          'POST', Uri.parse('http://192.168.90.61:3005/order-by-table'));
       request.body = json.encode({"tableId": table_id});
       request.headers.addAll(headers);
 
@@ -395,7 +400,7 @@ class AuthenService {
     try {
       var headders = {'content-Type': 'application/json'};
       var resqust = http.Request(
-          'POST', Uri.parse('http://192.168.108.61:3005/cut-stock'));
+          'POST', Uri.parse('http://192.168.90.61:3005/cut-stock'));
       resqust.body = json.encode({"tableId": table_id});
       resqust.headers.addAll(headders);
       http.StreamedResponse response = await resqust.send();
@@ -418,7 +423,7 @@ class AuthenService {
   }) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.108.61:3005/order/:ids'));
+        'PATCH', Uri.parse('http://192.168.90.61:3005/order/table_id'));
     request.body = json.encode({
       "or_id": or_id,
       "getmoney": getmoney,
@@ -442,7 +447,7 @@ class AuthenService {
       {required int table_id}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'POST', Uri.parse('http://192.168.108.61:3005/getOrderBytable'));
+        'POST', Uri.parse('http://192.168.90.61:3005/getOrderBytable'));
     request.body = json.encode({"tableId": table_id});
     request.headers.addAll(headers);
 
@@ -474,7 +479,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.108.61:3005/update-move-table'));
+          'POST', Uri.parse('http://192.168.90.61:3005/update-move-table'));
       request.body = json.encode({
         "ord_id": ord_id,
         "orderId": or_id,
@@ -502,7 +507,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'DELETE', Uri.parse('http://192.168.108.61:3005/delete-move-order'));
+          'DELETE', Uri.parse('http://192.168.90.61:3005/delete-move-order'));
       request.body = json.encode({"or_id": or_id});
       request.headers.addAll(headers);
 
@@ -525,7 +530,7 @@ class AuthenService {
       required int table_status}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.108.61:3005/order/table_id'));
+        'PATCH', Uri.parse('http://192.168.90.61:3005/order/table_id'));
     request.body = json.encode(
         {"or_id": or_id, "table_id": table_id, "table_status": table_status});
     request.headers.addAll(headers);
@@ -539,4 +544,115 @@ class AuthenService {
     }
   }
 
+//-------- for order report--------------
+  Future<List<SelectOrderReportModel>?> getOrderReport(
+      {required DateTime Fromdate, required DateTime Todate}) async {
+    String from_pickdate = DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00";
+    String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('POST', Uri.parse('http://192.168.90.61:3005/orderlist'));
+    request.body = json
+        .encode({"orderDateFrom": from_pickdate, "orderDateTo": To_pickdate});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body["status"] == 200) {
+        final seletOrder =
+            selectOrderReportModelFromJson(jsonEncode(body["data"]));
+        return seletOrder;
+      } else {
+        Exception('data is null');
+      }
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  //-----to select the data of product that we want to select the order detail to report--------------------
+  Future<List<SelectOrderDetailReportModel>?> SelectordertoReport(
+      {required int or_id}) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'POST', Uri.parse('http://192.168.90.61:3005/select-by-order_id'));
+      request.body = json.encode({"or_id": or_id});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == true) {
+          final seletOrder =
+              selectOrderDetailReportModelFromJson(jsonEncode(body["data"]));
+          return seletOrder;
+        } else {
+          Exception('data is null');
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  //----get product to  make report-----------
+  Future<List<GetProductModel>?> getproduct_makeReport() async {
+    try {
+      var request =
+          http.Request('GET', Uri.parse('http://192.168.90.61:3005/product'));
+      request.body = '''''';
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == 200) {
+          final selectproduct =
+              getProductModelFromJson(jsonEncode(body["data"]));
+          return selectproduct;
+        } else {
+          Exception('data is null');
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {}
+  }
+
+  //----get orderdetail to  make report-----------
+  Future<List<GetOrderDetailModel>?> getorderdetail_makeReport({required DateTime Fromdate, required DateTime Todate}) async {
+    String from_pickdate = DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00"; // <----for the 00:00:00 is to set the hours be for save to the databaes
+    String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'POST', Uri.parse('http://192.168.90.61:3005/orderdetails'));
+      request.body = json.encode({
+        "orderDateFrom": from_pickdate,
+        "orderDateTo": To_pickdate
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+       var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == 200) {
+          final selectproduct =
+              getOrderDetailModelFromJson(jsonEncode(body["data"]));
+          return selectproduct;
+        } else {
+          Exception('data is null');
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {}
+  }
 }
