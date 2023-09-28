@@ -1,8 +1,10 @@
 import 'package:badges/badges.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/manage_page.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/nabar_page.dart';
@@ -38,7 +40,6 @@ class _HomepageState extends State<Homepage>
   Widget build(BuildContext context) {
     var orderproviders = context.read<orderprovider>();
     return Scaffold(
-     
       body: Container(
         color: Color.fromARGB(255, 255, 255, 255),
         child: ListView(
@@ -78,7 +79,7 @@ class _HomepageState extends State<Homepage>
                                       spreadRadius: 2,
                                       blurRadius: 5)
                                 ]),
-                            child: const Column(
+                            child: Column(
                               children: [
                                 SizedBox(
                                   height: 10,
@@ -88,7 +89,8 @@ class _HomepageState extends State<Homepage>
                                   size: 50,
                                   color: Colors.blue,
                                 ),
-                                Text("Menu")
+                                Text(LocaleKeys.menu
+                                    .tr()) //<--- text of Menu-------
                               ],
                             ),
                           ),
@@ -121,7 +123,7 @@ class _HomepageState extends State<Homepage>
                                       spreadRadius: 2,
                                       blurRadius: 5)
                                 ]),
-                            child: const Column(
+                            child: Column(
                               children: [
                                 SizedBox(
                                   height: 10,
@@ -131,7 +133,8 @@ class _HomepageState extends State<Homepage>
                                   size: 50,
                                   color: Colors.blue,
                                 ),
-                                Text("Change table")
+                                Text(LocaleKeys.changeTable
+                                    .tr()) //<--- text of change table-------
                               ],
                             ),
                           ),
@@ -170,10 +173,8 @@ class _HomepageState extends State<Homepage>
                                 size: 50,
                                 color: Colors.blue,
                               ),
-                              Text(
-                                "Product",
-                                overflow: TextOverflow.ellipsis,
-                              )
+                              Text(LocaleKeys.product
+                                  .tr()) //<--- text of Product-------
                             ],
                           ),
                         ),
@@ -187,7 +188,7 @@ class _HomepageState extends State<Homepage>
                       padding: const EdgeInsets.all(10.0),
                       child: GestureDetector(
                         onTap: () {
-                       //   orderproviders.orderReport
+                          //   orderproviders.orderReport
                           navService.pushNamed(AppRount.report);
                         },
                         child: Container(
@@ -213,7 +214,8 @@ class _HomepageState extends State<Homepage>
                                 size: 50,
                                 color: Colors.blue,
                               ),
-                              Text("Report")
+                              Text(LocaleKeys.report
+                                  .tr()) //<--- text of Report-------
                             ],
                           ),
                         ),
@@ -244,7 +246,8 @@ class _HomepageState extends State<Homepage>
                               size: 50,
                               color: Colors.green,
                             ),
-                            Text("Scan")
+                            Text(
+                                LocaleKeys.scan.tr()) //<--- text of Scan-------
                           ],
                         ),
                       ),
@@ -274,7 +277,8 @@ class _HomepageState extends State<Homepage>
                               size: 50,
                               color: Colors.red,
                             ),
-                            Text("Security")
+                            Text(LocaleKeys.security
+                                .tr()) //<--- text of Scurity-------
                           ],
                         ),
                       ),

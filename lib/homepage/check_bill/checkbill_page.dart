@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/check_bill/cubit/checkbill_cubit.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
@@ -76,15 +77,15 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
 
         return Scaffold(
           appBar: AppBar(
-            leading: Text(""),
-            title: Text("Chen Bill"),
+            title:
+                Text(LocaleKeys.CheckBill.tr()), //<---text of check bill-----
           ),
           body: Padding(
             padding: EdgeInsets.only(top: 20, right: 10, left: 10),
             child: ListView(
               children: [
                 Text(
-                  "Table",
+                  LocaleKeys.table.tr(), //<---text of table
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Row(
@@ -101,12 +102,13 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(" ເລກທີ", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(LocaleKeys.billNo.tr(), // <---text of bill no
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 Text("123456", style: TextStyle(color: Colors.red)),
                 SizedBox(
                   height: 20,
                 ),
-                Text(" ປະເພດການຈ່າຍ",
+                Text(LocaleKeys.paytype.tr(), // <---text of pay type
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 Form(
                     key: cubit.formkey,
@@ -115,24 +117,6 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                         FormField<String>(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              // showDialog(
-                              //   context: context,
-                              //   builder: (BuildContext context) {
-                              //     return AlertDialog(
-                              //       title: Text('Validation Error'),
-                              //       content:
-                              //           Text('Please select a payment method.'),
-                              //       actions: [
-                              //         ElevatedButton(
-                              //           onPressed: () {
-                              //             Navigator.of(context).pop();
-                              //           },
-                              //           child: Text('Close'),
-                              //         ),
-                              //       ],
-                              //     );
-                              //   },
-                              // );
                               return null;
                             }
                             return null;
@@ -151,7 +135,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                                     });
                                   },
                                 ),
-                                Text('Cash'),
+                                Text(LocaleKeys.cash.tr()), //<----text of cash
                                 SizedBox(width: 25),
                                 Radio<String>(
                                   value: 'transfer',
@@ -163,7 +147,8 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                                     });
                                   },
                                 ),
-                                Text('Transfer'),
+                                Text(LocaleKeys.transfer
+                                    .tr()), //<----text of transfer
                                 if (field.errorText != null)
                                   Text(
                                     field.errorText!,
@@ -179,7 +164,9 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(" ລາຄາທັງໝົດ",
+                            Text(
+                                LocaleKeys.totalPrice
+                                    .tr(), // <---text of total price
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             Padding(
                               padding: const EdgeInsets.only(right: 30),
@@ -200,7 +187,9 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                         ),
                         Row(
                           children: [
-                            Text("ຖອນເງີນ",
+                            Text(
+                                LocaleKeys.backmoney
+                                    .tr(), // <---text of backmoney
                                 style: TextStyle(fontWeight: FontWeight.bold))
                           ],
                         ),
@@ -228,7 +217,9 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                         ),
                         Row(
                           children: [
-                            Text("ຮັບເງີນ",
+                            Text(
+                                LocaleKeys.getmoney
+                                    .tr(), // <----text of get money
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ],
                         ),
@@ -236,14 +227,17 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                           validator: (value) {
                             // <--- the value is get from the TextFormField what i fill in it same as the formkey
                             if (value == null || value.isEmpty) {
-                              return "Please enter a value";
+                              return LocaleKeys.enterMoney
+                                  .tr(); // <---text of enter money
                             }
                             double? numericValue = double.tryParse(value);
                             if (numericValue == null) {
-                              return "Please enter a valid number";
+                              return LocaleKeys.enterMoney
+                                  .tr(); // <---text of enter money
                             }
                             if (total - numericValue > 0) {
-                              return "Not enough money";
+                              return LocaleKeys.notEnoughMoney
+                                  .tr(); // <---text of not enough money
                             }
                             return null;
                           },
@@ -484,7 +478,8 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                       },
                     );
                   },
-                  child: Text("ພິມບິນ"),
+                  child:
+                      Text(LocaleKeys.printBill.tr()), //<----text of print bill
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     shape: RoundedRectangleBorder(
@@ -500,7 +495,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                   onPressed: () {
                     cubit.update_tbOrder();
                   },
-                  child: Text("ຈ່າຍເງີນ"),
+                  child: Text(LocaleKeys.pay.tr()), //<----text of pay
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     shape: RoundedRectangleBorder(

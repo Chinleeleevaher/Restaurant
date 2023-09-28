@@ -26,12 +26,52 @@
     "weAlreadySendLinkTo":"We already send link to",
     "changeLanguage":"Change language",
     "signin":"signin",
+
     "noAccount":"No account",
     "setting":"setting" ,
     "logout":"Logout" ,
     "favorite":"Favorite" ,
-    "people":"Member" 
+    "people":"Member",
 
+    "home":"Home",
+    "order":"Order",
+    "manage":"Manage",
+    "location":"Location",
 
+    "menu":"Menu",
+    "changeTable":"Change Table",
+    "product":"Product",
+    "report":"Report",
+    "scan":"Scan",
+    "security":"Security",
+
+    "tabletype":"Table Type",
+    "fromTable":"From Table",
+    "toTable":"To Table",
+    "allTable":"All Table",
+    "tableAvailable":"AvailAble",
+    "tableunAvailable":"UnAvailable",
+
+    "no":"No",
+    "item":"Item",
+    "quantity":"Quantity",
+    "amount":"Amount",
+    "totalPrice":"Total Price",
+    "cencel":"Cencel",
+    "checkBill":"Check Bill",
+    "orderSelect":"Order Select",
+    "table":"Table",
+
+    "billNo":"Bill No",
+    "paytype":"operation type",
+    "cash":"Cash",
+    "transfer":"Transfer",
+    "backmoney":"return",
+    "getmoney":"recive",
+    "printBill":"Print Bill",
+    "pay":"Pay",
+    "enterMoney":"Please enter money",
+    "notEnoughMoney":"No enough money",
+    "CheckBill":"Check Bill"
 
 }

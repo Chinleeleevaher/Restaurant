@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/internet/nointernet.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/order_history/cubit/orderstatus_cubit.dart';
@@ -41,9 +43,10 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                     //orderlist.clearorderlist();
                     Navigator.pop(context);
                   },
-                  child: Icon(Icons.reset_tv_outlined)),
+                  child: Icon(Icons.arrow_back)),
             ),
-            title: Text("Order select"),
+            title: Text(LocaleKeys.orderSelect
+                .tr()), //<----text of order select it is on the appbar---
             actions: [
               Padding(
                   padding: const EdgeInsets.only(right: 20),
@@ -51,7 +54,7 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "table : ",
+                        LocaleKeys.table.tr() + " ", // <--- text of table
                         style: TextStyle(fontSize: 16),
                       ),
                       Container(
@@ -98,13 +101,14 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text("ລ/ດ"),
+                        Text(LocaleKeys.no.tr()), //<----text of NO---
                         VerticalDivider(),
-                        Text("ລາຍການ"),
+                        Text(LocaleKeys.item.tr()), //<----text of item---
                         VerticalDivider(),
-                        Text("ຈໍານວນ"),
+                        Text(LocaleKeys.quantity
+                            .tr()), //<----text of quantity---
                         VerticalDivider(),
-                        Text("ລາຄາລວມ"),
+                        Text(LocaleKeys.amount.tr()), //<----text of Amount---
                       ],
                     ),
                   ),
@@ -166,11 +170,13 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                           ),
                           Text.rich(
                             TextSpan(
-                              text: 'ທັງໝົດ: ',
+                              text: LocaleKeys.totalPrice.tr() +
+                                  ": ", // <----text of total price
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
+
                               children: <TextSpan>[
                                 TextSpan(
                                   text: orderlist.selectorderdata![0].orAmount
@@ -194,7 +200,8 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                                   onPressed: () {
                                     //  orderlist.clear();
                                   },
-                                  child: Text("Cencel"),
+                                  child: Text(LocaleKeys.cencel
+                                      .tr()), // <----text of Check Cencel-----
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15.0),
@@ -207,7 +214,8 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                                       navService.pushNamed(AppRount.checkbill);
                                     });
                                   },
-                                  child: Text("Check in"),
+                                  child: Text(LocaleKeys.checkBill
+                                      .tr()), // <----text of Check bill-----
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green,
                                     shape: RoundedRectangleBorder(

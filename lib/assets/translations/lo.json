@@ -24,6 +24,7 @@
     "verify": "ຢືນຢັນ",
     "pleaseCheckYourEmail": "ກະລຸນາກວດເບິ່ງອີເມວຂອງທ່ານ",
     "weAlreadySendLinkTo": "ພວກເຮົາສົ່ງລິ້ງໄປຫາ",
+
     "changeLanguage":"ປ່ຽນພາສາ",
     "signin":"ສະໝັກສະມາຊິກ",
     "noAccount":"ບໍ່ໄດ້ເປັນສະມາຊິກ" ,
@@ -31,4 +32,45 @@
     "logout":"ອອກຈາກລະບົບ" ,
     "favorite":"ສີ່ງທີ່ມັກ" ,
     "people":"ສະມາຊິກ"
+    ,
+    "home":"ໜ້າຫຼັກ",
+    "order":"ສັ່ງອາຫານ",
+    "manage":"ຈັດການ",
+    "location":"ສະຖານທີ່",
+
+    "menu":"ເມນູ",
+    "changeTable":"ຍ້າຍໂຕະ",
+    "product":"ສີນຄ້າ",
+    "report":"ລາຍງານ",
+    "scan":"ສະແກນ",
+
+    "tabletype":"ປະເພດໂຕະ",
+    "fromTable":"ຈາກໂຕະ",
+    "toTable":"ຫາໂຕະ",
+    "allTable":"ໂຕະທັງໝົດ",
+    "tableAvailable":"ຫວ່າງ",
+    "tableunAvailable":"ບໍ່ຫວ່າງ",
+
+    "no":"ລ/ດ",
+    "item":"ລາຍການ",
+    "quantity":"ຈໍານວນ",
+    "amount":"ລາຄາລວມ",
+    "totalPrice":"ລາຄາທັງໝົດ",
+    "cencel":"ຍົກເລີກ",
+    "checkBill":"ເຊັກບິນ",
+    "orderSelect":"ລາຍການທີ່ຊື້",
+    "table":"ໂຕະ",
+
+    "billNo":"ເລກທີ່",
+    "paytype":"ປະເພດການຈ່າຍ",
+    "cash":"ຈ່າຍສົດ",
+    "transfer":"ໂອນ",
+    "backmoney":"ຖອນເງີນ",
+    "getmoney":"ຮັບເງີນ",
+    "printBill":"ພີມບິນ",
+    "pay":"ຈ່າຍເງີນ",
+    "enterMoney":"ກາລຸນາປອນຈໍານວນເງີນ",
+    "notEnoughMoney":"ຈໍານວນເງີນບໍ່ພໍ",
+    "CheckBill":"ເຊັກບີນ"
+
 }

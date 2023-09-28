@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/icon_map.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
@@ -40,37 +42,27 @@ class _ChangeTableState extends State<ChangeTable> {
               appBar: AppBar(
                 leading: GestureDetector(
                     onTap: () {
-                      tableprovider.clearTable();//<---here is make clear when i back
-                      tableprovider.clearData();//<---here is make clear when i back
+                      tableprovider
+                          .clearTable(); //<---here is make clear when i back
+                      tableprovider
+                          .clearData(); //<---here is make clear when i back
                       Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back)),
-                title: Text("Move table"),
-                actions: [
-                  Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                navService.pushNamed(AppRount.orderstatus);
-                              },
-                              child: Icon(Icons.list_alt_sharp))
-                        ],
-                      ))
-                ],
+                title:
+                    Text(LocaleKeys.changeTable.tr()), // <---text of move table
               ),
               body: Container(
                 child: ListView(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "ປະເພດໂຕະ",
+                            LocaleKeys.tabletype
+                                .tr(), // <-------------text of table type----------
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )
@@ -145,7 +137,8 @@ class _ChangeTableState extends State<ChangeTable> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        "ຍ້າຍໂຕະ",
+                        LocaleKeys.changeTable
+                            .tr(), // <-------------text of change table----------
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -162,7 +155,7 @@ class _ChangeTableState extends State<ChangeTable> {
                           },
                           child: Container(
                               width: 80,
-                              height: 80,
+                              height: 85,
                               decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
@@ -186,7 +179,10 @@ class _ChangeTableState extends State<ChangeTable> {
                                       Icons.table_bar,
                                       color: Colors.red,
                                     ),
-                                    Text("Table"),
+                                    Text(
+                                      LocaleKeys.fromTable.tr(),
+                                      overflow: TextOverflow.ellipsis,
+                                    ), // <---text of from table-----
                                     Consumer<tableProvider>(
                                       //---here is make change the value imedlainly----
                                       builder: (context, tableprovider, child) {
@@ -219,7 +215,7 @@ class _ChangeTableState extends State<ChangeTable> {
                           },
                           child: Container(
                               width: 80,
-                              height: 80,
+                              height: 85,
                               decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
@@ -242,7 +238,9 @@ class _ChangeTableState extends State<ChangeTable> {
                                       Icons.table_bar,
                                       color: Colors.green,
                                     ),
-                                    Text("Table"),
+                                    Text(
+                                      LocaleKeys.toTable.tr(),
+                                    ), // <---text of To table-----
                                     Consumer<tableProvider>(
                                       //---here is make change the value imedlainly----
                                       builder: (context, tableprovider, child) {
@@ -267,7 +265,7 @@ class _ChangeTableState extends State<ChangeTable> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        "ໂຕະທັງໝົດ",
+                        LocaleKeys.allTable.tr(), // <----text of all table-----
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -292,11 +290,13 @@ class _ChangeTableState extends State<ChangeTable> {
                               var listtable = state.listtable;
                               if (listtable![index].tableStatus == 0) {
                                 _containercolor = Colors.green;
-                                textcontrol = "ຫວ່າງ";
+                                textcontrol = LocaleKeys.tableAvailable
+                                    .tr(); // <-----text of available table
                               }
                               if (listtable[index].tableStatus == 1) {
                                 _containercolor = Colors.red;
-                                textcontrol = "ບໍ່ຫວ່າງ";
+                                textcontrol = LocaleKeys.tableunAvailable
+                                    .tr(); // <-----text of Unavailable table
                               }
                               if (listtable[index].tableStatus == 2) {
                                 _containercolor = Colors.yellow;

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slider/carousel.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/location/location.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
@@ -58,48 +59,52 @@ class _MenuState extends State<Menu> {
                     value); // <-- here is get the value of onchangeLanguage and send back to reflesh  or make reflesh in navbar page
               },
             ),
+            // this below is to make check if i click on the location then it will not show the AppBar
             appBar: AppBar(
-              actions: [
-                GestureDetector(
-                    onTap: () => cubit.getproduct(), // here is to make reflesh
-                    child: Icon(Icons.refresh_outlined)),
-                SizedBox(
-                  width: 20,
-                ),
-                badges.Badge(
-                  badgeAnimation: const BadgeAnimation.rotation(
-                    animationDuration: Duration(seconds: 1),
-                    colorChangeAnimationDuration: Duration(seconds: 1),
-                    loopAnimation: false,
-                    curve: Curves.fastOutSlowIn,
-                    colorChangeAnimationCurve: Curves.easeInCubic,
-                  ),
-                  badgeStyle: const badges.BadgeStyle(badgeColor: Colors.white),
-                  position: BadgePosition.topEnd(top: -1, end: -1),
-                  badgeContent: const Text(
-                    '1',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.shopping_cart,
-                    ),
-                    onPressed: () {
-                      // Navigator.push(
-                      //     context, MaterialPageRoute(builder: (_) => cardlist()));
-                    },
-                  ),
-                ),
-              ],
+              actions: currentPageIndex == 3
+                  ? null
+                  : [
+                      GestureDetector(
+                          onTap: () =>
+                              cubit.getproduct(), // here is to make reflesh
+                          child: Icon(Icons.refresh_outlined)),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      badges.Badge(
+                        badgeAnimation: const BadgeAnimation.rotation(
+                          animationDuration: Duration(seconds: 1),
+                          colorChangeAnimationDuration: Duration(seconds: 1),
+                          loopAnimation: false,
+                          curve: Curves.fastOutSlowIn,
+                          colorChangeAnimationCurve: Curves.easeInCubic,
+                        ),
+                        badgeStyle:
+                            const badges.BadgeStyle(badgeColor: Colors.white),
+                        position: BadgePosition.topEnd(top: -1, end: -1),
+                        badgeContent: const Text(
+                          '1',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.shopping_cart,
+                          ),
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context, MaterialPageRoute(builder: (_) => cardlist()));
+                          },
+                        ),
+                      ),
+                    ],
               title: Text('BM shop'),
             ),
             body: Builder(builder: (context) {
               if (currentPageIndex == 1) {
                 return BlocProvider(
                   create: (context) => TabletypeCubit(
-                      authenRepository: context.read<AuthenRepository>(), 
-                     tableprovider: context.read<tableProvider>()
-                      )
+                      authenRepository: context.read<AuthenRepository>(),
+                      tableprovider: context.read<tableProvider>())
                     ..getTabletypes()
                     ..getTables(), // <--here is becuse in the table page is use cubit therefore i have use blocProvider that i can access the table page
                   child: Table_page(),
@@ -417,10 +422,7 @@ class _MenuState extends State<Menu> {
                                     ),
                                   ),
                                 );
-                              }
-                            )
-                          )
-                        ),
+                              }))),
                     ],
                   ),
                 ],
@@ -449,14 +451,15 @@ class _MenuState extends State<Menu> {
                       });
                     },
                     selectedIndex: currentPageIndex,
-                    destinations: const [
+                    destinations: [
                       NavigationDestination(
                         icon: Icon(Icons.home),
                         selectedIcon: Icon(
                           Icons.home,
                           color: Colors.white,
                         ),
-                        label: 'Home',
+                        label: LocaleKeys.home
+                            .tr(), //-------it is text here of " home "----------
                       ),
                       NavigationDestination(
                         icon: Icon(Icons.table_bar),
@@ -464,7 +467,8 @@ class _MenuState extends State<Menu> {
                           Icons.table_bar,
                           color: Colors.white,
                         ),
-                        label: 'Order',
+                        label: LocaleKeys.order
+                            .tr(), //-------it is text here of " Order "----------
                       ),
                       NavigationDestination(
                         icon: Icon(Icons.book),
@@ -472,7 +476,8 @@ class _MenuState extends State<Menu> {
                           Icons.book,
                           color: Colors.white,
                         ),
-                        label: 'Manage',
+                        label: LocaleKeys.manage
+                            .tr(), //-------it is text here of " Manage "----------
                       ),
                       NavigationDestination(
                         icon: Icon(Icons.location_on),
@@ -480,7 +485,8 @@ class _MenuState extends State<Menu> {
                           Icons.location_on,
                           color: Colors.white,
                         ),
-                        label: 'Location',
+                        label: LocaleKeys.location
+                            .tr(), //-------it is text here of " Location "----------
                       ),
                     ]),
               ),
@@ -488,45 +494,10 @@ class _MenuState extends State<Menu> {
       },
     );
   }
-//   itemDashboard(
-//     String title,
-//     Image image,
-//   ) =>
-//       Container(
-//         decoration: BoxDecoration(
-//             color: Colors.white,
-//             borderRadius: BorderRadius.circular(15),
-//             boxShadow: [
-//               BoxShadow(
-//                   offset: const Offset(0, 5),
-//                   color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
-//                   // color: Colors.white.withOpacity(1),
-//                   // color: Theme.of(context).primaryColor.withOpacity(.1),
-//                   spreadRadius: 2,
-//                   blurRadius: 5)
-//             ]),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Container(
-//               padding: const EdgeInsets.all(30),
-//               decoration: const BoxDecoration(
-//                 // shape: BoxShape.circle,
-//                 image: DecorationImage(
-//                   image: AssetImage('lib/assets/images/2.png'),
-//                   fit: BoxFit.cover,
-//                 ),
-//               ),
-//               //  child: Image.asset('lib/assets/images/2.png'),
-//             ),
-//             const SizedBox(height: 8),
-//             Text(title, style: Theme.of(context).textTheme.titleMedium)
-//           ],
-//         ),
-//       );
+
 // //-------this fucntion is to make setstate and send value back to the appbar---because in nabar is stateless so we can not use setstate
   onchangeLanguage(BuildContext context, String value) {
     context.setLocale(Locale(value));
     setState(() {});
   }
- }
+}
