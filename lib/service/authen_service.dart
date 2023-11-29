@@ -18,6 +18,7 @@ import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 
+import '../homepage/addcategory/component/model.dart';
 import '../homepage/menu_page/model/product_model.dart';
 import '../homepage/menu_page/model/unit.dart';
 import '../homepage/report/getproductmodel.dart';
@@ -112,6 +113,34 @@ class AuthenService {
       throw Exception('$e');
     }
   }
+ //------add product type--------
+
+Future<List<AddProductypeModel>?> addproducttype({required String Addpro})async{
+var headers = {
+  'Content-Type': 'application/json'
+};
+var request = http.Request('POST', Uri.parse('http://192.168.100.7:3005/product-types'));
+request.body = json.encode({
+  "protype_name": Addpro
+});
+request.headers.addAll(headers);
+
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+   var body = jsonDecode(await response.stream.bytesToString());
+        if (body['data'] != null) {
+          final protype = addProductypeModelFromJson(jsonEncode(body['data']));
+          return protype;
+        }
+}
+else {
+  print(response.reasonPhrase);
+}
+
+
+}
+
 
   // -----of product-------------
   Future<List<ProductModel>?> products(
@@ -143,7 +172,7 @@ class AuthenService {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.90.61:3005/upload"));
+        'POST', Uri.parse("http://192.168.100.7:3005/upload"));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -278,7 +307,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse('http://192.168.90.61:3005/order'));
+          http.Request('POST', Uri.parse('http://192.168.100.7:3005/order'));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
@@ -317,7 +346,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.90.61:3005/order-details'));
+          'POST', Uri.parse('http://192.168.100.7:3005/order-details'));
       request.body = json.encode({
         "or_id": order_id,
         "product_id": product_id,
@@ -345,7 +374,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'PUT', Uri.parse('http://192.168.90.61:3005/update-table'));
+          'PUT', Uri.parse('http://192.168.100.7:3005/update-table'));
       request.body =
           json.encode({"table_status": tablestatus, "table_id": table_id});
       request.headers.addAll(headers);
@@ -374,7 +403,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.90.61:3005/order-by-table'));
+          'POST', Uri.parse('http://192.168.100.7:3005/order-by-table'));
       request.body = json.encode({"tableId": table_id});
       request.headers.addAll(headers);
 
@@ -400,7 +429,7 @@ class AuthenService {
     try {
       var headders = {'content-Type': 'application/json'};
       var resqust = http.Request(
-          'POST', Uri.parse('http://192.168.90.61:3005/cut-stock'));
+          'POST', Uri.parse('http://192.168.100.7:3005/cut-stock'));
       resqust.body = json.encode({"tableId": table_id});
       resqust.headers.addAll(headders);
       http.StreamedResponse response = await resqust.send();
@@ -423,7 +452,7 @@ class AuthenService {
   }) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.90.61:3005/order/table_id'));
+        'PATCH', Uri.parse('http://192.168.100.7:3005/order/table_id'));
     request.body = json.encode({
       "or_id": or_id,
       "getmoney": getmoney,
@@ -447,7 +476,7 @@ class AuthenService {
       {required int table_id}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'POST', Uri.parse('http://192.168.90.61:3005/getOrderBytable'));
+        'POST', Uri.parse('http://192.168.100.7:3005/getOrderBytable'));
     request.body = json.encode({"tableId": table_id});
     request.headers.addAll(headers);
 
@@ -479,7 +508,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.90.61:3005/update-move-table'));
+          'POST', Uri.parse('http://192.168.100.7:3005/update-move-table'));
       request.body = json.encode({
         "ord_id": ord_id,
         "orderId": or_id,
@@ -507,7 +536,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'DELETE', Uri.parse('http://192.168.90.61:3005/delete-move-order'));
+          'DELETE', Uri.parse('http://192.168.100.7:3005/delete-move-order'));
       request.body = json.encode({"or_id": or_id});
       request.headers.addAll(headers);
 
@@ -530,7 +559,7 @@ class AuthenService {
       required int table_status}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.90.61:3005/order/table_id'));
+        'PATCH', Uri.parse('http://192.168.100.7:3005/order/table_id'));
     request.body = json.encode(
         {"or_id": or_id, "table_id": table_id, "table_status": table_status});
     request.headers.addAll(headers);
@@ -551,7 +580,7 @@ class AuthenService {
     String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
     var headers = {'Content-Type': 'application/json'};
     var request =
-        http.Request('POST', Uri.parse('http://192.168.90.61:3005/orderlist'));
+        http.Request('POST', Uri.parse('http://192.168.100.7:3005/orderlist'));
     request.body = json
         .encode({"orderDateFrom": from_pickdate, "orderDateTo": To_pickdate});
     request.headers.addAll(headers);
@@ -578,7 +607,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.90.61:3005/select-by-order_id'));
+          'POST', Uri.parse('http://192.168.100.7:3005/select-by-order_id'));
       request.body = json.encode({"or_id": or_id});
       request.headers.addAll(headers);
 
@@ -605,7 +634,7 @@ class AuthenService {
   Future<List<GetProductModel>?> getproduct_makeReport() async {
     try {
       var request =
-          http.Request('GET', Uri.parse('http://192.168.90.61:3005/product'));
+          http.Request('GET', Uri.parse('http://192.168.100.7:3005/product'));
       request.body = '''''';
 
       http.StreamedResponse response = await request.send();
@@ -632,7 +661,7 @@ class AuthenService {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.90.61:3005/orderdetails'));
+          'POST', Uri.parse('http://192.168.100.7:3005/orderdetails'));
       request.body = json.encode({
         "orderDateFrom": from_pickdate,
         "orderDateTo": To_pickdate

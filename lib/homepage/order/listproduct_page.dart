@@ -32,7 +32,8 @@ class _ListProduct_pageState extends State<ListProduct_page> {
           appBar: AppBar(
             leading: GestureDetector(
               onTap: () {
-                orderlistprovider.clearorderlist();// to make clear the product list
+                orderlistprovider
+                    .clearorderlist(); // to make clear the product list
                 Navigator.pop(context);
               },
               child: Container(
@@ -115,8 +116,10 @@ class _ListProduct_pageState extends State<ListProduct_page> {
               Row(
                 children: [
                   Container(
-                    width: 360,
-                    height: 50,
+                    height: MediaQuery.of(context).size.height * 0.09,
+                    width: MediaQuery.of(context).size.width * 1,
+                    // width: 400,
+                    // height: 50,
                     decoration: BoxDecoration(
                       color: Color.fromARGB(255, 251, 249, 249),
                     ),
@@ -155,11 +158,16 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                                     borderRadius: BorderRadius.circular(20),
                                     color: _containercolor),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
+                                  padding: const EdgeInsets.only(top: 10),
                                   child: Text(
                                     list![i].protypeName,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: _textcolor),
+                                    style: TextStyle(
+                                      color: _textcolor,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                    ),
                                   ),
                                 ),
                               ),

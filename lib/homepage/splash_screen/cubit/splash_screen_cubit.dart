@@ -8,8 +8,13 @@ import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:myproject/constant/api_path.dart';
+import 'package:myproject/homepage/Dashboard/dashboard.dart';
 import 'package:myproject/login/home_provider/provider.dart';
 import 'package:myproject/model/loginmodel.dart';
+
+import '../../Dashboard/dashboard.dart';
+import '../../Dashboard/dashboard.dart';
+import '../../Dashboard/dashboard.dart';
 part 'splash_screen_state.dart';
 
 final storage = const FlutterSecureStorage();
@@ -46,7 +51,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
             final model = userLoginModelFromJson(jsonEncode(body['data']));
             //this below line is to save the model back to the "homeProvider.setIsUserlist"
             homeProvider.setIsUserlist(model);
-            navService.pushNamedAndRemoveUntil(AppRount.menupage);
+            navService.pushNamedAndRemoveUntil(AppRount.dashboard);
           } else {
             navService.pushNamedAndRemoveUntil(AppRount.loginpage);
           }
@@ -57,7 +62,8 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
         log('Error $e');
       }
     } else {
-      navService.pushNamedAndRemoveUntil(AppRount.loginpage);// here is the first run it will come to the login page if not make remember
+      navService.pushNamedAndRemoveUntil(AppRount
+          .loginpage); // here is the first run it will come to the login page if not make remember
     }
 
     //---not ready here is need to check if the token is not yet spire then log to the homegae and if the token is spire already then log in to the login page. here we can check the token or username it is ok but for to do this we need to write in API ------------------

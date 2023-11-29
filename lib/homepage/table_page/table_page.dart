@@ -34,8 +34,8 @@ class _Table_pageState extends State<Table_page>
 
   Color _containercolor = Colors.green;
   String textcontrol = "";
-  Text k = Text("ok",style: TextStyle(color: Colors.red));
-  
+  Text k = Text("ok", style: TextStyle(color: Colors.red));
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TabletypeCubit, TabletypeState>(
@@ -68,8 +68,8 @@ class _Table_pageState extends State<Table_page>
                 Row(
                   children: [
                     Container(
-                      width: 360,
-                      height: 50,
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      width: MediaQuery.of(context).size.width * 1,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 251, 249, 249),
                       ),
@@ -111,11 +111,16 @@ class _Table_pageState extends State<Table_page>
                                       borderRadius: BorderRadius.circular(10),
                                       color: _containercolor),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(11.0),
+                                    padding: const EdgeInsets.only(top: 15),
                                     child: Text(
                                       list![i].tabletypeName,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: _textcolor),
+                                      style: TextStyle(
+                                        color: _textcolor,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -210,8 +215,8 @@ class _Table_pageState extends State<Table_page>
             });
           }
           if (table.tableStatus == 1) {
-             navService.pushNamed(AppRount.orderstatus)
-            .then((value) {    /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
+            navService.pushNamed(AppRount.orderstatus).then((value) {
+              /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
               if (value == true) {
                 cubits.getTables();
               }

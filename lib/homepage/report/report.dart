@@ -123,7 +123,8 @@ class _ReportPageState extends State<ReportPage> {
                   GestureDetector(
                     onTap: () {
                       cubit.typeOrderReport(1);
-                      cubit.TypeProductReport(0); // <---here is to make clear the prducttype in state to the default again
+                      cubit.TypeProductReport(
+                          0); // <---here is to make clear the prducttype in state to the default again
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 30, left: 30, bottom: 10),
@@ -221,8 +222,8 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1),
                         child: Container(
-                          height: 500,
-                          width: 390,
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          width: MediaQuery.of(context).size.width * 2,
                           decoration: BoxDecoration(color: Colors.white),
                           child: Builder(builder: (context) {
                             if (state.status == orderlistreportstatus.loading) {
@@ -276,7 +277,10 @@ class _ReportPageState extends State<ReportPage> {
                                                 ), // <--this is of sell qty
                                                 VerticalDivider(),
                                                 Text(
-                                                  Repotprovider.AllcollectReport![index].protypeId.toString(),
+                                                  Repotprovider
+                                                      .AllcollectReport![index]
+                                                      .protypeId
+                                                      .toString(),
                                                   style: TextStyle(
                                                       color: Colors.green),
                                                 )
@@ -331,8 +335,10 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: Container(
-                          height: 500,
-                          width: 350,
+                          // height: 500,
+                          // width: 550,
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          width: MediaQuery.of(context).size.width * 2,
                           decoration: BoxDecoration(color: Colors.white),
                           child: Builder(builder: (context) {
                             if (state.status == orderlistreportstatus.loading) {

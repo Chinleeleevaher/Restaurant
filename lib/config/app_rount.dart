@@ -1,9 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/homepage/addcategory/addcategory.dart';
+import 'package:myproject/homepage/addcategory/cubit/category_cubit.dart';
 import 'package:myproject/homepage/addproduct/addproduct_page.dart';
 import 'package:myproject/homepage/addproduct/cubit/addproduct_cubit.dart';
+import 'package:myproject/homepage/addunit/addunit_page.dart';
 import 'package:myproject/homepage/check_bill/checkbill_page.dart';
+import 'package:myproject/homepage/Dashboard/dashboard.dart';
 import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
@@ -42,11 +46,14 @@ class AppRount {
   static const String loginpage = '/Login_page';
   static const String signinpage = '/SignIn_Page';
   static const String homepage = '/Homepahe';
+  static const String dashboard = '/Dashboard';
   static const String menupage = '/Menu';
   static const String tabletype = '/tabletype';
   static const String changetable = '/changetable';
   static const String product = '/Product';
   static const String addproduct = '/Addproduct';
+  static const String addcategory = '/Addcategory';
+  static const String addunit = '/Addunit';
   static const String ListProduct = '/ListProduct';
   static const String orderlist = '/orderlist';
   static const String orderstatus = '/orderstatus';
@@ -94,6 +101,10 @@ class AppRount {
       case homepage:
         return MaterialPageRoute(
           builder: (context) => Homepage(),
+        );
+      case dashboard:
+        return MaterialPageRoute(
+          builder: (context) => Dashboard_page(),
         );
       case tabletype:
         return MaterialPageRoute(
@@ -144,6 +155,17 @@ class AppRount {
             child: Addproduct(),
           ),
         );
+      case addcategory:
+        return MaterialPageRoute(builder: (context) => BlocProvider(
+          create: (context) => CategoryCubit(
+          authenRepositorys: context.read<AuthenRepository>(),
+          
+          ),
+          child: Category_page(),
+          )
+        );
+      case addunit:
+        return MaterialPageRoute(builder: (context) => AddUnit_page());
       case ListProduct:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -191,12 +213,16 @@ class AppRount {
           ),
         );
       case report:
-        return MaterialPageRoute(builder: (context) => BlocProvider(
-          create: (context) => OrderReportCubit(
-            authenRepository: context.read<AuthenRepository>(),
-             orderproviders: context.read<orderprovider>(), context: context, reportProvider: context.read<ReportProvider>())..getOrderReport(),
-             child: ReportPage(),
-          ));
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => OrderReportCubit(
+                      authenRepository: context.read<AuthenRepository>(),
+                      orderproviders: context.read<orderprovider>(),
+                      context: context,
+                      reportProvider: context.read<ReportProvider>())
+                    ..getOrderReport(),
+                  child: ReportPage(),
+                ));
 
       default:
         return MaterialPageRoute(builder: (context) => const DefaulPage());

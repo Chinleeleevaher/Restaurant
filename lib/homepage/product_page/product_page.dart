@@ -22,7 +22,7 @@ class _ProductPageState extends State<ProductPage> {
         var cubit = context.read<ProductsCubit>();
         return Scaffold(
           appBar: AppBar(
-            title: Text("Add product"),
+            title: Text("Products"),
             actions: [
               Padding(
                 padding: EdgeInsets.all(20.0),
@@ -195,21 +195,20 @@ class _ProductPageState extends State<ProductPage> {
               SizedBox(
                 height: 10,
               ),
-                Container(
-                  width: 360,
-                  height: 50,
-                  decoration: BoxDecoration(color: Colors.green),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text("ລ/ດ"),
-                      Text("ສີນຄ້າ"),
-                      Text("ປະເພດ/ຫົວໜ່ອຍ"),
-                      Text("ຈັດການ"),
-                    ],
-                  ),
+              Container(
+                width: 360,
+                height: 50,
+                decoration: BoxDecoration(color: Colors.green),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text("ລ/ດ"),
+                    Text("ສີນຄ້າ"),
+                    Text("ປະເພດ/ຫົວໜ່ອຍ"),
+                    Text("ຈັດການ"),
+                  ],
                 ),
-              
+              ),
               Expanded(
                 child: Container(
                   height: 400,
@@ -218,8 +217,8 @@ class _ProductPageState extends State<ProductPage> {
                     child: Column(
                       children: [
                         Column(
-                          children:
-                              List.generate(cubit.state.listproduct!.length, (i) {
+                          children: List.generate(
+                              cubit.state.listproduct!.length, (i) {
                             var prolist = state.listproduct;
                             return Container(
                               height: 50,
@@ -229,7 +228,8 @@ class _ProductPageState extends State<ProductPage> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     width: 80,

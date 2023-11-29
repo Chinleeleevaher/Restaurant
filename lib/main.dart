@@ -20,7 +20,7 @@ Future<void> main() async {
   await EasyLocalization
       .ensureInitialized(); //  <--- here is to make config for change language
   runApp(
-    // --- here is of language change
+    // --- here is of change language
     EasyLocalization(
       path: 'lib/assets/translations',
       supportedLocales: const [
@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.red,

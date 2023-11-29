@@ -18,6 +18,7 @@ import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 import 'package:myproject/service/authen_service.dart';
 
+import '../homepage/addcategory/component/model.dart';
 import '../homepage/report/getproductmodel.dart';
 import '../homepage/report/orderDetailModel.dart';
 import '../homepage/report/reportmodel.dart';
@@ -44,6 +45,16 @@ class AuthenRepository {
       final result =
           await services.getTable(typeids: typeids, table_status: table_status);
       return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+      //throw Exception('Failed to load table type');
+    }
+  }
+//------of add product type---------
+  Future<Either<Failure, List<AddProductypeModel>?>> protypes({required String addpro}) async {
+    try {
+      final result = await services.addproducttype(Addpro: addpro);
+      return Right(result);
     } catch (e) {
       return Left(Failure(e.toString()));
       //throw Exception('Failed to load table type');

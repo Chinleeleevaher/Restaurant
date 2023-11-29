@@ -242,13 +242,6 @@ class ChangTableCubit extends Cubit<ChangTableState> {
   //----------<to collect the table data>-----------
   ontypechangetable(Tables value) {
     tableprovider.movetable(value);
-    // var tablelist1 = Tables(
-    //     tableId: value.tableId,
-    //     tableName: value.tableName,
-    //     tableSize: value.tableSize,
-    //     tableStatus: value.tableStatus,
-    //     tabletypeId: value.tabletypeId);
-    // tableprovider.movetable(tablelist1);
     //----------this is must call this fucntion to collect the data first befor go to the order list page------------------------------
     tableprovider.settablelist(value);
     var tablelist = Tables(
@@ -258,5 +251,17 @@ class ChangTableCubit extends Cubit<ChangTableState> {
         tableStatus: value.tableStatus,
         tabletypeId: value.tabletypeId);
     tableprovider.settablelist(tablelist);
+    getOrdertoprovider();
+  }
+
+  //----------to get ordert ro provider to make update in payment again if i come to this page---------
+  Future<void> getOrdertoprovider() async {
+    var result = await authenRepository.ToSelectOrderToprovider(
+        table_id: tableprovider.gettablelist.tableId);
+    result!.fold((Left) {
+      log("error");
+    }, (Right) {
+      tableprovider.getorderID(Right);
+    });
   }
 }

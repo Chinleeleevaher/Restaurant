@@ -44,24 +44,189 @@ class _HomepageState extends State<Homepage>
         color: Color.fromARGB(255, 255, 255, 255),
         child: ListView(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return Menu();
-                          }));
-                        },
-                        child: GestureDetector(
-                          onTap: () {
-                            navService.pushNamed(AppRount.menupage);
-                          },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Menu();
+                              }));
+                            },
+                            child: GestureDetector(
+                              onTap: () {
+                                navService.pushNamed(AppRount.menupage);
+                              },
+                              child: Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 5),
+                                          color: Color.fromARGB(77, 11, 11, 11)
+                                              .withOpacity(0.1),
+                                          // color: Theme.of(context)
+                                          //     .primaryColor
+                                          //     .withOpacity(0.1),
+                                          spreadRadius: 2,
+                                          blurRadius: 5)
+                                    ]),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Icon(
+                                      Icons.menu,
+                                      size: 50,
+                                      color: Colors.blue,
+                                    ),
+                                    Text(LocaleKeys.menu
+                                        .tr()) //<--- text of Menu-------
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ChangeTable();
+                              }));
+                            },
+                            child: GestureDetector(
+                              onTap: () {
+                                navService.pushNamed(AppRount.changetable);
+                              },
+                              child: Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          offset: const Offset(0, 5),
+                                          color: Color.fromARGB(77, 11, 11, 11),
+                                          spreadRadius: 2,
+                                          blurRadius: 5)
+                                    ]),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Icon(
+                                      Icons.move_down,
+                                      size: 50,
+                                      color: Colors.blue,
+                                    ),
+                                    Text(LocaleKeys.changeTable
+                                        .tr()) //<--- text of change table-------
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Manage_page();
+                              }));
+                            },
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: const Offset(0, 5),
+                                        color: Color.fromARGB(77, 11, 11, 11),
+                                        spreadRadius: 2,
+                                        blurRadius: 5)
+                                  ]),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Icon(
+                                    Icons.manage_search,
+                                    size: 50,
+                                    color: Colors.blue,
+                                  ),
+                                  Text(LocaleKeys.product
+                                      .tr()) //<--- text of Product-------
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              //   orderproviders.orderReport
+                              navService.pushNamed(AppRount.report);
+                            },
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: const Offset(0, 5),
+                                        color: Color.fromARGB(77, 11, 11, 11),
+                                        spreadRadius: 2,
+                                        blurRadius: 5)
+                                  ]),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Icon(
+                                    Icons.list,
+                                    size: 50,
+                                    color: Colors.blue,
+                                  ),
+                                  Text(LocaleKeys.report
+                                      .tr()) //<--- text of Report-------
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
                           child: Container(
                             height: 100,
                             width: 100,
@@ -69,54 +234,6 @@ class _HomepageState extends State<Homepage>
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
-                                  BoxShadow(
-                                      offset: const Offset(0, 5),
-                                      color: Color.fromARGB(77, 11, 11, 11)
-                                          .withOpacity(0.1),
-                                      // color: Theme.of(context)
-                                      //     .primaryColor
-                                      //     .withOpacity(0.1),
-                                      spreadRadius: 2,
-                                      blurRadius: 5)
-                                ]),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Icon(
-                                  Icons.menu,
-                                  size: 50,
-                                  color: Colors.blue,
-                                ),
-                                Text(LocaleKeys.menu
-                                    .tr()) //<--- text of Menu-------
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ChangeTable();
-                          }));
-                        },
-                        child: GestureDetector(
-                          onTap: () {
-                            navService.pushNamed(AppRount.changetable);
-                          },
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
                                   BoxShadow(
                                       offset: const Offset(0, 5),
                                       color: Color.fromARGB(77, 11, 11, 11),
@@ -129,163 +246,52 @@ class _HomepageState extends State<Homepage>
                                   height: 10,
                                 ),
                                 Icon(
-                                  Icons.move_down,
+                                  Icons.qr_code,
                                   size: 50,
-                                  color: Colors.blue,
+                                  color: Colors.green,
                                 ),
-                                Text(LocaleKeys.changeTable
-                                    .tr()) //<--- text of change table-------
+                                Text(LocaleKeys.scan
+                                    .tr()) //<--- text of Scan-------
                               ],
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return Manage_page();
-                          }));
-                        },
-                        child: Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: const Offset(0, 5),
-                                    color: Color.fromARGB(77, 11, 11, 11),
-                                    spreadRadius: 2,
-                                    blurRadius: 5)
-                              ]),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Icon(
-                                Icons.manage_search,
-                                size: 50,
-                                color: Colors.blue,
-                              ),
-                              Text(LocaleKeys.product
-                                  .tr()) //<--- text of Product-------
-                            ],
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      offset: const Offset(0, 5),
+                                      color: Color.fromARGB(77, 11, 11, 11),
+                                      spreadRadius: 2,
+                                      blurRadius: 5)
+                                ]),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.security,
+                                  size: 50,
+                                  color: Colors.red,
+                                ),
+                                Text(LocaleKeys.security
+                                    .tr()) //<--- text of Scurity-------
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    )
+                        )
+                      ],
+                    ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          //   orderproviders.orderReport
-                          navService.pushNamed(AppRount.report);
-                        },
-                        child: Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: const Offset(0, 5),
-                                    color: Color.fromARGB(77, 11, 11, 11),
-                                    spreadRadius: 2,
-                                    blurRadius: 5)
-                              ]),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Icon(
-                                Icons.list,
-                                size: 50,
-                                color: Colors.blue,
-                              ),
-                              Text(LocaleKeys.report
-                                  .tr()) //<--- text of Report-------
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.qr_code,
-                              size: 50,
-                              color: Colors.green,
-                            ),
-                            Text(
-                                LocaleKeys.scan.tr()) //<--- text of Scan-------
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.security,
-                              size: 50,
-                              color: Colors.red,
-                            ),
-                            Text(LocaleKeys.security
-                                .tr()) //<--- text of Scurity-------
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
+              ),
             )
           ],
         ),

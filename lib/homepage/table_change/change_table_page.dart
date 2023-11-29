@@ -355,6 +355,7 @@ class _ChangeTableState extends State<ChangeTable> {
           if (table.tableStatus == 1 &&
               tableprovider.FromTable != "1" &&
               tableprovider.ToTable != "2") {
+            
             navService.pushNamed(AppRount.orderstatus).then((value) {
               /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
               if (value == true) {

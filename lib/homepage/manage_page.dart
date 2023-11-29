@@ -36,29 +36,135 @@ class _Manage_pageState extends State<Manage_page>
         color: Color.fromARGB(255, 255, 255, 255),
         child: ListView(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: GestureDetector(
-                        onTap: () => navService.pushNamed(AppRount.product),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () => navService.pushNamed(AppRount.product),
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      offset: const Offset(0, 5),
+                                      color: Color.fromARGB(77, 11, 11, 11)
+                                          .withOpacity(0.1),
+                                      // color: Theme.of(context)
+                                      //     .primaryColor
+                                      //     .withOpacity(0.1),
+                                      spreadRadius: 2,
+                                      blurRadius: 5)
+                                ]),
+                            child: const Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.production_quantity_limits,
+                                  size: 50,
+                                  color: Colors.blue,
+                                ),
+                                Text("Product")
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            navService.pushNamed(AppRount.addcategory);
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      offset: const Offset(0, 5),
+                                      color: Color.fromARGB(77, 11, 11, 11),
+                                      spreadRadius: 2,
+                                      blurRadius: 5)
+                                ]),
+                            child: const Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.category,
+                                  size: 50,
+                                  color: Colors.blue,
+                                ),
+                                Text("category")
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () => navService.pushNamed(AppRount.addunit),
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      offset: const Offset(0, 5),
+                                      color: Color.fromARGB(77, 11, 11, 11),
+                                      spreadRadius: 2,
+                                      blurRadius: 5)
+                                ]),
+                            child: const Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.ac_unit,
+                                  size: 50,
+                                  color: Colors.blue,
+                                ),
+                                Text("Unit")
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
                         child: Container(
                           height: 100,
                           width: 100,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                     offset: const Offset(0, 5),
-                                    color: Color.fromARGB(77, 11, 11, 11)
-                                        .withOpacity(0.1),
-                                    // color: Theme.of(context)
-                                    //     .primaryColor
-                                    //     .withOpacity(0.1),
+                                    color: Color.fromARGB(77, 11, 11, 11),
                                     spreadRadius: 2,
                                     blurRadius: 5)
                               ]),
@@ -68,173 +174,79 @@ class _Manage_pageState extends State<Manage_page>
                                 height: 10,
                               ),
                               Icon(
-                                Icons.production_quantity_limits,
+                                Icons.table_bar,
                                 size: 50,
                                 color: Colors.blue,
                               ),
-                              Text("Product")
+                              Text("Table")
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: const Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.category,
-                              size: 50,
-                              color: Colors.blue,
-                            ),
-                            Text("category")
-                          ],
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: const Offset(0, 5),
+                                    color: Color.fromARGB(77, 11, 11, 11),
+                                    spreadRadius: 2,
+                                    blurRadius: 5)
+                              ]),
+                          child: const Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Icon(
+                                Icons.type_specimen,
+                                size: 50,
+                                color: Colors.green,
+                              ),
+                              Text("table type")
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: const Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.ac_unit,
-                              size: 50,
-                              color: Colors.blue,
-                            ),
-                            Text("Unit")
-                          ],
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: const Offset(0, 5),
+                                    color: Color.fromARGB(77, 11, 11, 11),
+                                    spreadRadius: 2,
+                                    blurRadius: 5)
+                              ]),
+                          child: const Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Icon(
+                                Icons.person,
+                                size: 50,
+                                color: Colors.red,
+                              ),
+                              Text("User Manger")
+                            ],
+                          ),
                         ),
                       ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: const Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.table_bar,
-                              size: 50,
-                              color: Colors.blue,
-                            ),
-                            Text("Table")
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: const Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.type_specimen,
-                              size: 50,
-                              color: Colors.green,
-                            ),
-                            Text("table type")
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: const Offset(0, 5),
-                                  color: Color.fromARGB(77, 11, 11, 11),
-                                  spreadRadius: 2,
-                                  blurRadius: 5)
-                            ]),
-                        child: const Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.person,
-                              size: 50,
-                              color: Colors.red,
-                            ),
-                            Text("User Manger")
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),
