@@ -18,4 +18,4 @@ samples, guidance on mobile development, and a full API reference.
   flutter pub run easy_localization:generate -S lib/assets/translations -f keys -o locale_keys.g.dart
 
   flutter v3 up run: 
-  dart run easy_localization:generate -S lib/assets/translations -f keys -o locale_keys.g.dart
+  dart run easy_localization:generate -S lib/assets/translations -f keys -o locale_keys.g.dart# Final_Project
