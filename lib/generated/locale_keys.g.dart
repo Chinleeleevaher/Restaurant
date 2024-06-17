@@ -41,8 +41,8 @@ abstract class  LocaleKeys {
   static const changeTable = 'changeTable';
   static const product = 'product';
   static const report = 'report';
-  static const scan = 'scan';
-  static const security = 'security';
+  static const scan = 'User Manager';
+  static const security = 'Kitchen';
   static const tabletype = 'tabletype';
   static const fromTable = 'fromTable';
   static const toTable = 'toTable';

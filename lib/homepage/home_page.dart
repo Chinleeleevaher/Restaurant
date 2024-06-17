@@ -246,9 +246,9 @@ class _HomepageState extends State<Homepage>
                                   height: 10,
                                 ),
                                 Icon(
-                                  Icons.qr_code,
+                                  Icons.people,
                                   size: 50,
-                                  color: Colors.green,
+                                  color: Colors.red,
                                 ),
                                 Text(LocaleKeys.scan
                                     .tr()) //<--- text of Scan-------
@@ -277,9 +277,9 @@ class _HomepageState extends State<Homepage>
                                   height: 10,
                                 ),
                                 Icon(
-                                  Icons.security,
+                                  Icons.kitchen,
                                   size: 50,
-                                  color: Colors.red,
+                                  color: Colors.green,
                                 ),
                                 Text(LocaleKeys.security
                                     .tr()) //<--- text of Scurity-------

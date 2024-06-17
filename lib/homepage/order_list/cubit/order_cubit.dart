@@ -44,11 +44,11 @@ class OrderCubit extends Cubit<OrderState> {
         order_amount: orderproviders.totalprice.toInt(),
         order_table: tableproviders.gettablelist.tableId,
         order_status: orderproviders.tablestatus!.tableStatus);
-    result!.fold((Left) {
-      log("Error");
-    }, (Right) {
+    result.fold((f) {
+      log("Error1111 $f");
+    }, (data) {
       orderproviders.orderlisttable(
-          Right!); // <--here is to keep value to the orderprovider
+          data!); // <--here is to keep value to the orderprovider
       print("respomse $Right");
       emit(state.coppywith(status_c: orderproductstatuse.success));
       postorderdetail().then((value) {
@@ -75,7 +75,7 @@ class OrderCubit extends Cubit<OrderState> {
             orderproviders.getorderlist[i].qty,
       );
       result!.fold((l) {
-        log("Error");
+        log("Error detail=== $l");
       }, (r) {
         emit(state.coppywith(status_c: orderproductstatuse.success));
       });

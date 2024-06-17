@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
+import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
 part 'orderstatus_state.dart';
@@ -20,15 +21,16 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
       : super(OrderstatusState());
 //------of select order data to show to the order status page it is of order detail-------------
   Future<void> seletorderdata() async {
-    emit(state.coppywith(status_c: selectorderdata.loading));
+    emit(state.coppywith(status: selectorderdata.loading));
     var resault = await authenRepository.SelectByOrder(
         table_id: tableproviders.gettablelist.tableId);
     resault!.fold((Left) {
       log("No data it is error");
-    }, (Right) {
-      emit(state.coppywith(status_c: selectorderdata.success));
+    }, (data) {
+      emit(state.coppywith(
+          status: selectorderdata.success, selectOrderList: data));
       orderproviders.selectOrderStatus(
-          Right); // <---to correct the data the Orderoriovider
+          data); // <---to correct the data the Orderoriovider
     });
   }
 

@@ -74,7 +74,7 @@ class _Manage_pageState extends State<Manage_page>
                                   size: 50,
                                   color: Colors.blue,
                                 ),
-                                Text("Product")
+                                Text("Add Product")
                               ],
                             ),
                           ),
@@ -174,11 +174,11 @@ class _Manage_pageState extends State<Manage_page>
                                 height: 10,
                               ),
                               Icon(
-                                Icons.table_bar,
+                                Icons.add,
                                 size: 50,
                                 color: Colors.blue,
                               ),
-                              Text("Table")
+                              Text("Order Product")
                             ],
                           ),
                         ),
@@ -204,11 +204,11 @@ class _Manage_pageState extends State<Manage_page>
                                 height: 10,
                               ),
                               Icon(
-                                Icons.type_specimen,
+                                Icons.shop,
                                 size: 50,
                                 color: Colors.green,
                               ),
-                              Text("table type")
+                              Text("Product")
                             ],
                           ),
                         ),
@@ -234,11 +234,11 @@ class _Manage_pageState extends State<Manage_page>
                                 height: 10,
                               ),
                               Icon(
-                                Icons.person,
+                                Icons.table_bar,
                                 size: 50,
                                 color: Colors.red,
                               ),
-                              Text("User Manger")
+                              Text("Add Table")
                             ],
                           ),
                         ),

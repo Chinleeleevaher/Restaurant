@@ -104,8 +104,8 @@ class ChangTableCubit extends Cubit<ChangTableState> {
     for (int i = 0; i < tableprovider.getMOvetableorder!.length; i++) {
       var result = await authenRepository.MoveTable(
         ord_id: tableprovider.getMOvetableorder![i].ordId,
-        or_id: tableprovider.getMOvetableorder![i].orId,
-        product_id: tableprovider.getMOvetableorder![i].productId,
+        or_id: tableprovider.getMOvetableorder![i].orId!,
+        product_id: tableprovider.getMOvetableorder![i].productId!,
         product_name: tableprovider.getMOvetableorder![i].productName,
         qty: tableprovider.getMOvetableorder![i].qty,
         amount: tableprovider.getMOvetableorder![i].amount.toDouble(),
@@ -140,7 +140,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
   Future<void> delete_move_table() async {
     for (int i = 0; i < tableprovider.getorderFromTableid!.length; i++) {
       var result = await authenRepository.delete_move_table(
-        or_id: tableprovider.getorderFromTableid![i].orId,
+        or_id: tableprovider.getorderFromTableid![i].orId!,
       );
       result!.fold((l) {
         log("error");
@@ -154,7 +154,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
 //------------update table_id in order table---------------
   Future<bool?> update_tbOrder_tableId() async {
     var result = await authenRepository.updateTable_id(
-        or_id: tableprovider.getMOvetableorder![0].orId,
+        or_id: tableprovider.getMOvetableorder![0].orId!,
         table_id: tableprovider.totable_Id,
         table_status: 1);
     result!.fold((l) {

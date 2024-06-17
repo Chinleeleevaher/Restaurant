@@ -242,6 +242,7 @@ class _OrderListState extends State<OrderList> {
                             ElevatedButton(
                               onPressed: () {
                                 //  orderlist.clear();
+                                Navigator.pop(context);
                               },
                               child: Text("Cencel"),
                               style: ElevatedButton.styleFrom(

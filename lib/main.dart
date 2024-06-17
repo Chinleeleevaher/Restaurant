@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
+import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
+import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/order/provider.dart';
@@ -39,6 +41,8 @@ Future<void> main() async {
           ChangeNotifierProvider(create: (_) => orderprovider()),
           ChangeNotifierProvider(create: (_) => tableProvider()),
           ChangeNotifierProvider(create: (_) => ReportProvider()),
+           ChangeNotifierProvider(create: (_) => categoryProvider()),
+            ChangeNotifierProvider(create: (_) => UnitProvider()),
         ], child: const MyApp()),
       ),
     ),

@@ -79,10 +79,17 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
           body: Builder(
             builder: (context) {
               if (state.status == selectorderdata.loading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
+              if (orderlist.selectorderdata == null ||
+                  orderlist.selectorderdata!.isEmpty) {
+                return const Center(
+                  child: Text('data empty'),
+                );
+              }
+
               return Column(
                 children: [
                   Container(
@@ -119,8 +126,10 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                     child: // orderlist.orderlist.productId != null && orderlist.orderlist.productId.isNotEmpty?
                         ListView.builder(
                             itemCount: orderlist.selectorderdata!.length,
+                            //itemCount: state.selectOrderList!.length,
                             itemBuilder: (c, i) {
                               var list = orderlist.selectorderdata;
+                              //var list = state.selectOrderList;
                               return Card(
                                 margin: EdgeInsets.only(
                                     bottom: i + 1 == 10 ? 10 : 3),

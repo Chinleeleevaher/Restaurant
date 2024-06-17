@@ -63,74 +63,81 @@ class _AddproductState extends State<Addproduct> {
                   Column(
                     children: [
                       Container(
+                        width: double.infinity,
                         alignment: Alignment.topCenter,
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 20),
-                              child: state.typeSelecimage != null &&
-                                      state.typeSelecimage!.path.isNotEmpty
-                                  ? Image.file(
-                                      state.typeSelecimage!,
-                                      width: 160,
-                                      height: 160,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : state.imagenetword != null &&
-                                          state.imagenetword!.isNotEmpty
-                                      ? Image.network(
-                                          state.imagenetword!,
-                                          width: 160,
-                                          height: 160,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Icon(
-                                          Icons.image,
-                                          size: 180,
-                                          color: Colors.red,
-                                        ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20, top: 20),
+                                child: state.typeSelecimage != null &&
+                                        state.typeSelecimage!.path.isNotEmpty
+                                    ? Image.file(
+                                        state.typeSelecimage!,
+                                        width: 160,
+                                        height: 160,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : state.imagenetword != null &&
+                                            state.imagenetword!.isNotEmpty
+                                        ? Image.network(
+                                            state.imagenetword!,
+                                            width: 160,
+                                            height: 160,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Icon(
+                                            Icons.image,
+                                            size: 180,
+                                            color: Colors.red,
+                                          ),
+                              ),
                             ),
                             SizedBox(
                               width: 30,
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () => pickimage(cubit: cubit),
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.red),
-                                      child: Icon(
-                                        Icons.image,
-                                        color: Colors.white,
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => pickimage(cubit: cubit),
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.red),
+                                        child: Icon(
+                                          Icons.image,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => carmera(cubitcamera: cubit),
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.red),
-                                      child: Icon(
-                                        Icons.camera,
-                                        color: Colors.white,
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => carmera(cubitcamera: cubit),
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.red),
+                                        child: Icon(
+                                          Icons.camera,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             )
                           ],

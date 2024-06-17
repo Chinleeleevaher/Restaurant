@@ -6,22 +6,30 @@ class OrderstatusState extends Equatable {
   const OrderstatusState({
     this.status = selectorderdata.initial,
     this.error,
-    });
+    this.selectOrderList = const [],
+  });
 
   final selectorderdata status;
   final String? error;
+  final List<SelectOrderByTableModel>? selectOrderList;
 
   @override
-  List<Object?> get props => [status, error];
+  List<Object?> get props => [
+        status,
+        error,
+        selectOrderList,
+      ];
 
   OrderstatusState coppywith({
-    selectorderdata? status_c,
-    String? error_c
-    }) {
+    selectorderdata? status,
+    String? error,
+    List<SelectOrderByTableModel>? selectOrderList,
+  }) {
     return OrderstatusState(
-      error: error_c?? this.error,
-      status: status_c ?? this.status
-      );
+      error: error ?? this.error,
+      status: status ?? this.status,
+      selectOrderList: selectOrderList ?? this.selectOrderList,
+    );
   }
 }
 

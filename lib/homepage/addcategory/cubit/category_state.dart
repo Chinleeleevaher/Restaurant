@@ -8,10 +8,8 @@ class CategoryState extends Equatable {
   final Categorytatuse status;
 
   @override
-  List<Object> get props => [status];
+  List<Object?> get props => [status];
   CategoryState coppywith({Categorytatuse? status_c}) {
     return CategoryState(status: status_c ?? this.status);
   }
 }
-
-final class CategoryInitial extends CategoryState {}

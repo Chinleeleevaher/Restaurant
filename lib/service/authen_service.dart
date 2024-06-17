@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
+import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -95,31 +96,13 @@ class AuthenService {
     }
   }
 
-  // -----of producttype-----
-  Future<List<punit>?> prUnit() async {
-    try {
-      final response = await http.get(Uri.parse(ApiPaths.unitpath));
-      if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);
-        if (jsonData['data'] != null) {
-          var data = unitFromJson(jsonEncode(jsonData['data']));
-          return data;
-        }
-        Exception('data is null');
-      } else {
-        Exception('Failed to load table types');
-      }
-    } catch (e) {
-      throw Exception('$e');
-    }
-  }
  //------add product type--------
 
 Future<List<AddProductypeModel>?> addproducttype({required String Addpro})async{
 var headers = {
   'Content-Type': 'application/json'
 };
-var request = http.Request('POST', Uri.parse('http://192.168.100.7:3005/product-types'));
+var request = http.Request('POST', Uri.parse(ApiPaths.add_producttype));
 request.body = json.encode({
   "protype_name": Addpro
 });
@@ -140,6 +123,169 @@ else {
 
 
 }
+
+  //-----of delete product type-----------
+  Future<bool?> deleteCategory({required int cate_id}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('DELETE', Uri.parse(ApiPaths.delete_producttype));
+    request.body = json.encode({"protype_id": cate_id});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body["status"] == true) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  //-------< update Product type --------------
+
+  Future<bool?> updateCate(
+      {required int Cate_id,
+      required String Cate_name,
+      }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request =
+          http.Request('PUT', Uri.parse(ApiPaths.upadte_productype));
+      request.body = json.encode({
+        "protype_id": Cate_id,
+        "protype_name": Cate_name, //should be string
+       // should be string
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        log("Body: $body");
+        if (body["status"] == true) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print("error $e");
+    }
+  }
+
+
+
+// -----of get Unit-----
+  Future<List<punit>?> prUnit() async {
+    try {
+      final response = await http.get(Uri.parse(ApiPaths.unitpath));
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        if (jsonData['data'] != null) {
+          var data = unitFromJson(jsonEncode(jsonData['data']));
+          return data;
+        }
+        Exception('data is null');
+      } else {
+        Exception('Failed to load table types');
+      }
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  //------add Unit--------
+
+Future<List<AdUnitModel>?> adunit({required String addU})async{
+var headers = {
+  'Content-Type': 'application/json'
+};
+var request = http.Request('POST', Uri.parse(ApiPaths.addUnit));
+request.body = json.encode({
+  "unitName": addU
+});
+request.headers.addAll(headers);
+
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+   var body = jsonDecode(await response.stream.bytesToString());
+        if (body['data'] != null) {
+          final protype = adUnitModelFromJson(jsonEncode(body['data']));
+          return protype;
+        }
+}
+else {
+  print(response.reasonPhrase);
+}
+}
+
+
+  //-----of delete Unit-----------
+  Future<bool?> deleteUnits({required int unit_id}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('DELETE', Uri.parse(ApiPaths.delete_unit));
+    request.body = json.encode({"unitId": unit_id});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body["status"] == true) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+
+//-------< update Unit --------------
+
+  Future<bool?> updateUnit(
+      {required int Unit_id,
+      required String Unit_name,
+      }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request =
+          http.Request('PUT', Uri.parse(ApiPaths.update_unit));
+      request.body = json.encode({
+        "unitId": Unit_id,
+        "unitName": Unit_name, //should be string
+       // should be string
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        log("Body: $body");
+        if (body["status"] == true) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print("error $e");
+    }
+  }
 
 
   // -----of product-------------
@@ -172,7 +318,7 @@ else {
 
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse("http://192.168.100.7:3005/upload"));
+        'POST', Uri.parse(ApiPaths.uploadimagePath));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -307,7 +453,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse('http://192.168.100.7:3005/order'));
+          http.Request('POST', Uri.parse(ApiPaths.order_product));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
@@ -346,7 +492,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.100.7:3005/order-details'));
+          'POST', Uri.parse(ApiPaths.order_detail));
       request.body = json.encode({
         "or_id": order_id,
         "product_id": product_id,
@@ -374,7 +520,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'PUT', Uri.parse('http://192.168.100.7:3005/update-table'));
+          'PUT', Uri.parse(ApiPaths.update_table));
       request.body =
           json.encode({"table_status": tablestatus, "table_id": table_id});
       request.headers.addAll(headers);
@@ -403,7 +549,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.100.7:3005/order-by-table'));
+          'POST', Uri.parse(ApiPaths.order_by_table));
       request.body = json.encode({"tableId": table_id});
       request.headers.addAll(headers);
 
@@ -429,7 +575,7 @@ else {
     try {
       var headders = {'content-Type': 'application/json'};
       var resqust = http.Request(
-          'POST', Uri.parse('http://192.168.100.7:3005/cut-stock'));
+          'POST', Uri.parse(ApiPaths.cut_stocks));
       resqust.body = json.encode({"tableId": table_id});
       resqust.headers.addAll(headders);
       http.StreamedResponse response = await resqust.send();
@@ -452,7 +598,7 @@ else {
   }) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.100.7:3005/order/table_id'));
+        'PATCH', Uri.parse(ApiPaths.update_tbOrders));
     request.body = json.encode({
       "or_id": or_id,
       "getmoney": getmoney,
@@ -476,7 +622,7 @@ else {
       {required int table_id}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'POST', Uri.parse('http://192.168.100.7:3005/getOrderBytable'));
+        'POST', Uri.parse(ApiPaths.getOrderby_table));
     request.body = json.encode({"tableId": table_id});
     request.headers.addAll(headers);
 
@@ -508,7 +654,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.100.7:3005/update-move-table'));
+          'POST', Uri.parse(ApiPaths.update_move_table));
       request.body = json.encode({
         "ord_id": ord_id,
         "orderId": or_id,
@@ -536,7 +682,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'DELETE', Uri.parse('http://192.168.100.7:3005/delete-move-order'));
+          'DELETE', Uri.parse(ApiPaths.delete_move_table));
       request.body = json.encode({"or_id": or_id});
       request.headers.addAll(headers);
 
@@ -559,7 +705,7 @@ else {
       required int table_status}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
-        'PATCH', Uri.parse('http://192.168.100.7:3005/order/table_id'));
+        'PATCH', Uri.parse(ApiPaths.update_table_id));
     request.body = json.encode(
         {"or_id": or_id, "table_id": table_id, "table_status": table_status});
     request.headers.addAll(headers);
@@ -580,7 +726,7 @@ else {
     String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
     var headers = {'Content-Type': 'application/json'};
     var request =
-        http.Request('POST', Uri.parse('http://192.168.100.7:3005/orderlist'));
+        http.Request('POST', Uri.parse(ApiPaths.getOrdrereports));
     request.body = json
         .encode({"orderDateFrom": from_pickdate, "orderDateTo": To_pickdate});
     request.headers.addAll(headers);
@@ -607,7 +753,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.100.7:3005/select-by-order_id'));
+          'POST', Uri.parse(ApiPaths.SelectOrderByReport));
       request.body = json.encode({"or_id": or_id});
       request.headers.addAll(headers);
 
@@ -634,7 +780,7 @@ else {
   Future<List<GetProductModel>?> getproduct_makeReport() async {
     try {
       var request =
-          http.Request('GET', Uri.parse('http://192.168.100.7:3005/product'));
+          http.Request('GET', Uri.parse(ApiPaths.getProduct_makeReport));
       request.body = '''''';
 
       http.StreamedResponse response = await request.send();
@@ -661,7 +807,7 @@ else {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
-          'POST', Uri.parse('http://192.168.100.7:3005/orderdetails'));
+          'POST', Uri.parse(ApiPaths.getOrderdetail_makeReports));
       request.body = json.encode({
         "orderDateFrom": from_pickdate,
         "orderDateTo": To_pickdate

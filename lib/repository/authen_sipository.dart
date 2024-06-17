@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
+import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
@@ -71,8 +72,32 @@ class AuthenRepository {
       //throw Exception('Failed to load table type');
     }
   }
+  //-----of delete product type-----
+  Future<Either<Failure, bool>?> deletecate({required int cate_id}) async {
+    try {
+      final result = await services.deleteCategory(cate_id: cate_id);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+   //----of update product type---------
+  Future<Either<Failure, bool>> updateCate(
+      {required int cate_id,
+      required String cate_name,
+      }) async {
+    try {
+      final result = await services.updateCate(
+          Cate_id: cate_id,
+          Cate_name: cate_name,
+          );
+      return right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 
-  // -------of unit-----------
+  // -------of unit get -----------
   Future<Either<Failure, List<punit>?>> prUnit() async {
     try {
       final result = await services.prUnit();
@@ -82,6 +107,44 @@ class AuthenRepository {
       //throw Exception('Failed to load table type');
     }
   }
+
+  //------of add Unit---------
+  Future<Either<Failure, List<AdUnitModel>?>> adUnit({required String addpro}) async {
+    try {
+      final result = await services.adunit(addU: addpro);
+      return Right(result);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+      //throw Exception('Failed to load table type');
+    }
+  }
+  //-----of delete Unit-----
+  Future<Either<Failure, bool>?> deleteUnit({required int unit_id}) async {
+    try {
+      final result = await services.deleteUnits(unit_id: unit_id);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+
+   //----of update unit---------
+  Future<Either<Failure, bool>> updateUnit(
+      {required int Unit_id,
+      required String Unit_name,
+      }) async {
+    try {
+      final result = await services.updateUnit(
+          Unit_id: Unit_id,
+          Unit_name: Unit_name,
+          );
+      return right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
 
   //--------of product-------------
   Future<Either<Failure, List<ProductModel>>> getproduct(

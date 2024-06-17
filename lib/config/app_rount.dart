@@ -1,16 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/addcategory/addcategory.dart';
+import 'package:myproject/homepage/addcategory/component/model.dart';
 import 'package:myproject/homepage/addcategory/cubit/category_cubit.dart';
+import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
 import 'package:myproject/homepage/addproduct/addproduct_page.dart';
 import 'package:myproject/homepage/addproduct/cubit/addproduct_cubit.dart';
 import 'package:myproject/homepage/addunit/addunit_page.dart';
+import 'package:myproject/homepage/addunit/cubit/addunit_cubit.dart';
+import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import 'package:myproject/homepage/check_bill/checkbill_page.dart';
 import 'package:myproject/homepage/Dashboard/dashboard.dart';
 import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
+import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/cubit/lisproduct_cubit.dart';
 import 'package:myproject/homepage/order/listproduct_page.dart';
@@ -156,16 +160,30 @@ class AppRount {
           ),
         );
       case addcategory:
-        return MaterialPageRoute(builder: (context) => BlocProvider(
-          create: (context) => CategoryCubit(
-          authenRepositorys: context.read<AuthenRepository>(),
-          
-          ),
-          child: Category_page(),
-          )
-        );
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => CategoryCubit(
+                    authenRepositorys: context.read<AuthenRepository>(),
+                    categoryeprovider: context.read<categoryProvider>(),
+                    // productTypemodel: settings as  AddProductypeModel,
+                    productTypemodel: null,
+                    context: context,
+                  )..getproductype(),
+                  child: Category_page(),
+                ));
       case addunit:
-        return MaterialPageRoute(builder: (context) => AddUnit_page());
+            return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => AddunitCubit(
+                    authenRepositorys: context.read<AuthenRepository>(),
+                    Unitprovider: context.read<UnitProvider>(),
+                    // productTypemodel: settings as  AddProductypeModel,
+                //    productTypemodel: null,
+                    context: context,
+                  )..getUnit(),
+                  child: AddUnit_page(),
+                ));
+
       case ListProduct:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(

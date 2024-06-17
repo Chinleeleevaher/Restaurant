@@ -87,8 +87,9 @@ class TabletypeCubit extends Cubit<TabletypeState> {
     var result = await authenRepository.ToSelectOrderToprovider(
         table_id: tableprovider.gettablelist.tableId);
     result!.fold((Left) {
-      log("error");
+      log("error $Left");
     }, (Right) {
+      log('orderid=====>$Right');
       tableprovider.getorderID(Right);
     });
   }
