@@ -37,8 +37,8 @@ class ApiPaths {
     static const String update_tbOrders = '$baseURL/order/table_id';
     static const String getOrderby_table = '$baseURL/getOrderBytable';
     static const String update_move_table = '$baseURL/update-move-table';
-    static const String delete_move_table = '$baseURL/delete-move-order';
-    static const String update_table_id = '$baseURL/order/table_id';
+    static const String delete_getFromtable = '$baseURL/delete-move-order-getFromtable';
+    static const String update_table_id = '$baseURL/update_tableID_status_tbOrder';
     static const String getOrdrereports = '$baseURL/orderlist';
     static const String SelectOrderByReport = '$baseURL/select-by-order_id';
     static const String getProduct_makeReport = '$baseURL/product';

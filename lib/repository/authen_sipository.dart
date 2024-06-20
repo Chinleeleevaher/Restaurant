@@ -255,7 +255,7 @@ class AuthenRepository {
   Future<Either<Failure, bool>?> orderproductdetail({
     required int order_id,
     required String product_id,
-    required String product_name,
+    required int table_id,
     required int qty,
     required double amount,
   }) async {
@@ -263,7 +263,7 @@ class AuthenRepository {
       final result = await services.orderproductlist(
           order_id: order_id,
           product_id: product_id,
-          product_name: product_name,
+          table_id: table_id,
           qty: qty,
           amount: amount);
       return Right(result!);
@@ -338,21 +338,18 @@ class AuthenRepository {
 
   //----to move menu list of table---------------------
   Future<Either<Failure, bool>?> MoveTable({
-    required int ord_id,
     required int or_id,
     required String product_id,
-    required String product_name,
     required int qty,
     required double amount,
+    required int table_id
   }) async {
     try {
       final result = await services.Update_MenuOfMoveTable(
-        ord_id: ord_id,
         or_id: or_id,
         product_id: product_id,
-        product_name: product_name,
         qty: qty,
-        amount: amount,
+        amount: amount, table_id: table_id,
       );
       return Right(result!);
     } catch (e) {
@@ -360,31 +357,36 @@ class AuthenRepository {
     }
   }
 
-  //----deletemove table---------------------
+  //----delete getFromtable---------------------
   Future<Either<Failure, bool>?> delete_move_table({
-    required int or_id,
+    required int table_id,
   }) async {
     try {
       final result = await services.Delete_Move_Table(
-        or_id: or_id,
+        table_id: table_id,
       );
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
-
   //----deletemove table---------------------
   Future<Either<Failure, bool>?> updateTable_id({
     required int or_id,
     required int table_id,
-    required int table_status,
+    required int table_ids,
+    required int or_qty,
+    required int or_amount,
+   
   }) async {
     try {
       final result = await services.updatetable_id(
         or_id: or_id,
         table_id: table_id,
-        table_status: table_status,
+         table_ids: table_ids,
+          or_qty: or_qty, 
+          or_amount: or_amount,
+      
       );
       return Right(result!);
     } catch (e) {

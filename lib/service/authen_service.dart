@@ -96,33 +96,27 @@ class AuthenService {
     }
   }
 
- //------add product type--------
+  //------add product type--------
 
-Future<List<AddProductypeModel>?> addproducttype({required String Addpro})async{
-var headers = {
-  'Content-Type': 'application/json'
-};
-var request = http.Request('POST', Uri.parse(ApiPaths.add_producttype));
-request.body = json.encode({
-  "protype_name": Addpro
-});
-request.headers.addAll(headers);
+  Future<List<AddProductypeModel>?> addproducttype(
+      {required String Addpro}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(ApiPaths.add_producttype));
+    request.body = json.encode({"protype_name": Addpro});
+    request.headers.addAll(headers);
 
-http.StreamedResponse response = await request.send();
+    http.StreamedResponse response = await request.send();
 
-if (response.statusCode == 200) {
-   var body = jsonDecode(await response.stream.bytesToString());
-        if (body['data'] != null) {
-          final protype = addProductypeModelFromJson(jsonEncode(body['data']));
-          return protype;
-        }
-}
-else {
-  print(response.reasonPhrase);
-}
-
-
-}
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body['data'] != null) {
+        final protype = addProductypeModelFromJson(jsonEncode(body['data']));
+        return protype;
+      }
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
 
   //-----of delete product type-----------
   Future<bool?> deleteCategory({required int cate_id}) async {
@@ -148,18 +142,17 @@ else {
 
   //-------< update Product type --------------
 
-  Future<bool?> updateCate(
-      {required int Cate_id,
-      required String Cate_name,
-      }) async {
+  Future<bool?> updateCate({
+    required int Cate_id,
+    required String Cate_name,
+  }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request =
-          http.Request('PUT', Uri.parse(ApiPaths.upadte_productype));
+      var request = http.Request('PUT', Uri.parse(ApiPaths.upadte_productype));
       request.body = json.encode({
         "protype_id": Cate_id,
         "protype_name": Cate_name, //should be string
-       // should be string
+        // should be string
       });
       request.headers.addAll(headers);
 
@@ -180,8 +173,6 @@ else {
       print("error $e");
     }
   }
-
-
 
 // -----of get Unit-----
   Future<List<punit>?> prUnit() async {
@@ -204,36 +195,29 @@ else {
 
   //------add Unit--------
 
-Future<List<AdUnitModel>?> adunit({required String addU})async{
-var headers = {
-  'Content-Type': 'application/json'
-};
-var request = http.Request('POST', Uri.parse(ApiPaths.addUnit));
-request.body = json.encode({
-  "unitName": addU
-});
-request.headers.addAll(headers);
+  Future<List<AdUnitModel>?> adunit({required String addU}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(ApiPaths.addUnit));
+    request.body = json.encode({"unitName": addU});
+    request.headers.addAll(headers);
 
-http.StreamedResponse response = await request.send();
+    http.StreamedResponse response = await request.send();
 
-if (response.statusCode == 200) {
-   var body = jsonDecode(await response.stream.bytesToString());
-        if (body['data'] != null) {
-          final protype = adUnitModelFromJson(jsonEncode(body['data']));
-          return protype;
-        }
-}
-else {
-  print(response.reasonPhrase);
-}
-}
-
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body['data'] != null) {
+        final protype = adUnitModelFromJson(jsonEncode(body['data']));
+        return protype;
+      }
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
 
   //-----of delete Unit-----------
   Future<bool?> deleteUnits({required int unit_id}) async {
     var headers = {'Content-Type': 'application/json'};
-    var request =
-        http.Request('DELETE', Uri.parse(ApiPaths.delete_unit));
+    var request = http.Request('DELETE', Uri.parse(ApiPaths.delete_unit));
     request.body = json.encode({"unitId": unit_id});
     request.headers.addAll(headers);
 
@@ -251,21 +235,19 @@ else {
     }
   }
 
-
 //-------< update Unit --------------
 
-  Future<bool?> updateUnit(
-      {required int Unit_id,
-      required String Unit_name,
-      }) async {
+  Future<bool?> updateUnit({
+    required int Unit_id,
+    required String Unit_name,
+  }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request =
-          http.Request('PUT', Uri.parse(ApiPaths.update_unit));
+      var request = http.Request('PUT', Uri.parse(ApiPaths.update_unit));
       request.body = json.encode({
         "unitId": Unit_id,
         "unitName": Unit_name, //should be string
-       // should be string
+        // should be string
       });
       request.headers.addAll(headers);
 
@@ -286,7 +268,6 @@ else {
       print("error $e");
     }
   }
-
 
   // -----of product-------------
   Future<List<ProductModel>?> products(
@@ -317,8 +298,8 @@ else {
   //-------of add image product--------------------
 
   Future<ImageModel?> postImage({required File imageFile}) async {
-    var request = http.MultipartRequest(
-        'POST', Uri.parse(ApiPaths.uploadimagePath));
+    var request =
+        http.MultipartRequest('POST', Uri.parse(ApiPaths.uploadimagePath));
     request.files
         .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
@@ -452,8 +433,7 @@ else {
       required int order_table}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request =
-          http.Request('POST', Uri.parse(ApiPaths.order_product));
+      var request = http.Request('POST', Uri.parse(ApiPaths.order_product));
       request.body = json.encode({
         "or_date": datetimes,
         "or_qty": order_qty,
@@ -485,18 +465,17 @@ else {
   Future<bool?> orderproductlist({
     required int order_id,
     required String product_id,
-    required String product_name,
+    required int table_id,
     required int qty,
     required double amount,
   }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'POST', Uri.parse(ApiPaths.order_detail));
+      var request = http.Request('POST', Uri.parse(ApiPaths.order_detail));
       request.body = json.encode({
         "or_id": order_id,
         "product_id": product_id,
-        "product_name": product_name,
+        "table_id": table_id,
         "qty": qty,
         "amount": amount,
         "ord_date": datetimes
@@ -519,8 +498,7 @@ else {
       {required int tablestatus, required int table_id}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'PUT', Uri.parse(ApiPaths.update_table));
+      var request = http.Request('PUT', Uri.parse(ApiPaths.update_table));
       request.body =
           json.encode({"table_status": tablestatus, "table_id": table_id});
       request.headers.addAll(headers);
@@ -548,8 +526,7 @@ else {
       {required int table_id}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'POST', Uri.parse(ApiPaths.order_by_table));
+      var request = http.Request('POST', Uri.parse(ApiPaths.order_by_table));
       request.body = json.encode({"tableId": table_id});
       request.headers.addAll(headers);
 
@@ -574,8 +551,7 @@ else {
   Future<bool?> cut_stock({required int table_id}) async {
     try {
       var headders = {'content-Type': 'application/json'};
-      var resqust = http.Request(
-          'POST', Uri.parse(ApiPaths.cut_stocks));
+      var resqust = http.Request('POST', Uri.parse(ApiPaths.cut_stocks));
       resqust.body = json.encode({"tableId": table_id});
       resqust.headers.addAll(headders);
       http.StreamedResponse response = await resqust.send();
@@ -597,8 +573,7 @@ else {
     required String payment,
   }) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'PATCH', Uri.parse(ApiPaths.update_tbOrders));
+    var request = http.Request('PATCH', Uri.parse(ApiPaths.update_tbOrders));
     request.body = json.encode({
       "or_id": or_id,
       "getmoney": getmoney,
@@ -621,8 +596,7 @@ else {
   Future<SelectOrderToProviderMode?> SelectOrderToprovider(
       {required int table_id}) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse(ApiPaths.getOrderby_table));
+    var request = http.Request('POST', Uri.parse(ApiPaths.getOrderby_table));
     request.body = json.encode({"tableId": table_id});
     request.headers.addAll(headers);
 
@@ -643,26 +617,68 @@ else {
   }
 
   //---to update menu list of move table-----------------------
-  Future<bool?> Update_MenuOfMoveTable({
-    required int ord_id,
-    required int or_id,
-    required String product_id,
-    required String product_name,
-    required int qty,
-    required double amount,
-  }) async {
+  // Future<bool?> Update_MenuOfMoveTable({
+  //   required int ord_id,
+  //   required int or_id,
+  //   required String product_id,
+  //   // required String product_name,
+  //   required int qty,
+  //   required double amount,
+  // }) async {
+  //   try {
+  //     var headers = {'Content-Type': 'application/json'};
+  //     var request = http.Request('POST', Uri.parse(ApiPaths.update_move_table));
+  //     request.body = json.encode({
+  //       // "ord_id": ord_id,
+  //       // "or_id": or_id,
+  //       // "product_id": product_id,
+
+  //       // "qty": qty,
+  //       // "amount": amount,
+  //       // "ord_date": datetimes,
+  //       {
+  //         "or_id": 20,
+  //         "ord_id": 20,
+  //         "product_id": 2,
+  //         "qty": 10,
+  //         "amount": 1000,
+  //         "ord_date": "2023-04-07"
+  //       }
+  //     });
+  //     request.headers.addAll(headers);
+
+  //     http.StreamedResponse response = await request.send();
+
+  //     if (response.statusCode == 200) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  //   return null;
+  // }
+
+  Future<bool?> Update_MenuOfMoveTable(
+      {
+      required int or_id,
+      required String product_id,
+      required int qty,
+      required double amount,
+      required int table_id,
+      }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'POST', Uri.parse(ApiPaths.update_move_table));
+      var request = http.Request('POST', Uri.parse(ApiPaths.update_move_table));
       request.body = json.encode({
-        "ord_id": ord_id,
-        "orderId": or_id,
-        "productId": product_id,
-        "product_name": product_name,
+        "or_id": or_id,
+        "product_id": product_id,
         "qty": qty,
         "amount": amount,
         "ord_date": datetimes,
+        "table_id": table_id,
+        
       });
       request.headers.addAll(headers);
 
@@ -676,14 +692,16 @@ else {
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 
-  Future<bool?> Delete_Move_Table({required int or_id}) async {
+//.....of delete getFromtable.............
+  Future<bool?> Delete_Move_Table({required int table_id}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'DELETE', Uri.parse(ApiPaths.delete_move_table));
-      request.body = json.encode({"or_id": or_id});
+      var request =
+          http.Request('DELETE', Uri.parse(ApiPaths.delete_getFromtable));
+      request.body = json.encode({"table_id": table_id});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -698,16 +716,26 @@ else {
     }
   }
 
+
   //----update table_id---------------
-  Future<bool?> updatetable_id(
-      {required int or_id,
-      required int table_id,
-      required int table_status}) async {
+  Future<bool?> updatetable_id({
+    required int or_id,
+    required int or_qty,
+    required int or_amount,
+    required int table_id,
+    required int table_ids,
+  }) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'PATCH', Uri.parse(ApiPaths.update_table_id));
-    request.body = json.encode(
-        {"or_id": or_id, "table_id": table_id, "table_status": table_status});
+    var request = http.Request('PATCH', Uri.parse(ApiPaths.update_table_id));
+    request.body = json.encode({
+      "orId": or_id,
+      "TableId": table_id,
+      "OrStatus": 1,
+      "TableStatus": 1,
+      "tableId": table_ids,
+      "orqty": or_qty,
+      "orAmount": or_amount
+    });
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -722,11 +750,11 @@ else {
 //-------- for order report--------------
   Future<List<SelectOrderReportModel>?> getOrderReport(
       {required DateTime Fromdate, required DateTime Todate}) async {
-    String from_pickdate = DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00";
+    String from_pickdate =
+        DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00";
     String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
     var headers = {'Content-Type': 'application/json'};
-    var request =
-        http.Request('POST', Uri.parse(ApiPaths.getOrdrereports));
+    var request = http.Request('POST', Uri.parse(ApiPaths.getOrdrereports));
     request.body = json
         .encode({"orderDateFrom": from_pickdate, "orderDateTo": To_pickdate});
     request.headers.addAll(headers);
@@ -752,8 +780,8 @@ else {
       {required int or_id}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'POST', Uri.parse(ApiPaths.SelectOrderByReport));
+      var request =
+          http.Request('POST', Uri.parse(ApiPaths.SelectOrderByReport));
       request.body = json.encode({"or_id": or_id});
       request.headers.addAll(headers);
 
@@ -801,23 +829,23 @@ else {
   }
 
   //----get orderdetail to  make report-----------
-  Future<List<GetOrderDetailModel>?> getorderdetail_makeReport({required DateTime Fromdate, required DateTime Todate}) async {
-    String from_pickdate = DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00"; // <----for the 00:00:00 is to set the hours be for save to the databaes
+  Future<List<GetOrderDetailModel>?> getorderdetail_makeReport(
+      {required DateTime Fromdate, required DateTime Todate}) async {
+    String from_pickdate = DateFormat('yyyy-MM-dd ').format(Fromdate) +
+        "00:00:00"; // <----for the 00:00:00 is to set the hours be for save to the databaes
     String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-          'POST', Uri.parse(ApiPaths.getOrderdetail_makeReports));
-      request.body = json.encode({
-        "orderDateFrom": from_pickdate,
-        "orderDateTo": To_pickdate
-      });
+      var request =
+          http.Request('POST', Uri.parse(ApiPaths.getOrderdetail_makeReports));
+      request.body = json
+          .encode({"orderDateFrom": from_pickdate, "orderDateTo": To_pickdate});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-       var body = jsonDecode(await response.stream.bytesToString());
+        var body = jsonDecode(await response.stream.bytesToString());
         if (body["status"] == 200) {
           final selectproduct =
               getOrderDetailModelFromJson(jsonEncode(body["data"]));

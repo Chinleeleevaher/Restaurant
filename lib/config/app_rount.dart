@@ -12,6 +12,8 @@ import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import 'package:myproject/homepage/check_bill/checkbill_page.dart';
 import 'package:myproject/homepage/Dashboard/dashboard.dart';
 import 'package:myproject/homepage/home_page.dart';
+import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
+import 'package:myproject/homepage/kitchen/kitchen.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
@@ -63,6 +65,7 @@ class AppRount {
   static const String orderstatus = '/orderstatus';
   static const String checkbill = '/checkbill';
   static const String report = '/report';
+    static const String kitchen = '/report';
 
   static Route<dynamic> generateRount(RouteSettings settings) {
     switch (settings.name) {
@@ -241,6 +244,18 @@ class AppRount {
                     ..getOrderReport(),
                   child: ReportPage(),
                 ));
+          
+  // case kitchen:
+  //       return MaterialPageRoute(
+  //           builder: (context) => BlocProvider(
+  //                 create: (context) => KitchenCubit(
+  //                    ),
+  //                 child: Kitchen(),
+  //               ));
+          
+
+
+
 
       default:
         return MaterialPageRoute(builder: (context) => const DefaulPage());

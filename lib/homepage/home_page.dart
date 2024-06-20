@@ -227,32 +227,37 @@ class _HomepageState extends State<Homepage>
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      offset: const Offset(0, 5),
-                                      color: Color.fromARGB(77, 11, 11, 11),
-                                      spreadRadius: 2,
-                                      blurRadius: 5)
-                                ]),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Icon(
-                                  Icons.people,
-                                  size: 50,
-                                  color: Colors.red,
-                                ),
-                                Text(LocaleKeys.scan
-                                    .tr()) //<--- text of Scan-------
-                              ],
+                          child: GestureDetector(
+                            onTap: () {
+                            
+                            },
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: const Offset(0, 5),
+                                        color: Color.fromARGB(77, 11, 11, 11),
+                                        spreadRadius: 2,
+                                        blurRadius: 5)
+                                  ]),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Icon(
+                                    Icons.people,
+                                    size: 50,
+                                    color: Colors.red,
+                                  ),
+                                  Text(LocaleKeys.user
+                                      .tr()) //<--- text of user-------
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -281,8 +286,8 @@ class _HomepageState extends State<Homepage>
                                   size: 50,
                                   color: Colors.green,
                                 ),
-                                Text(LocaleKeys.security
-                                    .tr()) //<--- text of Scurity-------
+                                Text(LocaleKeys.kichen
+                                    .tr()) //<--- text of kitchen-------
                               ],
                             ),
                           ),

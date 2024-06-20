@@ -66,13 +66,11 @@ class OrderCubit extends Cubit<OrderState> {
     for (int i = 0; i < orderproviders.getorderlist.length; i++) {
       emit(state.coppywith(status_c: orderproductstatuse.loading));
       var result = await authenRepositorys.orderproductdetail(
-        order_id: orderproviders
-            .getOrdertables!.orId, //--- get the value from order list table
+        order_id: orderproviders.getOrdertables!.orId, //--- get the value from order list table
         product_id: orderproviders.getorderlist[i].productId,
-        product_name: orderproviders.getorderlist[i].productName,
+        table_id: tableproviders.gettablelist.tableId,
         qty: orderproviders.getorderlist[i].qty,
-        amount: orderproviders.getorderlist[i].price *
-            orderproviders.getorderlist[i].qty,
+        amount: orderproviders.getorderlist[i].price * orderproviders.getorderlist[i].qty,
       );
       result!.fold((l) {
         log("Error detail=== $l");

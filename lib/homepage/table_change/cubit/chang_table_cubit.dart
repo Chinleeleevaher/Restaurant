@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import '../../../repository/authen_sipository.dart';
 import '../../table_page/cubit/provider/tableprovider.dart';
 import '../../table_page/model/order_table_Model.dart';
@@ -95,6 +96,8 @@ class ChangTableCubit extends Cubit<ChangTableState> {
       log("error");
     }, (Right) {
       tableprovider.getorderToTableID(Right);
+      log("Data of to table success");
+  
       update_Move_table();
     });
   }
@@ -103,22 +106,23 @@ class ChangTableCubit extends Cubit<ChangTableState> {
   Future<void> update_Move_table() async {
     for (int i = 0; i < tableprovider.getMOvetableorder!.length; i++) {
       var result = await authenRepository.MoveTable(
-        ord_id: tableprovider.getMOvetableorder![i].ordId,
         or_id: tableprovider.getMOvetableorder![i].orId!,
         product_id: tableprovider.getMOvetableorder![i].productId!,
-        product_name: tableprovider.getMOvetableorder![i].productName,
         qty: tableprovider.getMOvetableorder![i].qty,
-        amount: tableprovider.getMOvetableorder![i].amount.toDouble(),
+        amount: tableprovider.getMOvetableorder![i].amount.toDouble(), 
+        table_id:  tableprovider.getMOvetableorder![i].tableId,
+      //  table_id: tableprovider.getMOvetableorder![i].tableId,
       );
       result!.fold((l) {
-        log("error");
+        log("Error update_move_table");
       }, (r) {
-        log("update sucessfull");
+        log("update sucessfull ok");
       });
     }
     if (tableprovider.getorderToTableid!.isNotEmpty) {
-      // <---i just make check the table before i delete
-      delete_move_table().then((value) {
+      //  <---i just make check the table before i delete
+      update_tbOrder_tableId();
+      delete_move_table_getFromtable().then((value) {
         tableprovider
             .clearTable(); // <---this is make clear the two table ble that i move above in the ui page
         tableprovider.clearData(); //<----clear
@@ -136,11 +140,12 @@ class ChangTableCubit extends Cubit<ChangTableState> {
     }
   }
 
-//--------of delete move table------------------
-  Future<void> delete_move_table() async {
+//--------of delete move table getFromtable------------------
+  Future<void> delete_move_table_getFromtable() async {
     for (int i = 0; i < tableprovider.getorderFromTableid!.length; i++) {
       var result = await authenRepository.delete_move_table(
-        or_id: tableprovider.getorderFromTableid![i].orId!,
+        table_id: tableprovider.getorderFromTableid![i].tableId,
+        //     ord_id: tableprovider.getMOvetableorder![i].ordId
       );
       result!.fold((l) {
         log("error");
@@ -151,17 +156,49 @@ class ChangTableCubit extends Cubit<ChangTableState> {
     updatetablestatus();
   }
 
+
 //------------update table_id in order table---------------
   Future<bool?> update_tbOrder_tableId() async {
-    var result = await authenRepository.updateTable_id(
-        or_id: tableprovider.getMOvetableorder![0].orId!,
-        table_id: tableprovider.totable_Id,
-        table_status: 1);
-    result!.fold((l) {
-      log("error");
-    }, (r) {
-      log("sucess");
-    });
+    if (tableprovider.getorderToTableid!.isNotEmpty) {
+      for (int i = 0; i < tableprovider.getorderFromTableid!.length;) {
+        int test = tableprovider.getorderFromTableid![i].amount
+            .toInt(); // here is just make convert data type to int
+        var result = await authenRepository.updateTable_id(
+          or_qty: tableprovider.getorderFromTableid![i].qty +=
+              tableprovider.getorderToTableid![i].qty,
+          or_amount: test += tableprovider.getorderToTableid![i].amount.toInt(),
+          or_id: tableprovider.getMOvetableorder![0].orId!,
+          table_id: tableprovider.totable_Id,
+          table_ids: tableprovider.totable_Id,
+        );
+        result!.fold((l) {
+          log("error");
+        }, (r) {
+          log("sucess");
+        });
+        return null;
+      }
+    } else {
+      for (int i = 0; i < tableprovider.getorderFromTableid!.length;) {
+        var result = await authenRepository.updateTable_id(
+          or_qty: tableprovider.getorderFromTableid![i].qty,
+          or_amount: tableprovider.getorderFromTableid![i].amount.toInt(),
+          or_id: tableprovider.getMOvetableorder![0].orId!,
+          table_id: tableprovider.totable_Id,
+          table_ids: tableprovider.totable_Id,
+
+          // table_ids: tableprovider.totable_Id,
+        );
+        result!.fold((l) {
+          log("error");
+        }, (r) {
+          log("sucess");
+        });
+        return null;
+      }
+    }
+
+    return null;
   }
 
   //-----to update From table status again--------------
