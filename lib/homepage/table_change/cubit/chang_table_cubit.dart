@@ -73,7 +73,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
             gravity: ToastGravity.CENTER);
       } else {
         var result = await authenRepository.SelectByOrder(
-            table_id: tableprovider.fromtable_Id);
+            table_id: tableprovider.fromtable_Id, or_status: 2);
         result!.fold((Left) {
           log("error");
         }, (Right) {
@@ -91,7 +91,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
 // ---method of select data from the table of (To table)-----
   Future<void> getOrderToTable() async {
     var result = await authenRepository.SelectByOrder(
-        table_id: tableprovider.totable_Id);
+        table_id: tableprovider.totable_Id, or_status: 2);
     result!.fold((Left) {
       log("error");
     }, (Right) {

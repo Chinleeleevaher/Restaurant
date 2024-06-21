@@ -20,6 +20,9 @@ class tableProvider extends ChangeNotifier {
   ///------this below code id make for where order page ----------
   late Tables _gettablelist;
   Tables get gettablelist => _gettablelist;
+ //.........the below conditon is to get order status.....
+  late int _getOrdrStatus;
+  int get getOrdrStatus => _getOrdrStatus;
 
   late String _tablenumber;
   String get tablenumber => _tablenumber;
@@ -28,6 +31,13 @@ class tableProvider extends ChangeNotifier {
         value.tableName; // <-- this is add the table name to the table number
     _gettablelist = value;
     // <--here is to add the value to get table
+    //.........the below conditon is to get order status.....
+    if(value.tableStatus == 1){
+      _getOrdrStatus = 1;
+    }
+    if (value.tableStatus == 2) {
+       _getOrdrStatus = 2;
+    }
     notifyListeners();
   }
 

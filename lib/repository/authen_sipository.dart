@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
+import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
+import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
@@ -286,9 +288,12 @@ class AuthenRepository {
 
   //-----to select the data of product that we have already order--------------------
   Future<Either<Failure, List<SelectOrderByTableModel>>?> SelectByOrder(
-      {required int table_id}) async {
+      {
+        required int table_id,
+        required int or_status
+      }) async {
     try {
-      final result = await services.SelectOrderBytable(table_id: table_id);
+      final result = await services.SelectOrderBytable(table_id: table_id, or_status: or_status);
       return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -430,6 +435,42 @@ class AuthenRepository {
   Future<Either<Failure, List<GetOrderDetailModel>>?> getorderdetailmakeReport({required DateTime fromdate, required DateTime todate}) async {
     try {
       final result = await services.getorderdetail_makeReport(Fromdate: fromdate, Todate: todate);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+
+  //------------select order by order status for kitchen---------------
+  Future<Either<Failure, List<OrderStatusModel>>?> GetOrderByOrderStatus() async {
+    try {
+      final result = await services.GetOrderByOrderStatus();
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  //------------select order detail for kitchen---------------
+  Future<Either<Failure, List<OrderDetailModel>>?> getOrderdetail_kitchen({required int or_ids}) async {
+    try {
+      final result = await services.getOrderdetail_kitchen(or_ids: or_ids);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+   //---- get update table status and order status table---------------------
+  Future<Either<Failure, bool>?> getupdateTableStatus_OrderStatus({
+    required int or_id,
+    required int table_id, 
+  }) async {
+    try {
+      final result = await services.getUpdate_OrderStatus_tableStatus(
+        table_Id: table_id, 
+        order_id: or_id
+      );
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));

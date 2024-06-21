@@ -294,13 +294,13 @@ class _ChangeTableState extends State<ChangeTable> {
                                     .tr(); // <-----text of available table
                               }
                               if (listtable[index].tableStatus == 1) {
-                                _containercolor = Colors.red;
+                                _containercolor = Color.fromARGB(255, 226, 203, 1);
                                 textcontrol = LocaleKeys.tableunAvailable
                                     .tr(); // <-----text of Unavailable table
                               }
                               if (listtable[index].tableStatus == 2) {
-                                _containercolor = Colors.yellow;
-                                textcontrol = "ກໍາລັງລໍຖ້າ";
+                                _containercolor = Colors.red;
+                                textcontrol = "ບໍ່ຫວ່າງ";
                               }
 
                               return itemDashboard(

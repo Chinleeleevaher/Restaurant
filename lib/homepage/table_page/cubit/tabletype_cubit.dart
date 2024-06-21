@@ -82,7 +82,7 @@ class TabletypeCubit extends Cubit<TabletypeState> {
     getOrdertoprovider();
   }
 
-  //----------to get ordert ro provider to make update in payment---------
+  //----------to get order to provider to make update in payment---------
   Future<void> getOrdertoprovider() async {
     var result = await authenRepository.ToSelectOrderToprovider(
         table_id: tableprovider.gettablelist.tableId);

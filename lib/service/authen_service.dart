@@ -10,6 +10,8 @@ import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
+import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
+import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -439,7 +441,10 @@ class AuthenService {
         "or_qty": order_qty,
         "or_amount": order_amount,
         "or_status": order_status,
-        "table_id": order_table
+        "table_id": order_table,
+        "receives": 0,
+        "returns": 0,
+        "payment": ".."
       });
       request.headers.addAll(headers);
 
@@ -522,12 +527,14 @@ class AuthenService {
   }
 
   //-----to select the data of product that we have already order--------------------
-  Future<List<SelectOrderByTableModel>?> SelectOrderBytable(
-      {required int table_id}) async {
+  Future<List<SelectOrderByTableModel>?> SelectOrderBytable({
+    required int table_id,
+    required int or_status,
+  }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiPaths.order_by_table));
-      request.body = json.encode({"tableId": table_id});
+      request.body = json.encode({"tableId": table_id, "or_status": or_status});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -575,11 +582,11 @@ class AuthenService {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('PATCH', Uri.parse(ApiPaths.update_tbOrders));
     request.body = json.encode({
-      "or_id": or_id,
-      "getmoney": getmoney,
-      "backmoney": backmoney,
+      "orId": or_id,
+      "receives": getmoney,
+      "returns": backmoney,
       "payment": payment,
-      "or_status": 0
+      "orStatus": 0
     });
     request.headers.addAll(headers);
 
@@ -660,14 +667,13 @@ class AuthenService {
   //   return null;
   // }
 
-  Future<bool?> Update_MenuOfMoveTable(
-      {
-      required int or_id,
-      required String product_id,
-      required int qty,
-      required double amount,
-      required int table_id,
-      }) async {
+  Future<bool?> Update_MenuOfMoveTable({
+    required int or_id,
+    required String product_id,
+    required int qty,
+    required double amount,
+    required int table_id,
+  }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiPaths.update_move_table));
@@ -678,7 +684,6 @@ class AuthenService {
         "amount": amount,
         "ord_date": datetimes,
         "table_id": table_id,
-        
       });
       request.headers.addAll(headers);
 
@@ -715,7 +720,6 @@ class AuthenService {
       print(e.toString());
     }
   }
-
 
   //----update table_id---------------
   Future<bool?> updatetable_id({
@@ -857,5 +861,84 @@ class AuthenService {
         print(response.reasonPhrase);
       }
     } catch (e) {}
+  }
+
+  // ..........get order by order status for kitchen.............
+
+  Future<List<OrderStatusModel>?> GetOrderByOrderStatus() async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request =
+          http.Request('POST', Uri.parse(ApiPaths.getOrderByOrderStatus));
+      request.body = json.encode({"orStatus": 1});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        final selectOrder = orderStatusModelFromJson(jsonEncode(body["data"]));
+        return selectOrder;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  // ..........get order detail by order_id for kitchen.............
+
+  Future<List<OrderDetailModel>?> getOrderdetail_kitchen(
+      {required int or_ids}) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request =
+          http.Request('POST', Uri.parse(ApiPaths.getOrderDetail_kitchen));
+      request.body = json.encode({"or_id": or_ids});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        final selectOrder = orderDetailModelFromJson(jsonEncode(body["data"]));
+        return selectOrder;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  // ..........get update order status and table status for kitchen.............
+
+  Future<bool?> getUpdate_OrderStatus_tableStatus({
+    required int table_Id,
+    required int order_id,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request(
+          'POST', Uri.parse(ApiPaths.getUpdateTableStatus_orderStatus));
+      request.body = json.encode({
+        "tableId": table_Id,
+        "tableStatus": 2,
+        "orderId": order_id,
+        "orderStatus": 2
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

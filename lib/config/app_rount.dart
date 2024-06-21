@@ -23,6 +23,7 @@ import 'package:myproject/homepage/order/listproduct_page.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/order_history/cubit/orderstatus_cubit.dart';
 import 'package:myproject/homepage/order_history/order_status_page.dart';
+import 'package:myproject/homepage/order_history/order_status_waiting.dart';
 import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/order_list/orderlist_page.dart';
 import 'package:myproject/homepage/product_page/cubit/products_cubit.dart';
@@ -63,9 +64,10 @@ class AppRount {
   static const String ListProduct = '/ListProduct';
   static const String orderlist = '/orderlist';
   static const String orderstatus = '/orderstatus';
+  static const String orderstatusWaiting = '/orderstatusWaiting';
   static const String checkbill = '/checkbill';
   static const String report = '/report';
-    static const String kitchen = '/report';
+  static const String kitchen = '/kitchen';
 
   static Route<dynamic> generateRount(RouteSettings settings) {
     switch (settings.name) {
@@ -175,13 +177,13 @@ class AppRount {
                   child: Category_page(),
                 ));
       case addunit:
-            return MaterialPageRoute(
+        return MaterialPageRoute(
             builder: (context) => BlocProvider(
                   create: (context) => AddunitCubit(
                     authenRepositorys: context.read<AuthenRepository>(),
                     Unitprovider: context.read<UnitProvider>(),
                     // productTypemodel: settings as  AddProductypeModel,
-                //    productTypemodel: null,
+                    //    productTypemodel: null,
                     context: context,
                   )..getUnit(),
                   child: AddUnit_page(),
@@ -195,7 +197,7 @@ class AppRount {
                 authenRepository: context.read<AuthenRepository>(),
                 tableproviders: context.read<tableProvider>())
               ..getProductTypes()
-              ..getproduct()
+             ..getproduct()
             //..postorderlist()
             ,
             child: ListProduct_page(),
@@ -223,6 +225,17 @@ class AppRount {
             child: OrderstatusPage(),
           ),
         );
+        case orderstatusWaiting:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => OrderstatusCubit(
+                tableproviders: context.read<tableProvider>(),
+                orderproviders: context.read<orderprovider>(),
+                authenRepository: context.read<AuthenRepository>())
+              ..seletorderdata(),
+            child: OrderStatusWaitingPage(),
+          ),
+        );
       case checkbill:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -244,18 +257,13 @@ class AppRount {
                     ..getOrderReport(),
                   child: ReportPage(),
                 ));
-          
-  // case kitchen:
-  //       return MaterialPageRoute(
-  //           builder: (context) => BlocProvider(
-  //                 create: (context) => KitchenCubit(
-  //                    ),
-  //                 child: Kitchen(),
-  //               ));
-          
 
-
-
+      case kitchen:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => KitchenCubit(authenRepository: context.read<AuthenRepository>())..SelectorderbyOrderStatus(),
+                  child: Kitchen(),
+                ));
 
       default:
         return MaterialPageRoute(builder: (context) => const DefaulPage());

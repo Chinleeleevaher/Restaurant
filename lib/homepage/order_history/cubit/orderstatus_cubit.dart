@@ -23,7 +23,8 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
   Future<void> seletorderdata() async {
     emit(state.coppywith(status: selectorderdata.loading));
     var resault = await authenRepository.SelectByOrder(
-        table_id: tableproviders.gettablelist.tableId);
+        table_id: tableproviders.gettablelist.tableId,
+         or_status: tableproviders.getOrdrStatus);
     resault!.fold((Left) {
       log("No data it is error");
     }, (data) {

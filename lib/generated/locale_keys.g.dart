@@ -49,8 +49,8 @@ abstract class  LocaleKeys {
   static const fromTable = 'fromTable';
   static const toTable = 'toTable';
   static const allTable = 'allTable';
-  static const tableAvailable = 'tableAvailable';
-  static const tableunAvailable = 'tableunAvailable';
+  static const tableAvailable = 'ຫວ່າງ';
+  static const tableunAvailable = 'ກໍາລັງລໍຖ້າ';
   static const no = 'no';
   static const item = 'item';
   static const quantity = 'quantity';

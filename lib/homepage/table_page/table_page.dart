@@ -163,12 +163,12 @@ class _Table_pageState extends State<Table_page>
                             textcontrol = "ຫວ່າງ";
                           }
                           if (listtable[index].tableStatus == 1) {
-                            _containercolor = Colors.red;
-                            textcontrol = "ບໍ່ຫວ່າງ";
+                            _containercolor = Color.fromARGB(255, 226, 203, 1);
+                            textcontrol = "ກໍາລັງລໍຖ້າ";
                           }
                           if (listtable[index].tableStatus == 2) {
-                            _containercolor = Colors.yellow;
-                            textcontrol = "ກໍາລັງລໍຖ້າ";
+                            _containercolor = Colors.red;
+                            textcontrol = "ບໍ່ຫວ່າງ";
                           }
 
                           return itemDashboard(
@@ -214,7 +214,15 @@ class _Table_pageState extends State<Table_page>
               }
             });
           }
-          if (table.tableStatus == 1) {
+          if (table.tableStatus == 1 ) {
+            navService.pushNamed(AppRount.orderstatusWaiting).then((value) {
+              /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
+              if (value == true) {
+                cubits.getTables();
+              }
+            });
+          }
+          if (table.tableStatus == 2 ) {
             navService.pushNamed(AppRount.orderstatus).then((value) {
               /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
               if (value == true) {
