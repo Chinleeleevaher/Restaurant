@@ -13,6 +13,7 @@ import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
+import 'package:myproject/homepage/report/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
@@ -759,8 +760,8 @@ class AuthenService {
     String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse(ApiPaths.getOrdrereports));
-    request.body = json
-        .encode({"orderDateFrom": from_pickdate, "orderDateTo": To_pickdate});
+    request.body =
+        json.encode({"startDate": from_pickdate, "endDate": To_pickdate});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -780,12 +781,12 @@ class AuthenService {
   }
 
   //-----to select the data of product that we want to select the order detail to report--------------------
-  Future<List<SelectOrderDetailReportModel>?> SelectordertoReport(
+  Future<List<SelectOrderReportModels>?> SelectordertoReport(
       {required int or_id}) async {
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
-          http.Request('POST', Uri.parse(ApiPaths.SelectOrderByReport));
+          http.Request('POST', Uri.parse(ApiPaths.getOrderDetail_report));
       request.body = json.encode({"or_id": or_id});
       request.headers.addAll(headers);
 
@@ -793,13 +794,9 @@ class AuthenService {
 
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        if (body["status"] == true) {
-          final seletOrder =
-              selectOrderDetailReportModelFromJson(jsonEncode(body["data"]));
-          return seletOrder;
-        } else {
-          Exception('data is null');
-        }
+        final seletOrderDetail =
+            selectOrderReportModelsFromJson(jsonEncode(body["data"]));
+        return seletOrderDetail;
       } else {
         print(response.reasonPhrase);
       }
@@ -832,7 +829,7 @@ class AuthenService {
     } catch (e) {}
   }
 
-  //----get orderdetail to  make report-----------
+  //----get orderdetail spacail for make loop for product report: i need sell qty, all qty......-----------
   Future<List<GetOrderDetailModel>?> getorderdetail_makeReport(
       {required DateTime Fromdate, required DateTime Todate}) async {
     String from_pickdate = DateFormat('yyyy-MM-dd ').format(Fromdate) +
@@ -842,8 +839,8 @@ class AuthenService {
       var headers = {'Content-Type': 'application/json'};
       var request =
           http.Request('POST', Uri.parse(ApiPaths.getOrderdetail_makeReports));
-      request.body = json
-          .encode({"orderDateFrom": from_pickdate, "orderDateTo": To_pickdate});
+      request.body =
+          json.encode({"startDate": from_pickdate, "endDate": To_pickdate});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -855,10 +852,8 @@ class AuthenService {
               getOrderDetailModelFromJson(jsonEncode(body["data"]));
           return selectproduct;
         } else {
-          Exception('data is null');
+          print(response.reasonPhrase);
         }
-      } else {
-        print(response.reasonPhrase);
       }
     } catch (e) {}
   }
@@ -934,11 +929,14 @@ class AuthenService {
 
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
+        return true;
       } else {
         print(response.reasonPhrase);
+        return false;
       }
     } catch (e) {
       print(e.toString());
+      return false;
     }
   }
 }

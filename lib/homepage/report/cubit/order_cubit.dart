@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,77 +25,81 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     required this.context,
   }) : super(OrderReportState());
 
-  typeOrderReport(int value) {
-    emit(state.coppywith(orderType_c: value));
-    getOrderReport();
+  typeOrderReport(int orderTap) {
+    emit(state.coppywith(orderType_c: orderTap));
+    if (orderTap == 1) {
+      /// fetch order data
+      getOrderReport();
+    } else {
+      /// fetch product
+      selectproduct_makeReport();
+    }
   }
 
-
   //-----of date time picker-------------
-  DateTime from_pickdate = DateTime.now().subtract(Duration(days: 5)); // <--here is to set the default date to from 5 days ago
+  DateTime from_pickdate = DateTime.now().subtract(Duration(
+      days: 5)); // <--here is to set the default date to from 5 days ago
   DateTime To_pickdate = DateTime.now();
 
 //----------here is to get order report---------------------------
   Future<void> getOrderReport() async {
-    emit(state.coppywith(status_c: orderlistreportstatus.loading));
-    var result = await authenRepository.getOrderReport(fromdate: from_pickdate, todate: To_pickdate);
+    emit(state.coppywith(status: orderlistreportstatus.loading));
+    var result = await authenRepository.getOrderReport(
+        fromdate: from_pickdate, todate: To_pickdate);
     result!.fold((l) {
-      print("Error");
-    }, (r) {
-      orderproviders.OrderReport(r);
-      emit(state.coppywith(orderlist_c: r));
-      emit(state.coppywith(status_c: orderlistreportstatus.success));
+      emit(state.coppywith(status: orderlistreportstatus.error));
+    }, (data) {
+      reportProvider.OrderReport(data);
+      emit(state.coppywith(
+          status: orderlistreportstatus.success, orderlist_c: data));
+      log('status2----${state.status}');
     });
   }
 
 // --------this is collect the data of order from the report page to the provider-------------------
   Future getorderdetail(SelectOrderReportModel value) async {
-    orderproviders.setOrderlistReport(value);
+    reportProvider.setOrderlistReport(value);
     seletorderdata(context);
   }
 
 //------of select orderdetail data to show to the order status page-------------
   Future<void> seletorderdata(BuildContext context) async {
-    emit(state.coppywith(status_c: orderlistreportstatus.loading));
+    emit(state.coppywith(status: orderlistreportstatus.loading));
     var resault = await authenRepository.SelectordertoReport(
-        or_id: orderproviders.getorderlistReport.orId);
+        or_id: reportProvider.getorderlistReport.orId);
     resault!.fold((Left) {
       print("No data it is error");
-    }, (Right) {
-      emit(state.coppywith(status_c: orderlistreportstatus.success));
-      orderproviders.selectOrderdetailreport(
-          Right); // <---to correct the data to the Orderoriovider
+    }, (data) {
+      emit(state.coppywith(status: orderlistreportstatus.success));
+      reportProvider.selectOrderdetailreport(
+          data); // <---to correct the data to the Orderoriovider
       simpledailog(context);
     });
   }
-  //--------------of type product for report--------------------
-  TypeProductReport(int value) {
-    // <-----here is to get the value to the state and make check in the report ui
-    emit(state.coppywith(productType_c: value));
-    selectproduct_makeReport().then((value) => selectorderdetail_makeReport());
-  }
+
 //------ select product to make report-------------------------
   Future<void> selectproduct_makeReport() async {
-    emit(state.coppywith(status_c: orderlistreportstatus.loading));
+    emit(state.coppywith(status: orderlistreportstatus.loading));
     var result = await authenRepository.getproductmakeReport();
     result!.fold((l) {
       print("No data It is error");
     }, (r) {
       reportProvider.TogetgetprodutReport(r);
-      emit(state.coppywith(status_c: orderlistreportstatus.success));
+      selectorderdetail_makeReport();
+      emit(state.coppywith(status: orderlistreportstatus.success));
     });
   }
 
-  //------ select product to make report-------------------------
+  //------ select order detail specail form make loop for product report because i nneed sell qty, all qty......-------------------------
   Future<void> selectorderdetail_makeReport() async {
-    emit(state.coppywith(status_c: orderlistreportstatus.loading));
-    var result = await authenRepository.getorderdetailmakeReport(fromdate: from_pickdate, todate: To_pickdate);
+    emit(state.coppywith(status: orderlistreportstatus.loading));
+    var result = await authenRepository.getorderdetailmakeReport(
+        fromdate: from_pickdate, todate: To_pickdate);
     result!.fold((l) {
       print("No data It is error");
     }, (r) {
       reportProvider.TogetorderdetailReport(r);
-      emit(state.coppywith(status_c: orderlistreportstatus.success));
+      emit(state.coppywith(status: orderlistreportstatus.success));
     });
   }
-  
 }

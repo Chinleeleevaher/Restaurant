@@ -61,6 +61,7 @@ dependencies:
   map_launcher: ^2.5.0+1
   percent_indicator: ^4.2.3
   responsive_layout_builder: ^0.5.0
+  loading_indicator: ^3.1.1
 
 
 

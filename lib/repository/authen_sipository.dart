@@ -12,6 +12,7 @@ import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
+import 'package:myproject/homepage/report/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/failure.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
@@ -53,8 +54,10 @@ class AuthenRepository {
       //throw Exception('Failed to load table type');
     }
   }
+
 //------of add product type---------
-  Future<Either<Failure, List<AddProductypeModel>?>> protypes({required String addpro}) async {
+  Future<Either<Failure, List<AddProductypeModel>?>> protypes(
+      {required String addpro}) async {
     try {
       final result = await services.addproducttype(Addpro: addpro);
       return Right(result);
@@ -74,6 +77,7 @@ class AuthenRepository {
       //throw Exception('Failed to load table type');
     }
   }
+
   //-----of delete product type-----
   Future<Either<Failure, bool>?> deletecate({required int cate_id}) async {
     try {
@@ -83,16 +87,17 @@ class AuthenRepository {
       return Left(Failure(e.toString()));
     }
   }
-   //----of update product type---------
-  Future<Either<Failure, bool>> updateCate(
-      {required int cate_id,
-      required String cate_name,
-      }) async {
+
+  //----of update product type---------
+  Future<Either<Failure, bool>> updateCate({
+    required int cate_id,
+    required String cate_name,
+  }) async {
     try {
       final result = await services.updateCate(
-          Cate_id: cate_id,
-          Cate_name: cate_name,
-          );
+        Cate_id: cate_id,
+        Cate_name: cate_name,
+      );
       return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -111,7 +116,8 @@ class AuthenRepository {
   }
 
   //------of add Unit---------
-  Future<Either<Failure, List<AdUnitModel>?>> adUnit({required String addpro}) async {
+  Future<Either<Failure, List<AdUnitModel>?>> adUnit(
+      {required String addpro}) async {
     try {
       final result = await services.adunit(addU: addpro);
       return Right(result);
@@ -120,6 +126,7 @@ class AuthenRepository {
       //throw Exception('Failed to load table type');
     }
   }
+
   //-----of delete Unit-----
   Future<Either<Failure, bool>?> deleteUnit({required int unit_id}) async {
     try {
@@ -130,23 +137,21 @@ class AuthenRepository {
     }
   }
 
-
-   //----of update unit---------
-  Future<Either<Failure, bool>> updateUnit(
-      {required int Unit_id,
-      required String Unit_name,
-      }) async {
+  //----of update unit---------
+  Future<Either<Failure, bool>> updateUnit({
+    required int Unit_id,
+    required String Unit_name,
+  }) async {
     try {
       final result = await services.updateUnit(
-          Unit_id: Unit_id,
-          Unit_name: Unit_name,
-          );
+        Unit_id: Unit_id,
+        Unit_name: Unit_name,
+      );
       return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
     }
   }
-
 
   //--------of product-------------
   Future<Either<Failure, List<ProductModel>>> getproduct(
@@ -288,12 +293,10 @@ class AuthenRepository {
 
   //-----to select the data of product that we have already order--------------------
   Future<Either<Failure, List<SelectOrderByTableModel>>?> SelectByOrder(
-      {
-        required int table_id,
-        required int or_status
-      }) async {
+      {required int table_id, required int or_status}) async {
     try {
-      final result = await services.SelectOrderBytable(table_id: table_id, or_status: or_status);
+      final result = await services.SelectOrderBytable(
+          table_id: table_id, or_status: or_status);
       return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -342,19 +345,19 @@ class AuthenRepository {
   }
 
   //----to move menu list of table---------------------
-  Future<Either<Failure, bool>?> MoveTable({
-    required int or_id,
-    required String product_id,
-    required int qty,
-    required double amount,
-    required int table_id
-  }) async {
+  Future<Either<Failure, bool>?> MoveTable(
+      {required int or_id,
+      required String product_id,
+      required int qty,
+      required double amount,
+      required int table_id}) async {
     try {
       final result = await services.Update_MenuOfMoveTable(
         or_id: or_id,
         product_id: product_id,
         qty: qty,
-        amount: amount, table_id: table_id,
+        amount: amount,
+        table_id: table_id,
       );
       return Right(result!);
     } catch (e) {
@@ -375,6 +378,7 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
+
   //----deletemove table---------------------
   Future<Either<Failure, bool>?> updateTable_id({
     required int or_id,
@@ -382,16 +386,14 @@ class AuthenRepository {
     required int table_ids,
     required int or_qty,
     required int or_amount,
-   
   }) async {
     try {
       final result = await services.updatetable_id(
         or_id: or_id,
         table_id: table_id,
-         table_ids: table_ids,
-          or_qty: or_qty, 
-          or_amount: or_amount,
-      
+        table_ids: table_ids,
+        or_qty: or_qty,
+        or_amount: or_amount,
       );
       return Right(result!);
     } catch (e) {
@@ -403,8 +405,9 @@ class AuthenRepository {
   Future<Either<Failure, List<SelectOrderReportModel>>?> getOrderReport(
       {required DateTime fromdate, required DateTime todate}) async {
     try {
-      final result =
-          await services.getOrderReport(Fromdate: fromdate, Todate: todate);
+      final result = await services.getOrderReport(
+             Fromdate: fromdate,
+             Todate: todate);
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));
@@ -412,7 +415,7 @@ class AuthenRepository {
   }
 
 //-----------ge order detail for report-----------------------
-  Future<Either<Failure, List<SelectOrderDetailReportModel>>?>
+  Future<Either<Failure, List<SelectOrderReportModels>>?>
       SelectordertoReport({required int or_id}) async {
     try {
       final result = await services.SelectordertoReport(or_id: or_id);
@@ -431,19 +434,22 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
-    //------------select product to make report---------------
-  Future<Either<Failure, List<GetOrderDetailModel>>?> getorderdetailmakeReport({required DateTime fromdate, required DateTime todate}) async {
+
+  //------------select product to make report---------------
+  Future<Either<Failure, List<GetOrderDetailModel>>?> getorderdetailmakeReport(
+      {required DateTime fromdate, required DateTime todate}) async {
     try {
-      final result = await services.getorderdetail_makeReport(Fromdate: fromdate, Todate: todate);
+      final result = await services.getorderdetail_makeReport(
+          Fromdate: fromdate, Todate: todate);
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
 
-
   //------------select order by order status for kitchen---------------
-  Future<Either<Failure, List<OrderStatusModel>>?> GetOrderByOrderStatus() async {
+  Future<Either<Failure, List<OrderStatusModel>>?>
+      GetOrderByOrderStatus() async {
     try {
       final result = await services.GetOrderByOrderStatus();
       return Right(result!);
@@ -453,7 +459,8 @@ class AuthenRepository {
   }
 
   //------------select order detail for kitchen---------------
-  Future<Either<Failure, List<OrderDetailModel>>?> getOrderdetail_kitchen({required int or_ids}) async {
+  Future<Either<Failure, List<OrderDetailModel>>?> getOrderdetail_kitchen(
+      {required int or_ids}) async {
     try {
       final result = await services.getOrderdetail_kitchen(or_ids: or_ids);
       return Right(result!);
@@ -461,16 +468,15 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
-   //---- get update table status and order status table---------------------
+
+  //---- get update table status and order status table---------------------
   Future<Either<Failure, bool>?> getupdateTableStatus_OrderStatus({
     required int or_id,
-    required int table_id, 
+    required int table_id,
   }) async {
     try {
       final result = await services.getUpdate_OrderStatus_tableStatus(
-        table_Id: table_id, 
-        order_id: or_id
-      );
+          table_Id: table_id, order_id: or_id);
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));

@@ -17,18 +17,16 @@ class OrderReportState extends Equatable {
   List<Object?> get props => [status, orderlist, orderType,productType];
 
   OrderReportState coppywith(
-      {orderlistreportstatus? status_c,
+      {orderlistreportstatus? status,
       List<SelectOrderReportModel>? orderlist_c,
       int? orderType_c,
       int? productType_c
       }) {
     return OrderReportState(
-      status: status_c ?? this.status,
+      status: status ?? this.status,
       orderlist: orderlist_c ?? this.orderlist,
       orderType: orderType_c?? this.orderType,
       productType: productType_c?? this.productType
     );
   }
 }
-
-final class OrderInitial extends OrderReportState {}

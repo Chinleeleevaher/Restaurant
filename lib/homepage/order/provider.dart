@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/model/orderproductmodel.dart';
+import 'package:myproject/homepage/report/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
@@ -150,35 +151,18 @@ class orderprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //--------order report------------------
-  //------of select order data by table status--------------
-  List<SelectOrderReportModel>? _orderReport;
-  List<SelectOrderReportModel>? get orderReport => _orderReport;
-  OrderReport(List<SelectOrderReportModel> value) {
-    if (orderReport != 0) {
-      _orderReport = value;
-    }
-    notifyListeners();
-  }
 
-  // ------to get order list of report-----------
-  late SelectOrderReportModel _getorderlistReport;
-  SelectOrderReportModel get getorderlistReport => _getorderlistReport;
-
-  setOrderlistReport(SelectOrderReportModel value) {
-    _getorderlistReport = value;
-     notifyListeners();
-  }
 
   // ------to get order detail for report-----------
-  List<SelectOrderDetailReportModel>? _selectOrderDetailReport;
-  List<SelectOrderDetailReportModel>? get selectOrderDetailReport =>
-      _selectOrderDetailReport;
+  // List<SelectOrderDetailReportModel>? _selectOrderDetailReport;
+  // List<SelectOrderDetailReportModel>? get selectOrderDetailReport =>
+  //     _selectOrderDetailReport;
 
-  selectOrderdetailreport(List<SelectOrderDetailReportModel> value) {
-    if (selectOrderDetailReport != 0) {
-      _selectOrderDetailReport = value;
-    }
-    notifyListeners();
-  }
+  // selectOrderdetailreport(List<SelectOrderDetailReportModel> value) {
+  //   if (selectOrderDetailReport != 0) {
+  //     _selectOrderDetailReport = value;
+  //   }
+  //   notifyListeners();
+  // }
+
 }

@@ -1,13 +1,11 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/order/provider.dart';
-import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
-
-import 'component/dailogbill.dart';
-import 'component/typeList.dart';
 import 'cubit/order_cubit.dart';
 
 class ReportPage extends StatefulWidget {
@@ -23,17 +21,20 @@ class _ReportPageState extends State<ReportPage> {
     return BlocConsumer<OrderReportCubit, OrderReportState>(
       listener: (context, state) {
         // TODO: implement listener
+        print('status listen=======${state.status}');
       },
       builder: (context, state) {
+        log('status in buider=== ${state.status}');
         var cubit = context.read<OrderReportCubit>();
-        var provider = context.read<orderprovider>();
         var Repotprovider = context.read<ReportProvider>();
         return Scaffold(
           appBar: AppBar(
             title: Text("Report"),
+         
           ),
           body: ListView(
             children: [
+              
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -123,8 +124,7 @@ class _ReportPageState extends State<ReportPage> {
                   GestureDetector(
                     onTap: () {
                       cubit.typeOrderReport(1);
-                      cubit.TypeProductReport(
-                          0); // <---here is to make clear the prducttype in state to the default again
+                      //cubit.TypeProductReport(0);
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 30, left: 30, bottom: 10),
@@ -154,7 +154,7 @@ class _ReportPageState extends State<ReportPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      cubit.TypeProductReport(2);
+                      cubit.typeOrderReport(2);
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 30, left: 30, bottom: 10),
@@ -186,7 +186,7 @@ class _ReportPageState extends State<ReportPage> {
               ),
               Builder(builder: (context) {
                 // <---here is make check if order type then show only order data and if product type then show only product data
-                if (state.productType == 2) {
+                if (state.orderType == 2) {
                   return Column(
                     children: [
                       Container(
@@ -236,7 +236,7 @@ class _ReportPageState extends State<ReportPage> {
                                 child: Text("Chose the date you want to show"),
                               );
                             }
-                            return ListView(
+                            return Column(
                               children: List.generate(
                                   Repotprovider.AllcollectReport!.length,
                                   (index) {
@@ -264,7 +264,7 @@ class _ReportPageState extends State<ReportPage> {
                                                 VerticalDivider(),
                                                 Text(Repotprovider
                                                     .AllcollectReport![index]
-                                                    .quantity
+                                                    .protypeId
                                                     .toString()), // <--this is of still qty
                                                 VerticalDivider(),
                                                 Text(
@@ -279,116 +279,8 @@ class _ReportPageState extends State<ReportPage> {
                                                 Text(
                                                   Repotprovider
                                                       .AllcollectReport![index]
-                                                      .protypeId
+                                                      .quantity
                                                       .toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.green),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                            );
-                          }),
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text("ລ/ດ"),
-                              VerticalDivider(),
-                              Text("ເລກບິນ"),
-                              VerticalDivider(),
-                              Text("ວັນທີ"),
-                              VerticalDivider(),
-                              Text("ຈໍານວນ"),
-                              VerticalDivider(),
-                              Text("ຈ່າຍ"),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Container(
-                          // height: 500,
-                          // width: 550,
-                          height: MediaQuery.of(context).size.height * 0.6,
-                          width: MediaQuery.of(context).size.width * 2,
-                          decoration: BoxDecoration(color: Colors.white),
-                          child: Builder(builder: (context) {
-                            if (state.status == orderlistreportstatus.loading) {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            if (state.orderlist!.isEmpty) {
-                              return Center(
-                                child: Text("Chose the date you want to show"),
-                              );
-                            }
-                            return ListView(
-                              children: List.generate(
-                                  provider.orderReport!.length, (index) {
-                                var orderlist = provider.orderReport![index];
-                                DateFormat formatter = DateFormat(
-                                    'dd-MM-yyyy HH:mm'); // <-- here is make formate the date befor i take it to show
-                                String formattedDate =
-                                    formatter.format(orderlist.orDate);
-                                return Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      cubit.getorderdetail(orderlist);
-                                    },
-                                    child: InkWell(
-                                      child: Column(
-                                        children: [
-                                          ListTile(
-                                            // leading: Text((index + 1).toString()),
-                                            title: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text((index + 1).toString()),
-                                                VerticalDivider(),
-                                                Text(
-                                                  orderlist.orId.toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.red),
-                                                ),
-                                                VerticalDivider(),
-                                                Text(formattedDate),
-                                                VerticalDivider(),
-                                                Text(
-                                                    orderlist.orQty.toString()),
-                                                VerticalDivider(),
-                                                Text(
-                                                  orderlist.payment.toString(),
                                                   style: TextStyle(
                                                       color: Colors.green),
                                                 )
@@ -408,6 +300,114 @@ class _ReportPageState extends State<ReportPage> {
                     ],
                   );
                 }
+
+                return Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text("ລ/ດ"),
+                            VerticalDivider(),
+                            Text("ເລກບິນ"),
+                            VerticalDivider(),
+                            Text("ວັນທີ"),
+                            VerticalDivider(),
+                            Text("ຈໍານວນ"),
+                            VerticalDivider(),
+                            Text("ຈ່າຍ"),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(1.0),
+                      child: Container(
+                        // height: 500,
+                        // width: 550,
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        width: MediaQuery.of(context).size.width * 2,
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: Builder(builder: (context) {
+                          if (state.status == orderlistreportstatus.loading) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.red,
+                              ),
+                            );
+                          }
+                          if (state.orderlist!.isEmpty) {
+                            return const Center(
+                              child: Text("Chose the date you want to show"),
+                            );
+                          }
+                          return Column(
+                            children: List.generate(
+                                Repotprovider.orderReport!.length, (index) {
+                              var orderlist = Repotprovider.orderReport![index];
+                              DateFormat formatter = DateFormat(
+                                  'dd-MM-yyyy HH:mm'); // <-- here is make formate the date befor i take it to show
+                              String formattedDate =
+                                  formatter.format(orderlist.orDate);
+                              return Card(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    cubit.getorderdetail(orderlist);
+                                  },
+                                  child: InkWell(
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          // leading: Text((index + 1).toString()),
+                                          title: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text((index + 1).toString()),
+                                              VerticalDivider(),
+                                              Text(
+                                                orderlist.orId.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              VerticalDivider(),
+                                              Text(formattedDate),
+                                              VerticalDivider(),
+                                              Text(orderlist.orQty.toString()),
+                                              VerticalDivider(),
+                                              Text(
+                                                orderlist.payment.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.green),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
+                );
               }),
             ],
           ),

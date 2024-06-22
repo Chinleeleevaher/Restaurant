@@ -1,14 +1,14 @@
 // To parse this JSON data, do
 //
-//     final getOrderDetailModel = getOrderDetailModelFromJson(jsonString);
+//     final selectOrderReportModels = selectOrderReportModelsFromJson(jsonString);
 
 import 'dart:convert';
 
-List<GetOrderDetailModel> getOrderDetailModelFromJson(String str) => List<GetOrderDetailModel>.from(json.decode(str).map((x) => GetOrderDetailModel.fromJson(x)));
+List<SelectOrderReportModels> selectOrderReportModelsFromJson(String str) => List<SelectOrderReportModels>.from(json.decode(str).map((x) => SelectOrderReportModels.fromJson(x)));
 
-String getOrderDetailModelToJson(List<GetOrderDetailModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String selectOrderReportModelsToJson(List<SelectOrderReportModels> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class GetOrderDetailModel {
+class SelectOrderReportModels {
     int ordId;
     int orId;
     String productId;
@@ -16,10 +16,9 @@ class GetOrderDetailModel {
     int amount;
     DateTime ordDate;
     int tableId;
-    DateTime orDate;
     String productName;
 
-    GetOrderDetailModel({
+    SelectOrderReportModels({
         required this.ordId,
         required this.orId,
         required this.productId,
@@ -27,11 +26,10 @@ class GetOrderDetailModel {
         required this.amount,
         required this.ordDate,
         required this.tableId,
-        required this.orDate,
         required this.productName,
     });
 
-    factory GetOrderDetailModel.fromJson(Map<String, dynamic> json) => GetOrderDetailModel(
+    factory SelectOrderReportModels.fromJson(Map<String, dynamic> json) => SelectOrderReportModels(
         ordId: json["ord_id"],
         orId: json["or_id"],
         productId: json["product_id"],
@@ -39,7 +37,6 @@ class GetOrderDetailModel {
         amount: json["amount"],
         ordDate: DateTime.parse(json["ord_date"]),
         tableId: json["table_id"],
-        orDate: DateTime.parse(json["or_date"]),
         productName: json["product_name"],
     );
 
@@ -51,7 +48,6 @@ class GetOrderDetailModel {
         "amount": amount,
         "ord_date": ordDate.toIso8601String(),
         "table_id": tableId,
-        "or_date": orDate.toIso8601String(),
         "product_name": productName,
     };
 }

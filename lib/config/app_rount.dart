@@ -197,7 +197,7 @@ class AppRount {
                 authenRepository: context.read<AuthenRepository>(),
                 tableproviders: context.read<tableProvider>())
               ..getProductTypes()
-             ..getproduct()
+              ..getproduct()
             //..postorderlist()
             ,
             child: ListProduct_page(),
@@ -225,7 +225,7 @@ class AppRount {
             child: OrderstatusPage(),
           ),
         );
-        case orderstatusWaiting:
+      case orderstatusWaiting:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => OrderstatusCubit(
@@ -261,7 +261,10 @@ class AppRount {
       case kitchen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => KitchenCubit(authenRepository: context.read<AuthenRepository>())..SelectorderbyOrderStatus(),
+                  create: (context) => KitchenCubit(
+                    authenRepository: context.read<AuthenRepository>(),
+                    context: context,
+                  )..SelectorderbyOrderStatus(),
                   child: Kitchen(),
                 ));
 

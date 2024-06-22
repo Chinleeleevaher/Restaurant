@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/report/providerReport.dart';
 
 Future simpledailog(BuildContext context) {
-  var orderproviders = context.read<orderprovider>();
+  //var orderproviders = context.read<orderprovider>();
+  var reportProvider = context.read<ReportProvider>();
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -34,7 +36,7 @@ Future simpledailog(BuildContext context) {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
-                      child: Text("BM Restautrant"),
+                      child: Text("Naban Restautrant"),
                     ),
                     Text(""),
                   ],
@@ -47,7 +49,7 @@ Future simpledailog(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Order Id:  " +
-                        (orderproviders.getorderlistReport.orId.toString())),
+                        (reportProvider.getorderlistReport.orId.toString())),
                   ],
                 ),
               ),
@@ -57,7 +59,7 @@ Future simpledailog(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Date: " +
-                        orderproviders.getorderlistReport.orDate.toString()),
+                        reportProvider.getorderlistReport.orDate.toString()),
                   ],
                 ),
               ),
@@ -77,30 +79,30 @@ Future simpledailog(BuildContext context) {
               Expanded(
                 child: ListView(
                   children: List.generate(
-                      orderproviders.selectOrderDetailReport!.length, (index) {
+                      reportProvider.selectOrderDetailReport!.length, (index) {
                     return Column(
                       children: [
                         ListTile(
-                          title: Text(orderproviders
+                          title: Text(reportProvider
                               .selectOrderDetailReport![index].productName),
                           subtitle: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(orderproviders
-                                      .selectOrderDetailReport![index].price
+                              Text(reportProvider
+                                      .selectOrderDetailReport![index].amount
                                       .toString() +
                                   " Kip"),
                               SizedBox(
                                 width: 40,
                               ),
-                              Text(orderproviders
+                              Text(reportProvider
                                   .selectOrderDetailReport![index].qty
                                   .toString()),
                             ],
                           ),
                           trailing: Padding(
                             padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: Text(orderproviders
+                            child: Text(reportProvider
                                     .selectOrderDetailReport![index].amount
                                     .toString() +
                                 " Kip"),
@@ -125,7 +127,7 @@ Future simpledailog(BuildContext context) {
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Text(orderproviders.getorderlistReport.orAmount.toString() +
+                    Text(reportProvider.getorderlistReport.orAmount.toString() +
                         " Kip"),
                   ],
                 ),
@@ -134,12 +136,24 @@ Future simpledailog(BuildContext context) {
               Text("thank you! Visit again"),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  child: Text('CANCEL'),
+                child: Row(
+                  mainAxisAlignment:  MainAxisAlignment.spaceAround,
+                  children: [
+                      ElevatedButton(
+                  child: Text('wait'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
+                     ElevatedButton(
+                  child: Text('print'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                  ],
+                )
+              
               ),
             ],
           ),
