@@ -13,6 +13,7 @@ import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
+import 'package:myproject/homepage/orderproduct/orderproductModel.dart';
 import 'package:myproject/homepage/report/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -938,5 +939,28 @@ class AuthenService {
       print(e.toString());
       return false;
     }
+  }
+  //----get product to  make order product-----------
+  Future<List<OrderProductModel>?> getOrder_Product() async {
+    try {
+      var request =
+          http.Request('GET', Uri.parse(ApiPaths.OrderProduct));
+      request.body = '''''';
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == 200) {
+          final selectproduct =
+              orderProductModelFromJson(jsonEncode(body["data"]));
+          return selectproduct;
+        } else {
+          Exception('data is null');
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {}
   }
 }

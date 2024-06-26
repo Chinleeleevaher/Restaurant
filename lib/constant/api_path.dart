@@ -1,6 +1,6 @@
 class ApiPaths {
   // static const baseURL = 'https://';
-  static const baseURL = 'http://192.168.1.3:3005';
+  static const baseURL = 'http://192.168.1.5:3005';
 
   /// HTTP request methods
   static const String getRequest = 'get';
@@ -17,6 +17,7 @@ class ApiPaths {
   static const String tablepath = '$baseURL/table';
   static const String update_table = '$baseURL/update-table';
   static const String productpath = '$baseURL/food';
+  static const String OrderProduct = '$baseURL/product';
   static const String producttypepath = '$baseURL/product-type';
   static const String add_producttype = '$baseURL/product-types';
   static const String delete_producttype = '$baseURL/delete-product-type';

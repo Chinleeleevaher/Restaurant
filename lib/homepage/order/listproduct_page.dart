@@ -78,7 +78,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                 );
               }),
             ],
-            title: Text('BM shop'),
+            title: Text('Naban Restaurant'),
           ),
           body: ListView(
             children: [

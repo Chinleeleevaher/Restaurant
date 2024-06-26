@@ -26,6 +26,9 @@ import 'package:myproject/homepage/order_history/order_status_page.dart';
 import 'package:myproject/homepage/order_history/order_status_waiting.dart';
 import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/order_list/orderlist_page.dart';
+import 'package:myproject/homepage/orderproduct/cubit/order_product_cubit.dart';
+import 'package:myproject/homepage/orderproduct/orderProduct.dart';
+import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
 import 'package:myproject/homepage/product_page/cubit/products_cubit.dart';
 import 'package:myproject/homepage/product_page/product_page.dart';
 import 'package:myproject/homepage/report/cubit/order_cubit.dart';
@@ -68,6 +71,7 @@ class AppRount {
   static const String checkbill = '/checkbill';
   static const String report = '/report';
   static const String kitchen = '/kitchen';
+  static const String orderProduct = '/ordeProduct';
 
   static Route<dynamic> generateRount(RouteSettings settings) {
     switch (settings.name) {
@@ -150,7 +154,16 @@ class AppRount {
             child: ProductPage(),
           ),
         );
-
+     case orderProduct:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => OrderProductCubit(
+                 authenRepository: context.read<AuthenRepository>(), 
+                  provider: context.read<OrderProductProvider>()
+                    )..getOrderProdct(),
+            child: order_product(),
+          ),
+        );
       case addproduct:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(

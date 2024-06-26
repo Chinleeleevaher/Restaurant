@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/report/component/printDailog.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'cubit/order_cubit.dart';
 
@@ -30,6 +31,19 @@ class _ReportPageState extends State<ReportPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text("Report"),
+            actions: [Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: GestureDetector(
+                    onTap: () {
+                     cubit.ontypePrint();
+                   // printdailog(context);
+                    },
+                    child: Icon(Icons.print)),
+                )
+              ],
+            )],
          
           ),
           body: ListView(
@@ -265,7 +279,7 @@ class _ReportPageState extends State<ReportPage> {
                                                 Text(Repotprovider
                                                     .AllcollectReport![index]
                                                     .protypeId
-                                                    .toString()), // <--this is of still qty
+                                                    .toString()), // <--this is of all qty
                                                 VerticalDivider(),
                                                 Text(
                                                   Repotprovider

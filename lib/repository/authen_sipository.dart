@@ -12,6 +12,7 @@ import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
+import 'package:myproject/homepage/orderproduct/orderproductModel.dart';
 import 'package:myproject/homepage/report/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/failure.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -429,6 +430,15 @@ class AuthenRepository {
   Future<Either<Failure, List<GetProductModel>>?> getproductmakeReport() async {
     try {
       final result = await services.getproduct_makeReport();
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+  //------------select product for order Produt---------------
+  Future<Either<Failure, List<OrderProductModel>>?> getOrder_Product() async {
+    try {
+      final result = await services.getOrder_Product();
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));

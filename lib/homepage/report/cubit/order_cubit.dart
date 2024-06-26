@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/report/component/printDailog.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
 import 'package:myproject/repository/authen_sipository.dart';
@@ -101,5 +102,14 @@ class OrderReportCubit extends Cubit<OrderReportState> {
       reportProvider.TogetorderdetailReport(r);
       emit(state.coppywith(status: orderlistreportstatus.success));
     });
+  }
+  ///........for print.............
+  
+  ontypePrint()async {
+       if (state.orderType == 1) {
+     await printdailog(context);
+    } else {
+  log("message");
+    }
   }
 }
