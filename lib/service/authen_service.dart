@@ -13,7 +13,8 @@ import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
-import 'package:myproject/homepage/orderproduct/orderproductModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
+import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -940,11 +941,11 @@ class AuthenService {
       return false;
     }
   }
+
   //----get product to  make order product-----------
   Future<List<OrderProductModel>?> getOrder_Product() async {
     try {
-      var request =
-          http.Request('GET', Uri.parse(ApiPaths.OrderProduct));
+      var request = http.Request('GET', Uri.parse(ApiPaths.OrderProduct));
       request.body = '''''';
 
       http.StreamedResponse response = await request.send();
@@ -962,5 +963,65 @@ class AuthenService {
         print(response.reasonPhrase);
       }
     } catch (e) {}
+  }
+
+  // ..........post order Product and make return.............
+
+  Future<List<PostorderProductModel>?> PostOrderProduct({
+    // ignore: non_constant_identifier_names
+    required String product_id,
+    // ignore: non_constant_identifier_names
+    required String product_name,
+    required int product_Qty,
+    required int product_price,
+    required String product_image,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request('POST', Uri.parse(ApiPaths.postOrderproduct));
+      request.body = json.encode({
+        "product_id": product_id,
+        "product_name": product_name,
+        "product_Qty": product_Qty,
+        "product_price": product_price,
+        "status": 1,
+        "product_image": product_image
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 201) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        final selectproduct =
+            postorderProductModelFromJson(jsonEncode(body["data"]));
+        return selectproduct;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  ///............update order product status..............
+
+  //----update table_id---------------
+  Future<bool?> UpdateOrderProduct({
+    required String productID,
+  }) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('PATCH', Uri.parse(ApiPaths.updateOrderproduct));
+    request.body = json.encode({"pID": productID, "status": 2});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print(response.reasonPhrase);
+    }
+    return null;
   }
 }

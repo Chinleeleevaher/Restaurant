@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myproject/homepage/orderproduct/component/billDailog.dart';
+import 'package:myproject/homepage/orderproduct/component/listDailog.dart';
 import 'package:myproject/homepage/orderproduct/cubit/order_product_cubit.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +16,6 @@ class order_product extends StatefulWidget {
 }
 
 class _order_productState extends State<order_product> {
-  int ad = 0;
-  int ads = 0;
-  void addqtys() {
-    setState(() {
-      ad++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OrderProductCubit, OrderProductState>(
@@ -31,7 +27,21 @@ class _order_productState extends State<order_product> {
         var provider = context.read<OrderProductProvider>();
         return Scaffold(
             appBar: AppBar(
-              title: Text("Order Product"),
+              title: const Text("Order Product"),
+              actions: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: GestureDetector(
+                        onTap: () {
+                          listdailog(context);
+                        },
+                        child: Icon(Icons.list)),
+                    )
+                  ],
+                )
+              ],
             ),
             body: ListView(
               children: [
@@ -76,6 +86,7 @@ class _order_productState extends State<order_product> {
                         width: MediaQuery.of(context).size.width * 2,
                         // decoration: BoxDecoration(color: Colors.white),
                         child: Builder(builder: (context) {
+                          
                           if (state.status == OrderProductStatus.loading) {
                             return const Center(
                               child: CircularProgressIndicator(
@@ -136,21 +147,24 @@ class _order_productState extends State<order_product> {
                                                     });
                                                   },
                                                   child: const Icon(
-                                                      Icons.minimize_outlined,
-                                                      color: Colors.red,
-                                                      ),
+                                                    Icons.minimize_outlined,
+                                                    color: Colors.red,
+                                                  ),
                                                 ),
                                               ),
                                               GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      cubits.ontype(provider
-                                                          .getproductOrder![
-                                                              index]
-                                                          .productId);
-                                                    });
-                                                  },
-                                                  child: const Icon(Icons.add, color: Colors.green,),)
+                                                onTap: () {
+                                                  setState(() {
+                                                    cubits.ontype(provider
+                                                        .getproductOrder![index]
+                                                        .productId);
+                                                  });
+                                                },
+                                                child: const Icon(
+                                                  Icons.add,
+                                                  color: Colors.green,
+                                                ),
+                                              )
                                             ],
                                           ),
                                         ),
@@ -165,81 +179,99 @@ class _order_productState extends State<order_product> {
                       ),
                     ),
                     Container(
-                      height: 170,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          
-                           Text.rich(
-                            TextSpan(
-                              text: 
-                                  "ລາຄາ :     "  + provider.totalprice.toString(), // <----text of total price
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
+                        height: 170,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
 
-                              children: const <TextSpan>[
-                                TextSpan(
-                                  text:
-                                      "    ກີບ ", // here of total price
-                                  style: TextStyle(color: Colors.red),
+                            Text.rich(
+                              TextSpan(
+                                text: "ລາຄາ :     " +
+                                    provider.totalprice
+                                        .toString(), // <----text of total price
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
                                 ),
-                              ],
+
+                                children: const <TextSpan>[
+                                  TextSpan(
+                                    text: "    ກີບ ", // here of total price
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          // Text(
-                          //   "ທັງໝົດ:  " + orderlist.totalprice.toString(),
-                          //   style: TextStyle(color: Colors.red),
-                          // ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10, left: 10,top: 30),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    //  orderlist.clear();
-                                  },
-                                  child: Text("ຍົກເລີກ"), // <----text of Check Cencel-----
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                            // Text(
+                            //   "ທັງໝົດ:  " + orderlist.totalprice.toString(),
+                            //   style: TextStyle(color: Colors.red),
+                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 10, left: 10, top: 30),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                        "ຍົກເລີກ"), // <----text of Check Cencel-----
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // cubit.cut_stock().then((value) {
-                                    //   navService.pushNamed(AppRount.checkbill);
-                                    // });
-                                  },
-                                  child: Text("ສັ່ງຊື້", style: TextStyle(color: Colors.white),), // <----text of Check bill-----
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      if (cubits.provider.totalprice != 0) {
+                                        cubits.PostOrderProduct();
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                "Please Select the product first",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 12.0);
+                                      }
+                                    }, // <----text of Check bill-----
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                    child: const Text(
+                                      "ສັ່ງຊື້",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ))
+                          ],
+                        ))
                   ],
                 )
               ],

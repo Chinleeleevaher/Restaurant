@@ -12,7 +12,8 @@ import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
-import 'package:myproject/homepage/orderproduct/orderproductModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
+import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/failure.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -380,7 +381,7 @@ class AuthenRepository {
     }
   }
 
-  //----deletemove table---------------------
+  //----Update move table---------------------
   Future<Either<Failure, bool>?> updateTable_id({
     required int or_id,
     required int table_id,
@@ -487,6 +488,41 @@ class AuthenRepository {
     try {
       final result = await services.getUpdate_OrderStatus_tableStatus(
           table_Id: table_id, order_id: or_id);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+ // ..........post order Product and make return.............
+  Future<Either<Failure, List<PostorderProductModel>>?> PostOrderProduct(
+      {
+        required String product_id,
+        required String product_name,
+        required int product_Qty,
+        required int product_price,
+        required String product_image,
+      }) async {
+    try {
+      final result = await services.PostOrderProduct(
+        product_id: product_id,
+        product_name: product_name,
+        product_Qty: product_Qty,
+        product_price: product_price,
+        product_image: product_image,);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+///.........update OrderProduct...............
+Future<Either<Failure, bool>?> UpdateOrderProduct({
+    required String productID,
+
+  }) async {
+    try {
+      final result = await services.UpdateOrderProduct(productID: productID
+      
+      );
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));

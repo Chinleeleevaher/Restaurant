@@ -21,7 +21,7 @@ class KitchenCubit extends Cubit<KitchenState> {
     required this.context,
     // required this.kitchenProvide
   }) : super(KitchenState());
-
+///.........this function is for protect if the internet is slow.  ກັນ error.............
   bool mounted = true;
   @override
   Future<void> close() {
@@ -76,7 +76,8 @@ class KitchenCubit extends Cubit<KitchenState> {
     //emit(state.coppywith(status_c: statuslist.loading));
     Navigator.of(context).pop();
     MyProgress().loadingProgress(context: context,title: 'Updating');
-    // await Future.delayed(const Duration(seconds: 3));
+    //await Future.delayed(const Duration(seconds: 1)); // ....here is to waiting time........
+
     var result = await authenRepository.getupdateTableStatus_OrderStatus(
         or_id: state.typeSeletOrderId!.orId,
         table_id: state.typeSeletOrderId!.tableId);
@@ -95,14 +96,14 @@ class KitchenCubit extends Cubit<KitchenState> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.8,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Bill',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -113,7 +114,7 @@ class KitchenCubit extends Cubit<KitchenState> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
+                      const Icon(
                         Icons.table_bar,
                         color: Colors.red,
                         size: 50,
@@ -122,27 +123,25 @@ class KitchenCubit extends Cubit<KitchenState> {
                         padding: const EdgeInsets.only(left: 20),
                         child: Text(
                           state.typeSeletOrderId!.tableId.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
-                      Text(""),
+                   
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      // Text("Bill No:  " +
-                      //     "VT" +
-                      //     tableprovi.tablenumber),
+                     
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -150,9 +149,9 @@ class KitchenCubit extends Cubit<KitchenState> {
                     ],
                   ),
                 ),
-                Divider(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8, left: 8),
+                const Divider(),
+                const Padding(
+                  padding: EdgeInsets.only(right: 8, left: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -162,7 +161,7 @@ class KitchenCubit extends Cubit<KitchenState> {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 Expanded(
                   child: Builder(builder: (context) {
                     if (state.loadBillStatus == statuslist.loading) {
@@ -190,7 +189,7 @@ class KitchenCubit extends Cubit<KitchenState> {
                                 ],
                               ),
                             ),
-                            DottedLine(
+                            const DottedLine(
                               //<---this is make draw the dotted line
                               dashGapLength: 5,
                               dashLength: 5,
@@ -207,7 +206,7 @@ class KitchenCubit extends Cubit<KitchenState> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         "ຈໍານວນທັງໝົດ:",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -215,26 +214,26 @@ class KitchenCubit extends Cubit<KitchenState> {
                       Padding(
                         padding: const EdgeInsets.only(left: 30),
                         child: Text(state.typeSeletOrderId!.orQty.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
                       )
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       ElevatedButton(
-                        child: Text('wait'),
+                        child: const Text('wait'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       ElevatedButton(
-                        child: Text('Print'),
+                        child: const Text('Print'),
                         onPressed: () {
                           getupdateTableStatus_orStatus();
                         },

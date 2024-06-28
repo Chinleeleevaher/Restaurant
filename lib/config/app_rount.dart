@@ -159,7 +159,7 @@ class AppRount {
           builder: (context) => BlocProvider(
             create: (context) => OrderProductCubit(
                  authenRepository: context.read<AuthenRepository>(), 
-                  provider: context.read<OrderProductProvider>()
+                  provider: context.read<OrderProductProvider>(), context: context
                     )..getOrderProdct(),
             child: order_product(),
           ),
