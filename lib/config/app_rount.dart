@@ -12,6 +12,9 @@ import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import 'package:myproject/homepage/check_bill/checkbill_page.dart';
 import 'package:myproject/homepage/Dashboard/dashboard.dart';
 import 'package:myproject/homepage/home_page.dart';
+import 'package:myproject/homepage/import_Product/cubit/import_product_cubit.dart';
+import 'package:myproject/homepage/import_Product/importProduct.dart';
+import 'package:myproject/homepage/import_Product/provider/provider.dart';
 import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
 import 'package:myproject/homepage/kitchen/kitchen.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
@@ -40,6 +43,9 @@ import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
+import 'package:myproject/homepage/user/component/addUser.dart';
+import 'package:myproject/homepage/user/cubit/user_cubit.dart';
+import 'package:myproject/homepage/user/user.dart';
 import 'package:myproject/login/Login_Page.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
 import 'package:myproject/login/home_provider/provider.dart';
@@ -71,7 +77,10 @@ class AppRount {
   static const String checkbill = '/checkbill';
   static const String report = '/report';
   static const String kitchen = '/kitchen';
+  static const String user = '/user';
+  static const String adduser = '/adduser';
   static const String orderProduct = '/ordeProduct';
+  static const String importProduct = '/importproduct';
 
   static Route<dynamic> generateRount(RouteSettings settings) {
     switch (settings.name) {
@@ -177,6 +186,17 @@ class AppRount {
             child: Addproduct(),
           ),
         );
+        case importProduct:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => ImportProductCubit(
+              authenRepository: context.read<AuthenRepository>(),
+               providers: context.read<ImpProduct>(),
+             
+                    ),
+            child: ImportProduct(),
+          ),
+        );
       case addcategory:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
@@ -280,7 +300,23 @@ class AppRount {
                   )..SelectorderbyOrderStatus(),
                   child: Kitchen(),
                 ));
-
+        case user:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => UserCubit(
+                     authenRepository: context.read<AuthenRepository>(),
+                    // context: context,
+                  ),
+                  child: User(),
+                ));
+  case adduser:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => UserCubit(authenRepository: context.read<AuthenRepository>()
+                  
+                  ),
+                  child: AddUser(),
+                ));
       default:
         return MaterialPageRoute(builder: (context) => const DefaulPage());
     }

@@ -55,11 +55,7 @@ class CubitCubit extends Cubit<CubitState> {
           final model = userLoginModelFromJson(jsonEncode(body['data']));
 
           emit(
-            state.copywith(
-              user_c: model,
-              status_c: liststatuse.success,
-            ),
-          );
+            state.copywith(user_c: model,status_c: liststatuse.success,), );
           //this below line is to save the model back to the "homeProvider.setIsUserlist"
           homeProvider.setIsUserlist(model);
 

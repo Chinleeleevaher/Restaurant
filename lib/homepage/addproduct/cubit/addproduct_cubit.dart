@@ -70,7 +70,9 @@ class AddproductCubit extends Cubit<AddproductState> {
     try {
       emit(state.coppywith(status_c: producttypestatuse.loading));
       var result =
-          await authenRepositorys.imageP(imagepath: state.typeSelecimage!);
+          await authenRepositorys.imageP(
+            imagepath: state.typeSelecimage!
+            );
       result.fold(
         (f) {
           log('errro 101');

@@ -1,12 +1,11 @@
-import 'dart:developer';
+
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
+import 'package:myproject/homepage/import_Product/model/importModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
@@ -22,13 +21,14 @@ import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
+import 'package:myproject/homepage/user/model/addUserModel.dart';
 import 'package:myproject/service/authen_service.dart';
 
 import '../homepage/addcategory/component/model.dart';
 import '../homepage/report/getproductmodel.dart';
 import '../homepage/report/orderDetailModel.dart';
 import '../homepage/report/reportmodel.dart';
-import '../homepage/report/selecorderdetailreport.dart';
+
 
 class AuthenRepository {
   final AuthenService services = AuthenService();
@@ -500,6 +500,7 @@ class AuthenRepository {
         required String product_name,
         required int product_Qty,
         required int product_price,
+        required int product_cost,
         required String product_image,
       }) async {
     try {
@@ -508,6 +509,7 @@ class AuthenRepository {
         product_name: product_name,
         product_Qty: product_Qty,
         product_price: product_price,
+        product_cost: product_cost,
         product_image: product_image,);
       return Right(result!);
     } catch (e) {
@@ -522,6 +524,66 @@ Future<Either<Failure, bool>?> UpdateOrderProduct({
     try {
       final result = await services.UpdateOrderProduct(productID: productID
       
+      );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+   // ..........select order product for import.............
+  Future<Either<Failure, OrderproductImprotsModel>?> selectOrderporduct(
+      {
+        required String product_id,
+
+      }) async {
+    try {
+      final result = await services.selectOrderProductImport(
+        product_id: product_id,
+      );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+   // ..........Update order product for import.............
+  Future<Either<Failure, bool>?> updateProductImport(
+      {
+        required String product_id,
+        required int quantity,
+
+      }) async {
+    try {
+      final result = await services.UpdateImportProduct(
+        product_id: product_id, quantity: quantity,
+      );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  // ..........Add User and select.............
+  Future<Either<Failure,List<AddUserModel>>?> addUser(
+      {
+        required String image,
+        required String username,
+        required String password,
+        required String email,
+        required String phone,
+        required String gender,
+        required String address,
+        required String status,
+      }) async {
+    try {
+      final result = await services.addUser(
+        image: image,
+        username: username,
+        password: password,
+        email: email,
+        phone: phone,
+        address: address, 
+        status: status,
+         gender: gender     
       );
       return Right(result!);
     } catch (e) {

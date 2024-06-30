@@ -69,10 +69,6 @@ class SignInCubit extends Cubit<SignInState> {
           Fluttertoast.showToast(
               msg: body['message'], gravity: ToastGravity.CENTER);
         } else {
-          // Clear the text and push to other page
-          // UserNameControllerr.clear();
-          // PasswordeControllerr.clear();
-          // EmailControllerr.clear();
           Fluttertoast.showToast(
               msg: body['message'], gravity: ToastGravity.CENTER);
           Navigator.pop(context);

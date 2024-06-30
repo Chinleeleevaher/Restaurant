@@ -6,6 +6,7 @@ import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
 import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import 'package:myproject/homepage/home_page.dart';
+import 'package:myproject/homepage/import_Product/provider/provider.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
@@ -45,6 +46,7 @@ Future<void> main() async {
            ChangeNotifierProvider(create: (_) => categoryProvider()),
             ChangeNotifierProvider(create: (_) => UnitProvider()),
             ChangeNotifierProvider(create: (_) => OrderProductProvider()),
+            ChangeNotifierProvider(create: (_) => ImpProduct()),
         ], child: const MyApp()),
       ),
     ),

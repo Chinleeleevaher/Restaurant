@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/nabar_page.dart';
@@ -70,11 +71,11 @@ class _Manage_pageState extends State<Manage_page>
                                   height: 10,
                                 ),
                                 Icon(
-                                  Icons.production_quantity_limits,
+                                  Icons.shop,
                                   size: 50,
-                                  color: Colors.blue,
+                                  color: Colors.green,
                                 ),
-                                Text("Add Product")
+                                Text("Product")
                               ],
                             ),
                           ),
@@ -203,17 +204,22 @@ class _Manage_pageState extends State<Manage_page>
                                     spreadRadius: 2,
                                     blurRadius: 5)
                               ]),
-                          child: const Column(
+                          child:  Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                              Icon(
-                                Icons.shop,
-                                size: 50,
-                                color: Colors.green,
+                              GestureDetector(
+                                onTap: () {
+                                     navService.pushNamed(AppRount.importProduct);
+                                },
+                                child: const Icon(
+                                  Icons.production_quantity_limits,
+                                  size: 50,
+                                  color: Colors.green,
+                                ),
                               ),
-                              Text("Product")
+                              Text("import Product")
                             ],
                           ),
                         ),

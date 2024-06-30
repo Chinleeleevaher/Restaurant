@@ -2,35 +2,32 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
-import 'package:myproject/config/app_rount.dart';
+
 import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
+import 'package:myproject/homepage/import_Product/model/importModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/orderDetailModels.dart';
-import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
-
+import 'package:myproject/homepage/user/model/addUserModel.dart';
 import '../homepage/addcategory/component/model.dart';
 import '../homepage/menu_page/model/product_model.dart';
 import '../homepage/menu_page/model/unit.dart';
 import '../homepage/report/getproductmodel.dart';
 import '../homepage/report/orderDetailModel.dart';
 import '../homepage/report/reportmodel.dart';
-import '../homepage/report/selecorderdetailreport.dart';
 
 class AuthenService {
   //-----of tabletype
@@ -305,8 +302,9 @@ class AuthenService {
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request =
         http.MultipartRequest('POST', Uri.parse(ApiPaths.uploadimagePath));
-    request.files
-        .add(await http.MultipartFile.fromPath('profile', imageFile.path));
+    request.files.add(await http.MultipartFile.fromPath(
+          'profile', imageFile.path
+          ));
 
     http.StreamedResponse response = await request.send();
 
@@ -974,6 +972,7 @@ class AuthenService {
     required String product_name,
     required int product_Qty,
     required int product_price,
+    required int product_cost,
     required String product_image,
   }) async {
     try {
@@ -984,6 +983,7 @@ class AuthenService {
         "product_name": product_name,
         "product_Qty": product_Qty,
         "product_price": product_price,
+        "product_cost": product_cost,
         "status": 1,
         "product_image": product_image
       });
@@ -1021,6 +1021,93 @@ class AuthenService {
       return true;
     } else {
       print(response.reasonPhrase);
+    }
+    return null;
+  }
+
+  ///................to select order product to make import...............
+  Future<OrderproductImprotsModel?> selectOrderProductImport({
+    required String product_id,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request =
+          http.Request('POST', Uri.parse(ApiPaths.slectorderproductForImport));
+      request.body = json.encode({"productId": product_id});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        final seletOrderProduct =
+            orderproductImprotsModelFromJson(jsonEncode(body["data"]));
+        return seletOrderProduct;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  ///..............update product of import................
+  Future<bool?> UpdateImportProduct(
+      {required String product_id, required int quantity}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('PATCH', Uri.parse(ApiPaths.updateProductImport));
+    request.body =
+        json.encode({"product_id": product_id, "quantity": quantity});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  ///................insert user and return data of user...............
+  Future<List<AddUserModel>?> addUser({
+    required String image,
+    required String username,
+    required String password,
+    required String email,
+    required String phone,
+    required String gender,
+    required String address,
+    required String status,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request('POST', Uri.parse(ApiPaths.addUsers));
+      request.body = json.encode({
+        "image": image,
+        "username": username,
+        "password": password,
+        "email": email,
+        "phone": phone,
+        "gender": gender,
+        "address": address,
+        "status": status
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+         var body = jsonDecode(await response.stream.bytesToString());
+        final selectUser =
+            addUserModelFromJson(jsonEncode(body["data"]));
+        return selectUser;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
     }
     return null;
   }

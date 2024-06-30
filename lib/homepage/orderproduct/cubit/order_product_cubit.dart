@@ -52,6 +52,7 @@ class OrderProductCubit extends Cubit<OrderProductState> {
       product_name: provider.getproductOrder![i].productName, 
       product_Qty: provider.getproductOrder![i].quantity,
       product_price: provider.getproductOrder![i].price, 
+      product_cost: provider.getproductOrder![i].cost, 
       product_image: provider.getproductOrder![i].image);
     result!.fold((l) {
    emit(state.coppywith(status_c: OrderProductStatus.error));

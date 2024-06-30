@@ -99,30 +99,13 @@ class _Login_pageState extends State<Login_page> {
                           const SizedBox(
                             height: 10,
                           ),
-                          // TextFormField(
-                          //   controller: cubit.EmailControllerr,
-                          //   validator: MultiValidator([
-                          //     RequiredValidator(errorText: 'email requir'),
-                          //     EmailValidator(
-                          //         errorText: 'enter correct email form')
-                          //   ]),
-                          //   decoration: const InputDecoration(
-                          //     hintText: 'Email',
-                          //     border: OutlineInputBorder(),
-                          //   ),
-                          //   keyboardType: TextInputType.emailAddress,
-                          //   onSaved: (email) {},
-                          // ),
+                         
                           const SizedBox(
                             height: 10,
                           ),
                           TextFormField(
                             controller: cubit.PasswordeControllerr,
-                            // validator: MultiValidator([
-                            //   RequiredValidator(errorText: 'password requir'),
-                            //   EmailValidator(
-                            //       errorText: 'enter correct password form')
-                            // ]),
+                            
                             decoration: InputDecoration(
                               hintText: LocaleKeys.password.tr(),
                               border: OutlineInputBorder(),

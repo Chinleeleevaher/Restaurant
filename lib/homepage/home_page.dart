@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
@@ -249,10 +250,15 @@ class _HomepageState extends State<Homepage>
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Icon(
-                                    Icons.people,
-                                    size: 50,
-                                    color: Colors.red,
+                                  GestureDetector(
+                                    onTap: () {
+                                      navService.pushNamed(AppRount.user);
+                                    },
+                                    child: Icon(
+                                      Icons.people,
+                                      size: 50,
+                                      color: Colors.red,
+                                    ),
                                   ),
                                   Text(LocaleKeys.user
                                       .tr()) //<--- text of user-------
