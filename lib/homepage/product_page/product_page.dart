@@ -22,16 +22,16 @@ class _ProductPageState extends State<ProductPage> {
         var cubit = context.read<ProductsCubit>();
         return Scaffold(
           appBar: AppBar(
-            title: Text("Products"),
+            title: const Text("Products"),
             actions: [
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: GestureDetector(
                   onTap: () => cubit.getproduct(), // here is refresh
                   child: Row(
                     children: [
-                      Icon(Icons.refresh_outlined),
-                      SizedBox(
+                      const Icon(Icons.refresh_outlined),
+                      const SizedBox(
                         width: 30,
                       ),
                       GestureDetector(
@@ -44,7 +44,7 @@ class _ProductPageState extends State<ProductPage> {
                                   cubit.getproduct();
                                 }
                               }),
-                          child: Icon(Icons.add))
+                          child: const Icon(Icons.add))
                     ],
                   ),
                 ),
@@ -53,10 +53,10 @@ class _ProductPageState extends State<ProductPage> {
           ),
           body: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Row(
+              const Row(
                 children: [
                   Padding(padding: EdgeInsets.only(left: 20)),
                   Text(
@@ -70,7 +70,7 @@ class _ProductPageState extends State<ProductPage> {
                   Container(
                     width: 360,
                     height: 60,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 251, 249, 249),
                     ),
                     child: ListView.builder(
@@ -80,11 +80,11 @@ class _ProductPageState extends State<ProductPage> {
                             .length, //cubit.state.listproductype!.length,
                         itemBuilder: (c, i) {
                           var list = state.listproducttype;
-                          Color _containercolor = Colors.white;
-                          Color _textcolor = Colors.red;
+                          Color containercolor0 = Colors.white;
+                          Color textcolor0 = Colors.red;
                           if (state.listproducttype![i] == state.typeSelect) {
-                            _containercolor = Colors.red;
-                            _textcolor = Colors.white;
+                            containercolor0 = Colors.red;
+                            textcolor0 = Colors.white;
                           }
                           return Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -108,14 +108,14 @@ class _ProductPageState extends State<ProductPage> {
                                       )
                                     ],
                                     borderRadius: BorderRadius.circular(20),
-                                    color: _containercolor),
+                                    color: containercolor0),
                                 child: Padding(
                                   padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     list![i].protypeName.toString(),
                                     // list![i].protypeName,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: _textcolor),
+                                    style: TextStyle(color: textcolor0),
                                   ),
                                 ),
                               ),
@@ -125,7 +125,7 @@ class _ProductPageState extends State<ProductPage> {
                   )
                 ],
               ),
-              Row(
+              const Row(
                 children: [
                   Padding(padding: EdgeInsets.only(left: 20)),
                   Text(
@@ -139,21 +139,21 @@ class _ProductPageState extends State<ProductPage> {
                   Container(
                     width: 360,
                     height: 60,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 251, 249, 249),
                     ),
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: cubit.state.listunit!
                             .length, //cubit.state.listproductype!.length,
                         itemBuilder: (c, i) {
                           var listunit = state.listunit;
-                          Color _textcolor = Colors.red;
-                          Color _containercolor = Colors.white;
+                          Color textcolor = Colors.red;
+                          Color containercolor = Colors.white;
                           if (state.listunit![i] == state.typeSelectunit) {
-                            _containercolor = Colors.red;
-                            _textcolor = Colors.white;
+                            containercolor = Colors.red;
+                            textcolor = Colors.white;
                           }
                           return Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -175,14 +175,14 @@ class _ProductPageState extends State<ProductPage> {
                                       )
                                     ],
                                     borderRadius: BorderRadius.circular(20),
-                                    color: _containercolor),
+                                    color: containercolor),
                                 child: Padding(
                                   padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     listunit![i].unitName.toString(),
                                     // list![i].protypeName,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: _textcolor),
+                                    style: TextStyle(color: textcolor),
                                   ),
                                 ),
                               ),
@@ -192,14 +192,14 @@ class _ProductPageState extends State<ProductPage> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
                 width: 360,
                 height: 50,
-                decoration: BoxDecoration(color: Colors.green),
-                child: Row(
+                decoration: const BoxDecoration(color: Colors.green),
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text("ລ/ດ"),
@@ -246,7 +246,7 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10),
-                                    child: Text(prolist![i].productName),
+                                    child: Text(prolist[i].productName),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 40),
@@ -258,7 +258,7 @@ class _ProductPageState extends State<ProductPage> {
                                         onTap: () {
                                           cubit.onTypeSelectproduct(prolist[i]);
                                         },
-                                        child: Icon(Icons.edit)),
+                                        child: const Icon(Icons.edit)),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 15),
@@ -267,7 +267,7 @@ class _ProductPageState extends State<ProductPage> {
                                           cubit.deletepro(
                                               int.parse(prolist[i].productId));
                                         },
-                                        child: Icon(Icons.delete)),
+                                        child: const Icon(Icons.delete)),
                                   ),
                                 ],
                               ),

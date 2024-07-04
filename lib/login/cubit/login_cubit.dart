@@ -38,8 +38,7 @@ class CubitCubit extends Cubit<CubitState> {
     }
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request =
-          http.Request('POST', Uri.parse(ApiPaths.loginPath));
+      var request = http.Request('POST', Uri.parse(ApiPaths.loginPath));
       request.body = json.encode({
         "username": UserNameControllerr.text,
         "password": PasswordeControllerr.text
@@ -55,29 +54,37 @@ class CubitCubit extends Cubit<CubitState> {
           final model = userLoginModelFromJson(jsonEncode(body['data']));
 
           emit(
-            state.copywith(user_c: model,status_c: liststatuse.success,), );
+            state.copywith(
+              user_c: model,
+              status_c: liststatuse.success,
+            ),
+          );
           //this below line is to save the model back to the "homeProvider.setIsUserlist"
-          homeProvider.setIsUserlist(model);
+          homeProvider.setUser(model[0]);
 
           // here is to save the token to storage
           final String token = body['token'];
           await storage.write(key: 'token', value: token);
           // ---- here is to stor the username and password then send it to the splash page to read and keep login
+
+          await storage.write(key: 'username', value: UserNameControllerr.text);
+          await storage.write(
+              key: 'password', value: PasswordeControllerr.text);
+          await storage.write(key: 'token', value: body['token']);
+
           if (state.rememberme == true) {
             await storage.write(
-                key: 'username', value: UserNameControllerr.text);
+                key: 'getusername', value: UserNameControllerr.text);
             await storage.write(
-                key: 'password', value: PasswordeControllerr.text);
-          } else {
-            navService.pushReplacementNamed(AppRount.menupage);
+                key: 'getpassword', value: PasswordeControllerr.text);
           }
-
           //here is to clear the text and push to other page
           UserNameControllerr.clear();
           PasswordeControllerr.clear();
           // Navigator.of(context)
           //     .pushReplacement(MaterialPageRoute(builder: (context) => Menu()));
-          navService.pushReplacementNamed(AppRount.menupage);
+
+          navService.pushReplacementNamed(AppRount.dashboard);
         }
       } else {
         print(response.reasonPhrase);

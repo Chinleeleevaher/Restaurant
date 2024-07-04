@@ -7,6 +7,7 @@ import 'package:myproject/component/language_dailog.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
+import 'package:myproject/login/home_provider/provider.dart';
 import 'package:myproject/signin/Sign_page.dart';
 import 'package:myproject/signin/cubit/sign_in_cubit.dart';
 
@@ -24,6 +25,7 @@ class _Login_pageState extends State<Login_page> {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = context.read<CubitCubit>();
+   
         return Scaffold(
             appBar: AppBar(
               title: const Text(

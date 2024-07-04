@@ -12,6 +12,7 @@ import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
+import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
 import 'package:myproject/login/Login_Page.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
 import 'package:myproject/login/home_provider/provider.dart';
@@ -47,6 +48,7 @@ Future<void> main() async {
             ChangeNotifierProvider(create: (_) => UnitProvider()),
             ChangeNotifierProvider(create: (_) => OrderProductProvider()),
             ChangeNotifierProvider(create: (_) => ImpProduct()),
+            ChangeNotifierProvider(create: (_) => getUserProvider()),
         ], child: const MyApp()),
       ),
     ),

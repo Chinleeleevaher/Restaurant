@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myproject/homepage/user/cubit/user_cubit.dart';
+import 'package:myproject/homepage/user/addUser/cubit/user_cubit.dart';
+import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
+import 'package:provider/provider.dart';
 
 class AddUser extends StatefulWidget {
   const AddUser({super.key});
@@ -41,6 +43,7 @@ class _AddUserState extends State<AddUser> {
       },
       builder: (context, state) {
         var cubits = context.read<UserCubit>();
+        var provide = context.read<getUserProvider>();
         return Scaffold(
           appBar: AppBar(
             title: const Text(
@@ -67,21 +70,30 @@ class _AddUserState extends State<AddUser> {
                             CircleAvatar(
                               radius: 50,
                               backgroundColor: Colors.grey[200],
-                              child: state.typeSelecimage != null &&
-                                      state.typeSelecimage!.path.isNotEmpty
+                              child: state.addImage != null &&
+                                      state.addImage!.path.isNotEmpty
                                   ? ClipOval(
                                       child: Image.file(
-                                        state.typeSelecimage!,
+                                        state.addImage!,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
                                       ),
                                     )
-                                  : const Icon(
-                                      Icons.person,
-                                      size: 50,
-                                      color: Colors.red,
-                                    ),
+                                  : state.updateImage != null
+                                      ? ClipOval(
+                                          child: Image.network(
+                                            state.updateImage!,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : const Icon(
+                                          Icons.person,
+                                          size: 50,
+                                          color: Colors.red,
+                                        ),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -206,6 +218,7 @@ class _AddUserState extends State<AddUser> {
                             labelText: 'Gender',
                             border: OutlineInputBorder(),
                           ),
+                          value: state.gender,
                           items: ['Male', 'Female']
                               .map((gender) => DropdownMenuItem<String>(
                                     value: gender,
@@ -213,8 +226,8 @@ class _AddUserState extends State<AddUser> {
                                   ))
                               .toList(),
                           onChanged: (value) {
-                          //  cubits.gender = value;
-                          cubits.onTypeSelectGender(value);
+                            //cubits.gender = value;
+                            cubits.onTypeSelectGender(value);
                           },
                           validator: (value) =>
                               value == null ? 'Please select a gender' : null,
@@ -263,27 +276,6 @@ class _AddUserState extends State<AddUser> {
                               value == null ? 'Please select a role' : null,
                         ),
                       ),
-                      // const SizedBox(height: 20),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      //   children: [
-                      //     ElevatedButton(
-                      //       child: const Text('Cancel'),
-                      //       onPressed: () {
-                      //         Navigator.of(context).pop();
-                      //       },
-                      //     ),
-                      //     ElevatedButton(
-                      //       child: const Text('Add'),
-                      //       onPressed: () {
-                      //         if (_formKey.currentState!.validate()) {
-                      //           // Handle add user action
-                      //           Navigator.of(context).pop();
-                      //         }
-                      //       },
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -292,7 +284,7 @@ class _AddUserState extends State<AddUser> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              cubits.addUser();
+                cubits.addUser();
             },
             child: Icon(Icons.add),
             backgroundColor: Colors.green,

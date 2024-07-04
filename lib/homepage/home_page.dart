@@ -13,6 +13,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_change/change_table_page.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
+import 'package:myproject/login/home_provider/provider.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -40,6 +41,12 @@ class _HomepageState extends State<Homepage>
   @override
   Widget build(BuildContext context) {
     var orderproviders = context.read<orderprovider>();
+    var userProvider = context.read<UserProvider>();
+    var status = '';
+    if (userProvider.user != null) {
+      status = userProvider.user!.status;
+    }
+
     return Scaffold(
       body: Container(
         color: Color.fromARGB(255, 255, 255, 255),
@@ -53,6 +60,7 @@ class _HomepageState extends State<Homepage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                       ( status=='Admin'||status=='Waiter' )?//....here is to make test to show as admin adn general staff
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -100,7 +108,8 @@ class _HomepageState extends State<Homepage>
                               ),
                             ),
                           ),
-                        ),
+                        ):Container(),
+                        ( status=='Admin'||status=='Waiter' )?
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -144,7 +153,8 @@ class _HomepageState extends State<Homepage>
                               ),
                             ),
                           ),
-                        ),
+                        ):Container(),
+                          status=='Admin'?
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -183,12 +193,14 @@ class _HomepageState extends State<Homepage>
                               ),
                             ),
                           ),
-                        )
+                        ):Container(),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+  
+                          status=='Admin'?
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -225,13 +237,12 @@ class _HomepageState extends State<Homepage>
                               ),
                             ),
                           ),
-                        ),
+                        ):Container(),
+                          status=='Admin'?
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
-                            onTap: () {
-                           
-                            },
+                            onTap: () {},
                             child: Container(
                               height: 100,
                               width: 100,
@@ -247,14 +258,14 @@ class _HomepageState extends State<Homepage>
                                   ]),
                               child: Column(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      navService.pushNamed(AppRount.user);
+                                      navService.pushNamed(AppRount.getuser);
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.people,
                                       size: 50,
                                       color: Colors.red,
@@ -266,7 +277,8 @@ class _HomepageState extends State<Homepage>
                               ),
                             ),
                           ),
-                        ),
+                        ):Container(),
+                          status=='Admin'?
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -303,6 +315,7 @@ class _HomepageState extends State<Homepage>
                             ),
                           ),
                         )
+                        :Container(),
                       ],
                     ),
                   ],

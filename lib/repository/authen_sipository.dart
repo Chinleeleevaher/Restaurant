@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -22,13 +21,13 @@ import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 import 'package:myproject/homepage/user/model/addUserModel.dart';
+import 'package:myproject/homepage/user/model/getUserMoldel.dart';
 import 'package:myproject/service/authen_service.dart';
 
 import '../homepage/addcategory/component/model.dart';
 import '../homepage/report/getproductmodel.dart';
 import '../homepage/report/orderDetailModel.dart';
 import '../homepage/report/reportmodel.dart';
-
 
 class AuthenRepository {
   final AuthenService services = AuthenService();
@@ -407,9 +406,8 @@ class AuthenRepository {
   Future<Either<Failure, List<SelectOrderReportModel>>?> getOrderReport(
       {required DateTime fromdate, required DateTime todate}) async {
     try {
-      final result = await services.getOrderReport(
-             Fromdate: fromdate,
-             Todate: todate);
+      final result =
+          await services.getOrderReport(Fromdate: fromdate, Todate: todate);
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));
@@ -417,8 +415,8 @@ class AuthenRepository {
   }
 
 //-----------ge order detail for report-----------------------
-  Future<Either<Failure, List<SelectOrderReportModels>>?>
-      SelectordertoReport({required int or_id}) async {
+  Future<Either<Failure, List<SelectOrderReportModels>>?> SelectordertoReport(
+      {required int or_id}) async {
     try {
       final result = await services.SelectordertoReport(or_id: or_id);
       return Right(result!);
@@ -436,6 +434,7 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
+
   //------------select product for order Produt---------------
   Future<Either<Failure, List<OrderProductModel>>?> getOrder_Product() async {
     try {
@@ -493,16 +492,16 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
- // ..........post order Product and make return.............
-  Future<Either<Failure, List<PostorderProductModel>>?> PostOrderProduct(
-      {
-        required String product_id,
-        required String product_name,
-        required int product_Qty,
-        required int product_price,
-        required int product_cost,
-        required String product_image,
-      }) async {
+
+  // ..........post order Product and make return.............
+  Future<Either<Failure, List<PostorderProductModel>>?> PostOrderProduct({
+    required String product_id,
+    required String product_name,
+    required int product_Qty,
+    required int product_price,
+    required int product_cost,
+    required String product_image,
+  }) async {
     try {
       final result = await services.PostOrderProduct(
         product_id: product_id,
@@ -510,32 +509,30 @@ class AuthenRepository {
         product_Qty: product_Qty,
         product_price: product_price,
         product_cost: product_cost,
-        product_image: product_image,);
-      return Right(result!);
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
-  }
-///.........update OrderProduct...............
-Future<Either<Failure, bool>?> UpdateOrderProduct({
-    required String productID,
-
-  }) async {
-    try {
-      final result = await services.UpdateOrderProduct(productID: productID
-      
+        product_image: product_image,
       );
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
-   // ..........select order product for import.............
-  Future<Either<Failure, OrderproductImprotsModel>?> selectOrderporduct(
-      {
-        required String product_id,
 
-      }) async {
+  ///.........update OrderProduct...............
+  Future<Either<Failure, bool>?> UpdateOrderProduct({
+    required String productID,
+  }) async {
+    try {
+      final result = await services.UpdateOrderProduct(productID: productID);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  // ..........select order product for import.............
+  Future<Either<Failure, OrderproductImprotsModel>?> selectOrderporduct({
+    required String product_id,
+  }) async {
     try {
       final result = await services.selectOrderProductImport(
         product_id: product_id,
@@ -545,16 +542,16 @@ Future<Either<Failure, bool>?> UpdateOrderProduct({
       return left(Failure(e.toString()));
     }
   }
-   // ..........Update order product for import.............
-  Future<Either<Failure, bool>?> updateProductImport(
-      {
-        required String product_id,
-        required int quantity,
 
-      }) async {
+  // ..........Update order product for import.............
+  Future<Either<Failure, bool>?> updateProductImport({
+    required String product_id,
+    required int quantity,
+  }) async {
     try {
       final result = await services.UpdateImportProduct(
-        product_id: product_id, quantity: quantity,
+        product_id: product_id,
+        quantity: quantity,
       );
       return Right(result!);
     } catch (e) {
@@ -562,32 +559,89 @@ Future<Either<Failure, bool>?> UpdateOrderProduct({
     }
   }
 
-  // ..........Add User and select.............
-  Future<Either<Failure,List<AddUserModel>>?> addUser(
-      {
-        required String image,
-        required String username,
-        required String password,
-        required String email,
-        required String phone,
-        required String gender,
-        required String address,
-        required String status,
-      }) async {
+  // ..........get user.............
+  Future<Either<Failure, List<GetUserModel>>?> getUser() async {
     try {
-      final result = await services.addUser(
-        image: image,
-        username: username,
-        password: password,
-        email: email,
-        phone: phone,
-        address: address, 
-        status: status,
-         gender: gender     
-      );
+      final result = await services.getUser();
       return Right(result!);
     } catch (e) {
       return left(Failure(e.toString()));
+    }
+  }
+
+//----------user image---------------
+  Future<Either<Failure, ImageModel>> userImage(
+      {required File imagepath}) async {
+    try {
+      final result = await services.userImage(imageFile: imagepath);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+      //throw Exception('Failed to load table type');
+    }
+  }
+
+  // ..........Add User and select.............
+  Future<Either<Failure, bool>?> addUser({
+    required String image,
+    required String username,
+    required String password,
+    required String email,
+    required String phone,
+    required String gender,
+    required String address,
+    required String status,
+  }) async {
+    try {
+      final result = await services.addUser(
+          image: image,
+          username: username,
+          password: password,
+          email: email,
+          phone: phone,
+          address: address,
+          status: status,
+          gender: gender);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+  // ..........delete user.............
+  Future<Either<Failure, bool>?> deleteUser({required int uID}) async {
+    try {
+      final result = await services.deleteUser(uID: uID);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+   // ..........update user.............
+  Future<Either<Failure, bool>?> updateUser({
+        required int uID,
+    required String username,
+    required String image,
+    required String email,
+    required String phone,
+    required String gender,
+    required String address,
+    required String status,
+    required String password,
+    }) async {
+    try {
+      final result = await services.updateUser(
+        uID: uID,
+        username: username,
+        image: image, 
+        email:email,
+        phone: phone,
+        gender: gender,
+        address: address,
+        status:status, 
+        password: password);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
     }
   }
 }

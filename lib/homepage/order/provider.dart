@@ -32,6 +32,35 @@ class orderprovider extends ChangeNotifier {
   //   _orderlist = value;
   //   notifyListeners();
   // }
+  
+//..........delete order list.............
+
+  String _orderID = "";
+String get orderID => _orderID;
+collectorderId(value) {
+  _orderID = value;
+  if (getorderlist.isNotEmpty) {
+    bool found = false;
+    for (int j = 0; j < getorderlist.length; j++) {
+      if (orderID == getorderlist[j].productId) {
+        found = true;
+        _getorderlist.removeAt(j);
+        break;
+      }
+    }
+    if (!found) {
+      _getorderlist.add(value);
+    }
+    setbageqty = null;
+    settotalprice = null;
+    settotalqty = null;
+  } else {
+    _getorderlist.add(value);
+    setbageqty = null;
+    settotalprice = null;
+    settotalqty = null;
+  }
+}
 
 // ------to get order list-----------
   List<OrderproductModel> _getorderlist = [];
@@ -50,7 +79,6 @@ class orderprovider extends ChangeNotifier {
           setbageqty = null;
           settotalprice = null;
           settotalqty = null;
-
           return;
         }
         // _getorderlist.add(value);
@@ -151,8 +179,6 @@ class orderprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   // ------to get order detail for report-----------
   // List<SelectOrderDetailReportModel>? _selectOrderDetailReport;
   // List<SelectOrderDetailReportModel>? get selectOrderDetailReport =>
@@ -164,5 +190,4 @@ class orderprovider extends ChangeNotifier {
   //   }
   //   notifyListeners();
   // }
-
 }

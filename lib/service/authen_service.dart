@@ -22,6 +22,7 @@ import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
 import 'package:myproject/homepage/user/model/addUserModel.dart';
+import 'package:myproject/homepage/user/model/getUserMoldel.dart';
 import '../homepage/addcategory/component/model.dart';
 import '../homepage/menu_page/model/product_model.dart';
 import '../homepage/menu_page/model/unit.dart';
@@ -302,9 +303,8 @@ class AuthenService {
   Future<ImageModel?> postImage({required File imageFile}) async {
     var request =
         http.MultipartRequest('POST', Uri.parse(ApiPaths.uploadimagePath));
-    request.files.add(await http.MultipartFile.fromPath(
-          'profile', imageFile.path
-          ));
+    request.files
+        .add(await http.MultipartFile.fromPath('profile', imageFile.path));
 
     http.StreamedResponse response = await request.send();
 
@@ -1070,8 +1070,25 @@ class AuthenService {
     }
   }
 
+//----get user ----------
+  Future<List<GetUserModel>?> getUser() async {
+    try {
+      var request = http.Request('GET', Uri.parse(ApiPaths.getUser));
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        final gettUser = getUserModelFromJson(jsonEncode(body["data"]));
+        return gettUser;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {}
+  }
+
   ///................insert user and return data of user...............
-  Future<List<AddUserModel>?> addUser({
+  Future<bool?> addUser({
     required String image,
     required String username,
     required String password,
@@ -1099,10 +1116,7 @@ class AuthenService {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-         var body = jsonDecode(await response.stream.bytesToString());
-        final selectUser =
-            addUserModelFromJson(jsonEncode(body["data"]));
-        return selectUser;
+        return true;
       } else {
         print(response.reasonPhrase);
       }
@@ -1110,5 +1124,80 @@ class AuthenService {
       print(e.toString());
     }
     return null;
+  }
+  //-------of add user image--------------------
+
+  Future<ImageModel?> userImage({required File imageFile}) async {
+    var request =
+        http.MultipartRequest('POST', Uri.parse(ApiPaths.uploadUserImage));
+    request.files
+        .add(await http.MultipartFile.fromPath('profile', imageFile.path));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      //print(await response.stream.bytesToString());
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body != null) {
+        final product = imageFromJson(jsonEncode(body));
+        return product;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } else {}
+  }
+
+  //----- delete User-----------
+  Future<bool?> deleteUser({required int uID}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('DELETE', Uri.parse(ApiPaths.delete_user));
+    request.body = json.encode({"uid": uID});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  //----- update User-----------
+  Future<bool?> updateUser({
+    required int uID,
+    required String username,
+    required String image,
+    required String email,
+    required String phone,
+    required String gender,
+    required String address,
+    required String status,
+    required String password,
+ 
+    }) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('PUT', Uri.parse(ApiPaths.updateUser));
+    request.body = json.encode({
+      "image": image,
+      "username": username,
+      "email": email,
+      "phone": phone,
+      "gender": gender,
+      "address": address,
+      "status": status,
+      "password": password,
+      "uid": uID
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+     return true;
+    } else {
+      return false;
+    }
   }
 }

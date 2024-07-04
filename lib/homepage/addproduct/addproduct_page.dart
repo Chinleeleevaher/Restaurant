@@ -249,13 +249,6 @@ class _AddproductState extends State<Addproduct> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                //cubit.adproduct();
-                                //cubit.updateProduct();
-                                // if (state.typeSelecimage != null) {
-                                //   cubit.adproduct();
-                                // } else {
-                                //   cubit.updateProduct();
-                                // }
                                 if (cubit.productmodel == null) {
                                   cubit.adproduct(context);
                                 } else {

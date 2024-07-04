@@ -1,14 +1,14 @@
 // To parse this JSON data, do
 //
-//     final userLoginModel = userLoginModelFromJson(jsonString);
+//     final getUserDetailModel = getUserDetailModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<UserLoginModel> userLoginModelFromJson(String str) => List<UserLoginModel>.from(json.decode(str).map((x) => UserLoginModel.fromJson(x)));
+GetUserDetailModel getUserDetailModelFromJson(String str) => GetUserDetailModel.fromJson(json.decode(str));
 
-String userLoginModelToJson(List<UserLoginModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String getUserDetailModelToJson(GetUserDetailModel data) => json.encode(data.toJson());
 
-class UserLoginModel {
+class GetUserDetailModel {
     int uid;
     String username;
     String email;
@@ -19,7 +19,7 @@ class UserLoginModel {
     String status;
     String image;
 
-    UserLoginModel({
+    GetUserDetailModel({
         required this.uid,
         required this.username,
         required this.email,
@@ -31,7 +31,7 @@ class UserLoginModel {
         required this.image,
     });
 
-    factory UserLoginModel.fromJson(Map<String, dynamic> json) => UserLoginModel(
+    factory GetUserDetailModel.fromJson(Map<String, dynamic> json) => GetUserDetailModel(
         uid: json["uid"],
         username: json["username"],
         email: json["email"],

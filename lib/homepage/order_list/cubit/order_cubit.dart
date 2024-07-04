@@ -79,4 +79,7 @@ class OrderCubit extends Cubit<OrderState> {
       });
     }
   }
+  ontypeorderid(value){
+    orderproviders.collectorderId(value);
+  }
 }

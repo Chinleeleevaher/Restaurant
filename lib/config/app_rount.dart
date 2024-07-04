@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/addcategory/addcategory.dart';
-import 'package:myproject/homepage/addcategory/component/model.dart';
 import 'package:myproject/homepage/addcategory/cubit/category_cubit.dart';
 import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
 import 'package:myproject/homepage/addproduct/addproduct_page.dart';
@@ -19,7 +18,6 @@ import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
 import 'package:myproject/homepage/kitchen/kitchen.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
-import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/cubit/lisproduct_cubit.dart';
 import 'package:myproject/homepage/order/listproduct_page.dart';
@@ -43,13 +41,15 @@ import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
-import 'package:myproject/homepage/user/component/addUser.dart';
-import 'package:myproject/homepage/user/cubit/user_cubit.dart';
-import 'package:myproject/homepage/user/user.dart';
+import 'package:myproject/homepage/user/addUser/addUser.dart';
+import 'package:myproject/homepage/user/addUser/cubit/user_cubit.dart';
+import 'package:myproject/homepage/user/addUser/updateUser.dart';
+import 'package:myproject/homepage/user/getuser/cubit/get_user_cubit.dart';
+import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
+import 'package:myproject/homepage/user/getuser/user.dart';
 import 'package:myproject/login/Login_Page.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
 import 'package:myproject/login/home_provider/provider.dart';
-import 'package:myproject/provider/ProductProvider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 import 'package:myproject/signin/Sign_page.dart';
 import 'package:myproject/signin/cubit/sign_in_cubit.dart';
@@ -77,8 +77,9 @@ class AppRount {
   static const String checkbill = '/checkbill';
   static const String report = '/report';
   static const String kitchen = '/kitchen';
-  static const String user = '/user';
+  static const String getuser = '/getuser';
   static const String adduser = '/adduser';
+  static const String updateUser = '/updateUser';
   static const String orderProduct = '/ordeProduct';
   static const String importProduct = '/importproduct';
 
@@ -298,24 +299,42 @@ class AppRount {
                     authenRepository: context.read<AuthenRepository>(),
                     context: context,
                   )..SelectorderbyOrderStatus(),
-                  child: Kitchen(),
+                  child: const Kitchen(),
                 ));
-        case user:
+        case getuser:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => UserCubit(
-                     authenRepository: context.read<AuthenRepository>(),
-                    // context: context,
-                  ),
-                  child: User(),
+                  create: (context) => GetUserCubit(
+                    authenRepository: context.read<AuthenRepository>(),
+                    userprovider: context.read<getUserProvider>(),
+                  )..getuser(),
+                  child: const User(),
                 ));
   case adduser:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => UserCubit(authenRepository: context.read<AuthenRepository>()
+                  create: (context) => UserCubit(
+                    authenRepository: context.read<AuthenRepository>(), 
+                    context: context, 
+                    userprovider: context.read<getUserProvider>(),
+                      
+                     // userprovider: context.read<Userpro>(),
                   
                   ),
                   child: AddUser(),
+                ));
+     case updateUser:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => UserCubit(
+                    authenRepository: context.read<AuthenRepository>(), 
+                    context: context, 
+                    userprovider: context.read<getUserProvider>(),
+                      
+                     // userprovider: context.read<Userpro>(),
+                  
+                  ).. userData(),
+                  child: UpdateUser(),
                 ));
       default:
         return MaterialPageRoute(builder: (context) => const DefaulPage());

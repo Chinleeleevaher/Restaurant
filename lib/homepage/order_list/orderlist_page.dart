@@ -42,12 +42,12 @@ class _OrderListState extends State<OrderList> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "table : ",
+                        "table: ",
                         style: TextStyle(fontSize: 16),
                       ),
                       Container(
                         height: 15,
-                        width: 25,
+                        width: 50,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
@@ -61,7 +61,7 @@ class _OrderListState extends State<OrderList> {
                         ),
                       ),
                       SizedBox(
-                        width: 80,
+                        width: 30,
                       ),
                       GestureDetector(
                           onTap: () {
@@ -140,20 +140,14 @@ class _OrderListState extends State<OrderList> {
                                             content: const Text(
                                                 'Are you sure to delete data?'),
                                             actions: [
-                                              // TextButton(
-                                              //   onPressed: () async {
-                                              //     bool response =
-                                              //         await service.deleteData(person.id);
-                                              //     if (response) {
-                                              //       // ignore: use_build_context_synchronously
-                                              //       Navigator.pop(context, true);
-                                              //     } else {
-                                              //       // ignore: use_build_context_synchronously
-                                              //       Navigator.pop(context, false);
-                                              //     }
-                                              //   },
-                                              //   child: const Text('Yes'),
-                                              // ),
+                                              TextButton(
+                                                onPressed: () async {
+                                               cubit.ontypeorderid(list[i].productId);
+                                                Navigator.pop(context, false);
+                                                  navService.pushNamed(AppRount.orderlist); //...here is just make reflesh after i delete the order list
+                                                },
+                                                child: const Text('Yes'),
+                                              ),
                                               TextButton(
                                                 onPressed: () {
                                                   // Close the dialog box

@@ -3,8 +3,6 @@
 //     final selectOrderByTableModel = selectOrderByTableModelFromJson(jsonString);
 
 import 'dart:convert';
-import 'dart:ffi';
-
 List<SelectOrderByTableModel> selectOrderByTableModelFromJson(String str) =>
     List<SelectOrderByTableModel>.from(
         json.decode(str).map((x) => SelectOrderByTableModel.fromJson(x)));
