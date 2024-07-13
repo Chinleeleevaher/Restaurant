@@ -32,35 +32,82 @@ class orderprovider extends ChangeNotifier {
   //   _orderlist = value;
   //   notifyListeners();
   // }
-  
-//..........delete order list.............
 
-  String _orderID = "";
-String get orderID => _orderID;
-collectorderId(value) {
-  _orderID = value;
+//   /// this below is to correct the qty and order id to keep make loop be low and for add or minus the qty
+  String _orId = "";
+  String get orId => _orId;
+  collectOrID(value) {
+    _orId = value;
+  }
+
+//......
+int _orderqty = 0;
+int get orderqty => _orderqty;
+void collectOrderQty(int value) {
+  _orderqty = value;
+
   if (getorderlist.isNotEmpty) {
     bool found = false;
     for (int j = 0; j < getorderlist.length; j++) {
-      if (orderID == getorderlist[j].productId) {
+      if (orId == getorderlist[j].productId) {
         found = true;
-        _getorderlist.removeAt(j);
+        // Update quantity in the order list
+        getorderlist[j].qty += _orderqty;
+
+        // Reset _orderqty after adding to the order list
+        _orderqty = 0;
+
+        // Print the updated quantity and reset _orderqty
+        print(getorderlist[j].qty);
+        print(_orderqty);
+
+        // Exit the loop since we found the item
         break;
       }
     }
-    if (!found) {
-      _getorderlist.add(value);
+    double prs = 0;
+    for (int i = 0; i < getorderlist.length; i++) {
+      prs += getorderlist[i].price * getorderlist[i].qty;
     }
-    setbageqty = null;
-    settotalprice = null;
-    settotalqty = null;
-  } else {
-    _getorderlist.add(value);
-    setbageqty = null;
-    settotalprice = null;
-    settotalqty = null;
+    settotalprice = prs;
   }
 }
+
+//..........delete order list.............
+
+  String _orderID = "";
+  String get orderID => _orderID;
+  collectorderId(value) {
+    _orderID = value;
+    if (getorderlist.isNotEmpty) {
+      bool found = false;
+      for (int j = 0; j < getorderlist.length; j++) {
+        //...here is to delete order..........
+        if (orderID == getorderlist[j].productId) {
+          found = true;
+          _getorderlist.removeAt(j);
+          break;
+        }
+        //....here is to add the order qty............
+        // if(orId == getorderlist[j].productId ){
+        //   found = true;
+        //      getorderlist[j].qty = orderqty;
+        //      break;
+        // }
+      }
+      if (!found) {
+        _getorderlist.add(value);
+      }
+      setbageqty = null;
+      settotalprice = 0;
+      settotalqty = null;
+    } else {
+      _getorderlist.add(value);
+      setbageqty = null;
+      settotalprice = 0;
+      settotalqty = null;
+    }
+  }
 
 // ------to get order list-----------
   List<OrderproductModel> _getorderlist = [];
@@ -70,24 +117,24 @@ collectorderId(value) {
     if (getorderlist.isEmpty) {
       _getorderlist.add(value);
       setbageqty = null;
-      settotalprice = null;
+      settotalprice = 0;
       settotalqty = null;
     } else {
       for (int j = 0; j < getorderlist.length; j++) {
         if (value.productId == getorderlist[j].productId) {
           getorderlist[j].qty += 1;
           setbageqty = null;
-          settotalprice = null;
-          settotalqty = null;
+          settotalprice = 0;
+          settotalqty = 0;
           return;
         }
         // _getorderlist.add(value);
         //   setbageqty = null;
       }
       _getorderlist.add(value);
-      setbageqty = null;
-      settotalprice = null;
-      settotalqty = null;
+      setbageqty = 0;
+      settotalprice = 0;
+      settotalqty = 0;
       // clearorderlist();
     }
     notifyListeners();
@@ -110,7 +157,7 @@ collectorderId(value) {
   double _totalprice = 0;
   double get totalprice => _totalprice;
 
-  set settotalprice(int? value) {
+  set settotalprice(double? value) {
     double pr = 0;
     for (int i = 0; i < getorderlist.length; i++) {
       pr = getorderlist[i].price * getorderlist[i].qty + pr;
@@ -118,6 +165,7 @@ collectorderId(value) {
     _totalprice = pr;
     notifyListeners();
   }
+
 
 //----of total qty---------------
   int _totalqty = 0;

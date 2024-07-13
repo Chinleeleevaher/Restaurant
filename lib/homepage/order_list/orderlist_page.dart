@@ -2,9 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/order_list/addDailog.dart';
 import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
@@ -108,80 +111,190 @@ class _OrderListState extends State<OrderList> {
                         itemCount: orderlist.getorderlist.length,
                         itemBuilder: (c, i) {
                           var list = orderlist.getorderlist;
-                          return Card(
-                            margin:
-                                EdgeInsets.only(bottom: i + 1 == 10 ? 10 : 3),
-                            elevation: 1,
-                            child: InkWell(
-                              onTap: () {
-                                // do something when the tile is tapped
-                              },
-                              child: Dismissible(
-                                key: Key("1"), // <--here is to make key
-                                direction: DismissDirection.startToEnd,
-                                background: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.symmetric(horizontal: 30),
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                confirmDismiss: (direction) {
-                                  return showDialog(
+                          final TextEditingController a = TextEditingController(
+                              text: list[i].qty.toString());
+                          int orQty = int.tryParse(list[i].qty.toString()) ?? 0;
+
+                          return GestureDetector(
+                            child: Card(
+                              margin:
+                                  EdgeInsets.only(bottom: i + 1 == 10 ? 10 : 3),
+                              elevation: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  // cubit.ontypeOrID(list[i].productId);
+                                  showDialog(
                                     context: context,
-                                    builder: (context) {
-                                      return StatefulBuilder(
-                                        builder: (context, setState) {
-                                          return AlertDialog(
-                                            title: Text('Delete Data'),
-                                            content: const Text(
-                                                'Are you sure to delete data?'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () async {
-                                               cubit.ontypeorderid(list[i].productId);
-                                                Navigator.pop(context, false);
-                                                  navService.pushNamed(AppRount.orderlist); //...here is just make reflesh after i delete the order list
-                                                },
-                                                child: const Text('Yes'),
-                                              ),
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          'ເພື່ມ',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: <Widget>[
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (list[i].qty > 0) {
+                                                        list[i].qty--;
+                                                        a.text = list[i]
+                                                            .qty
+                                                            .toString(); // Update text field value
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Icon(
+                                                    Icons.remove,
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10),
+                                                Expanded(
+                                                  child: TextField(
+                                                    controller: a,
+                                                    enabled: false,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (list[i].qty > 0) {
+                                                        list[i].qty++;
+                                                        a.text = list[i]
+                                                            .qty
+                                                            .toString(); // Update text field value
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Icon(
+                                                    Icons.add,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        actions: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
                                               TextButton(
                                                 onPressed: () {
-                                                  // Close the dialog box
-                                                  Navigator.pop(context, false);
+                                                  Navigator.of(context).pop();
                                                 },
-                                                child: Text('No'),
+                                                child: Text('Close'),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () async {
+                                                  cubit.ontyepQty(orQty);
+                                                  MyProgress().loadingProgress(
+                                                      context: context,
+                                                      title: 'Updating');
+                                                  await Future.delayed(
+                                                      const Duration(
+                                                          seconds: 1));
+                                                  Navigator.of(context).pop();
+
+                                                  Navigator.of(context).pop();
+
+                                                  Navigator.of(context).pop();
+                                                  navService.pushNamed(
+                                                      AppRount.orderlist);
+                                                },
+                                                child: Text('Save'),
                                               ),
                                             ],
-                                          );
-                                        },
+                                          )
+                                        ],
                                       );
                                     },
                                   );
+                                  ;
                                 },
-                                child: Expanded(
-                                  child: ListTile(
-                                    leading: Text((i + 1).toString()),
-                                    title: Text(list[i].productName),
-                                    subtitle: Row(
-                                      children: [
-                                        Text(
-                                          (list[i].price).toString() + " Kip  ",
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                        SizedBox(
-                                          width: 50,
-                                        ),
-                                        Text(list[i].qty.toString()),
-                                      ],
+                                child: Dismissible(
+                                  key: Key("1"), // <--here is to make key
+                                  direction: DismissDirection.startToEnd,
+                                  background: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    alignment: Alignment.centerLeft,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 30),
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
                                     ),
-                                    trailing: Text(
-                                      (list[i].price * list[i].qty).toString() +
-                                          " Kip  ",
-                                      style: TextStyle(color: Colors.red),
+                                  ),
+                                  confirmDismiss: (direction) {
+                                    return showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return StatefulBuilder(
+                                          builder: (context, setState) {
+                                            return AlertDialog(
+                                              title: Text('Delete Data'),
+                                              content: const Text(
+                                                  'Are you sure to delete data?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () async {
+                                                    cubit.ontypeorderid(
+                                                        list[i].productId);
+                                                    Navigator.pop(
+                                                        context, false);
+                                                    navService.pushNamed(AppRount
+                                                        .orderlist); //...here is just make reflesh after i delete the order list
+                                                  },
+                                                  child: const Text('Yes'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    // Close the dialog box
+                                                    Navigator.pop(
+                                                        context, false);
+                                                  },
+                                                  child: Text('No'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Expanded(
+                                    child: ListTile(
+                                      leading: Text((i + 1).toString()),
+                                      title: Text(list[i].productName),
+                                      subtitle: Row(
+                                        children: [
+                                          Text(
+                                            (list[i].price).toString() +
+                                                " Kip  ",
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                          SizedBox(
+                                            width: 50,
+                                          ),
+                                          Text(list[i].qty.toString()),
+                                        ],
+                                      ),
+                                      trailing: Text(
+                                        (list[i].price * list[i].qty)
+                                                .toString() +
+                                            " Kip  ",
+                                        style: TextStyle(color: Colors.red),
+                                      ),
                                     ),
                                   ),
                                 ),

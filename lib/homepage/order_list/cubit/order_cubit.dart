@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/order_list/addDailog.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
@@ -16,6 +17,7 @@ class OrderCubit extends Cubit<OrderState> {
   final BuildContext context;
   final tableProvider tableproviders;
   final AuthenRepository authenRepositorys;
+    //final TextEditingController a = TextEditingController(text: orderproviders.getorderlist);
   OrderCubit({
     required this.authenRepositorys,
     required this.tableproviders,
@@ -23,6 +25,7 @@ class OrderCubit extends Cubit<OrderState> {
     required this.context,
   }) : super(OrderState());
   //-----to update table status--------------
+
   Future<void> updatetablestatus() async {
     emit(state.coppywith(status_c: orderproductstatuse.loading));
     var result = await authenRepositorys.updatetablestattus(
@@ -79,7 +82,16 @@ class OrderCubit extends Cubit<OrderState> {
       });
     }
   }
+  //...............this below is keep the order id for delete only...........................
   ontypeorderid(value){
     orderproviders.collectorderId(value);
   }
+  //...this below is keep the order id and qty to make loop for plus or minus the qty..........................
+  ontypeOrID(value){
+    orderproviders.collectOrID(value);
+  }
+   ontyepQty(value){
+    orderproviders.collectOrderQty(value);
+  }
+
 }
