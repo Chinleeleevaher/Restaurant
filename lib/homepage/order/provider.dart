@@ -52,7 +52,7 @@ void collectOrderQty(int value) {
       if (orId == getorderlist[j].productId) {
         found = true;
         // Update quantity in the order list
-        getorderlist[j].qty += _orderqty;
+        getorderlist[j].qty = _orderqty;
 
         // Reset _orderqty after adding to the order list
         _orderqty = 0;
@@ -70,6 +70,11 @@ void collectOrderQty(int value) {
       prs += getorderlist[i].price * getorderlist[i].qty;
     }
     settotalprice = prs;
+      int a = 0;
+    for (var i = 0; i < getorderlist.length; i++) {
+      a = getorderlist[i].qty + a;
+    }
+    _bageqty = a;
   }
 }
 

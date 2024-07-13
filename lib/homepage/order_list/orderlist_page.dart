@@ -111,9 +111,11 @@ class _OrderListState extends State<OrderList> {
                         itemCount: orderlist.getorderlist.length,
                         itemBuilder: (c, i) {
                           var list = orderlist.getorderlist;
-                          final TextEditingController a = TextEditingController(
-                              text: list[i].qty.toString());
-                          int orQty = int.tryParse(list[i].qty.toString()) ?? 0;
+                          final TextEditingController orqty =
+                              TextEditingController(
+                                  text: list[i].qty.toString());
+
+                          int currentQty = int.tryParse(orqty.text) ?? 0;
 
                           return GestureDetector(
                             child: Card(
@@ -122,7 +124,7 @@ class _OrderListState extends State<OrderList> {
                               elevation: 1,
                               child: InkWell(
                                 onTap: () {
-                                  // cubit.ontypeOrID(list[i].productId);
+                                  cubit.ontypeOrID(list[i].productId);
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -141,11 +143,10 @@ class _OrderListState extends State<OrderList> {
                                                 ElevatedButton(
                                                   onPressed: () {
                                                     setState(() {
-                                                      if (list[i].qty > 0) {
-                                                        list[i].qty--;
-                                                        a.text = list[i]
-                                                            .qty
-                                                            .toString(); // Update text field value
+                                                      if (currentQty > 0) {
+                                                        currentQty--; // Increment the quantity
+                                                        orqty.text = currentQty
+                                                            .toString(); // Update the text in TextEditingController
                                                       }
                                                     });
                                                   },
@@ -157,7 +158,7 @@ class _OrderListState extends State<OrderList> {
                                                 SizedBox(width: 10),
                                                 Expanded(
                                                   child: TextField(
-                                                    controller: a,
+                                                    controller: orqty,
                                                     enabled: false,
                                                     textAlign: TextAlign.center,
                                                   ),
@@ -166,11 +167,11 @@ class _OrderListState extends State<OrderList> {
                                                 ElevatedButton(
                                                   onPressed: () {
                                                     setState(() {
-                                                      if (list[i].qty > 0) {
-                                                        list[i].qty++;
-                                                        a.text = list[i]
-                                                            .qty
-                                                            .toString(); // Update text field value
+                                                      // Get current quantity as integer
+                                                      if (currentQty > 0) {
+                                                        currentQty++; // Increment the quantity
+                                                        orqty.text = currentQty
+                                                            .toString(); // Update the text in TextEditingController
                                                       }
                                                     });
                                                   },
@@ -195,17 +196,15 @@ class _OrderListState extends State<OrderList> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () async {
-                                                  cubit.ontyepQty(orQty);
-                                                  MyProgress().loadingProgress(
+                                                  cubit.ontyepQty(currentQty);
+                                                    MyProgress().loadingProgress(
                                                       context: context,
                                                       title: 'Updating');
                                                   await Future.delayed(
                                                       const Duration(
                                                           seconds: 1));
                                                   Navigator.of(context).pop();
-
                                                   Navigator.of(context).pop();
-
                                                   Navigator.of(context).pop();
                                                   navService.pushNamed(
                                                       AppRount.orderlist);
