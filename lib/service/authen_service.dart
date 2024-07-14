@@ -12,6 +12,7 @@ import 'package:myproject/homepage/import_Product/model/importModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
+import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/orderDetailModels.dart';
@@ -1174,11 +1175,9 @@ class AuthenService {
     required String address,
     required String status,
     required String password,
- 
-    }) async {
+  }) async {
     var headers = {'Content-Type': 'application/json'};
-    var request =
-        http.Request('PUT', Uri.parse(ApiPaths.updateUser));
+    var request = http.Request('PUT', Uri.parse(ApiPaths.updateUser));
     request.body = json.encode({
       "image": image,
       "username": username,
@@ -1195,9 +1194,31 @@ class AuthenService {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-     return true;
+      return true;
     } else {
       return false;
+    }
+  }
+
+  //-------of tabel for order menu--------------------
+
+  Future<List<Menutable>?> menutable() async {
+    var request = http.Request('GET', Uri.parse(ApiPaths.menutable));
+    request.body = '''''';
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+       //print(await response.stream.bytesToString());
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body != null) {
+        final table = menutableFromJson(jsonEncode(body["data"]));
+        return table;
+      } else {
+        print("erer"); 
+      }
+    } else {
+      print("error 11111 ");
     }
   }
 }

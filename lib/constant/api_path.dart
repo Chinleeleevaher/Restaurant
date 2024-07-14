@@ -57,6 +57,7 @@ class ApiPaths {
     static const String uploadUserImage = '$baseURL/uploads';
     static const String delete_user = '$baseURL/delete-user';
     static const String updateUser = '$baseURL/update-user';
+    static const String menutable = '$baseURL/menutable';
 
 
 

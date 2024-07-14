@@ -10,6 +10,7 @@ import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
+import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/orderDetailModels.dart';
@@ -639,6 +640,15 @@ class AuthenRepository {
         address: address,
         status:status, 
         password: password);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+  // ..........select table for order menu.............
+  Future<Either<Failure, List<Menutable>>?> menutable() async {
+    try {
+      final result = await services.menutable();
       return Right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));

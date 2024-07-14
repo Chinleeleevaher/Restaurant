@@ -1,39 +1,21 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
-import 'package:myproject/homepage/menu_page/model/product_model.dart';
-import 'package:myproject/homepage/order/model/orderproductmodel.dart';
-import 'package:myproject/homepage/report/orderDetailModels.dart';
+import 'package:flutter/material.dart';
+import 'package:myproject/homepage/menu_page/model/orderproductModel.dart';
+import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
-import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
-import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
-import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 
-import '../report/reportmodel.dart';
-import '../report/selecorderdetailreport.dart';
-import '../table_page/model/orderlistmodel.dart';
-import '../table_page/model/orderlistmodel.dart';
+class tableprovide extends ChangeNotifier {
+  List<Menutable>? _geTableMenu;
+  List<Menutable>? get geTableMenu => _geTableMenu;
 
-class orderprovider extends ChangeNotifier {
-  bool _isprocessing = true;
-  bool get isprocessing => _isprocessing;
+  getTbleMenu(List<Menutable> value) {
+    _geTableMenu = value;
 
-  setIsprocessing(bool value) {
-    _isprocessing = value;
     notifyListeners();
   }
 
-  // late ProductModel _orderlist;
-  // ProductModel get orderlist => _orderlist;
-
-  // setorderlist(ProductModel value) {
-  //   _orderlist = value;
-  //   notifyListeners();
-  // }
-
-//   /// this below is to correct the qty and order id to keep make loop be low and for add or minus the qty
+    /// this below is to correct the qty and order id to keep make loop be low and for add or minus the qty
   String _orId = "";
   String get orId => _orId;
   collectOrID(value) {
@@ -115,10 +97,10 @@ void collectOrderQty(int value) {
   }
 
 // ------to get order list-----------
-  List<OrderproductModel> _getorderlist = [];
-  List<OrderproductModel> get getorderlist => _getorderlist;
+  List<OrderproductModelMenu> _getorderlist = [];
+  List<OrderproductModelMenu> get getorderlist => _getorderlist;
 
-  setOrderlist(OrderproductModel value) {
+  setOrderlist(OrderproductModelMenu value) {
     if (getorderlist.isEmpty) {
       _getorderlist.add(value);
       setbageqty = null;
@@ -192,6 +174,7 @@ void collectOrderQty(int value) {
       _bageqty = 0;
       _totalqty = 0;
       _totalprice = 0.00;
+      
     }
     notifyListeners();
   }
@@ -231,16 +214,4 @@ void collectOrderQty(int value) {
     }
     notifyListeners();
   }
-
-  // ------to get order detail for report-----------
-  // List<SelectOrderDetailReportModel>? _selectOrderDetailReport;
-  // List<SelectOrderDetailReportModel>? get selectOrderDetailReport =>
-  //     _selectOrderDetailReport;
-
-  // selectOrderdetailreport(List<SelectOrderDetailReportModel> value) {
-  //   if (selectOrderDetailReport != 0) {
-  //     _selectOrderDetailReport = value;
-  //   }
-  //   notifyListeners();
-  // }
 }

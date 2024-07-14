@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
@@ -24,11 +25,33 @@ class tableProvider extends ChangeNotifier {
   late int _getOrdrStatus;
   int get getOrdrStatus => _getOrdrStatus;
 
-  late String _tablenumber;
-  String get tablenumber => _tablenumber;
+
+  ///..........of order from menu....................
+  //..............for show table number in ter orderlist................
+    int? _tID;
+  int? get tID => _tID;
+  String? _tname;
+  String? get tname => _tname;
+
+   late Menutable _gettablelistMenu;
+  Menutable get gettablelistMenu => _gettablelistMenu;
+  settableid(Menutable value){
+_gettablelistMenu = value;
+ _tname = value.tableName;
+ _tID = value.tableId;
+    notifyListeners();
+  }
+  //...clear only tId.....
+   clearttID() {
+    _tID = null;
+    _tname = null;
+    notifyListeners();
+  }
+///.................of order from order pahe..........................
+     String? _tablenumber;
+  String? get tablenumber => _tablenumber;
   settablelist(Tables value) {
-    _tablenumber =
-        value.tableName; // <-- this is add the table name to the table number
+    _tablenumber = value.tableName; // <-- this is add the table name to the table number
     _gettablelist = value;
     // <--here is to add the value to get table
     //.........the below conditon is to get order status.....

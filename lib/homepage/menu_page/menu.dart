@@ -1,23 +1,17 @@
 import 'package:badges/badges.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_image_slider/carousel.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:myproject/generated/locale_keys.g.dart';
-import 'package:myproject/homepage/home_page.dart';
-import 'package:myproject/homepage/location/location.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myproject/component/my_progress.dart';
+import 'package:myproject/config/app_rount.dart';
+import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
-import 'package:myproject/homepage/nabar_page.dart';
+import 'package:myproject/homepage/menu_page/menuProvider.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
-import 'package:myproject/login/Login_Page.dart';
-
-import '../../repository/authen_sipository.dart';
-import '../manage_page.dart';
-import '../table_page/cubit/tabletype_cubit.dart';
-import '../table_page/table_page.dart';
+import 'package:provider/provider.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
@@ -42,6 +36,7 @@ class _MenuState extends State<Menu> {
     print("tokenok $token");
   }
 
+  int selectedIndex = -1; // Track the index of the selected container
   @override
   Widget build(BuildContext context) {
     final double chight = MediaQuery.of(context).size.height * 0.30 - 50;
@@ -51,10 +46,251 @@ class _MenuState extends State<Menu> {
       },
       builder: (context, state) {
         var cubit = context.read<MenuCubit>();
+        var provide = context.read<tableprovide>();
+        var prov = context.read<tableProvider>();
         return Scaffold(
           appBar: AppBar(
-            title: Text("Menu"),
-          ),
+              title: Text("Menu"),
+              leading: GestureDetector(
+                onTap: () {
+                  provide.clearorderlist(); // to make clear the product list
+                  prov.clearttID();
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                },
+                child: Container(
+                  child: Icon(Icons.arrow_back),
+                ),
+              ),
+              actions: [
+                Consumer<tableprovide>(
+                    // // <----here is to make change the number in bage when i add order
+                    builder: (context, orderstate, child) {
+                  return badges.Badge(
+                    badgeAnimation: const BadgeAnimation.rotation(
+                      animationDuration: Duration(seconds: 1),
+                      colorChangeAnimationDuration: Duration(seconds: 1),
+                      loopAnimation: false,
+                      curve: Curves.fastOutSlowIn,
+                      colorChangeAnimationCurve: Curves.easeInCubic,
+                    ),
+                    badgeStyle:
+                        const badges.BadgeStyle(badgeColor: Colors.white),
+                    position: BadgePosition.topEnd(top: -1, end: -1),
+                    badgeContent: Text(
+                      orderstate.getbageqty.toString(),
+                      // cubit.state.coppywith(orderproduct_c:),
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                      ),
+                      onPressed: () {
+                        if (prov.tID != null) {
+                          navService.pushNamed(AppRount.OrderListMenus);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    StateSetter setState) {
+                                  return AlertDialog(
+                                    contentPadding: EdgeInsets.zero,
+                                    content: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.7,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Text(
+                                              'ກາລູນາເລືອກໂຕະ',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: SingleChildScrollView(
+                                              child:
+                                                  provide.geTableMenu!.isEmpty
+                                                      ? Center(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(16.0),
+                                                            child: Text(
+                                                              "ຂໍອາໄພບໍ່ມີໂຕະຫວ່າງແລ້ວ",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10.0),
+                                                          child: Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10.0),
+                                                            child:
+                                                                GridView.count(
+                                                              shrinkWrap: true,
+                                                              physics:
+                                                                  NeverScrollableScrollPhysics(),
+                                                              crossAxisCount: 3,
+                                                              crossAxisSpacing:
+                                                                  10,
+                                                              mainAxisSpacing:
+                                                                  10,
+                                                              children:
+                                                                  List.generate(
+                                                                provide
+                                                                    .geTableMenu!
+                                                                    .length,
+                                                                (index) {
+                                                                  return GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(
+                                                                          () {
+                                                                        selectedIndex =
+                                                                            index;
+                                                                      });
+                                                                      cubit
+                                                                          .onTypeOrderID(
+                                                                        provide.geTableMenu![
+                                                                            index],
+                                                                      );
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            color: selectedIndex == index
+                                                                                ? Colors.red.withOpacity(0.5)
+                                                                                : Colors.grey.withOpacity(0.5),
+                                                                            spreadRadius:
+                                                                                2,
+                                                                            blurRadius:
+                                                                                5,
+                                                                            offset:
+                                                                                Offset(0, 3),
+                                                                          ),
+                                                                        ],
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Icon(
+                                                                            Icons.table_bar,
+                                                                            size:
+                                                                                50,
+                                                                            color:
+                                                                                Colors.green,
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            provide.geTableMenu![index].tableName,
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: selectedIndex == index ? Colors.red : Colors.black,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 30),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                TextButton(
+                                                  child: Text('ຍົກເລີກ'),
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context); // Close dialog
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: Text('ຕົກລົງ'),
+                                                  onPressed: () async {
+                                                    if (prov.tname == null) {
+                                                      Fluttertoast.showToast(
+                                                        msg:
+                                                            "ກາລຸນາເລືອໂຕະກ່ອນ",
+                                                        gravity:
+                                                            ToastGravity.CENTER,
+                                                      );
+                                                    } else {
+                                                      MyProgress()
+                                                          .loadingProgress(
+                                                        context: context,
+                                                        title: 'Updating',
+                                                      );
+                                                      await Future.delayed(
+                                                          const Duration(
+                                                              seconds: 1));
+                                                      Navigator.pop(
+                                                          context); // Close dialog
+                                                      navService.pushNamed(
+                                                          AppRount
+                                                              .OrderListMenus);
+                                                      // Perform action on Confirm button press
+                                                    }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  );
+                }),
+              ]),
           body: Builder(builder: (context) {
             return ListView(
               children: [
@@ -305,63 +541,68 @@ class _MenuState extends State<Menu> {
                             children: List.generate(
                                 cubit.state.listproduct!.length, (index) {
                               var listproduct = state.listproduct;
-                              return Container(
-                                margin: EdgeInsets.only(
-                                    bottom: 8, right: 5, left: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(0, 5),
-                                      color: Color.fromARGB(77, 219, 216, 216)
-                                          .withOpacity(1),
-                                      spreadRadius: 2,
-                                      blurRadius: 5,
-                                    )
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                          child: Image.network(
-                                              listproduct![index].image),
-                                        ),
-                                      ),
-                                      Text(
-                                        listproduct[index].productName,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      // Text(
-                                      //   listproduct[index].price.toString() +
-                                      //       "❤",
-                                      //   style: TextStyle(color: Colors.red),
-                                      // ),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: listproduct[index]
-                                              .price
-                                              .toString(),
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                          children: const <TextSpan>[
-                                            TextSpan(
-                                              text: ' Kip',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                              return GestureDetector(
+                                onTap: () {
+                                  cubit.otypeorder(listproduct[index]);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                      bottom: 8, right: 5, left: 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0, 5),
+                                        color: Color.fromARGB(77, 219, 216, 216)
+                                            .withOpacity(1),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
                                       )
                                     ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            child: Image.network(
+                                                listproduct![index].image),
+                                          ),
+                                        ),
+                                        Text(
+                                          listproduct[index].productName,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        // Text(
+                                        //   listproduct[index].price.toString() +
+                                        //       "❤",
+                                        //   style: TextStyle(color: Colors.red),
+                                        // ),
+                                        RichText(
+                                          text: TextSpan(
+                                            text: listproduct[index]
+                                                .price
+                                                .toString(),
+                                            style: const TextStyle(
+                                                color: Colors.black),
+                                            children: const <TextSpan>[
+                                              TextSpan(
+                                                text: ' Kip',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

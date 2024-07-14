@@ -77,7 +77,7 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 0),
                           child: Text(
-                            tableprovide.tablenumber,
+                            tableprovide.tablenumber.toString(),
                             style: TextStyle(fontSize: 10, color: Colors.red),
                             textAlign: TextAlign.center,
                           ),

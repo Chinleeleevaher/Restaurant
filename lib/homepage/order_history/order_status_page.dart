@@ -66,7 +66,7 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 2),
                           child: Text(
-                            tableprovide.tablenumber,
+                            tableprovide.tablenumber.toString(),
                             style: TextStyle(fontSize: 10, color: Colors.red),
                             textAlign: TextAlign.center,
                           ),

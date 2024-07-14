@@ -8,6 +8,9 @@ import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
 import 'package:myproject/homepage/kitchen/kitchen.dart';
 import 'package:myproject/homepage/location/location.dart';
+import 'package:myproject/homepage/menu_page/menuProvider.dart';
+import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
+import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
@@ -39,7 +42,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
     return Scaffold(
         drawer: Nabar(
           onChanged: (value) {
-            onchangeLanguage(context,value); // <-- here is get the value of onchangeLanguage method in below code and send back to reflesh  or make reflesh in navbar page
+            onchangeLanguage(context,
+                value); // <-- here is get the value of onchangeLanguage method in below code and send back to reflesh  or make reflesh in navbar page
           },
         ),
         appBar: AppBar(
@@ -72,7 +76,12 @@ class _Dashboard_pageState extends State<Dashboard_page> {
 
           if (status == "Waiter" && currentPageIndex == 1) {
             return BlocProvider(
-              create: (context) => MenuCubit(),
+              create: (context) => MenuCubit(
+                  orderproviders: context.read<orderprovider>(),
+                  tableProviders: context.read<tableprovide>(),
+                  authenRepository: context.read<AuthenRepository>(),
+                  tablePros: context.read<tableProvider>(),
+                  context: context, ),
               child: Center(child: Homepage()),
             );
           }
@@ -83,7 +92,12 @@ class _Dashboard_pageState extends State<Dashboard_page> {
           }
           if (currentPageIndex == 2) {
             return BlocProvider(
-              create: (context) => MenuCubit(),
+              create: (context) => MenuCubit(
+                  orderproviders: context.read<orderprovider>(),
+                  tableProviders: context.read<tableprovide>(),
+                  authenRepository: context.read<AuthenRepository>(),
+                  tablePros: context.read<tableProvider>(),
+                  context: context,),
               child: Center(child: Homepage()),
             );
           }

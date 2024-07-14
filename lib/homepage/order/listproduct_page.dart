@@ -139,7 +139,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                             padding: const EdgeInsets.all(10.0),
                             child: GestureDetector(
                               onTap: () {
-                                cubit.onTypeSelect(list![
+                                cubit.onTypeSelect(list[
                                     i]); // <--here is to make ontap and select in productype
                               },
                               child: Container(

@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
+import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
+import 'package:myproject/homepage/menu_page/menuProvider.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/order_list/addDailog.dart';
 import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
@@ -16,24 +18,29 @@ import 'package:provider/provider.dart';
 
 import '../../login/home_provider/provider.dart';
 
-class OrderList extends StatefulWidget {
-  const OrderList({super.key});
+class OrderListMenu extends StatefulWidget {
+  const OrderListMenu({super.key});
 
   @override
-  State<OrderList> createState() => _OrderListState();
+  State<OrderListMenu> createState() => _OrderListMenuState();
 }
 
-class _OrderListState extends State<OrderList> {
+//############### this page i refer to the order cubit ###############################
+//++++++++++++++  the every thing are same and the diferent is i cahnge to collect in diferent model as
+// ===>>  List<OrderproductModelMenu> for order from menu and ===>>> List<OrderproductModel> for from order
+class _OrderListMenuState extends State<OrderListMenu> {
   @override
   Widget build(BuildContext context) {
-    var orderlist = context.read<orderprovider>();
-    var tableprovide = context.read<tableProvider>();
+    var orderlist = context.read<tableprovide>();
+    var tableprovid = context.read<tableProvider>();
+
     return BlocConsumer<OrderCubit, OrderState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
         var cubit = context.read<OrderCubit>();
+        var prov = context.read<tableProvider>();
         return Scaffold(
           appBar: AppBar(
             leading: Container(),
@@ -57,7 +64,8 @@ class _OrderListState extends State<OrderList> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 2),
                           child: Text(
-                            tableprovide.tablenumber.toString(), // Replace 'Default Text' with your desired default value if both are empty
+                            tableprovid.tname
+                                .toString(), // Replace 'Default Text' with your desired default value if both are empty
                             style: TextStyle(fontSize: 10, color: Colors.red),
                             textAlign: TextAlign.center,
                           ),
@@ -69,8 +77,13 @@ class _OrderListState extends State<OrderList> {
                       GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
+                            Navigator.pop(context);
+                            navService.pushNamed(AppRount.menupage);
                           },
-                          child: Icon(Icons.add))
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.green,
+                          ))
                     ],
                   ))
             ],
@@ -124,7 +137,7 @@ class _OrderListState extends State<OrderList> {
                               elevation: 1,
                               child: InkWell(
                                 onTap: () {
-                                  cubit.ontypeOrID(list[i].productId);
+                                  cubit.ontypeOrIDmenu(list[i].productId);
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -192,11 +205,12 @@ class _OrderListState extends State<OrderList> {
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: Text('Close'),
+                                                child: Text('ຍົກເລີກ'),
                                               ),
                                               ElevatedButton(
                                                 onPressed: () async {
-                                                  cubit.ontyepQty(currentQty);
+                                                  cubit.ontyepQtymenu(
+                                                      currentQty);
                                                   MyProgress().loadingProgress(
                                                       context: context,
                                                       title: 'Updating');
@@ -206,10 +220,10 @@ class _OrderListState extends State<OrderList> {
                                                   Navigator.of(context).pop();
                                                   Navigator.of(context).pop();
                                                   Navigator.of(context).pop();
-                                                  navService.pushNamed(
-                                                      AppRount.orderlist);
+                                                  navService.pushNamed(AppRount
+                                                      .OrderListMenus); //...here is just make reflesh after i delete the order list
                                                 },
-                                                child: Text('Save'),
+                                                child: Text('ບັນທືກ'),
                                               ),
                                             ],
                                           )
@@ -241,20 +255,20 @@ class _OrderListState extends State<OrderList> {
                                         return StatefulBuilder(
                                           builder: (context, setState) {
                                             return AlertDialog(
-                                              title: Text('Delete Data'),
+                                              title: Text('ລຶບລາຍການ'),
                                               content: const Text(
-                                                  'Are you sure to delete data?'),
+                                                  'ເຈົ້້າຕ້ອງການລຶບແທ້ບໍ່?'),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () async {
-                                                    cubit.ontypeorderid(
+                                                    cubit.ontypeorderidmenu(
                                                         list[i].productId);
                                                     Navigator.pop(
                                                         context, false);
                                                     navService.pushNamed(AppRount
-                                                        .orderlist); //...here is just make reflesh after i delete the order list
+                                                        .OrderListMenus); //...here is just make reflesh after i delete the order list
                                                   },
-                                                  child: const Text('Yes'),
+                                                  child: const Text('ແມ່ນ'),
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
@@ -262,7 +276,7 @@ class _OrderListState extends State<OrderList> {
                                                     Navigator.pop(
                                                         context, false);
                                                   },
-                                                  child: Text('No'),
+                                                  child: Text('ບໍ່'),
                                                 ),
                                               ],
                                             );
@@ -336,7 +350,6 @@ class _OrderListState extends State<OrderList> {
                           ],
                         ),
                       ),
-                    
                       Padding(
                         padding: const EdgeInsets.only(right: 10, left: 10),
                         child: Row(
@@ -344,11 +357,46 @@ class _OrderListState extends State<OrderList> {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                                //  orderlist.clear();
-                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("ຢືນຢັ້ນ"),
+                                      content:
+                                          Text("ທ່ານຕ້ອງການຍົກເລືກແທ້ບໍ່?"),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text(
+                                            "ບໍ່",
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text("ແມ່ນ"),
+                                          onPressed: () {
+                                            orderlist
+                                                .clearorderlist(); // to make clear the product list
+                                            prov.clearttID();
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                            navService
+                                                .pushNamed(AppRount.menupage);
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
-                              child: Text("Cencel"),
+                              child: Text(
+                                "ຍົກເລີກ",
+                                style: TextStyle(color: Colors.white),
+                              ),
                               style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
@@ -356,9 +404,20 @@ class _OrderListState extends State<OrderList> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                cubit.updatetablestatus();
+                                if (orderlist.getorderlist.isEmpty) {
+                                  Fluttertoast.showToast(
+                                    msg: "ກາລຸນາເລືອກເມນູກ່ອນ",
+                                    gravity: ToastGravity.CENTER,
+                                    backgroundColor: Colors.grey[700],
+                                  );
+                                } else {
+                                  cubit.updatetableStatetu();
+                                }
                               },
-                              child: Text("ok"),
+                              child: Text(
+                                "ສັ່ງຊື້",
+                                style: TextStyle(color: Colors.white),
+                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green,
                                 shape: RoundedRectangleBorder(

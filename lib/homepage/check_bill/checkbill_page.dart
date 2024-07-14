@@ -92,7 +92,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      tableprovi.tablenumber,
+                      tableprovi.tablenumber.toString(),
                       style: TextStyle(color: Colors.red),
                     ),
                     Text(_currentDateTime,
@@ -329,7 +329,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                                     children: <Widget>[
                                       Text("Bill No:  " +
                                           "VT" +
-                                          tableprovi.tablenumber),
+                                          tableprovi.tablenumber.toString()),
                                     ],
                                   ),
                                 ),
