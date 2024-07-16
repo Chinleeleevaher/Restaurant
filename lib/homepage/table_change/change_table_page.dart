@@ -199,16 +199,38 @@ class _ChangeTableState extends State<ChangeTable> {
                                 ),
                               )),
                         ),
-                        GestureDetector(
-                          onTap: () {
+                        // GestureDetector(
+                        //   onTap: ()async {
+
+                        //     cubit.getOrderFromTable(context);
+                        //   },
+                        //   child: Icon(
+                        //     Icons.queue_play_next,
+                        //     color: Colors.red,
+                        //     size: 30,
+                        //   ),
+                        // ),
+                        TextButton(
+                          onPressed: () async {
                             cubit.getOrderFromTable(context);
                           },
-                          child: Icon(
-                            Icons.queue_play_next,
-                            color: Colors.red,
-                            size: 30,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.queue_play_next,
+                                color: Colors.red,
+                                size: 30,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                'ຍ້າຍ',
+                                style: TextStyle(fontSize: 16, color: Colors.red),
+                              ),
+                            ],
                           ),
                         ),
+
                         GestureDetector(
                           onTap: () {
                             cubit.onTypeSelecttablefrom("2");
@@ -294,7 +316,8 @@ class _ChangeTableState extends State<ChangeTable> {
                                     .tr(); // <-----text of available table
                               }
                               if (listtable[index].tableStatus == 1) {
-                                _containercolor = Color.fromARGB(255, 226, 203, 1);
+                                _containercolor =
+                                    Color.fromARGB(255, 226, 203, 1);
                                 textcontrol = LocaleKeys.tableunAvailable
                                     .tr(); // <-----text of Unavailable table
                               }
@@ -352,10 +375,9 @@ class _ChangeTableState extends State<ChangeTable> {
               }
             });
           }
-          if (table.tableStatus == 1 &&
+          if (table.tableStatus == 2 &&
               tableprovider.FromTable != "1" &&
               tableprovider.ToTable != "2") {
-            
             navService.pushNamed(AppRount.orderstatus).then((value) {
               /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
               if (value == true) {

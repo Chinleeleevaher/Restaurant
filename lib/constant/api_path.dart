@@ -1,8 +1,8 @@
 class ApiPaths {
   // static const baseURL = 'https://';
-  static const baseURL = 'http://192.168.1.5:3005';
+  static const baseURL = 'http://192.168.1.2:3005';
 
-  /// HTTP request methods
+  /// HTTP request methods 
   static const String getRequest = 'get';
   static const String postRequest = 'post';
   static const String putRequest = 'put';
@@ -37,7 +37,7 @@ class ApiPaths {
     static const String cut_stocks = '$baseURL/cut-stock';
     static const String update_tbOrders = '$baseURL/update-Order_payment';
     static const String getOrderby_table = '$baseURL/getOrderBytable';
-    static const String update_move_table = '$baseURL/update-move-table';
+    static const String update_move_table = '$baseURL/update-move-tables';
     static const String delete_getFromtable = '$baseURL/delete-move-order-getFromtable';
     static const String update_table_id = '$baseURL/update_tableID_status_tbOrder';
     static const String getOrdrereports = '$baseURL/getOrderDateRange';

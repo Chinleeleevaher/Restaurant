@@ -1,13 +1,10 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myproject/homepage/user/addUser/cubit/user_cubit.dart';
 import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
-import 'package:provider/provider.dart';
 
 class AddUser extends StatefulWidget {
   const AddUser({super.key});
@@ -17,7 +14,7 @@ class AddUser extends StatefulWidget {
 }
 
 class _AddUserState extends State<AddUser> {
-  final _formKey = GlobalKey<FormState>();
+  //final _formKey = GlobalKey<FormState>();
 
   File? image;
   bool _obscureText = true;
@@ -56,7 +53,7 @@ class _AddUserState extends State<AddUser> {
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Form(
-                  key: _formKey,
+                  key: cubits.formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -226,8 +223,8 @@ class _AddUserState extends State<AddUser> {
                                   ))
                               .toList(),
                           onChanged: (value) {
-                            //cubits.gender = value;
-                            cubits.onTypeSelectGender(value);
+                            cubits.onTypeSelectGender(
+                                value); // Make sure this updates state.gender
                           },
                           validator: (value) =>
                               value == null ? 'Please select a gender' : null,
@@ -284,7 +281,9 @@ class _AddUserState extends State<AddUser> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
+              if (cubits.formKey.currentState!.validate()) {
                 cubits.addUser();
+              }
             },
             child: Icon(Icons.add),
             backgroundColor: Colors.green,

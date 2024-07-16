@@ -736,8 +736,8 @@ class AuthenService {
     request.body = json.encode({
       "orId": or_id,
       "TableId": table_id,
-      "OrStatus": 1,
-      "TableStatus": 1,
+      "OrStatus": 2,
+      "TableStatus": 2,
       "tableId": table_ids,
       "orqty": or_qty,
       "orAmount": or_amount
@@ -1079,9 +1079,11 @@ class AuthenService {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        var body = jsonDecode(await response.stream.bytesToString());
-        final gettUser = getUserModelFromJson(jsonEncode(body["data"]));
-        return gettUser;
+          var body = jsonDecode(await response.stream.bytesToString());
+        final getuser =
+            getUserModelFromJson(jsonEncode(body["data"]));
+            print(getuser);
+        return getuser;
       } else {
         print(response.reasonPhrase);
       }

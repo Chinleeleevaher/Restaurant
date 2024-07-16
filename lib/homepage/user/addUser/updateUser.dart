@@ -17,7 +17,7 @@ class UpdateUser extends StatefulWidget {
 }
 
 class _UpdateUserState extends State<UpdateUser> {
-  final _formKey = GlobalKey<FormState>();
+  //final _formKey = GlobalKey<FormState>();
 
   File? image;
   bool _obscureText = true;
@@ -51,13 +51,12 @@ class _UpdateUserState extends State<UpdateUser> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
-          body: 
-          SizedBox(
+          body: SizedBox(
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Form(
-                  key: _formKey,
+                  key: cubits.formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -80,20 +79,21 @@ class _UpdateUserState extends State<UpdateUser> {
                                         height: 100,
                                         fit: BoxFit.cover,
                                       ),
-                                    ):state.updateImage != null
-                                  ? ClipOval(
-                                      child: Image.network(
-                                        state.updateImage!,
-                                        width: 100,
-                                        height: 100,
-                                        fit: BoxFit.cover,
-                                      ),
                                     )
-                                  : const Icon(
-                                      Icons.person,
-                                      size: 50,
-                                      color: Colors.red,
-                                    ),
+                                  : state.updateImage != null
+                                      ? ClipOval(
+                                          child: Image.network(
+                                            state.updateImage!,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : const Icon(
+                                          Icons.person,
+                                          size: 50,
+                                          color: Colors.red,
+                                        ),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -263,7 +263,7 @@ class _UpdateUserState extends State<UpdateUser> {
                             labelText: 'Role',
                             border: OutlineInputBorder(),
                           ),
-                            value: state.staff,
+                          value: state.staff,
                           items: ['Admin', 'Chefs', 'Waiter']
                               .map((role) => DropdownMenuItem<String>(
                                     value: role,
@@ -286,7 +286,9 @@ class _UpdateUserState extends State<UpdateUser> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              cubits.updateUser();
+              if (cubits.formKey.currentState!.validate()) {
+                cubits.updateUser();
+              }
             },
             child: Icon(Icons.add),
             backgroundColor: Colors.green,

@@ -39,11 +39,11 @@ class getUserProvider extends ChangeNotifier {
             username: getUser![i].username,
             email: getUser![i].email,
             password: getUser![i].password,
-            phone: getUser![i].phone,
-            gender: getUser![i].gender,
-            address: getUser![i].address,
-            status: getUser![i].status,
-            image: getUser![i].image);
+            phone: getUser![i].phone!.toInt(),
+            gender: getUser![i].gender.toString(),
+            address: getUser![i].address.toString(),
+            status: getUser![i].status.toString(),
+            image: getUser![i].image.toString());
             break;
       }
       

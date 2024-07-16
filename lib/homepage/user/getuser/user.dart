@@ -41,7 +41,8 @@ class _UserState extends State<User> {
                     child: GestureDetector(
                       onTap: () {
                         cubits.ontyeSelectUser(provide.getUser![index].uid);
-                        UserDetail(context).then((value) { // .......here is make reflesh after i update. i was send true from user_cubit to here
+                        UserDetail(context).then((value) {
+                          // .......here is make reflesh after i update. i was send true from user_cubit to here
                           if (value = true) {
                             cubits.getuser();
                           }
@@ -59,17 +60,20 @@ class _UserState extends State<User> {
                                     CircleAvatar(
                                       radius: 50,
                                       backgroundColor: Colors.grey[200],
-                                      child: provide
-                                              .getUser![index].image.isNotEmpty
+                                      child: provide.getUser != null &&
+                                              provide.getUser![index].image !=
+                                                  null &&
+                                              provide.getUser![index].image!
+                                                  .isNotEmpty
                                           ? ClipOval(
                                               child: Image.network(
-                                                provide.getUser![index].image,
+                                                provide.getUser![index].image!,
                                                 width: 100,
                                                 height: 100,
                                                 fit: BoxFit.cover,
                                               ),
                                             )
-                                          : const Icon(
+                                          : Icon(
                                               Icons.person,
                                               size: 30,
                                               color: Colors.red,
@@ -97,7 +101,7 @@ class _UserState extends State<User> {
                                   Padding(
                                     padding: const EdgeInsets.all(20),
                                     child: Text(
-                                      provide.getUser![index].status,
+                                      provide.getUser![index].status.toString(),
                                       style: TextStyle(color: Colors.green),
                                     ),
                                   ),
@@ -116,7 +120,8 @@ class _UserState extends State<User> {
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               navService.pushNamed(AppRount.adduser).then((value) {
-                if (value = true) { //...........here is to make reflesh in get user afetr i add user. i was send true from the user_cubit 
+                if (value = true) {
+                  //...........here is to make reflesh in get user afetr i add user. i was send true from the user_cubit
                   cubits.getuser();
                 }
               });

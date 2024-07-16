@@ -25,13 +25,14 @@ class UserCubit extends Cubit<UserState> {
     required this.userprovider,
  
   }) : super(UserState());
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  final username = TextEditingController();
-  final password = TextEditingController();
-  final phone = TextEditingController();
-  final email = TextEditingController();
-  final address = TextEditingController();
-  final status = TextEditingController();
+GlobalKey<FormState> formKey = GlobalKey<FormState>();
+final TextEditingController username = TextEditingController();
+final TextEditingController password = TextEditingController();
+final TextEditingController phone = TextEditingController();
+final TextEditingController email = TextEditingController();
+final TextEditingController address = TextEditingController();
+final TextEditingController status = TextEditingController();
+
   String? selectedRole;
 
 
@@ -78,9 +79,14 @@ class UserCubit extends Cubit<UserState> {
 
   // ..........add user...............
   Future<void> addUser() async {
+    MyProgress().loadingProgress(context: context);
     emit(state.coppywith(status_c: addUserStatus.loading));
     String? imagname = await uploadImageUser(); // <--is from above
     if (imagname == null) {
+        Navigator.pop(context, true); 
+           Fluttertoast.showToast(
+            msg: "ກາລຸນາເລືອກຮູບກ່ອນ",
+            gravity: ToastGravity.CENTER);
       return;
     }
     var result = await authenRepository.addUser(
@@ -103,10 +109,11 @@ class UserCubit extends Cubit<UserState> {
         email.clear();
         address.clear();
         emit(state.coppywith(
-            gender_c: "",
-            staff_c: "",
+           // gender_c: "",
+           // staff_c: "",
             addImage_c: File(""),
             status_c: addUserStatus.success));
+                   Navigator.pop(context, true);
           Navigator.pop(context, true); 
       },
     );
@@ -131,7 +138,9 @@ class UserCubit extends Cubit<UserState> {
         password:  password.text, 
       );
     result!.fold(
-      (f) {},
+      (f) {
+               Navigator.pop(context, true);
+      },
       (r) async {
 
         username.clear();
@@ -145,6 +154,7 @@ class UserCubit extends Cubit<UserState> {
             addImage_c: File(""),
             status_c: addUserStatus.success));
           userprovider.clearData();
+          Navigator.pop(context, true); 
           Navigator.pop(context, true); 
           Navigator.pop(context, true); 
       },

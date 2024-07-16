@@ -101,17 +101,34 @@ _gettablelistMenu = value;
     _changeTable = value; // <--here is to add the value to get table
 
     // ignore: unnecessary_null_comparison
+
+    /// ນີ້ແມ່ນແຕ່ລະຕູບທີ່ເຮົາເລືອກ ແລ້ວ ໃຫ້ມັນໄສະແດງຢູ່ເທີ່ງໂຕະ ແລ້ວ ເຮັດການຍ້າຍ
+    /// ແລະ ເຮົາເລືອກຕາມສະຖານະ
     if (FromTable == "1" && _changeTable.tableName != _to_table) {
-      if (_changeTable.tableStatus == 1) {
+      if (_changeTable.tableStatus == 2) {
         _from_table = value.tableName;
         _from_table_Id = value.tableId;
       }
+      else{
+         Fluttertoast.showToast(
+            msg: "ກາລຸນາເລືອກຕູບທີ່ຕ້ອງການຍ້າຍ",
+            gravity: ToastGravity.CENTER);
+      }
     }
     if (ToTable == "2") {
-      if ((_changeTable.tableStatus == 1 || _changeTable.tableStatus == 0) &&
+      if ((_changeTable.tableStatus == 2 || _changeTable.tableStatus == 0) &&
           _changeTable.tableName != _from_table) {
         _to_table = value.tableName;
         _to_table_Id = value.tableId;
+      } else if(_changeTable.tableStatus == 1){
+  Fluttertoast.showToast(
+            msg: "ຕູບນີ້ກໍາລັງລໍຖ້າຢູ່",
+            gravity: ToastGravity.CENTER);
+      }
+       else{
+         Fluttertoast.showToast(
+            msg: "ກາລຸນາເລືອກຕູບທີ່ຕ້ອງການຍ້າຍໄປຫາ",
+            gravity: ToastGravity.CENTER);
       }
     }
     notifyListeners();
@@ -122,6 +139,8 @@ _gettablelistMenu = value;
     _to_table = "...";
     _FromTable = ".....";
     _ToTable = ".....";
+    _from_table_Id = 0;
+    _to_table_Id = 0;
     notifyListeners();
   }
 

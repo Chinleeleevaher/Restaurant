@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myproject/component/my_progress.dart';
 import 'package:provider/provider.dart';
 import '../../../repository/authen_sipository.dart';
 import '../../table_page/cubit/provider/tableprovider.dart';
@@ -65,13 +66,19 @@ class ChangTableCubit extends Cubit<ChangTableState> {
   //----method of select data from table of ( from table) and then plus the data to table that want to move to-----------------
 
   Future<void> getOrderFromTable(BuildContext context) async {
+     
+    emit(state.coppywith(status_c: tableliststatuse.loading));
+      
     try {
       if (tableprovider.fromtable_Id == 0 || tableprovider.totable_Id == 0) {
         // <---this i check the the table i want to ove first if have no chose then have to chose first
         Fluttertoast.showToast(
-            msg: "please select the table you want to move first",
+            msg: "ກາລຸນາເລືອກຕູບກ່ອນ",
             gravity: ToastGravity.CENTER);
+     
       } else {
+        MyProgress().loadingProgress(context: context, title: 'ກໍາລັງຍ້າຍຕູບ');
+   await Future.delayed(const Duration(seconds: 1));
         var result = await authenRepository.SelectByOrder(
             table_id: tableprovider.fromtable_Id, or_status: 2);
         result!.fold((Left) {
@@ -79,8 +86,12 @@ class ChangTableCubit extends Cubit<ChangTableState> {
         }, (Right) {
           tableprovider.getorderFromTableID(Right);
           getOrderToTable();
+          Navigator.pop(context);
           Fluttertoast.showToast(
-              msg: "Move Table sucusssful", gravity: ToastGravity.CENTER);
+              msg: "ຍ້າຍສໍາເລັດ", gravity: ToastGravity.CENTER);
+                emit(state.coppywith(
+              status_c: tableliststatuse.success));
+               
         });
       }
     } catch (e) {
@@ -110,8 +121,9 @@ class ChangTableCubit extends Cubit<ChangTableState> {
         product_id: tableprovider.getMOvetableorder![i].productId!,
         qty: tableprovider.getMOvetableorder![i].qty,
         amount: tableprovider.getMOvetableorder![i].amount.toDouble(), 
-        table_id:  tableprovider.getMOvetableorder![i].tableId,
-      //  table_id: tableprovider.getMOvetableorder![i].tableId,
+       // table_id:  tableprovider.getMOvetableorder![i].tableId,
+        table_id: tableprovider.totable_Id,
+      
       );
       result!.fold((l) {
         log("Error update_move_table");
@@ -124,12 +136,14 @@ class ChangTableCubit extends Cubit<ChangTableState> {
       update_tbOrder_tableId();
       delete_move_table_getFromtable().then((value) {
         tableprovider
-            .clearTable(); // <---this is make clear the two table ble that i move above in the ui page
+            .clearTable(); // <---this is   make clear the two table ble that i move above in the ui page
         tableprovider.clearData(); //<----clear
         getTables(); // <---this is make reload again the table
       });
     } else {
+   //.....work correct........
       update_tbOrder_tableId(); // <----this is update the table_id in tborder and update table_status in tbtable
+       delete_move_table_getFromtable();
       updatetablestatus(); // <---this status update is working when the above finis update( it upda the from table to the emty status)
       getTables(); // <---this is make reload again the table
       getTabletypes(); // <-----this is make reload the table type
@@ -296,8 +310,9 @@ class ChangTableCubit extends Cubit<ChangTableState> {
     var result = await authenRepository.ToSelectOrderToprovider(
         table_id: tableprovider.gettablelist.tableId);
     result!.fold((Left) {
-      log("error");
+      log("error...................");
     }, (Right) {
+        log("okok...................");
       tableprovider.getorderID(Right);
     });
   }
