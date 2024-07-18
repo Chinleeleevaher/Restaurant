@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:myproject/homepage/report/orderDetailModels.dart';
-import 'package:myproject/homepage/report/reportmodel.dart';
 
-import 'getproductmodel.dart';
-import 'orderDetailModel.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
+import 'package:myproject/homepage/report/orderModel/reportmodel.dart';
+
+import 'productModel/getproductmodel.dart';
+import 'orderModel/orderDetailModel.dart';
 
 class ReportProvider extends ChangeNotifier {
   bool _isprocessing = true;
@@ -130,6 +131,41 @@ class ReportProvider extends ChangeNotifier {
     if (orderReport != 0) {
       _orderReport = value;
     }
+    notifyListeners();
+  }
+
+///......of week..........
+  int weekAmount = 0 ;
+    incomeWeekAmount(value) {
+   weekAmount = value;
+    notifyListeners();
+  }
+   int weekQty = 0;
+    incomeWeekQty(value) {
+   weekQty = value;
+    notifyListeners();
+  }
+///......of month..........
+  int? monthAmount;
+    incomeMothAmount(value) {
+   monthAmount = value;
+    notifyListeners();
+  }
+   int? monthQty;
+    incomeMothQty(value) {
+   monthQty = value;
+    notifyListeners();
+  }
+///......of year...........
+  int? yearAmount;
+  
+    incomeYearAmount(value) {
+   yearAmount = value;
+    notifyListeners();
+  }
+  int? yearqty;
+    incomeYearQty(value) {
+   yearqty = value;
     notifyListeners();
   }
 }

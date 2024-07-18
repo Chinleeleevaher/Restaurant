@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:myproject/constant/api_path.dart';
+import 'package:myproject/homepage/Dashboard/model/incomeYearModel.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
@@ -15,7 +16,8 @@ import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
-import 'package:myproject/homepage/report/orderDetailModels.dart';
+import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
+import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
@@ -27,9 +29,9 @@ import 'package:myproject/homepage/user/model/getUserMoldel.dart';
 import '../homepage/addcategory/component/model.dart';
 import '../homepage/menu_page/model/product_model.dart';
 import '../homepage/menu_page/model/unit.dart';
-import '../homepage/report/getproductmodel.dart';
-import '../homepage/report/orderDetailModel.dart';
-import '../homepage/report/reportmodel.dart';
+import '../homepage/report/productModel/getproductmodel.dart';
+import '../homepage/report/orderModel/orderDetailModel.dart';
+import '../homepage/report/orderModel/reportmodel.dart';
 
 class AuthenService {
   //-----of tabletype
@@ -859,6 +861,57 @@ class AuthenService {
     } catch (e) {}
   }
 
+  //----get income to  make report-----------
+  Future<List<IncomeModel>?> selectIncome(
+      {required DateTime Fromdate, required DateTime Todate}) async {
+    String from_pickdate =
+        DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00";
+    String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(ApiPaths.income));
+    request.body =
+        json.encode({"startDate": from_pickdate, "endDate": To_pickdate});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body["status"] == 200) {
+        final seletOrder = incomeModelFromJson(jsonEncode(body["data"]));
+        return seletOrder;
+      } else {
+        Exception('data is null');
+      }
+    } else {
+      print(response.reasonPhrase);
+    }
+    return null;
+  }
+
+  //----get income Year data  to  make report-----------
+  Future<List<IncomeYearModel>?> selectInccomeYear(
+      {required int PickYear}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('POST', Uri.parse(ApiPaths.incomeYear));
+    request.body = json.encode({"year": PickYear});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      if (body["status"] == 200) {
+        final  yearData = incomeYearModelFromJson(jsonEncode(body["data"]));
+        return yearData;
+      } else {
+        Exception('data is null');
+      }
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
   // ..........get order by order status for kitchen.............
 
   Future<List<OrderStatusModel>?> GetOrderByOrderStatus() async {
@@ -1079,10 +1132,9 @@ class AuthenService {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-          var body = jsonDecode(await response.stream.bytesToString());
-        final getuser =
-            getUserModelFromJson(jsonEncode(body["data"]));
-            print(getuser);
+        var body = jsonDecode(await response.stream.bytesToString());
+        final getuser = getUserModelFromJson(jsonEncode(body["data"]));
+        print(getuser);
         return getuser;
       } else {
         print(response.reasonPhrase);
@@ -1211,13 +1263,13 @@ class AuthenService {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-       //print(await response.stream.bytesToString());
+      //print(await response.stream.bytesToString());
       var body = jsonDecode(await response.stream.bytesToString());
       if (body != null) {
         final table = menutableFromJson(jsonEncode(body["data"]));
         return table;
       } else {
-        print("erer"); 
+        print("erer");
       }
     } else {
       print("error 11111 ");

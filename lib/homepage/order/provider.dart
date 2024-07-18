@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/model/orderproductmodel.dart';
-import 'package:myproject/homepage/report/orderDetailModels.dart';
+import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
@@ -11,8 +11,8 @@ import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 
-import '../report/reportmodel.dart';
-import '../report/selecorderdetailreport.dart';
+import '../report/orderModel/reportmodel.dart';
+import '../report/orderModel/selecorderdetailreportModel.dart';
 import '../table_page/model/orderlistmodel.dart';
 import '../table_page/model/orderlistmodel.dart';
 

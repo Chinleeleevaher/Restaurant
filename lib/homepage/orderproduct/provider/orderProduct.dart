@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
-import 'package:myproject/homepage/report/orderDetailModels.dart';
-import 'package:myproject/homepage/report/reportmodel.dart';
+import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
+import 'package:myproject/homepage/report/orderModel/reportmodel.dart';
 
 class OrderProductProvider extends ChangeNotifier {
   bool _isprocessing = true;

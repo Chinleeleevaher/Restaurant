@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:myproject/homepage/Dashboard/model/incomeYearModel.dart';
 
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
@@ -13,7 +14,8 @@ import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
-import 'package:myproject/homepage/report/orderDetailModels.dart';
+import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
+import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/failure.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
@@ -26,9 +28,9 @@ import 'package:myproject/homepage/user/model/getUserMoldel.dart';
 import 'package:myproject/service/authen_service.dart';
 
 import '../homepage/addcategory/component/model.dart';
-import '../homepage/report/getproductmodel.dart';
-import '../homepage/report/orderDetailModel.dart';
-import '../homepage/report/reportmodel.dart';
+import '../homepage/report/productModel/getproductmodel.dart';
+import '../homepage/report/orderModel/orderDetailModel.dart';
+import '../homepage/report/orderModel/reportmodel.dart';
 
 class AuthenRepository {
   final AuthenService services = AuthenService();
@@ -457,7 +459,28 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
-
+ //------------select income to make report---------------
+    Future<Either<Failure, List<IncomeModel>>?> selectIncome(
+      {required DateTime fromdate, required DateTime todate}) async {
+    try {
+      final result =
+          await services.selectIncome(Fromdate: fromdate, Todate: todate);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+   //------------select income to make report---------------
+    Future<Either<Failure, List<IncomeYearModel>>?> selectInccomeYear(
+      {required int PickYear}) async {
+    try {
+      final result =
+          await services.selectInccomeYear(PickYear: PickYear);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
   //------------select order by order status for kitchen---------------
   Future<Either<Failure, List<OrderStatusModel>>?>
       GetOrderByOrderStatus() async {

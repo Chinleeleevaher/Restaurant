@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/homepage/Dashboard/cubit/dashboard_cubit.dart';
 import 'package:myproject/homepage/addcategory/addcategory.dart';
 import 'package:myproject/homepage/addcategory/cubit/category_cubit.dart';
 import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
@@ -119,13 +120,15 @@ class AppRount {
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => MenuCubit(
-                orderproviders: context.read<orderprovider>(),
-                tableProviders: context.read<tableprovide>(),
-                authenRepository: context.read<AuthenRepository>(),
-                tablePros: context.read<tableProvider>(),
-                context: context, )
+              orderproviders: context.read<orderprovider>(),
+              tableProviders: context.read<tableprovide>(),
+              authenRepository: context.read<AuthenRepository>(),
+              tablePros: context.read<tableProvider>(),
+              context: context,
+            )
               ..getProductTypes()
-              ..getproduct()..menutable(), // <---here is mean to access to two fucntion in the cubit
+              ..getproduct()
+              ..menutable(), // <---here is mean to access to two fucntion in the cubit
 
             child: Menu(),
           ),
@@ -136,7 +139,13 @@ class AppRount {
         );
       case dashboard:
         return MaterialPageRoute(
-          builder: (context) => Dashboard_page(),
+          builder: (context) => BlocProvider(
+            create: (context) => DashboardCubit(
+                authenRepository: context.read<AuthenRepository>(),
+                reportProvider: context.read<ReportProvider>())..selectWeekIncome()
+              ..selectInccomeMoth()..selectInccomeYear(),
+            child: Dashboard_page(),
+          ),
         );
       case tabletype:
         return MaterialPageRoute(
@@ -253,18 +262,20 @@ class AppRount {
                 context: context,
                 authenRepositorys: context.read<AuthenRepository>(),
                 tableproviders: context.read<tableProvider>(),
-                orderproviders: context.read<orderprovider>(), tableprovideMenuPage: context.read<tableprovide>()),
+                orderproviders: context.read<orderprovider>(),
+                tableprovideMenuPage: context.read<tableprovide>()),
             child: OrderList(),
           ),
         );
-        case OrderListMenus:
+      case OrderListMenus:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => OrderCubit(
                 context: context,
                 authenRepositorys: context.read<AuthenRepository>(),
                 tableproviders: context.read<tableProvider>(),
-                orderproviders: context.read<orderprovider>(), tableprovideMenuPage: context.read<tableprovide>()),
+                orderproviders: context.read<orderprovider>(),
+                tableprovideMenuPage: context.read<tableprovide>()),
             child: OrderListMenu(),
           ),
         );

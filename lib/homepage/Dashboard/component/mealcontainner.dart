@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class MealContainner_page extends StatelessWidget {
@@ -6,6 +8,7 @@ class MealContainner_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provide = context.read<ReportProvider>();
     return Padding(
       padding: EdgeInsets.only(top: 8),
       child: Row(
@@ -37,7 +40,7 @@ class MealContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Meal To Day",
+                      "weekly sales",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -45,14 +48,14 @@ class MealContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Total Order : 50",
+                      "Total Order : " + provide.weekQty.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Price : 150000 kip",
+                      "Price : " + provide.weekAmount.toString() + "kip",
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -62,13 +65,14 @@ class MealContainner_page extends StatelessWidget {
                       animation: true,
                       animationDuration: 1200,
                       lineWidth: 5.0,
-                      percent: 0.7,
-                      center: new Text(
-                        "70 %",
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12.0,
-                            color: Colors.white),
+                      percent: 0.7, // Ensure percent is between 0.0 and 1.0
+                      center: Text(
+                        '70 %', // Display percentage with one decimal place
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
                       ),
                       circularStrokeCap: CircularStrokeCap.butt,
                       backgroundColor: Colors.white,
@@ -105,7 +109,7 @@ class MealContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Last Week",
+                      "Month",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -113,14 +117,14 @@ class MealContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Total Order : 500",
+                      "Total Order :" + provide.monthQty.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Price : 500000 kip",
+                      "Price :" + provide.monthAmount.toString() + "Kip",
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -173,7 +177,7 @@ class MealContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Last Month",
+                      "Year",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -181,14 +185,14 @@ class MealContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Total Order : 6000",
+                      "Total Order : " + provide.yearqty.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Price : 300000 kip",
+                      "Price : " + provide.yearAmount.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
