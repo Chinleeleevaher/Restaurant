@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -7,6 +9,7 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provide = context.read<ReportProvider>();
     final double high = MediaQuery.of(context).size.height * 0.4;
     final double wight = MediaQuery.of(context).size.width * 0.4;
     return Container(
@@ -67,7 +70,7 @@ class Dashboard extends StatelessWidget {
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(left: 10)),
-                                      Text("15000"),
+                                      Text(provide.hoursAmount.toString()),
                                     ],
                                   ),
                                 )
@@ -90,7 +93,7 @@ class Dashboard extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Eaten"),
+                                  Text("toltal price"),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: Row(
@@ -103,7 +106,8 @@ class Dashboard extends StatelessWidget {
                                         ),
                                         Padding(
                                             padding: EdgeInsets.only(left: 10)),
-                                        Text("15000 kip"),
+                                        Text(provide.hoursQty.toString() +
+                                            " kip"),
                                       ],
                                     ),
                                   )
@@ -150,11 +154,12 @@ class Dashboard extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children:
+                [
                   Padding(
                     padding: const EdgeInsets.only(left: 10, bottom: 5),
                     child: Text(
-                      "Carb",
+                     "pebsi",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
@@ -174,7 +179,7 @@ class Dashboard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: Text("12g left"),
+                    child: Text("12 bottle left"),
                   ),
                 ],
               ),
@@ -184,7 +189,7 @@ class Dashboard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 10, bottom: 5),
                     child: Text(
-                      "Proten",
+                      "water",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
@@ -204,7 +209,7 @@ class Dashboard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: Text("30g left"),
+                    child: Text("30 bottle left"),
                   ),
                 ],
               ),
@@ -214,7 +219,7 @@ class Dashboard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 10, bottom: 5),
                     child: Text(
-                      "Fat",
+                      "beer",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
@@ -234,12 +239,12 @@ class Dashboard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: Text("10g left"),
+                    child: Text("10bottle left"),
                   ),
                 ],
               ),
             ],
-          )
+          ) 
         ],
       ),
     );

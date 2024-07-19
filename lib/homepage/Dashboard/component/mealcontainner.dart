@@ -65,7 +65,7 @@ class MealContainner_page extends StatelessWidget {
                       animation: true,
                       animationDuration: 1200,
                       lineWidth: 5.0,
-                      percent: 0.7, // Ensure percent is between 0.0 and 1.0
+                      percent:  0.7, // Ensure percent is between 0.0 and 1.0
                       center: Text(
                         '70 %', // Display percentage with one decimal place
                         style: TextStyle(

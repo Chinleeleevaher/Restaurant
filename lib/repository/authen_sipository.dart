@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:myproject/homepage/Dashboard/model/incomeYearModel.dart';
+import 'package:myproject/homepage/Dashboard/model/productlowQuantityModel.dart';
 
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
@@ -427,7 +428,15 @@ class AuthenRepository {
       return Left(Failure(e.toString()));
     }
   }
-
+//------------select product low quantity---------------
+  Future<Either<Failure, List<Peoductlowquantity>>?> lowquantityProduct() async {
+    try {
+      final result = await services.lowquantityProduct();
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
   //------------select product to make report---------------
   Future<Either<Failure, List<GetProductModel>>?> getproductmakeReport() async {
     try {

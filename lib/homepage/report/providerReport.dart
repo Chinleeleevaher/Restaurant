@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:myproject/homepage/Dashboard/model/productlowQuantityModel.dart';
 import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
 import 'package:myproject/homepage/report/orderModel/reportmodel.dart';
 
@@ -133,7 +134,26 @@ class ReportProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+ //------of select low product quantity--------------
+  List<Peoductlowquantity> _produclowquantity = [];
+  List<Peoductlowquantity> get produclowquantity => _produclowquantity;
+  setproduclowquantity(List<Peoductlowquantity> value) {
+    
+_produclowquantity = value;
 
+    notifyListeners();
+  }
+///......of 48 hours..........
+  int hoursAmount = 0 ;
+    incomehoursAmount(value) {
+   hoursAmount = value;
+    notifyListeners();
+  }
+   int hoursQty = 0;
+    incomehoursQty(value) {
+   hoursQty = value;
+    notifyListeners();
+  }
 ///......of week..........
   int weekAmount = 0 ;
     incomeWeekAmount(value) {

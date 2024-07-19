@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/Dashboard/model/incomeYearModel.dart';
+import 'package:myproject/homepage/Dashboard/model/productlowQuantityModel.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
@@ -808,6 +809,37 @@ class AuthenService {
     }
   }
 
+//----get product low quantity to  make report-----------
+  Future<List<Peoductlowquantity>?> getproductlowquantity() async {
+    var request =
+        http.Request('GET', Uri.parse(ApiPaths.getproductlowquantity));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+  //----get product low quantity to  make report-----------
+  Future<List<Peoductlowquantity>?>lowquantityProduct() async {
+    var request =
+        http.Request('GET', Uri.parse(ApiPaths.getproductlowquantity));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == "ok") {
+          final lowquantity=peoductlowquantityFromJson(jsonEncode(body["products"]));
+          return lowquantity;
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+    return null;}
+
   //----get product to  make report-----------
   Future<List<GetProductModel>?> getproduct_makeReport() async {
     try {
@@ -830,6 +862,7 @@ class AuthenService {
         print(response.reasonPhrase);
       }
     } catch (e) {}
+    return null;
   }
 
   //----get orderdetail spacail for make loop for product report: i need sell qty, all qty......-----------
@@ -893,8 +926,7 @@ class AuthenService {
   Future<List<IncomeYearModel>?> selectInccomeYear(
       {required int PickYear}) async {
     var headers = {'Content-Type': 'application/json'};
-    var request =
-        http.Request('POST', Uri.parse(ApiPaths.incomeYear));
+    var request = http.Request('POST', Uri.parse(ApiPaths.incomeYear));
     request.body = json.encode({"year": PickYear});
     request.headers.addAll(headers);
 
@@ -903,7 +935,7 @@ class AuthenService {
     if (response.statusCode == 200) {
       var body = jsonDecode(await response.stream.bytesToString());
       if (body["status"] == 200) {
-        final  yearData = incomeYearModelFromJson(jsonEncode(body["data"]));
+        final yearData = incomeYearModelFromJson(jsonEncode(body["data"]));
         return yearData;
       } else {
         Exception('data is null');

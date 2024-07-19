@@ -13,6 +13,7 @@ import 'package:myproject/homepage/menu_page/menuProvider.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/report/cubit/order_cubit.dart';
+import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
@@ -46,6 +47,7 @@ class _Dashboard_pageState extends State<Dashboard_page> {
         // TODO: implement listener
       },
       builder: (context, state) {
+        
         return Scaffold(
             drawer: Nabar(
               onChanged: (value) {
@@ -126,20 +128,21 @@ class _Dashboard_pageState extends State<Dashboard_page> {
               if (currentPageIndex == 3) {
                 return const Center(child: Location());
               }
+             
               return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 1,
                     width: MediaQuery.of(context).size.width * 2,
                     child: ListView(
-                      children: [
+                      children: const [
                         Padding(
-                          padding: const EdgeInsets.all(15.0),
+                          padding: EdgeInsets.all(15.0),
                           child: Text("Daily Sell"),
                         ),
                         Dashboard(),
                         Padding(
-                          padding: const EdgeInsets.all(15.0),
+                          padding: EdgeInsets.all(15.0),
                           child: Text("Meal"),
                         ),
                         MealContainner_page(),

@@ -45,6 +45,7 @@ class ApiPaths {
     static const String incomeYear = '$baseURL/incomeyear';
     static const String SelectOrderByReport = '$baseURL/select-by-order_id';
     static const String getProduct_makeReport = '$baseURL/products';
+    static const String getproductlowquantity= '$baseURL/Pquantity';
     static const String getOrderdetail_makeReports = '$baseURL/getOrderDetailforProductReport';
     static const String getOrderByOrderStatus = '$baseURL/getOrderstatus';
     static const String getOrderDetail_kitchen = '$baseURL/getOrderDetail_Kitchen';

@@ -25,7 +25,20 @@ class DashboardCubit extends Cubit<DashboardState> {
   //-----of date time picker od year-------------
 
 DateTime toPickYear = DateTime.now();
-
+///=====>>>> no more use <<======
+/// ...........of product low quantity...................
+  Future<void> lowquantityProduct() async {
+     emit(state.coppywith(status: dashBoardstatus.loading));
+    var result = await authenRepository.lowquantityProduct();
+    result!.fold((l) {
+    }, (data) {
+     reportProvider.setproduclowquantity(data);
+       emit(state.coppywith(
+        status: dashBoardstatus.success,
+      ));         
+    });
+  }
+///=====>>>> no more used the above fucntion <<======
 /// ...........of weekly sale...................
   Future<void> selectWeekIncome() async {
      emit(state.coppywith(status: dashBoardstatus.loading));
@@ -34,7 +47,9 @@ DateTime toPickYear = DateTime.now();
     result!.fold((l) {
     }, (data) {
     //  reportProvider.OrderReport(data);
+    calculateIncome48Hours(data);
     selectIncomeWeek(data);
+    
        emit(state.coppywith(
         status: dashBoardstatus.success,
       ));
@@ -43,6 +58,52 @@ DateTime toPickYear = DateTime.now();
     });
   }
   
+  
+  // .....here  is calculate the income of day..............
+void calculateIncome48Hours(List<IncomeModel> incomeData) {
+  DateTime now = DateTime.now();
+  DateTime startTime = now.subtract(Duration(hours: 48));
+
+  // Filter income data for the last 48 hours
+  List<IncomeModel> filteredData = incomeData.where((entry) => entry.ordDate.isAfter(startTime)).toList();
+
+  Map<String, Map<String, num>> totalsByPeriod = {};
+
+  for (var entry in filteredData) {
+    // Extract year, month, and day from the date
+    String periodKey = '${entry.ordDate.year}-${entry.ordDate.month}-${entry.ordDate.day}';
+
+    // Initialize the period key if it doesn't exist
+    if (!totalsByPeriod.containsKey(periodKey)) {
+      totalsByPeriod[periodKey] = {
+        'totalAmount': 0,
+        'totalQty': 0,
+      };
+    }
+
+    // Accumulate amount and qty for the current period
+    totalsByPeriod[periodKey]!['totalAmount'] = totalsByPeriod[periodKey]!['totalAmount']! + entry.amount;
+    totalsByPeriod[periodKey]!['totalQty'] = totalsByPeriod[periodKey]!['totalQty']! + entry.qty;
+  }
+
+  // Accumulate total amount and total qty across all periods
+  num totalAmountAllPeriods = 0;
+  num totalQtyAllPeriods = 0;
+
+  totalsByPeriod.forEach((period, totals) {
+    totalAmountAllPeriods += totals['totalAmount'] ?? 0;
+    totalQtyAllPeriods += totals['totalQty'] ?? 0;
+  //  print("Period: $period, Total Amount: ${totals['totalAmount'] ?? 0}, Total Qty: ${totals['totalQty'] ?? 0}");
+  });
+  reportProvider.incomehoursAmount( totalQtyAllPeriods);
+    reportProvider.incomehoursQty(totalAmountAllPeriods);
+}
+
+
+
+
+
+
   // .....here  is calculate the income of weekly sale..............
   void selectIncomeWeek(List<IncomeModel> incomeData) {
   // Get current year and month
@@ -81,7 +142,7 @@ DateTime toPickYear = DateTime.now();
   totalsByMonths.forEach((month, totals) {
     num totalAmount = totals['amount'] ?? 0;
     num totalQty = totals['qty'] ?? 0;
-    print("Month: $month, Total Amount: $totalAmount, Total Qty: $totalQty");
+   /// print("Month: $month, Total Amount: $totalAmount, Total Qty: $totalQty");
     // Assuming reportProvider.incomeMoth accepts two parameters: totalAmount and totalQty
     reportProvider.incomeWeekAmount(totalAmount);
     reportProvider.incomeWeekQty(totalQty);
@@ -191,7 +252,7 @@ void calculateAndPrintIncomeMonth(List<IncomeYearModel> incomeData) {
   totalsByYear.forEach((year, totals) {
     num totalAmount = totals['amount'] ?? 0;
     num totalQty = totals['qty'] ?? 0;
-    print("Year: $year, Total Amount: $totalAmount, Total Qty: $totalQty");
+  //  print("Year: $year, Total Amount: $totalAmount, Total Qty: $totalQty");
     // Assuming reportProvider.incomeYear accepts two parameters: totalAmount and totalQty
     reportProvider.incomeYearAmount(totalAmount);
     reportProvider.incomeYearQty(totalQty);
