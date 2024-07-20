@@ -8,7 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:myproject/homepage/Dashboard/component/mealcontainner.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/report/component/incomContainer.dart';
 import 'package:myproject/homepage/report/component/printDailog.dart';
+import 'package:myproject/homepage/report/component/prorductPrint.dart';
+import 'package:myproject/homepage/report/component/userContainner.dart';
+import 'package:myproject/homepage/report/component/userPrint.dart';
 import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -22,7 +26,6 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPageState extends State<ReportPage> {
-  
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OrderReportCubit, OrderReportState>(
@@ -43,8 +46,13 @@ class _ReportPageState extends State<ReportPage> {
                     padding: const EdgeInsets.only(right: 20),
                     child: GestureDetector(
                         onTap: () {
+                           if (state.orderType == 2) {
+                            productPrint(context);
+                          }
+                          if (state.orderType == 4) {
+                            UserPrint(context);
+                          }
                           cubit.ontypePrint();
-                          // printdailog(context);
                         },
                         child: const Icon(Icons.print)),
                   )
@@ -402,7 +410,7 @@ class _ReportPageState extends State<ReportPage> {
                   String seriesData = jsonEncode(data);
 
                   return Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         SizedBox(
@@ -410,52 +418,78 @@ class _ReportPageState extends State<ReportPage> {
                           height: 250,
                           child: Echarts(
                             option: '''
-      {
-        title: {
-          text: 'Weekly Sales Data'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          }
-        },
-      
-        grid: {
-          left: '1%',
-          right: '18%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: {
-          type: 'value'
-        },
-        yAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        series: [
-          {
-            name: 'income',
-            type: 'bar',
-            label: {
-              show: true,
-              position: 'right',
-              formatter: '{c} kip',  // Display the value of each bar followed by "kip"
-              color: 'green',         // Set the color of "kip" to red
-            },
-          
-            data: $seriesData       // Insert your series data here
-              }
-            ]
-          }
-          ''',
+                                        {
+                                          title: {
+                                            text: 'Weekly Sales Data'
+                                          },
+                                          tooltip: {
+                                            trigger: 'axis',
+                                            axisPointer: {
+                                              type: 'shadow'
+                                            }
+                                          },
+                                        
+                                          grid: {
+                                            left: '0%',
+                                            right: '18%',
+                                            bottom: '3%',
+                                            containLabel: true
+                                          },
+                                          xAxis: {
+                                            type: 'value'
+                                          },
+                                          yAxis: {
+                                            type: 'category',
+                                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                                          },
+                                          series: [
+                                            {
+                                              name: 'income',
+                                              type: 'bar',
+                                              label: {
+                                                show: true,
+                                                position: 'right',
+                                                formatter: '{c} kip',  // Display the value of each bar followed by "kip"
+                                                color: 'green',         // Set the color of "kip" to red
+                                              },
+                                            
+                                              data: $seriesData       // Insert your series data here
+                                                }
+                                              ]
+                                            }
+                                            ''',
                           ),
                         ),
                         const Divider(),
-                         const MealContainner_page(),
+                        const Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 30),
+                            child: Text(
+                              "income",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 30),
+                          child: incomContainner_page(),
+                        )
                       ],
                     ),
+                  );
+                }
+
+                if (state.orderType == 4) {
+                  return const Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                        child: UserReport(),
+                      )
+                    ],
                   );
                 }
 

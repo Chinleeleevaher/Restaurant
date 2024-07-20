@@ -82,7 +82,6 @@ Future orderPrintDailog(BuildContext context) {
                   children: <Widget>[
                     Text("ລ/ດ"),
                     Text("ລາຍການ"),
-            
                     Text("ຈໍນນວນ "),
                     Text("ລາຄາ"),
                   //  Text("ຈ່າຍ"),

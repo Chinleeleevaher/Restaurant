@@ -68,7 +68,7 @@ class _ProductPageState extends State<ProductPage> {
               Row(
                 children: [
                   Container(
-                    width: 360,
+                    width: 400,
                     height: 60,
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 251, 249, 249),
@@ -137,7 +137,7 @@ class _ProductPageState extends State<ProductPage> {
               Row(
                 children: [
                   Container(
-                    width: 360,
+                    width: 400,
                     height: 60,
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 251, 249, 249),
@@ -196,7 +196,7 @@ class _ProductPageState extends State<ProductPage> {
                 height: 10,
               ),
               Container(
-                width: 360,
+                width: 400,
                 height: 50,
                 decoration: const BoxDecoration(color: Colors.green),
                 child: const Row(
@@ -212,7 +212,7 @@ class _ProductPageState extends State<ProductPage> {
               Expanded(
                 child: Container(
                   height: 400,
-                  width: 360,
+                  width: 400,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -244,6 +244,7 @@ class _ProductPageState extends State<ProductPage> {
                                       ),
                                     ),
                                   ),
+                                 
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10),
                                     child: Text(prolist[i].productName),

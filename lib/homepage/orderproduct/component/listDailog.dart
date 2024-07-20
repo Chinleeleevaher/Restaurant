@@ -80,9 +80,8 @@ Future listdailog(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("ລ/ດ"),
+                    Text("ລະຫັດສີນຄ້າ"),
                     Text("ລາຍການ"),
-            
                     Text("ຈໍນນວນ "),
                     Text("ລາຄາ"),
                   //  Text("ຈ່າຍ"),
@@ -102,18 +101,18 @@ Future listdailog(BuildContext context) {
                          child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Text(provider.collectproductOrder![index].productId.toString()),
                             Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Text((index + 1).toString()),
+                              padding: const EdgeInsets.only(left: 50),
+                              child: Text(provider.collectproductOrder![index].orpName.toString()),
                             ),
-                            
-                            Text(provider.collectproductOrder![index].orpName.toString()),
-                          
-                            Text(provider.collectproductOrder![index].orpQty.toString()),
-                          
+                            Padding(
+                              padding: const EdgeInsets.only(left: 50),
+                              child: Text(provider.collectproductOrder![index].orpQty.toString()),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
-                              child: Text(provider.collectproductOrder![index].orpPrice.toString()),
+                              child: Text(provider.collectproductOrder![index].orpPrice.toString() + " Kip"),
                             ),
                             
                           //  Text(reportProvider.orderReport![index].payment, style: TextStyle(color: Colors.green),),

@@ -1,39 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
-
+import 'package:myproject/homepage/addcategory/cubit/category_cubit.dart';
+import 'package:myproject/homepage/addtable/cubit/addtable_cubit.dart';
+import 'package:myproject/homepage/addtable/provider.dart';
+import 'package:myproject/homepage/addunit/cubit/addunit_cubit.dart';
+import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import '../../responsives.dart';
-import 'cubit/category_cubit.dart';
 
-class Category_page extends StatefulWidget {
-  const Category_page({super.key});
+class addtable_page extends StatefulWidget {
+  const addtable_page({super.key});
 
   @override
-  State<Category_page> createState() => _Category_pageState();
+  State<addtable_page> createState() => _addtable_pageState();
 }
 
-class _Category_pageState extends State<Category_page> {
+int? _tableType;
+
+class _addtable_pageState extends State<addtable_page> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CategoryCubit, CategoryState>(
+    return BlocConsumer<AddtableCubit, AddtableState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = context.read<CategoryCubit>();
-        var provider = context.read<categoryProvider>();
-
+        var cubit = context.read<AddtableCubit>();
+        var provide = context.read<tableProviderss>();
         return Scaffold(
             appBar: AppBar(
-              title: Text("Category"),
+              title: Text("Add Table"),
             ),
             body: SingleChildScrollView(
               child: Form(
                 key: cubit.formkey,
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: TextField(
+                        controller: cubit.tableName,
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "ຊື່ໂຕະ"),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RadioListTile(
+                            title: Text("ທົ່ວໄປ"),
+                            value: 1,
+                            groupValue: _tableType,
+                            onChanged: (value) {
+                              setState(() {
+                                _tableType = value as int?;
+                              });
+                              cubit.ontypeTabletype(value!);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: RadioListTile(
+                            title: Text("vip"),
+                            value: 2,
+                            groupValue: _tableType,
+                            onChanged: (value) {
+                              setState(() {
+                                _tableType = value as int?;
+                              });
+                              cubit.ontypeTabletype(value as int);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
@@ -45,24 +90,30 @@ class _Category_pageState extends State<Category_page> {
                               children: [
                                 if (Responsive.isMobile(context))
                                   Padding(
-                                    padding: const EdgeInsets.all(10.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Expanded(
                                           child: TextField(
-                                            controller: cubit.productypeName,
+                                            controller: cubit.tableSize,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: <TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
+                                            ],
                                             decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 10,
-                                                        horizontal: 20),
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                                hintText: "ລາຍການ"),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 20),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              hintText: "ຈໍານວນ",
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
@@ -70,19 +121,21 @@ class _Category_pageState extends State<Category_page> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            // cubit.adproductype(context);
                                             if (cubit.isAdd) {
-                                              if (cubit.productypeName.text
-                                                  .isEmpty) {
+                                              if (cubit.tableName.text.isEmpty &&
+                                                  cubit
+                                                      .tableSize.text.isEmpty &&
+                                                  state.tableType == 0) {
                                                 Fluttertoast.showToast(
-                                                    msg: "pleas enter category",
+                                                    msg:
+                                                        "please Enter table name or size",
                                                     gravity:
                                                         ToastGravity.CENTER);
                                               } else {
-                                                cubit.adproductype();
+                                                cubit.adtable();
                                               }
                                             } else {
-                                              cubit.updateProduct();
+                                                cubit.updateTable();
                                             }
                                           },
                                           child: Container(
@@ -101,28 +154,28 @@ class _Category_pageState extends State<Category_page> {
                                       ],
                                     ),
                                   ),
-                                //  title(),
-                                Row(
+                                // title(),
+                                const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     VerticalDivider(),
-                                    Text("ລ/ດ"),
+                                    Text("ຊື່"),
                                     VerticalDivider(),
-                                    // Text("ເລກ ID"),
+                                    //  Text("ເລກ ID"),
                                     VerticalDivider(),
-                                    Text("Name"),
+                                    Text("ປະເພດ"),
                                     VerticalDivider(),
-                                    Text("Edit"),
+                                    Text("ແກ້ໄຂ"),
                                     VerticalDivider(),
-                                    Text("Delete"),
+                                    Text("ລົບ"),
                                     VerticalDivider(),
                                   ],
                                 ),
                                 SizedBox(
                                   height: 16,
                                 ),
-                                //     detail(),
+                                //                 detail(),
                                 Container(
                                   height:
                                       MediaQuery.of(context).size.height / 1.5,
@@ -131,13 +184,11 @@ class _Category_pageState extends State<Category_page> {
                                       children: [
                                         Column(
                                           children: List.generate(
-                                              provider.geproducttype!.length,
-                                              (i) {
+                                              provide.getTable!.length, (i) {
                                             // var prolist = state.listproduct;
-                                            //  var pro = State.provider;
                                             return Container(
                                               margin: EdgeInsets.only(
-                                                  top: 10, bottom: 3),
+                                                  top: 5, bottom: 3),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius:
@@ -145,7 +196,7 @@ class _Category_pageState extends State<Category_page> {
                                               ),
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
-                                                    right: 10, left: 10),
+                                                    right: 10, left: 0),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -161,31 +212,37 @@ class _Category_pageState extends State<Category_page> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              right: 10),
-                                                      // child: Text(prolist![i].productName),
-                                                      child: Text(provider
-                                                          .geproducttype![i]
-                                                          .protypeId
+                                                              right: 30),
+                                                      child: Text(provide
+                                                          .getTable![i]
+                                                          .tableName
                                                           .toString()),
                                                     ),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
                                                               right: 40),
-                                                      // child: Text(prolist[i].price.toString()),
-                                                      child: Text(provider
-                                                          .geproducttype![i]
-                                                          .protypeName),
+                                                      child: Text(
+                                                        provide.getTable![i]
+                                                                    .tabletypeId ==
+                                                                1
+                                                            ? "ທົ່ວໄປ"
+                                                            : (provide.getTable![i]
+                                                                        .tabletypeId ==
+                                                                    2
+                                                                ? "vip"
+                                                                : ""),
+                                                      ),
                                                     ),
                                                     Padding(
                                                       padding: EdgeInsets.only(
                                                           right: 10),
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          // cubit.onTypeSelectproduct(prolist[i]);
-                                                          cubit.isAdd = false;
-                                                          cubit.onTypeCate(provider
-                                                              .geproducttype![i]);
+                                                         cubit.isAdd = false;
+                                                          cubit.ontypeUpdate(
+                                                              provide.getTable![
+                                                                  i]);
                                                         },
                                                         child: Icon(Icons.edit),
                                                       ),
@@ -222,10 +279,10 @@ class _Category_pageState extends State<Category_page> {
                                                                         'ລົບ'),
                                                                     onPressed:
                                                                         () {
-                                                                      cubit.deleteCategpry(provider
-                                                                          .geproducttype![
+                                                                      cubit.ontypeDelete(provide
+                                                                          .getTable![
                                                                               i]
-                                                                          .protypeId);
+                                                                          .tableId);
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop(); // Close the dialog
@@ -314,10 +371,10 @@ class detail extends StatelessWidget {
           child: Column(
             children: [
               Column(
-                children: List.generate(10, (i) {
+                children: List.generate(5, (i) {
                   // var prolist = state.listproduct;
                   return Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 3),
+                    margin: EdgeInsets.only(top: 5, bottom: 3),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),

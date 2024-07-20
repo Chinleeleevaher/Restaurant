@@ -11,6 +11,7 @@ import 'package:myproject/homepage/report/component/printDailog.dart';
 import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
+import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 import 'package:provider/provider.dart';
 import '../../order/provider.dart';
@@ -23,10 +24,12 @@ class OrderReportCubit extends Cubit<OrderReportState> {
   final orderprovider orderproviders;
   final ReportProvider reportProvider;
   final BuildContext context;
+   final getUserProvider userprovider;
   OrderReportCubit({
     required this.authenRepository,
     required this.orderproviders,
     required this.reportProvider,
+    required this.userprovider,
     required this.context,
   }) : super(OrderReportState());
 
@@ -46,8 +49,7 @@ class OrderReportCubit extends Cubit<OrderReportState> {
 
     }
     if (orderTap == 4) {
-      /// fetch staff
-      selectproduct_makeReport();
+     getuserReport();
     }
   }
 
@@ -181,7 +183,21 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     print(_datall.toString());
 }
 
+///......of user report...............
 
+ Future<void> getuserReport() async {
+    emit(state.coppywith(status: orderlistreportstatus.loading));
+    var result = await authenRepository.getUser();
+    result!.fold(
+      (f) {
+      print("error");
+      },
+      (data){
+       userprovider.TogetgetUser(data);
+           emit(state.coppywith(status: orderlistreportstatus.success));
+      },
+    );
+  }
 
 }
 

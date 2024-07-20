@@ -6,6 +6,9 @@ import 'package:myproject/homepage/addcategory/cubit/category_cubit.dart';
 import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
 import 'package:myproject/homepage/addproduct/addproduct_page.dart';
 import 'package:myproject/homepage/addproduct/cubit/addproduct_cubit.dart';
+import 'package:myproject/homepage/addtable/addtable.dart';
+import 'package:myproject/homepage/addtable/cubit/addtable_cubit.dart';
+import 'package:myproject/homepage/addtable/provider.dart';
 import 'package:myproject/homepage/addunit/addunit_page.dart';
 import 'package:myproject/homepage/addunit/cubit/addunit_cubit.dart';
 import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
@@ -74,6 +77,7 @@ class AppRount {
   static const String addproduct = '/Addproduct';
   static const String addcategory = '/Addcategory';
   static const String addunit = '/Addunit';
+  static const String addtable = '/Addtable';
   static const String ListProduct = '/ListProduct';
   static const String orderlist = '/orderlist';
   static const String OrderListMenus = '/orderlistMenus';
@@ -142,9 +146,11 @@ class AppRount {
           builder: (context) => BlocProvider(
             create: (context) => DashboardCubit(
                 authenRepository: context.read<AuthenRepository>(),
-                reportProvider: context.read<ReportProvider>())..selectWeekIncome()
-              ..selectInccomeMoth()..selectInccomeYear(),
-            child: Dashboard_page(),
+                reportProvider: context.read<ReportProvider>())
+              ..selectWeekIncome()
+              ..selectInccomeMoth()
+              ..selectInccomeYear(),
+            child: const Dashboard_page(),
           ),
         );
       case tabletype:
@@ -156,7 +162,7 @@ class AppRount {
             )
               ..getTabletypes()
               ..getTables(), // <---here is mean to access to two fucntion in the cubit
-            child: Table_page(),
+            child: const Table_page(),
           ),
         );
       case changetable:
@@ -240,7 +246,18 @@ class AppRount {
                   )..getUnit(),
                   child: AddUnit_page(),
                 ));
-
+        case addtable:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => AddtableCubit(
+                    authenRepositorys: context.read<AuthenRepository>(), tableproviders: context.read<tableProviderss>(),
+                 //   Unitprovider: context.read<UnitProvider>(),
+                    // productTypemodel: settings as  AddProductypeModel,
+                    //    productTypemodel: null,
+                  //  context: context,
+                  )..getTatble(),
+                  child: addtable_page(),
+                ));
       case ListProduct:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -318,8 +335,10 @@ class AppRount {
                       authenRepository: context.read<AuthenRepository>(),
                       orderproviders: context.read<orderprovider>(),
                       context: context,
-                      reportProvider: context.read<ReportProvider>())
-                    ..getOrderReport(),
+                      reportProvider: context.read<ReportProvider>(),
+                      userprovider: context.read<getUserProvider>())
+                    ..getOrderReport()
+                    ..getuserReport(),
                   child: ReportPage(),
                 ));
 

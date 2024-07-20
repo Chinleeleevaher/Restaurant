@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
+import 'package:myproject/homepage/addtable/addtable.dart';
+import 'package:myproject/homepage/addtable/addtable.dart';
 import 'package:myproject/homepage/nabar_page.dart';
 
 class Manage_page extends StatefulWidget {
@@ -226,31 +228,36 @@ class _Manage_pageState extends State<Manage_page>
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    offset: const Offset(0, 5),
-                                    color: Color.fromARGB(77, 11, 11, 11),
-                                    spreadRadius: 2,
-                                    blurRadius: 5)
-                              ]),
-                          child: const Column(
-                            children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Icon(
-                                Icons.table_bar,
-                                size: 50,
-                                color: Colors.red,
-                              ),
-                              Text("Add Table")
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                             navService.pushNamed(AppRount.addtable);
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      offset: const Offset(0, 5),
+                                      color: Color.fromARGB(77, 11, 11, 11),
+                                      spreadRadius: 2,
+                                      blurRadius: 5)
+                                ]),
+                            child: const Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.table_bar,
+                                  size: 50,
+                                  color: Colors.red,
+                                ),
+                                Text("Add Table")
+                              ],
+                            ),
                           ),
                         ),
                       ),

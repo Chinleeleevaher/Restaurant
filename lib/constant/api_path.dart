@@ -24,8 +24,12 @@ class ApiPaths {
    static const String upadte_productype = '$baseURL/update-product-type';
   static const String unitpath = '$baseURL/Unit';
   static const String addUnit = '$baseURL/Unit';
+  static const String addTable = '$baseURL/addTable';
+  static const String gettables = '$baseURL/tables';
+  static const String deletetables = '$baseURL/delete-table';
   static const String delete_unit = '$baseURL/delete-Unit';
   static const String update_unit = '$baseURL/update-Unit';
+  static const String updateTable = '$baseURL/updateTable';
   static const String uploadimagePath = '$baseURL/upload';
   static const String add_productPath = '$baseURL/add-product';
   static const String upadte_productPath = '$baseURL/update-product';

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
+import 'package:myproject/homepage/addtable/provider.dart';
 import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/import_Product/provider/provider.dart';
@@ -51,6 +52,7 @@ Future<void> main() async {
             ChangeNotifierProvider(create: (_) => ImpProduct()),
             ChangeNotifierProvider(create: (_) => getUserProvider()),
             ChangeNotifierProvider(create: (_) => tableprovide()),
+            ChangeNotifierProvider(create: (_) => tableProviderss()),
         ], child: const MyApp()),
       ),
     ),

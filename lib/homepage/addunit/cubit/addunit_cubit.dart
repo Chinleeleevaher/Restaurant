@@ -80,6 +80,7 @@ class AddunitCubit extends Cubit<AddunitState> {
     //emit(state.coppywith(catetype_c: value));
     Unitprovider.getUnitUpdate(value);
     UnitName.text = Unitprovider.getupdate!.unitName;
+   
   }
 
   Future<void> updateUnit() async {

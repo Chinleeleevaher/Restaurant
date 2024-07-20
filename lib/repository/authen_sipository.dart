@@ -5,6 +5,7 @@ import 'package:myproject/homepage/Dashboard/model/incomeYearModel.dart';
 import 'package:myproject/homepage/Dashboard/model/productlowQuantityModel.dart';
 
 import 'package:myproject/homepage/addproduct/component/model.dart';
+import 'package:myproject/homepage/addtable/model/tableModel.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
@@ -157,7 +158,53 @@ class AuthenRepository {
       return Left(Failure(e.toString()));
     }
   }
-
+ //------of add table---------
+  Future<Either<Failure, bool?>> adtable(
+      {required String tableName, required int tabletype, required int tableSize}) async {
+    try {
+      final result = await services.adtable(tableName: tableName, tabletype: tabletype, tableSize: tableSize);
+      return Right(result);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+      //throw Exception('Failed to load table type');
+    }
+  }
+  
+  // -------of get table -----------
+  Future<Either<Failure, List<TableModel>?>> getTatble() async {
+    try {
+      final result = await services.getTatble();
+      return Right(result);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+      //throw Exception('Failed to load table type');
+    }
+  }
+   //-----of delete table-----
+  Future<Either<Failure, bool>?> deleteTable({required int table_id}) async {
+    try {
+      final result = await services.deleteTable(table_id: table_id);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+   //----of update table---------
+  Future<Either<Failure, bool>> updateTable({
+    required int tableId,
+    required String tablename,
+    required int tsize,
+    required int ttype,
+  }) async {
+    try {
+      final result = await services.updateTable(tableId: tableId, tablename:tablename, tsize: tsize, ttype: ttype
+      
+      );
+      return right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
   //--------of product-------------
   Future<Either<Failure, List<ProductModel>>> getproduct(
       {required int typeids, required int unitId}) async {

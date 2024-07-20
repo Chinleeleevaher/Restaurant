@@ -9,6 +9,7 @@ import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/Dashboard/model/incomeYearModel.dart';
 import 'package:myproject/homepage/Dashboard/model/productlowQuantityModel.dart';
 import 'package:myproject/homepage/addproduct/component/model.dart';
+import 'package:myproject/homepage/addtable/model/tableModel.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
@@ -270,6 +271,100 @@ class AuthenService {
         }
       } else {
         print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print("error $e");
+    }
+  }
+
+  //------add table--------
+
+  Future<bool?> adtable(
+      {required String tableName,
+      required int tabletype,
+      required int tableSize}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(ApiPaths.addTable));
+    request.body = json.encode({
+      "tablename": tableName,
+      "tabletypeId": tabletype,
+      "tableSize": tableSize
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+// -----of get table-----
+  Future<List<TableModel>?> getTatble() async {
+    try {
+      var request = http.Request('GET', Uri.parse(ApiPaths.gettables));
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body['data'] != null) {
+          final data = tableModelFromJson(jsonEncode(body['data']));
+          return data;
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      throw Exception('$e');
+    }
+    return null;
+  }
+
+//-----of delete table-----------
+  Future<bool?> deleteTable({required int table_id}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('DELETE', Uri.parse(ApiPaths.deletetables));
+    request.body = json.encode({"tableId": table_id});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+//-------< update Unit --------------
+
+  Future<bool?> updateTable({
+    required int tableId,
+    required String tablename,
+    required int tsize,
+    required int ttype,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request =
+          http.Request('PUT', Uri.parse(ApiPaths.updateTable));
+      request.body = json.encode({
+        "tableId": tableId,
+        "tableName": tablename,
+        "tabletypeId": ttype,
+        "tablesize": tsize
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+       return false;
       }
     } catch (e) {
       print("error $e");
@@ -822,8 +917,9 @@ class AuthenService {
       print(response.reasonPhrase);
     }
   }
+
   //----get product low quantity to  make report-----------
-  Future<List<Peoductlowquantity>?>lowquantityProduct() async {
+  Future<List<Peoductlowquantity>?> lowquantityProduct() async {
     var request =
         http.Request('GET', Uri.parse(ApiPaths.getproductlowquantity));
 
@@ -831,14 +927,16 @@ class AuthenService {
 
     if (response.statusCode == 200) {
       var body = jsonDecode(await response.stream.bytesToString());
-        if (body["status"] == "ok") {
-          final lowquantity=peoductlowquantityFromJson(jsonEncode(body["products"]));
-          return lowquantity;
-    } else {
-      print(response.reasonPhrase);
+      if (body["status"] == "ok") {
+        final lowquantity =
+            peoductlowquantityFromJson(jsonEncode(body["products"]));
+        return lowquantity;
+      } else {
+        print(response.reasonPhrase);
+      }
     }
+    return null;
   }
-    return null;}
 
   //----get product to  make report-----------
   Future<List<GetProductModel>?> getproduct_makeReport() async {

@@ -103,7 +103,7 @@ class _AddUnit_pageState extends State<AddUnit_page> {
                                   VerticalDivider(),
                                   Text("ລ/ດ"),
                                   VerticalDivider(),
-                                //  Text("ເລກ ID"),
+                                  //  Text("ເລກ ID"),
                                   VerticalDivider(),
                                   Text("Name"),
                                   VerticalDivider(),
@@ -155,22 +155,22 @@ class _AddUnit_pageState extends State<AddUnit_page> {
                                                         const EdgeInsets.only(
                                                             right: 10),
                                                     child: Text(provider
-                                                        .getUnit![i].unitId.toString()     ),
+                                                        .getUnit![i].unitId
+                                                        .toString()),
                                                   ),
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             right: 40),
                                                     child: Text(provider
-                                                        .getUnit![i].unitName
-                                                    ),
+                                                        .getUnit![i].unitName),
                                                   ),
                                                   Padding(
                                                     padding: EdgeInsets.only(
                                                         right: 10),
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        cubit.isAdd = false;
+                                                       cubit.isAdd = false;
                                                         cubit.onTypeUnit(
                                                             provider
                                                                 .getUnit![i]);
@@ -184,9 +184,44 @@ class _AddUnit_pageState extends State<AddUnit_page> {
                                                             right: 15),
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        cubit.deleteUnit(
-                                                            provider.getUnit![i]
-                                                                .unitId);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'ຢືນຢັ້ນ'),
+                                                              content: Text(
+                                                                  'ຕ້ອງການລົບແທ້ບໍ່'),
+                                                              actions: <Widget>[
+                                                                TextButton(
+                                                                  child: Text(
+                                                                      'ຍົກເລີກ'),
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop(); // Close the dialog
+                                                                  },
+                                                                ),
+                                                                TextButton(
+                                                                  child: Text(
+                                                                      'ລົບ'),
+                                                                  onPressed:
+                                                                      () {
+                                                                    cubit.deleteUnit(provider
+                                                                        .getUnit![
+                                                                            i]
+                                                                        .unitId);
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop(); // Close the dialog
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
                                                       },
                                                       child: Icon(Icons.delete),
                                                     ),
