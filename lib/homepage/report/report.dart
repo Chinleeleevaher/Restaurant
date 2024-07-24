@@ -9,6 +9,7 @@ import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:myproject/homepage/Dashboard/component/mealcontainner.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/report/component/incomContainer.dart';
+import 'package:myproject/homepage/report/component/incomPrint.dart';
 import 'package:myproject/homepage/report/component/printDailog.dart';
 import 'package:myproject/homepage/report/component/prorductPrint.dart';
 import 'package:myproject/homepage/report/component/userContainner.dart';
@@ -49,8 +50,11 @@ class _ReportPageState extends State<ReportPage> {
                            if (state.orderType == 2) {
                             productPrint(context);
                           }
+                          if(state.orderType == 3){
+                            IncomePrint(context);
+                          }
                           if (state.orderType == 4) {
-                            UserPrint(context);
+                           UserPrint(context);
                           }
                           cubit.ontypePrint();
                         },

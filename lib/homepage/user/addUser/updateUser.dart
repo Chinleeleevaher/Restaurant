@@ -1,13 +1,12 @@
+// ignore: file_names
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myproject/homepage/user/addUser/cubit/user_cubit.dart';
 import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
-import 'package:provider/provider.dart';
 
 class UpdateUser extends StatefulWidget {
   const UpdateUser({super.key});
@@ -26,13 +25,13 @@ class _UpdateUserState extends State<UpdateUser> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
+      // ignore: non_constant_identifier_names
       final ImageTemporary = File(image.path);
 
       setState(() => this.image = ImageTemporary);
       cubit.onTypeSelectimage(ImageTemporary);
-    } on PlatformException catch (e) {
-      print(e);
-    }
+      // ignore: empty_catches
+    } on PlatformException {}
   }
 
   @override
@@ -101,7 +100,7 @@ class _UpdateUserState extends State<UpdateUser> {
                               },
                               child: const CircleAvatar(
                                 radius: 15,
-                                backgroundColor: Colors.blue,
+                                backgroundColor: Colors.red,
                                 child: Icon(
                                   Icons.add,
                                   size: 20,
@@ -191,25 +190,30 @@ class _UpdateUserState extends State<UpdateUser> {
                       ),
                       const SizedBox(height: 8),
                       SizedBox(
-                        height: 60,
-                        child: TextFormField(
-                          controller: cubits.phone,
-                          decoration: const InputDecoration(
-                            labelText: 'Phone',
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(
-                              Icons.phone,
-                              color: Colors.red,
+                          height: 60,
+                          child: TextFormField(
+                            controller: cubits.phone,
+                            keyboardType: TextInputType
+                                .phone, // Sets the keyboard to show phone pad
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter
+                                  .digitsOnly // Allow only digits
+                            ],
+                            decoration: const InputDecoration(
+                              labelText: 'Phone',
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(
+                                Icons.phone,
+                                color: Colors.red,
+                              ),
                             ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a phone number';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a phone number';
+                              }
+                              return null;
+                            },
+                          )),
                       const SizedBox(height: 8),
                       //Text('${state.gender}'),
                       SizedBox(
@@ -290,7 +294,10 @@ class _UpdateUserState extends State<UpdateUser> {
                 cubits.updateUser();
               }
             },
-            child: Icon(Icons.add),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
             backgroundColor: Colors.green,
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

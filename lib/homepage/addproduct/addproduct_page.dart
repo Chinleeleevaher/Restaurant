@@ -70,7 +70,8 @@ class _AddproductState extends State<Addproduct> {
                             Expanded(
                               flex: 1,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 20, top: 20),
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 20),
                                 child: state.typeSelecimage != null &&
                                         state.typeSelecimage!.path.isNotEmpty
                                     ? Image.file(
@@ -172,7 +173,7 @@ class _AddproductState extends State<Addproduct> {
                               width: 60,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  color: Colors.green),
+                                  color: Colors.red),
                               child: Icon(
                                 Icons.qr_code_scanner_rounded,
                                 color: Colors.white,
@@ -202,16 +203,50 @@ class _AddproductState extends State<Addproduct> {
                       TextMess(
                         texts: 'ລາຄາຊື້',
                       ),
-                      TextFeilds(
-                        controller: cubit.BuyPriceProduct,
-                        hintext: 'ລາຄາຊື້',
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10,left: 10),
+                        child: TextField(
+                          controller: cubit.BuyPriceProduct,
+                          keyboardType: TextInputType.numberWithOptions(
+                              decimal: true), // Allows numbers and decimal point
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9.]')), // Allow only digits and dot
+                          ],
+                          decoration: InputDecoration(
+                            hintText:
+                                'ລາຄາຊື້', // Placeholder text when the field is empty
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
                       ),
                       TextMess(
                         texts: 'ລາຄາຂາຍ',
                       ),
-                      TextFeilds(
-                        controller: cubit.SalePriceProduct,
-                        hintext: 'ລາຄາຂາຍ',
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10,left: 10),
+                        child: TextField(
+                          controller: cubit.SalePriceProduct,
+                          keyboardType: TextInputType.numberWithOptions(
+                              decimal: true), // Allows numbers and decimal point
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9]')), // Allow only digits
+                          ],
+                          decoration: InputDecoration(
+                            hintText:
+                                'ລາຄາຂາຍ', // Placeholder text when the field is empty
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -233,17 +268,23 @@ class _AddproductState extends State<Addproduct> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: TextField(
-                                controller: cubit.ProductQty,
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 20),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    hintText: "ຈໍານວນ"),
+                                child: TextField(
+                              controller: cubit.ProductQty,
+                              keyboardType: TextInputType
+                                  .number, // This is optional, but it sets the keyboard to show numbers
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter
+                                    .digitsOnly // Allow only digits (0-9)
+                              ],
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: "ຈໍານວນ",
                               ),
-                            ),
+                            )),
                             SizedBox(
                               width: 10,
                             ),

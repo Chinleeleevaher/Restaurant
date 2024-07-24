@@ -198,14 +198,14 @@ class _ProductPageState extends State<ProductPage> {
               Container(
                 width: 400,
                 height: 50,
-                decoration: const BoxDecoration(color: Colors.green),
+                decoration: const BoxDecoration(color: Colors.red),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("ລ/ດ"),
-                    Text("ສີນຄ້າ"),
-                    Text("ປະເພດ/ຫົວໜ່ອຍ"),
-                    Text("ຈັດການ"),
+                    Text("ລ/ດ",style: TextStyle(color: Colors.white),),
+                    Text("ສີນຄ້າ",style: TextStyle(color: Colors.white),),
+                    Text("ປະເພດ/ຫົວໜ່ອຍ",style: TextStyle(color: Colors.white),),
+                    Text("ຈັດການ",style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),

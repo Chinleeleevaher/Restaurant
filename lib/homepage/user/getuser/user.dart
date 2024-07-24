@@ -37,79 +37,94 @@ class _UserState extends State<User> {
             return SingleChildScrollView(
               child: Column(
                 children: List.generate(provide.getUser!.length, (index) {
+                  var user = provide.getUser![index];
+
                   return Card(
                     child: GestureDetector(
                       onTap: () {
-                        cubits.ontyeSelectUser(provide.getUser![index].uid);
+                        cubits.ontyeSelectUser(user.uid);
                         UserDetail(context).then((value) {
-                          // .......here is make reflesh after i update. i was send true from user_cubit to here
-                          if (value = true) {
+                          if (value == true) {
                             cubits.getuser();
                           }
                         });
                       },
-                      child: InkWell(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Stack(
-                                  alignment: Alignment.bottomRight,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 50,
-                                      backgroundColor: Colors.grey[200],
-                                      child: provide.getUser != null &&
-                                              provide.getUser![index].image !=
-                                                  null &&
-                                              provide.getUser![index].image!
-                                                  .isNotEmpty
-                                          ? ClipOval(
-                                              child: Image.network(
-                                                provide.getUser![index].image!,
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            )
-                                          : Icon(
-                                              Icons.person,
-                                              size: 30,
-                                              color: Colors.red,
-                                            ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.grey[200],
+                            child: ClipOval(
+                              child: provide.getUser != null &&
+                                      provide.getUser![index].image != null &&
+                                      provide.getUser![index].image!.isNotEmpty
+                                  ? Image.network(
+                                      provide.getUser![index].image!,
+                                      width: 60,
+                                      height: 60,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Icon(
+                                      Icons.person,
+                                      size: 30,
+                                      color: Colors.red,
                                     ),
-                                  ],
+                            ),
+                          ),
+                          SizedBox(width: 20),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  provide.getUser![index].username,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  provide.getUser![index].email.toString(),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[600],
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text("Tel: "+
+                                  provide.getUser![index].phone.toString(),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.blue,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.check_circle,
+                                color: Colors.green,
+                                size: 18,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                provide.getUser![index].status.toString(),
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      provide.getUser![index].username,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      provide.getUser![index].email.toString(),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(20),
-                                    child: Text(
-                                      provide.getUser![index].status.toString(),
-                                      style: TextStyle(color: Colors.green),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -120,14 +135,12 @@ class _UserState extends State<User> {
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               navService.pushNamed(AppRount.adduser).then((value) {
-                if (value = true) {
-                  //...........here is to make reflesh in get user afetr i add user. i was send true from the user_cubit
+                if (value == true) {
                   cubits.getuser();
                 }
               });
-              ;
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add, color: Colors.white,),
             backgroundColor: Colors.green,
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

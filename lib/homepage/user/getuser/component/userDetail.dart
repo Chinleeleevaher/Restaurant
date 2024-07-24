@@ -258,7 +258,7 @@ Future UserDetail(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
-                        child: Text('Delete'),
+                        child: Text('Delete',style: TextStyle(color: Colors.red),),
                         onPressed: () {
                           showDialog(
                             context: context,

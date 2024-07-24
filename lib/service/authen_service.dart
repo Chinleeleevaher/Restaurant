@@ -26,7 +26,6 @@ import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
-import 'package:myproject/homepage/user/model/addUserModel.dart';
 import 'package:myproject/homepage/user/model/getUserMoldel.dart';
 import '../homepage/addcategory/component/model.dart';
 import '../homepage/menu_page/model/product_model.dart';

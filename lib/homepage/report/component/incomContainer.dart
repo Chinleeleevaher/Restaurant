@@ -10,7 +10,7 @@ class incomContainner_page extends StatelessWidget {
   Widget build(BuildContext context) {
     var provide = context.read<ReportProvider>();
     return Padding(
-      padding: EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -19,7 +19,7 @@ class incomContainner_page extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.3,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(50),
                   topLeft: Radius.circular(5),
                   bottomLeft: Radius.circular(5),
@@ -27,7 +27,7 @@ class incomContainner_page extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 5),
-                    color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                    color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                     spreadRadius: 2,
                     blurRadius: 5),
               ],
@@ -37,8 +37,8 @@ class incomContainner_page extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
                     child: Text(
                       "weekly sales",
                       style: TextStyle(
@@ -49,14 +49,14 @@ class incomContainner_page extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Total Order : " + provide.weekQty.toString(),
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Price : " + provide.weekAmount.toString() + "kip",
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Center(
@@ -66,7 +66,7 @@ class incomContainner_page extends StatelessWidget {
                       animationDuration: 1200,
                       lineWidth: 5.0,
                       percent:  0.7, // Ensure percent is between 0.0 and 1.0
-                      center: Text(
+                      center: const Text(
                         '70 %', // Display percentage with one decimal place
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class incomContainner_page extends StatelessWidget {
                         ),
                       ),
                       circularStrokeCap: CircularStrokeCap.butt,
-                        backgroundColor: Color.fromARGB(255, 231, 231, 231),
+                        backgroundColor: const Color.fromARGB(255, 231, 231, 231),
                       progressColor: Colors.green,
                     ),
                   ),
@@ -88,7 +88,7 @@ class incomContainner_page extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.3,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(50),
                   topLeft: Radius.circular(5),
                   bottomLeft: Radius.circular(5),
@@ -96,7 +96,7 @@ class incomContainner_page extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 5),
-                    color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                    color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                     spreadRadius: 2,
                     blurRadius: 5),
               ],
@@ -106,8 +106,8 @@ class incomContainner_page extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Month",
                       style: TextStyle(
@@ -118,14 +118,14 @@ class incomContainner_page extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Total Order :" + provide.monthQty.toString(),
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Price :" + provide.monthAmount.toString() + "Kip",
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Center(
@@ -143,7 +143,7 @@ class incomContainner_page extends StatelessWidget {
                             color: Colors.black),
                       ),
                       circularStrokeCap: CircularStrokeCap.butt,
-                        backgroundColor: Color.fromARGB(255, 231, 231, 231),
+                        backgroundColor: const Color.fromARGB(255, 231, 231, 231),
                       progressColor: Colors.green,
                     ),
                   ),
@@ -156,7 +156,7 @@ class incomContainner_page extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.3,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(50),
                   topLeft: Radius.circular(5),
                   bottomLeft: Radius.circular(5),
@@ -164,7 +164,7 @@ class incomContainner_page extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 5),
-                    color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                    color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                     spreadRadius: 2,
                     blurRadius: 5),
               ],
@@ -174,8 +174,8 @@ class incomContainner_page extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Year",
                       style: TextStyle(
@@ -186,14 +186,14 @@ class incomContainner_page extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Total Order : " + provide.yearqty.toString(),
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       "Price : " + provide.yearAmount.toString(),
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Center(
@@ -211,7 +211,7 @@ class incomContainner_page extends StatelessWidget {
                             color: Colors.black),
                       ),
                       circularStrokeCap: CircularStrokeCap.butt,
-                      backgroundColor: Color.fromARGB(255, 231, 231, 231),
+                      backgroundColor: const Color.fromARGB(255, 231, 231, 231),
                       progressColor: Colors.green,
                     ),
                   ),

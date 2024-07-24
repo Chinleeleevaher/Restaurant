@@ -80,7 +80,7 @@ class _ImportProductState extends State<ImportProduct> {
                               width: 60,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  color: Colors.green),
+                                  color: Colors.red),
                               child: Icon(
                                 Icons.qr_code_scanner_rounded,
                                 color: Colors.white,

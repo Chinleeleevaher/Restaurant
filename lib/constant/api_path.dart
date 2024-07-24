@@ -8,8 +8,6 @@ class ApiPaths {
   static const String putRequest = 'put';
   static const String patchRequest = 'patch';
   static const String deleteRequest = 'delete';
-
-
   // Sub paths
   static const String loginPath = '$baseURL/login';
   static const String registerPath = '$baseURL/register';

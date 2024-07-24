@@ -347,7 +347,7 @@ class _OrderListState extends State<OrderList> {
                                 //  orderlist.clear();
                                 Navigator.pop(context);
                               },
-                              child: Text("Cencel"),
+                              child: Text("Cencel",style: TextStyle(color: Colors.red)),
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
@@ -358,7 +358,7 @@ class _OrderListState extends State<OrderList> {
                               onPressed: () {
                                 cubit.updatetablestatus();
                               },
-                              child: Text("ok"),
+                              child: const Text("ok",style: TextStyle(color: Colors.white),),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green,
                                 shape: RoundedRectangleBorder(

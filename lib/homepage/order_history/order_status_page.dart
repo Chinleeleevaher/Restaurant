@@ -210,7 +210,7 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                                     //  orderlist.clear();
                                   },
                                   child: Text(LocaleKeys.cencel
-                                      .tr()), // <----text of Check Cencel-----
+                                      .tr(),style: const TextStyle(color: Colors.red)), // <----text of Check Cencel-----
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15.0),
@@ -224,7 +224,7 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                                     });
                                   },
                                   child: Text(LocaleKeys.checkBill
-                                      .tr()), // <----text of Check bill-----
+                                      .tr(), style: const TextStyle(color: Colors.white)), // <----text of Check bill-----
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green,
                                     shape: RoundedRectangleBorder(
