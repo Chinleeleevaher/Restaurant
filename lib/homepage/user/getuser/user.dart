@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
@@ -19,14 +18,14 @@ class _UserState extends State<User> {
   Widget build(BuildContext context) {
     return BlocConsumer<GetUserCubit, GetUserState>(
       listener: (context, state) {
-        // TODO: implement listener
+      
       },
       builder: (context, state) {
         var provide = context.read<getUserProvider>();
         var cubits = context.read<GetUserCubit>();
         return Scaffold(
           appBar: AppBar(
-            title: Text("User"),
+            title: const Text("User"),
           ),
           body: Builder(builder: (context) {
             if (state.status == getuserStatus.loading) {
@@ -65,27 +64,27 @@ class _UserState extends State<User> {
                                       height: 60,
                                       fit: BoxFit.cover,
                                     )
-                                  : Icon(
+                                  : const Icon(
                                       Icons.person,
                                       size: 30,
                                       color: Colors.red,
                                     ),
                             ),
                           ),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   provide.getUser![index].username,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 4),
                                 Text(
                                   provide.getUser![index].email.toString(),
                                   style: TextStyle(
@@ -94,29 +93,28 @@ class _UserState extends State<User> {
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                Text("Tel: "+
-                                  provide.getUser![index].phone.toString(),
-                                  style: TextStyle(
+                                Text("Tel: ${provide.getUser![index].phone}",
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.blue,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                SizedBox(height: 8),
+                                const SizedBox(height: 8),
                               ],
                             ),
                           ),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.check_circle,
                                 color: Colors.green,
                                 size: 18,
                               ),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Text(
                                 provide.getUser![index].status.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.green,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,

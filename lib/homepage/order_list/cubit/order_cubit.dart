@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
+
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,11 +10,9 @@ import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/menu_page/menuProvider.dart';
 import 'package:myproject/homepage/order/provider.dart';
-import 'package:myproject/homepage/order_list/addDailog.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
-import '../../table_page/model/orderlistmodel.dart';
 
 part 'order_state.dart';
 
@@ -31,7 +30,7 @@ class OrderCubit extends Cubit<OrderState> {
     required this.tableprovideMenuPage,
     required this.orderproviders,
     required this.context,
-  }) : super(OrderState());
+  }) : super(const OrderState());
   //-----to update table status--------------
 
   Future<void> updatetablestatus() async {
@@ -45,6 +44,7 @@ class OrderCubit extends Cubit<OrderState> {
         tablestatus: 1, table_id: tableproviders.gettablelist.tableId);
     result!.fold((l) {
       log("Update status error $l");
+   
     }, (Right) {
       emit(state.coppywith(status_c: orderproductstatuse.success));
       orderproviders.ordertable(Right);
@@ -69,7 +69,6 @@ class OrderCubit extends Cubit<OrderState> {
     }, (data) {
       orderproviders.orderlisttable(
           data!); // <--here is to keep value to the orderprovider
-      print("respomse $Right");
       emit(state.coppywith(status_c: orderproductstatuse.success));
       postorderdetail().then((value) {
         //---this below code is to make clear and send the value true back to the table page
@@ -104,6 +103,7 @@ class OrderCubit extends Cubit<OrderState> {
       msg: "ໄດ້ຮັບອໍເດີແລ້ວອົດໃຈລໍຖ້າ",
       gravity: ToastGravity.CENTER,
     );
+     return null;
   }
 
   ///...update table id form order menu page
@@ -134,7 +134,7 @@ class OrderCubit extends Cubit<OrderState> {
     }, (data) {
       orderproviders.orderlisttable(
           data!); // <--here is to keep value to the orderprovider
-      print("respomse $Right");
+    //  print("respomse $Right");
       emit(state.coppywith(status_c: orderproductstatuse.success));
       postorderdetailMenu().then((value) {
         //---this below code is to make clear and send the value true back to the table page

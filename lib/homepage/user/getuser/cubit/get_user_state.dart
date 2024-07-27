@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 part of 'get_user_cubit.dart';
 
 enum getuserStatus { initial, loading, success, error }
@@ -13,7 +15,7 @@ enum getuserStatus { initial, loading, success, error }
      
       }) {
     return GetUserState(
-      status: status_c ?? this.status,
+      status: status_c ?? status,
     );
   }
 }

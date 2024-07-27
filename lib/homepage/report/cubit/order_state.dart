@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 part of 'order_cubit.dart';
 
 enum orderlistreportstatus { initail, loading, success, error }
@@ -27,10 +29,10 @@ class OrderReportState extends Equatable {
       }) {
     return OrderReportState(
       status: status ?? this.status,
-      orderlist: orderlist_c ?? this.orderlist,
-      income: income_c ?? this.income,
-      orderType: orderType_c?? this.orderType,
-      productType: productType_c?? this.productType
+      orderlist: orderlist_c ?? orderlist,
+      income: income_c ?? income,
+      orderType: orderType_c?? orderType,
+      productType: productType_c?? productType
     );
   }
 }

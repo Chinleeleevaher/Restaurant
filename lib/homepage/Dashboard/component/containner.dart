@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -11,8 +14,6 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    // var provide = context.read<ReportProvider>();
-    final double high = MediaQuery.of(context).size.height * 0.4;
-    final double wight = MediaQuery.of(context).size.width * 0.4;
     return Consumer<ReportProvider>(builder: (context, provide, widget) {
         return Container(
           height: MediaQuery.of(context).size.height *
@@ -39,7 +40,7 @@ class Dashboard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.3,
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Padding(
@@ -59,7 +60,7 @@ class Dashboard extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Order"),
+                                   Text(LocaleKeys.order.tr()),//..of order text
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Row(
@@ -95,7 +96,7 @@ class Dashboard extends StatelessWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Text("toltal price"),
+                                       Text(LocaleKeys.totalPrice.tr()),///..of to total price
                                       Padding(
                                         padding: const EdgeInsets.only(top: 15),
                                         child: Row(
@@ -108,8 +109,7 @@ class Dashboard extends StatelessWidget {
                                             ),
                                             const Padding(
                                                 padding: EdgeInsets.only(left: 10)),
-                                            Text(provide.hoursQty.toString() +
-                                                " kip"),
+                                            Text("${provide.hoursQty} kip"),
                                           ],
                                         ),
                                       )
@@ -139,9 +139,9 @@ class Dashboard extends StatelessWidget {
                       animationDuration: 1200,
                       lineWidth: 15.0,
                       percent: 0.7,
-                      center: new Text(
-                        "40 hours",
-                        style: new TextStyle(
+                      center: Text(
+                         "40 ${LocaleKeys.hours.tr()}",
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20.0),
                       ),
                       circularStrokeCap: CircularStrokeCap.butt,
@@ -159,11 +159,11 @@ class Dashboard extends StatelessWidget {
                     children:
                     [
                        Padding(
-                        padding: EdgeInsets.only(left: 10, bottom: 5),
+                        padding: const EdgeInsets.only(left: 10, bottom: 5),
                         child: Text(
                          provide.produclowquantity[0].productName.toString(),
                           style:
-                              TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                       LinearPercentIndicator(
@@ -180,8 +180,8 @@ class Dashboard extends StatelessWidget {
                         progressColor: Colors.greenAccent,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 10, top: 5),
-                        child: Text("${provide.produclowquantity[0].quantity.toString()} bottle left"),
+                        padding: const EdgeInsets.only(left: 10, top: 5),
+                        child: Text("${provide.produclowquantity[0].quantity.toString()} ${LocaleKeys.bottleleft.tr()}"),
                       ),
                     ],
                   ),
@@ -189,11 +189,11 @@ class Dashboard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 10, bottom: 5),
+                        padding: const EdgeInsets.only(left: 10, bottom: 5),
                         child: Text(
                           provide.produclowquantity[1].productName.toString(),
                           style:
-                              TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                       LinearPercentIndicator(
@@ -210,8 +210,8 @@ class Dashboard extends StatelessWidget {
                         progressColor: Colors.pink,
                       ),
                      Padding(
-                        padding: EdgeInsets.only(left: 10, top: 5),
-                        child: Text("${provide.produclowquantity[1].quantity.toString()} bottle left"),
+                        padding: const EdgeInsets.only(left: 10, top: 5),
+                        child: Text("${provide.produclowquantity[1].quantity.toString()} ${LocaleKeys.bottleleft.tr()}"),
                       ),
                     ],
                   ),
@@ -219,11 +219,11 @@ class Dashboard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        Padding(
-                        padding: EdgeInsets.only(left: 10, bottom: 5),
+                        padding: const EdgeInsets.only(left: 10, bottom: 5),
                         child: Text(
                           provide.produclowquantity[2].productName.toString(),
                           style:
-                              TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                       LinearPercentIndicator(
@@ -240,8 +240,8 @@ class Dashboard extends StatelessWidget {
                         progressColor: Colors.amber,
                       ),
                      Padding(
-                        padding: EdgeInsets.only(left: 10, top: 5),
-                        child: Text("${provide.produclowquantity[2].quantity.toString()} bottle left"),
+                        padding: const EdgeInsets.only(left: 10, top: 5),
+                        child: Text("${provide.produclowquantity[2].quantity.toString()}  ${LocaleKeys.bottleleft.tr()}"),
                       ),
                     ],
                   ),

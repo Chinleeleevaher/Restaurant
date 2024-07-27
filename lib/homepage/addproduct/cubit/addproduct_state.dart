@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 part of 'addproduct_cubit.dart';
 
 enum producttypestatuse { initial, loading, success, error }
@@ -39,13 +41,13 @@ class AddproductState extends Equatable {
       String? imagenetword_c,
       }) {
     return AddproductState(
-      listproducttypes: listtabltype_c ?? this.listproducttypes,
-      listunit: listunit_c ?? this.listunit,
-      typeSelect: typeSelect_c ?? this.typeSelect,
-      typeSelectunit: typeSelectunit_c ?? this.typeSelectunit,
-      typeSelecimage: typeSelecimage_c ?? this.typeSelecimage,
-      imagenetword: imagenetword_c ?? this.imagenetword,
-      status: status_c ?? this.status,
+      listproducttypes: listtabltype_c ?? listproducttypes,
+      listunit: listunit_c ?? listunit,
+      typeSelect: typeSelect_c ?? typeSelect,
+      typeSelectunit: typeSelectunit_c ?? typeSelectunit,
+      typeSelecimage: typeSelecimage_c ?? typeSelecimage,
+      imagenetword: imagenetword_c ?? imagenetword,
+      status: status_c ?? status,
     );
   }
 }

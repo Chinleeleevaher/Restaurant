@@ -1,6 +1,4 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
 import 'package:myproject/responsives.dart';
@@ -17,13 +15,13 @@ class _KitchenState extends State<Kitchen> {
   Widget build(BuildContext context) {
     return BlocConsumer<KitchenCubit, KitchenState>(
       listener: (context, state) {
-        // TODO: implement listener
+      
       },
       builder: (context, state) {
         var cubit = context.read<KitchenCubit>();
         return Scaffold(
             appBar: AppBar(
-              title: Text("Kitchen"),
+              title: const Text("Kitchen"),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 40),
@@ -83,7 +81,7 @@ class _KitchenState extends State<Kitchen> {
                                     height: 16,
                                   ),
                                   //     detail(),
-                                  Container(
+                                  SizedBox(
                                     height: MediaQuery.of(context).size.height /
                                         1.5,
                                     child: SingleChildScrollView(

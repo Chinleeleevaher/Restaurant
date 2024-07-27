@@ -1,13 +1,13 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myproject/homepage/addcategory/component/model.dart';
 import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
-import 'package:myproject/homepage/product_page/cubit/products_cubit.dart';
 
 import '../../../repository/authen_sipository.dart';
 
@@ -29,7 +29,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     required this.categoryeprovider,
     required this.productTypemodel,
     required this.context,
-  }) : super(CategoryState());
+  }) : super(const CategoryState());
 
   //---Add product type----------
 
@@ -61,10 +61,10 @@ class CategoryCubit extends Cubit<CategoryState> {
   }
 
   //----of delete product------
-  Future<void> deleteCategpry(int cate_id) async {
+  Future<void> deleteCategpry(int cateId) async {
     emit(state.coppywith(status_c: Categorytatuse.loading));
     var result = await authenRepositorys.deletecate(
-      cate_id: cate_id,
+      cate_id: cateId,
     );
     result!.fold((Left) {
       log("erro $Left");
@@ -96,7 +96,7 @@ class CategoryCubit extends Cubit<CategoryState> {
       },
       (data) async {
         //   log('success ' + data.length.toString());
-        print('data: $data');
+       // print('data: $data');
         Fluttertoast.showToast(
             msg: "update sucessful", gravity: ToastGravity.CENTER);
         //----make clear data------

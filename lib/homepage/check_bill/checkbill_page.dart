@@ -1,19 +1,16 @@
+// ignore_for_file: camel_case_types, prefer_final_fields, prefer_adjacent_string_concatenation
+
 import 'dart:developer';
 
 import 'package:dotted_line/dotted_line.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:myproject/config/app_rount.dart';
-import 'package:myproject/config/navigation.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/check_bill/cubit/checkbill_cubit.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
-import 'package:myproject/homepage/table_page/table_page.dart';
 
 class CheckBill_Page extends StatefulWidget {
   const CheckBill_Page({Key? key}) : super(key: key);
@@ -47,7 +44,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
   double total = 0.0;
   gettotal() {
     var orderproviders = context.read<orderprovider>();
-    log("test" + orderproviders.totalprice.toString());
+    log("test${orderproviders.totalprice}");
     setState(() {
       total = orderproviders.selectorderdata![0].orAmount.toDouble();
     });
@@ -59,7 +56,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
     var orderproviders = context.read<orderprovider>();
     return BlocConsumer<CheckbillCubit, CheckbillState>(
       listener: (context, state) {
-        // TODO: implement listener
+       
       },
       builder: (context, state) {
         var cubit = context.read<CheckbillCubit>();
@@ -294,7 +291,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                           context: context,
                           builder: (BuildContext context) {
                             return Dialog(
-                              child: Container(
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 height:
                                     MediaQuery.of(context).size.height * 0.8,
@@ -351,7 +348,7 @@ class _CheckBill_PageState extends State<CheckBill_Page> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          Text("Date: " + _currentDateTime),
+                                          Text("Date: $_currentDateTime"),
                                         ],
                                       ),
                                     ),

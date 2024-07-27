@@ -1,6 +1,8 @@
-// To parse this JSON data, do
+
 //
 //     final tableModel = tableModelFromJson(jsonString);
+
+// ignore_for_file: file_names
 
 import 'dart:convert';
 

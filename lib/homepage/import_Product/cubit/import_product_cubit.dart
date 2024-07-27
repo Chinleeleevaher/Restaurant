@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class ImportProductCubit extends Cubit<ImportProductState> {
     required this.authenRepository,
     required this.providers,
     required this.context,
-  }) : super(ImportProductState());
+  }) : super(const ImportProductState());
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final BillNumber = TextEditingController();
   final ProductName = TextEditingController();

@@ -2,6 +2,8 @@
 //
 //     final peoductlowquantity = peoductlowquantityFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<Peoductlowquantity> peoductlowquantityFromJson(String str) => List<Peoductlowquantity>.from(json.decode(str).map((x) => Peoductlowquantity.fromJson(x)));

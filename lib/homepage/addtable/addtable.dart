@@ -1,12 +1,11 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myproject/homepage/addcategory/cubit/category_cubit.dart';
 import 'package:myproject/homepage/addtable/cubit/addtable_cubit.dart';
 import 'package:myproject/homepage/addtable/provider.dart';
-import 'package:myproject/homepage/addunit/cubit/addunit_cubit.dart';
-import 'package:myproject/homepage/addunit/cubit/provider/AdUnitProvider.dart';
 import '../../responsives.dart';
 
 class addtable_page extends StatefulWidget {
@@ -23,14 +22,14 @@ class _addtable_pageState extends State<addtable_page> {
   Widget build(BuildContext context) {
     return BlocConsumer<AddtableCubit, AddtableState>(
       listener: (context, state) {
-        // TODO: implement listener
+   
       },
       builder: (context, state) {
         var cubit = context.read<AddtableCubit>();
         var provide = context.read<tableProviderss>();
         return Scaffold(
             appBar: AppBar(
-              title: Text("Add Table"),
+              title: const Text("Add Table"),
             ),
             body: SingleChildScrollView(
               child: Form(
@@ -42,7 +41,7 @@ class _addtable_pageState extends State<addtable_page> {
                       child: TextField(
                         controller: cubit.tableName,
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
@@ -53,12 +52,12 @@ class _addtable_pageState extends State<addtable_page> {
                       children: [
                         Expanded(
                           child: RadioListTile(
-                            title: Text("ທົ່ວໄປ"),
+                            title: const Text("ທົ່ວໄປ"),
                             value: 1,
                             groupValue: _tableType,
                             onChanged: (value) {
                               setState(() {
-                                _tableType = value as int?;
+                                _tableType = value;
                               });
                               cubit.ontypeTabletype(value!);
                             },
@@ -66,12 +65,12 @@ class _addtable_pageState extends State<addtable_page> {
                         ),
                         Expanded(
                           child: RadioListTile(
-                            title: Text("vip"),
+                            title: const Text("vip"),
                             value: 2,
                             groupValue: _tableType,
                             onChanged: (value) {
                               setState(() {
-                                _tableType = value as int?;
+                                _tableType = value;
                               });
                               cubit.ontypeTabletype(value as int);
                             },
@@ -105,7 +104,7 @@ class _addtable_pageState extends State<addtable_page> {
                                             ],
                                             decoration: InputDecoration(
                                               contentPadding:
-                                                  EdgeInsets.symmetric(
+                                                  const EdgeInsets.symmetric(
                                                       vertical: 10,
                                                       horizontal: 20),
                                               border: OutlineInputBorder(
@@ -116,7 +115,7 @@ class _addtable_pageState extends State<addtable_page> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         GestureDetector(
@@ -145,7 +144,7 @@ class _addtable_pageState extends State<addtable_page> {
                                                 borderRadius:
                                                     BorderRadius.circular(15),
                                                 color: Colors.green),
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.add,
                                               color: Colors.white,
                                             ),
@@ -172,11 +171,11 @@ class _addtable_pageState extends State<addtable_page> {
                                     VerticalDivider(),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
                                 //                 detail(),
-                                Container(
+                                SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 1.5,
                                   child: SingleChildScrollView(
@@ -187,7 +186,7 @@ class _addtable_pageState extends State<addtable_page> {
                                               provide.getTable!.length, (i) {
                                             // var prolist = state.listproduct;
                                             return Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   top: 5, bottom: 3),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -235,7 +234,7 @@ class _addtable_pageState extends State<addtable_page> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsets.only(
+                                                      padding: const EdgeInsets.only(
                                                           right: 10),
                                                       child: GestureDetector(
                                                         onTap: () {
@@ -244,7 +243,7 @@ class _addtable_pageState extends State<addtable_page> {
                                                               provide.getTable![
                                                                   i]);
                                                         },
-                                                        child: Icon(Icons.edit),
+                                                        child: const Icon(Icons.edit),
                                                       ),
                                                     ),
                                                     Padding(
@@ -259,13 +258,13 @@ class _addtable_pageState extends State<addtable_page> {
                                                                 (BuildContext
                                                                     context) {
                                                               return AlertDialog(
-                                                                title: Text(
+                                                                title: const Text(
                                                                     'ຢືນຢັ້ນ'),
-                                                                content: Text(
+                                                                content: const Text(
                                                                     'ຕ້ອງການລົບແທ້ບໍ່'),
                                                                 actions: <Widget>[
                                                                   TextButton(
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         'ຍົກເລີກ'),
                                                                     onPressed:
                                                                         () {
@@ -275,7 +274,7 @@ class _addtable_pageState extends State<addtable_page> {
                                                                     },
                                                                   ),
                                                                   TextButton(
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         'ລົບ'),
                                                                     onPressed:
                                                                         () {
@@ -294,7 +293,7 @@ class _addtable_pageState extends State<addtable_page> {
                                                           );
                                                         },
                                                         child:
-                                                            Icon(Icons.delete),
+                                                            const Icon(Icons.delete),
                                                       ),
                                                     ),
                                                   ],
@@ -312,9 +311,9 @@ class _addtable_pageState extends State<addtable_page> {
                             ),
                           ),
                           if (!Responsive.isMobile(context))
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                           // On Mobile means if the screen is less than 850 we don't want to show it
-                          if (!Responsive.isMobile(context)) textbuttom()
+                          if (!Responsive.isMobile(context)) const textbuttom()
                         ],
                       ),
                     ),
@@ -334,8 +333,8 @@ class title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+    return const Padding(
+      padding: EdgeInsets.only(top: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -365,7 +364,7 @@ class detail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 50, left: 50),
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height / 1.5,
         child: SingleChildScrollView(
           child: Column(
@@ -374,7 +373,7 @@ class detail extends StatelessWidget {
                 children: List.generate(5, (i) {
                   // var prolist = state.listproduct;
                   return Container(
-                    margin: EdgeInsets.only(top: 5, bottom: 3),
+                    margin: const EdgeInsets.only(top: 5, bottom: 3),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -387,21 +386,21 @@ class detail extends StatelessWidget {
                           Container(
                             height: MediaQuery.of(context).size.height * 0.06,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 10),
                             // child: Text(prolist![i].productName),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 40),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 40),
                             // child: Text(prolist[i].price.toString()),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             child: GestureDetector(
                               onTap: () {
                                 // cubit.onTypeSelectproduct(prolist[i]);
                               },
-                              child: Icon(Icons.edit),
+                              child: const Icon(Icons.edit),
                             ),
                           ),
                           Padding(
@@ -410,7 +409,7 @@ class detail extends StatelessWidget {
                               onTap: () {
                                 // cubit.deletepro(int.parse(prolist[i].productId));
                               },
-                              child: Icon(Icons.delete),
+                              child: const Icon(Icons.delete),
                             ),
                           ),
                         ],
@@ -447,7 +446,7 @@ class textbuttom extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   hintText: "Add Unit"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 70,
             ),
             GestureDetector(
@@ -457,7 +456,7 @@ class textbuttom extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.green),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   color: Colors.white,
                 ),

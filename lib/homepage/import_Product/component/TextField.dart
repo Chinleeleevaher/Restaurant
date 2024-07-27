@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, file_names
+
 import 'package:flutter/material.dart';
 
 class TextFeildss extends StatelessWidget {
@@ -15,7 +17,7 @@ class TextFeildss extends StatelessWidget {
         controller: controller,
         enabled: enable,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             hintText: hintext),
       ),

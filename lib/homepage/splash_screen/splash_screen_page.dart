@@ -10,7 +10,7 @@ class SplashScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SplashScreenCubit, SplashScreenState>(
       listener: (context, state) {
-        // TODO: implement listener
+       
       },
       builder: (context, state) {
         return const AnnotatedRegion<SystemUiOverlayStyle>(

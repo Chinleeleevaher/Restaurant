@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -47,7 +49,7 @@ class TabletypeCubit extends Cubit<TabletypeState> {
           log('errro');
         },
         (datas) async {
-          log('success ' + datas.length.toString());
+          log('success ${datas.length}');
           emit(state.coppywith(
               listtable_c: datas, status_c: tableliststatuse.success));
         },

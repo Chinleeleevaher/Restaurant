@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:badges/badges.dart';
 
 import 'package:flutter/material.dart';
@@ -26,15 +28,12 @@ class _MenuState extends State<Menu> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    test();
+  
+ 
     super.initState();
   }
 
-  test() async {
-    String? token = await storage.read(key: "token");
-    print("tokenok $token");
-  }
+
 
   int selectedIndex = -1; // Track the index of the selected container
   @override
@@ -42,7 +41,7 @@ class _MenuState extends State<Menu> {
     final double chight = MediaQuery.of(context).size.height * 0.30 - 50;
     return BlocConsumer<MenuCubit, MenuState>(
       listener: (context, state) {
-        // TODO: implement listener
+  
       },
       builder: (context, state) {
         var cubit = context.read<MenuCubit>();
@@ -50,16 +49,14 @@ class _MenuState extends State<Menu> {
         var prov = context.read<tableProvider>();
         return Scaffold(
           appBar: AppBar(
-              title: Text("Menu"),
+              title: const Text("Menu"),
               leading: GestureDetector(
                 onTap: () {
                   provide.clearorderlist(); // to make clear the product list
                   prov.clearttID();
                   Navigator.popUntil(context, (route) => route.isFirst);
                 },
-                child: Container(
-                  child: Icon(Icons.arrow_back),
-                ),
+                child: const Icon(Icons.arrow_back),
               ),
               actions: [
                 Consumer<tableprovide>(
@@ -79,7 +76,7 @@ class _MenuState extends State<Menu> {
                     badgeContent: Text(
                       orderstate.getbageqty.toString(),
                       // cubit.state.coppywith(orderproduct_c:),
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                     child: IconButton(
                       icon: const Icon(
@@ -123,10 +120,10 @@ class _MenuState extends State<Menu> {
                                             child: SingleChildScrollView(
                                               child:
                                                   provide.geTableMenu!.isEmpty
-                                                      ? Center(
+                                                      ? const Center(
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsets
+                                                                EdgeInsets
                                                                     .all(16.0),
                                                             child: Text(
                                                               "ຂໍອາໄພບໍ່ມີໂຕະຫວ່າງແລ້ວ",
@@ -145,13 +142,13 @@ class _MenuState extends State<Menu> {
                                                                   .all(10.0),
                                                           child: Container(
                                                             padding:
-                                                                EdgeInsets.all(
+                                                                const EdgeInsets.all(
                                                                     10.0),
                                                             child:
                                                                 GridView.count(
                                                               shrinkWrap: true,
                                                               physics:
-                                                                  NeverScrollableScrollPhysics(),
+                                                                  const NeverScrollableScrollPhysics(),
                                                               crossAxisCount: 3,
                                                               crossAxisSpacing:
                                                                   10,
@@ -192,7 +189,7 @@ class _MenuState extends State<Menu> {
                                                                             blurRadius:
                                                                                 5,
                                                                             offset:
-                                                                                Offset(0, 3),
+                                                                                const Offset(0, 3),
                                                                           ),
                                                                         ],
                                                                         color: Colors
@@ -203,14 +200,14 @@ class _MenuState extends State<Menu> {
                                                                         mainAxisAlignment:
                                                                             MainAxisAlignment.center,
                                                                         children: [
-                                                                          Icon(
+                                                                          const Icon(
                                                                             Icons.table_bar,
                                                                             size:
                                                                                 50,
                                                                             color:
                                                                                 Colors.green,
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 10),
                                                                           Text(
                                                                             provide.geTableMenu![index].tableName,
@@ -240,14 +237,14 @@ class _MenuState extends State<Menu> {
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 TextButton(
-                                                  child: Text('ຍົກເລີກ'),
+                                                  child: const Text('ຍົກເລີກ'),
                                                   onPressed: () {
                                                     Navigator.pop(
                                                         context); // Close dialog
                                                   },
                                                 ),
                                                 TextButton(
-                                                  child: Text('ຕົກລົງ'),
+                                                  child: const Text('ຕົກລົງ'),
                                                   onPressed: () async {
                                                     if (prov.tname == null) {
                                                       Fluttertoast.showToast(
@@ -333,7 +330,7 @@ class _MenuState extends State<Menu> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(20.0))),
                                     child: Padding(
-                                      padding: EdgeInsets.all(12.0),
+                                      padding: const EdgeInsets.all(12.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -371,19 +368,19 @@ class _MenuState extends State<Menu> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(20.0))),
                                     child: Padding(
-                                      padding: EdgeInsets.all(12.0),
+                                      padding: const EdgeInsets.all(12.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Text(
+                                          const Text(
                                             "Newest",
                                             style: TextStyle(
                                                 fontSize: 25,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Image.asset('lib/assets/images/3.png')
@@ -409,7 +406,7 @@ class _MenuState extends State<Menu> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(20.0))),
                                     child: Padding(
-                                      padding: EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -450,7 +447,7 @@ class _MenuState extends State<Menu> {
                         ],
                       ),
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 20.0),
@@ -463,7 +460,7 @@ class _MenuState extends State<Menu> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -471,21 +468,21 @@ class _MenuState extends State<Menu> {
                         Container(
                           height: MediaQuery.of(context).size.height * 0.09,
                           width: MediaQuery.of(context).size.width * 1,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 251, 249, 249),
                           ),
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemCount: cubit.state.listproductype!.length,
                               itemBuilder: (c, i) {
                                 var list = state.listproductype;
-                                Color _textcolor = Colors.red;
-                                Color _containercolor = Colors.white;
+                                Color textcolor = Colors.red;
+                                Color containercolor = Colors.white;
                                 if (state.listproductype![i] ==
                                     state.typeSelect) {
-                                  _containercolor = Colors.red;
-                                  _textcolor = Colors.white;
+                                  containercolor = Colors.red;
+                                  textcolor = Colors.white;
                                 }
                                 return Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -500,8 +497,8 @@ class _MenuState extends State<Menu> {
                                       decoration: BoxDecoration(
                                           boxShadow: [
                                             BoxShadow(
-                                              offset: Offset(0, 5),
-                                              color: Color.fromARGB(
+                                              offset: const Offset(0, 5),
+                                              color: const Color.fromARGB(
                                                       77, 219, 216, 216)
                                                   .withOpacity(1),
                                               spreadRadius: 2,
@@ -510,14 +507,14 @@ class _MenuState extends State<Menu> {
                                           ],
                                           borderRadius:
                                               BorderRadius.circular(20),
-                                          color: _containercolor),
+                                          color: containercolor),
                                       child: Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Text(
                                           list![i].protypeName,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            color: _textcolor,
+                                            color: textcolor,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -537,7 +534,7 @@ class _MenuState extends State<Menu> {
                         child: GridView.count(
                             crossAxisCount: 3,
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             children: List.generate(
                                 cubit.state.listproduct!.length, (index) {
                               var listproduct = state.listproduct;
@@ -546,15 +543,15 @@ class _MenuState extends State<Menu> {
                                   cubit.otypeorder(listproduct[index]);
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       bottom: 8, right: 5, left: 5),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                        offset: Offset(0, 5),
-                                        color: Color.fromARGB(77, 219, 216, 216)
+                                        offset: const Offset(0, 5),
+                                        color: const Color.fromARGB(77, 219, 216, 216)
                                             .withOpacity(1),
                                         spreadRadius: 2,
                                         blurRadius: 5,

@@ -1,4 +1,6 @@
 
+// ignore_for_file: non_constant_identifier_names, prefer_const_constructors
+
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -97,7 +99,7 @@ class AddunitCubit extends Cubit<AddunitState> {
       },
       (data) async {
         //   log('success ' + data.length.toString());
-        print('data: $data');
+       // print('data: $data');
         Fluttertoast.showToast(
             msg: "update sucessful", gravity: ToastGravity.CENTER);
         //----make clear data------

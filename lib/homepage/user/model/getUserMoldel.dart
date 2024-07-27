@@ -63,6 +63,8 @@
 //
 //     final getUserModel = getUserModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<GetUserModel> getUserModelFromJson(String str) => List<GetUserModel>.from(json.decode(str).map((x) => GetUserModel.fromJson(x)));

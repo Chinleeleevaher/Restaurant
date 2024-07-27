@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names, prefer_final_fields, unrelated_type_equality_checks, file_names
+
 import 'package:flutter/material.dart';
 import 'package:myproject/homepage/menu_page/model/orderproductModel.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
@@ -29,10 +31,8 @@ void collectOrderQty(int value) {
   _orderqty = value;
 
   if (getorderlist.isNotEmpty) {
-    bool found = false;
     for (int j = 0; j < getorderlist.length; j++) {
       if (orId == getorderlist[j].productId) {
-        found = true;
         // Update quantity in the order list
         getorderlist[j].qty = _orderqty;
 
@@ -40,8 +40,7 @@ void collectOrderQty(int value) {
         _orderqty = 0;
 
         // Print the updated quantity and reset _orderqty
-        print(getorderlist[j].qty);
-        print(_orderqty);
+       
 
         // Exit the loop since we found the item
         break;
@@ -97,7 +96,7 @@ void collectOrderQty(int value) {
   }
 
 // ------to get order list-----------
-  List<OrderproductModelMenu> _getorderlist = [];
+  final List<OrderproductModelMenu> _getorderlist = [];
   List<OrderproductModelMenu> get getorderlist => _getorderlist;
 
   setOrderlist(OrderproductModelMenu value) {
@@ -188,7 +187,7 @@ void collectOrderQty(int value) {
     if (getOrdertables != 0) {
       _Ordertable = value;
     }
-    print(getOrdertables);
+   
     notifyListeners();
   }
 

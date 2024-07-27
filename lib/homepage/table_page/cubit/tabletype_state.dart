@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 part of 'tabletype_cubit.dart';
 
 enum tableliststatuse { initial, loading, success, error }
@@ -25,10 +27,10 @@ class TabletypeState extends Equatable {
      Tables? ordertablelist_c
       }) {
     return TabletypeState(
-      listtabletype: listtabltype_c ?? this.listtabletype,
-      listtable: listtable_c ?? this.listtable,
-      typeSelect: typeSelect_c?? this.typeSelect,
-      status: status_c ?? this.status,
+      listtabletype: listtabltype_c ?? listtabletype,
+      listtable: listtable_c ?? listtable,
+      typeSelect: typeSelect_c?? typeSelect,
+      status: status_c ?? status,
     );
   }
 }

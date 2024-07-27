@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_is_empty
+
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -12,7 +13,6 @@ import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
-import 'lisproduct_cubit.dart';
 
 part 'lisproduct_state.dart';
 
@@ -40,7 +40,7 @@ class LisproductCubit extends Cubit<LisproductState> {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final productTypes = producttypeFromJson(jsonEncode(jsonData['data']));
-      print('print $jsonData');
+     // print('print $jsonData');
       emit(state.coppywith(
           status_c: listproduct_status.sucess,
           listproductype_c: state.listproductype! +
@@ -79,8 +79,7 @@ class LisproductCubit extends Cubit<LisproductState> {
                 product)); // <-- send value of product to listproduct_c
       }
     } else {
-      print("not success");
-      print(response.reasonPhrase);
+   
     }
   }
 

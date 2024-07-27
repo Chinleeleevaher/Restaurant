@@ -2,6 +2,8 @@
 //
 //     final menutable = menutableFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<Menutable> menutableFromJson(String str) => List<Menutable>.from(json.decode(str).map((x) => Menutable.fromJson(x)));

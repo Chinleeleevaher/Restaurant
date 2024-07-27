@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
-import 'package:myproject/homepage/internet/nointernet.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/order_history/cubit/orderstatus_cubit.dart';
-import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
-import 'package:myproject/login/cubit/login_cubit.dart';
-import 'package:myproject/login/cubit/login_state.dart';
-import 'package:provider/provider.dart';
 
-import '../../login/home_provider/provider.dart';
 
 class OrderstatusPage extends StatefulWidget {
   const OrderstatusPage({super.key});
@@ -31,20 +24,18 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
     var tableprovide = context.read<tableProvider>();
     return BlocConsumer<OrderstatusCubit, OrderstatusState>(
       listener: (context, state) {
-        // TODO: implement listener
+       
       },
       builder: (context, state) {
         var cubit = context.read<OrderstatusCubit>();
         return Scaffold(
           appBar: AppBar(
-            leading: Container(
-              child: GestureDetector(
-                  onTap: () {
-                    //orderlist.clearorderlist();
-                    Navigator.pop(context);
-                  },
-                  child: Icon(Icons.arrow_back)),
-            ),
+            leading: GestureDetector(
+                onTap: () {
+                  //orderlist.clearorderlist();
+                  Navigator.pop(context);
+                },
+                child: const Icon(Icons.arrow_back)),
             title: Text(LocaleKeys.orderSelect
                 .tr()), //<----text of order select it is on the appbar---
             actions: [
@@ -54,8 +45,8 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        LocaleKeys.table.tr() + " ", // <--- text of table
-                        style: TextStyle(fontSize: 16),
+                        "${LocaleKeys.table.tr()} ", // <--- text of table
+                        style: const TextStyle(fontSize: 16),
                       ),
                       Container(
                         height: 15,
@@ -67,7 +58,7 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                           padding: const EdgeInsets.only(top: 2),
                           child: Text(
                             tableprovide.tablenumber.toString(),
-                            style: TextStyle(fontSize: 10, color: Colors.red),
+                            style: const TextStyle(fontSize: 10, color: Colors.red),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -101,7 +92,7 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                           color: Colors.grey.withOpacity(0.2),
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
@@ -109,17 +100,17 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(LocaleKeys.no.tr()), //<----text of NO---
-                        VerticalDivider(),
+                        const VerticalDivider(),
                         Text(LocaleKeys.item.tr()), //<----text of item---
-                        VerticalDivider(),
+                        const VerticalDivider(),
                         Text(LocaleKeys.quantity
                             .tr()), //<----text of quantity---
-                        VerticalDivider(),
+                        const VerticalDivider(),
                         Text(LocaleKeys.amount.tr()), //<----text of Amount---
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
                   Expanded(
@@ -141,18 +132,18 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                                     subtitle: Row(
                                       children: [
                                         Text(
-                                          (list[i].price).toString() + " Kip  ",
-                                          style: TextStyle(color: Colors.red),
+                                          "${list[i].price} Kip  ",
+                                          style: const TextStyle(color: Colors.red),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 60,
                                         ),
                                         Text(list[i].qty.toString()),
                                       ],
                                     ),
                                     trailing: Text(
-                                      (list[i].amount).toString() + " Kip  ",
-                                      style: TextStyle(color: Colors.red),
+                                      "${list[i].amount} Kip  ",
+                                      style: const TextStyle(color: Colors.red),
                                     ),
                                   ),
                                 ),
@@ -168,30 +159,27 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                             color: Colors.grey.withOpacity(0.2),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text.rich(
                             TextSpan(
-                              text: LocaleKeys.totalPrice.tr() +
-                                  ": ", // <----text of total price
-                              style: TextStyle(
+                              text: "${LocaleKeys.totalPrice.tr()}: ", // <----text of total price
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
 
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: orderlist.selectorderdata![0].orAmount
-                                          .toString() +
-                                      " Kip", // here of total price
-                                  style: TextStyle(color: Colors.red),
+                                  text: "${orderlist.selectorderdata![0].orAmount} Kip", // here of total price
+                                  style: const TextStyle(color: Colors.red),
                                 ),
                               ],
                             ),

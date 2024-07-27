@@ -1,32 +1,23 @@
-import 'dart:developer';
+
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myproject/component/language_dailog.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
-import 'package:myproject/homepage/home_page.dart';
-import 'package:myproject/homepage/user/getuser/user.dart';
-import 'package:myproject/login/Login_Page.dart';
-import 'package:myproject/login/cubit/login_cubit.dart';
-import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/login/home_provider/provider.dart';
 import 'package:myproject/model/loginmodel.dart';
-import 'package:myproject/signin/cubit/sign_in_cubit.dart';
 import 'package:provider/provider.dart';
 
 class Nabar extends StatelessWidget {
   final Function(String)
       onChanged; // <---- this is to send the value to update as setsate in menu page
 
-  Nabar({
+  const Nabar({
     Key? key,
     required this.onChanged,
   }) : super(key: key);
@@ -47,7 +38,7 @@ class Nabar extends StatelessWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
           color: Colors.red, // Set the color to red
         ),
               currentAccountPicture:
@@ -55,8 +46,8 @@ class Nabar extends StatelessWidget {
               user!.image != null ?
               CircleAvatar(
                 backgroundColor: Colors.white,
-                 backgroundImage: NetworkImage(user!.image),
-              ):   Icon(
+                 backgroundImage: NetworkImage(user.image),
+              ):   const Icon(
                   Icons.person,
                   color: Colors.red,
                   size: 60.0,
@@ -65,11 +56,11 @@ class Nabar extends StatelessWidget {
               accountEmail: Text(user.email)
               ),
           ListTile(
-            leading: Icon(Icons.people),
+            leading: const Icon(Icons.people),
             title: Text(LocaleKeys.people.tr()),
           ),
           ListTile(
-            leading: Icon(Icons.favorite),
+            leading: const Icon(Icons.favorite),
             title: Text(LocaleKeys.favorite.tr()),
           ),
           const Divider(
@@ -77,20 +68,20 @@ class Nabar extends StatelessWidget {
             color: (Colors.black),
           ),
           ListTile(
-            leading: Icon(Icons.language),
+            leading: const Icon(Icons.language),
             title: Text(LocaleKeys.changeLanguage.tr()),
             onTap: () {
               onSelectLanguages(context);
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: const Icon(Icons.settings),
             title: Text(LocaleKeys.setting.tr()),
             // onTap: (){auth.signOut();},
           ),
           ListTile(
-            leading: Icon(Icons.logout, color: Colors.red,),
-            title: Text(LocaleKeys.logout.tr(), style: TextStyle(color: Colors.red)),
+            leading: const Icon(Icons.logout, color: Colors.red,),
+            title: Text(LocaleKeys.logout.tr(), style: const TextStyle(color: Colors.red)),
             onTap: () async {
               await storage.delete(key: 'token'); // <-- here is to make logout
               await storage.delete(key: 'username');

@@ -2,6 +2,8 @@
 //
 //     final opBillidModel = opBillidModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<OpBillidModel> opBillidModelFromJson(String str) => List<OpBillidModel>.from(json.decode(str).map((x) => OpBillidModel.fromJson(x)));

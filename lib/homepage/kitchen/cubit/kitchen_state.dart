@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 part of 'kitchen_cubit.dart';
 
 
@@ -35,10 +37,10 @@ final statuslist loadBillStatus;
      statuslist? loadBillStatus,
   }) {
     return KitchenState(
-      status: status_c ?? this.status,
-      listOrder: listOrder_c ?? this.listOrder,
-      listOrderdetail: listOrderdetail_c ?? this.listOrderdetail,
-      typeSeletOrderId: typeSeletOrderId_c ?? this.typeSeletOrderId,
+      status: status_c ?? status,
+      listOrder: listOrder_c ?? listOrder,
+      listOrderdetail: listOrderdetail_c ?? listOrderdetail,
+      typeSeletOrderId: typeSeletOrderId_c ?? typeSeletOrderId,
       loadBillStatus: loadBillStatus ?? this.loadBillStatus,
       );
   }

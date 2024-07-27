@@ -1,8 +1,8 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, deprecated_member_use, file_names
+
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +21,7 @@ Future productPrint(BuildContext context) {
       return Dialog(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.8,
             child: Column(
@@ -266,5 +266,4 @@ Future<void> exportIncome(BuildContext context) async {
 
   await file.writeAsBytes(await pdf.save());
 
-  print("PDF file created at: ${file.path}");
 }

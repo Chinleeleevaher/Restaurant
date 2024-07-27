@@ -40,7 +40,7 @@
 
     "menu":"ເມນູ",
     "changeTable":"ຍ້າຍໂຕະ",
-    "product":"ສີນຄ້າ",
+    "product":"ເພີ່ມສີນຄ້າ",
     "report":"ລາຍງານ",
     "scan":"ສະແກນ",
 
@@ -73,6 +73,24 @@
     "notEnoughMoney":"ຈໍານວນເງີນບໍ່ພໍ",
     "CheckBill":"ເຊັກບີນ",
     "Dashboard":"ໜ້າຫຼັກ",
-    "DailySell":"ຍອດຂາຍລາຍມື້"
+    "DailySell":"ຍອດຂາຍລາຍມື້",
+    "Order":"ອໍເດີ",
+    "totalprice":"ລາຍຮັບ",
+    "hours":"ຊົ່ວໂມງ",
+    "bottleleft":"ຍັງເຫຼືອ",
+    "Meal":"ລາຍການ",
+    "weeklysales":"ລາຍອາທິດ",
+    "totaleOrder":"ອໍເດີ",
+    "price":"ລາຍຮັບ",
+    "month":"ລາຍເດືອນ",
+    "year":"ລາຍປີ",
+    "user":"ຜູ້ໃຊ້",
+    "kitchen":"ເຮືອນຄົວ",
+    "category":"ປະເພດສີນຄ້າ",
+    "unit":"ຫົວໜ່ວຍ",
+    "orderpro":"ສັ່ງຊື້ສີນຄ້າ",
+    "improtpro":"ນໍາເຂົ້າສີນຄ້າ",
+    "addtable":"ເພື່ມຕູບ"
+  
 
 }

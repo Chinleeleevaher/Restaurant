@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NoInternetPage extends StatelessWidget {
@@ -15,7 +14,7 @@ class NoInternetPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           icon ??
-              Icon(
+              const Icon(
                 Icons.wifi_off,
                 size: 70,
                 color: Colors.red,

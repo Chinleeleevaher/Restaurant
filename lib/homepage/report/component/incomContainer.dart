@@ -1,8 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+// ignore: camel_case_types
 class incomContainner_page extends StatelessWidget {
   const incomContainner_page({super.key});
 
@@ -48,14 +51,14 @@ class incomContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Total Order : " + provide.weekQty.toString(),
+                      "Total Order : ${provide.weekQty}",
                       style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Price : " + provide.weekAmount.toString() + "kip",
+                      "Price : ${provide.weekAmount}kip",
                       style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
@@ -117,14 +120,14 @@ class incomContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Total Order :" + provide.monthQty.toString(),
+                      "Total Order :${provide.monthQty}",
                       style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Price :" + provide.monthAmount.toString() + "Kip",
+                      "Price :${provide.monthAmount}Kip",
                       style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
@@ -135,9 +138,9 @@ class incomContainner_page extends StatelessWidget {
                       animationDuration: 1200,
                       lineWidth: 5.0,
                       percent: 0.5,
-                      center: new Text(
+                      center: const Text(
                         "50 %",
-                        style: new TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 12.0,
                             color: Colors.black),
@@ -185,14 +188,14 @@ class incomContainner_page extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Total Order : " + provide.yearqty.toString(),
+                      "Total Order : ${provide.yearqty}",
                       style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Price : " + provide.yearAmount.toString(),
+                      "Price : ${provide.yearAmount}",
                       style: const TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
@@ -203,9 +206,9 @@ class incomContainner_page extends StatelessWidget {
                       animationDuration: 1200,
                       lineWidth: 5.0,
                       percent: 0.7,
-                      center: new Text(
+                      center: const Text(
                         "70 %",
-                        style: new TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 12.0,
                             color: Colors.black),

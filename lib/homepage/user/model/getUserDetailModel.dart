@@ -2,6 +2,8 @@
 //
 //     final getUserDetailModel = getUserDetailModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 GetUserDetailModel getUserDetailModelFromJson(String str) => GetUserDetailModel.fromJson(json.decode(str));

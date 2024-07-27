@@ -1,7 +1,8 @@
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
+
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,9 +10,7 @@ import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/homepage/orderproduct/component/billDailog.dart';
 import 'package:myproject/homepage/orderproduct/component/listDailog.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
-import 'package:myproject/homepage/report/component/printDailog.dart';
 import 'package:myproject/repository/authen_sipository.dart';
-import 'package:provider/provider.dart';
 
 part 'order_product_state.dart';
 
@@ -23,7 +22,7 @@ class OrderProductCubit extends Cubit<OrderProductState> {
     required this.authenRepository,
     required this.provider,
     required this.context,
-  }) : super(OrderProductState());
+  }) : super(const OrderProductState());
   //------ select Order product-------------------------
   Future<void> getOrderProdct() async {
     emit(state.coppywith(status_c: OrderProductStatus.loading));
@@ -31,7 +30,7 @@ class OrderProductCubit extends Cubit<OrderProductState> {
     // await Future.delayed(const Duration(seconds: 3)); // ....here is to waiting time........
     var result = await authenRepository.getOrder_Product();
     result!.fold((l) {
-      print("No data It is error");
+     // print("No data It is error");
     }, (r) {
       provider.TogetgetprodutOrdert(r);
       emit(state.coppywith(status_c: OrderProductStatus.success));

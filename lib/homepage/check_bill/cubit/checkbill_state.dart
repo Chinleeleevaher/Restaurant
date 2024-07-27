@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names, unnecessary_this
+
 part of 'checkbill_cubit.dart';
 
 enum statuslist { initial, loading, success, error }

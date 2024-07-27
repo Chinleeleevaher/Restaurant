@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 part of 'import_product_cubit.dart';
 
 enum OrderProductStatus { initial, loading, success, error }
@@ -15,7 +17,7 @@ class ImportProductState extends Equatable {
     OrderProductStatus? status_c,
   }) {
     return ImportProductState(
-      status: status_c ?? this.status,
+      status: status_c ?? status,
     );
   }
 }

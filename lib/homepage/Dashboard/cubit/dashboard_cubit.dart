@@ -1,6 +1,7 @@
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:myproject/homepage/Dashboard/model/incomeYearModel.dart';
 import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
@@ -19,7 +20,7 @@ class DashboardCubit extends Cubit<DashboardState> {
  //-----of date time picker of week-------------
   DateTime from_pickdate = DateTime.now().subtract(const Duration(
       days: 7)); // <--here is to set the default date to from 5 days ago
-  // ignore: non_constant_identifier_names
+ 
   DateTime To_pickdate = DateTime.now();
 
   //-----of date time picker od year-------------
@@ -62,7 +63,7 @@ DateTime toPickYear = DateTime.now();
   // .....here  is calculate the income of day..............
 void calculateIncome48Hours(List<IncomeModel> incomeData) {
   DateTime now = DateTime.now();
-  DateTime startTime = now.subtract(Duration(hours: 48));
+  DateTime startTime = now.subtract(const Duration(hours: 48));
 
   // Filter income data for the last 48 hours
   List<IncomeModel> filteredData = incomeData.where((entry) => entry.ordDate.isAfter(startTime)).toList();
@@ -119,7 +120,7 @@ void calculateIncome48Hours(List<IncomeModel> incomeData) {
 
     // Check if the entry month is the current month and within the current year
     if (entryYear == currentYear && entryMonth == currentMonth) {
-      String monthKey = '${entryYear}-${entryMonth.toString().padLeft(2, '0')}';
+      String monthKey = '$entryYear-${entryMonth.toString().padLeft(2, '0')}';
 
       // Initialize the month key if it doesn't exist
       if (!totalsByMonths.containsKey(monthKey)) {
@@ -180,7 +181,7 @@ void calculateAndPrintIncomeMonth(List<IncomeYearModel> incomeData) {
 
     // Check if the entry month is the current month and within the current year
     if (entryYear == currentYear && entryMonth == currentMonth) {
-      String monthKey = '${entryYear}-${entryMonth.toString().padLeft(2, '0')}';
+      String monthKey = '$entryYear-${entryMonth.toString().padLeft(2, '0')}';
 
       // Initialize the month key if it doesn't exist
       if (!totalsByMonths.containsKey(monthKey)) {
@@ -203,7 +204,7 @@ void calculateAndPrintIncomeMonth(List<IncomeYearModel> incomeData) {
   totalsByMonths.forEach((month, totals) {
     num totalAmount = totals['amount'] ?? 0;
     num totalQty = totals['qty'] ?? 0;
-    print("Month: $month, Total Amount: $totalAmount, Total Qty: $totalQty");
+   // print("Month: $month, Total Amount: $totalAmount, Total Qty: $totalQty");
     // Assuming reportProvider.incomeMoth accepts two parameters: totalAmount and totalQty
     reportProvider.incomeMothAmount(totalAmount);
     reportProvider.incomeMothQty(totalQty);

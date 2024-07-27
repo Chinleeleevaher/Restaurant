@@ -1,25 +1,16 @@
-import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:myproject/config/app_rount.dart';
-import 'package:myproject/config/navigation.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
-import 'package:myproject/homepage/internet/nointernet.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/order_history/cubit/orderstatus_cubit.dart';
-import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
-import 'package:myproject/login/cubit/login_cubit.dart';
-import 'package:myproject/login/cubit/login_state.dart';
-import 'package:provider/provider.dart';
-
-import '../../login/home_provider/provider.dart';
 
 
-const List<Color> _kDefaultRainbowColors = const [
+
+const List<Color> _kDefaultRainbowColors = [
   Colors.red,
   Colors.orange,
   Colors.yellow,
@@ -42,20 +33,18 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
     var tableprovide = context.read<tableProvider>();
     return BlocConsumer<OrderstatusCubit, OrderstatusState>(
       listener: (context, state) {
-        // TODO: implement listener
+     
       },
       builder: (context, state) {
-        var cubit = context.read<OrderstatusCubit>();
+        context.read<OrderstatusCubit>();
         return Scaffold(
           appBar: AppBar(
-            leading: Container(
-              child: GestureDetector(
-                  onTap: () {
-                    //orderlist.clearorderlist();
-                    Navigator.pop(context);
-                  },
-                  child: Icon(Icons.arrow_back)),
-            ),
+            leading: GestureDetector(
+                onTap: () {
+                  //orderlist.clearorderlist();
+                  Navigator.pop(context);
+                },
+                child: const Icon(Icons.arrow_back)),
             title: Text(LocaleKeys.orderSelect
                 .tr()), //<----text of order select it is on the appbar---
             actions: [
@@ -65,8 +54,8 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        LocaleKeys.table.tr() + " ", // <--- text of table
-                        style: TextStyle(fontSize: 16),
+                        "${LocaleKeys.table.tr()} ", // <--- text of table
+                        style: const TextStyle(fontSize: 16),
                       ),
                       Container(
                         height: 15,
@@ -78,7 +67,7 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                           padding: const EdgeInsets.only(top: 0),
                           child: Text(
                             tableprovide.tablenumber.toString(),
-                            style: TextStyle(fontSize: 10, color: Colors.red),
+                            style: const TextStyle(fontSize: 10, color: Colors.red),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -103,7 +92,7 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
 
               return Column(
                 children: [  
-                  Container(
+                  const SizedBox(
                     height: 50,
                   
                     child: LoadingIndicator(
@@ -114,7 +103,7 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                               pathBackgroundColor: Colors.black
                               ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
                 
@@ -146,12 +135,11 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                                         child: Row(
                                           children: [
                                             Text(
-                                              (list[i].price).toString() +
-                                                  " Kip  ",
+                                              "${list[i].price} Kip  ",
                                               style:
-                                                  TextStyle(color: Colors.red),
+                                                  const TextStyle(color: Colors.red),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 60,
                                             ),
                                             Text(list[i].qty.toString()),
@@ -162,9 +150,8 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                                         padding:
                                             const EdgeInsets.only(left: 20),
                                         child: Text(
-                                          (list[i].amount).toString() +
-                                              " Kip  ",
-                                          style: TextStyle(color: Colors.red),
+                                          "${list[i].amount} Kip  ",
+                                          style: const TextStyle(color: Colors.red),
                                         ),
                                       ),
                                     ),

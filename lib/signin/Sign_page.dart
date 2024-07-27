@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, file_names, unrelated_type_equality_checks
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +35,7 @@ class _SignIn_PageState extends State<SignIn_Page>
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state.status == liststatuse.loading) {
-          Center(
+          const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -63,7 +65,7 @@ class _SignIn_PageState extends State<SignIn_Page>
                         ),
                         Text(
                           LocaleKeys.signin.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
@@ -73,8 +75,8 @@ class _SignIn_PageState extends State<SignIn_Page>
                           controller: signCubit.UserNameControllerr,
                           decoration: InputDecoration(
                             hintText: LocaleKeys.userName.tr(),
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
+                            border: const OutlineInputBorder(),
+                            suffixIcon: const Icon(Icons.person),
                           ),
                         ),
                         const SizedBox(
@@ -84,8 +86,8 @@ class _SignIn_PageState extends State<SignIn_Page>
                           controller: signCubit.EmailControllerr,
                           decoration: InputDecoration(
                             hintText: LocaleKeys.userNameOrEmail.tr(),
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.email_sharp),
+                            border: const OutlineInputBorder(),
+                            suffixIcon: const Icon(Icons.email_sharp),
                           ),
                         ),
                         const SizedBox(
@@ -96,8 +98,8 @@ class _SignIn_PageState extends State<SignIn_Page>
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: LocaleKeys.password.tr(),
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.lock),
+                            border: const OutlineInputBorder(),
+                            suffixIcon: const Icon(Icons.lock),
                           ),
                         ),
                         const SizedBox(
@@ -105,9 +107,9 @@ class _SignIn_PageState extends State<SignIn_Page>
                         ),
                         ElevatedButton(
                             style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                  Size(200, 48)),
-                              shape: MaterialStateProperty.all<
+                              minimumSize: WidgetStateProperty.all<Size>(
+                                  const Size(200, 48)),
+                              shape: WidgetStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(24),

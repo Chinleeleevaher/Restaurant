@@ -1,7 +1,6 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:myproject/homepage/user/getuser/component/userDetail.dart';
 import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
@@ -23,7 +22,7 @@ class GetUserCubit extends Cubit<GetUserState> {
     var result = await authenRepository.getUser();
     result!.fold(
       (f) {
-      print("error");
+     
       },
       (data){
        userprovider.TogetgetUser(data);
@@ -47,7 +46,7 @@ class GetUserCubit extends Cubit<GetUserState> {
       );
     result!.fold(
       (f) {
-      print("error");
+    
       },
       (r){
         emit(state.coppywith(status_c: getuserStatus.success));

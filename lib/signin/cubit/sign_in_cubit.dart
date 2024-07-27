@@ -1,18 +1,18 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:myproject/constant/api_path.dart';
-import 'package:myproject/login/Login_page.dart';
 
 part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {
-  SignInCubit() : super(SignInState());
+  SignInCubit() : super(const SignInState());
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final UserNameControllerr = TextEditingController();
@@ -75,7 +75,7 @@ class SignInCubit extends Cubit<SignInState> {
           Navigator.pop(context);
         }
       } else {
-        print(response.reasonPhrase);
+        
       }
     } catch (e) {
       log('Error: $e');

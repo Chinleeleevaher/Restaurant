@@ -1,4 +1,5 @@
-import 'dart:developer';
+
+// ignore_for_file: camel_case_types, file_names
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,9 @@ import 'package:myproject/component/language_dailog.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
-import 'package:myproject/login/home_provider/provider.dart';
 import 'package:myproject/signin/Sign_page.dart';
 import 'package:myproject/signin/cubit/sign_in_cubit.dart';
+
 
 class Login_page extends StatefulWidget {
   const Login_page({super.key});
@@ -49,7 +50,7 @@ class _Login_pageState extends State<Login_page> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.language,
                               size: 30,
                               color: Colors.white,
@@ -70,14 +71,14 @@ class _Login_pageState extends State<Login_page> {
             body: Container(
               color: Colors.white,
               alignment: Alignment.center,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Form(
                   key: cubit.formkey,
                   child: ListView(
                     children: [
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 100,
                           ),
                           Container(
@@ -86,7 +87,7 @@ class _Login_pageState extends State<Login_page> {
                             child: Text(
                               LocaleKeys.login
                                   .tr(), // <---here is to make change lagguage
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                           const SizedBox(
@@ -96,7 +97,7 @@ class _Login_pageState extends State<Login_page> {
                             controller: cubit.UserNameControllerr,
                             decoration: InputDecoration(
                                 hintText: LocaleKeys.userName.tr(),
-                                border: OutlineInputBorder()),
+                                border: const OutlineInputBorder()),
                           ),
                           const SizedBox(
                             height: 10,
@@ -110,13 +111,13 @@ class _Login_pageState extends State<Login_page> {
                             
                             decoration: InputDecoration(
                               hintText: LocaleKeys.password.tr(),
-                              border: OutlineInputBorder(),
+                              border: const OutlineInputBorder(),
                             ),
                             keyboardType: TextInputType.emailAddress,
                             onSaved: (email) {},
                           ),
                           Padding(
-                            padding: EdgeInsets.all(1),
+                            padding: const EdgeInsets.all(1),
                             child: GestureDetector(
                               onTap: () {
                                 cubit.onChangedRemember();
@@ -149,9 +150,9 @@ class _Login_pageState extends State<Login_page> {
                           ),
                           ElevatedButton(
                               style: ButtonStyle(
-                                minimumSize: MaterialStateProperty.all<Size>(
-                                    Size(200, 48)),
-                                shape: MaterialStateProperty.all<
+                                minimumSize: WidgetStateProperty.all<Size>(
+                                    const Size(200, 48)),
+                                shape: WidgetStateProperty.all<
                                     RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(24),
@@ -179,7 +180,7 @@ class _Login_pageState extends State<Login_page> {
                                           MaterialPageRoute(builder: (context) {
                                         return BlocProvider(
                                           create: (context) => SignInCubit(),
-                                          child: SignIn_Page(),
+                                          child: const SignIn_Page(),
                                         );
                                       }));
                                     },

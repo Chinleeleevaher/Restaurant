@@ -1,5 +1,6 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/homepage/addcategory/provider/categoryProvider.dart';
@@ -19,7 +20,7 @@ class _Category_pageState extends State<Category_page> {
   Widget build(BuildContext context) {
     return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         var cubit = context.read<CategoryCubit>();
@@ -27,7 +28,7 @@ class _Category_pageState extends State<Category_page> {
 
         return Scaffold(
             appBar: AppBar(
-              title: Text("Category"),
+              title: const Text("Category"),
             ),
             body: SingleChildScrollView(
               child: Form(
@@ -55,7 +56,7 @@ class _Category_pageState extends State<Category_page> {
                                             controller: cubit.productypeName,
                                             decoration: InputDecoration(
                                                 contentPadding:
-                                                    EdgeInsets.symmetric(
+                                                    const EdgeInsets.symmetric(
                                                         vertical: 10,
                                                         horizontal: 20),
                                                 border: OutlineInputBorder(
@@ -65,7 +66,7 @@ class _Category_pageState extends State<Category_page> {
                                                 hintText: "ລາຍການ"),
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         GestureDetector(
@@ -92,7 +93,7 @@ class _Category_pageState extends State<Category_page> {
                                                 borderRadius:
                                                     BorderRadius.circular(15),
                                                 color: Colors.green),
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.add,
                                               color: Colors.white,
                                             ),
@@ -102,7 +103,7 @@ class _Category_pageState extends State<Category_page> {
                                     ),
                                   ),
                                 //  title(),
-                                Row(
+                                const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
@@ -119,11 +120,11 @@ class _Category_pageState extends State<Category_page> {
                                     VerticalDivider(),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
                                 //     detail(),
-                                Container(
+                                SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 1.5,
                                   child: SingleChildScrollView(
@@ -136,7 +137,7 @@ class _Category_pageState extends State<Category_page> {
                                             // var prolist = state.listproduct;
                                             //  var pro = State.provider;
                                             return Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   top: 10, bottom: 3),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -178,7 +179,7 @@ class _Category_pageState extends State<Category_page> {
                                                           .protypeName),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsets.only(
+                                                      padding: const EdgeInsets.only(
                                                           right: 10),
                                                       child: GestureDetector(
                                                         onTap: () {
@@ -187,7 +188,7 @@ class _Category_pageState extends State<Category_page> {
                                                           cubit.onTypeCate(provider
                                                               .geproducttype![i]);
                                                         },
-                                                        child: Icon(Icons.edit),
+                                                        child: const Icon(Icons.edit),
                                                       ),
                                                     ),
                                                     Padding(
@@ -202,13 +203,13 @@ class _Category_pageState extends State<Category_page> {
                                                                 (BuildContext
                                                                     context) {
                                                               return AlertDialog(
-                                                                title: Text(
+                                                                title: const Text(
                                                                     'ຢືນຢັ້ນ'),
-                                                                content: Text(
+                                                                content: const Text(
                                                                     'ຕ້ອງການລົບແທ້ບໍ່'),
                                                                 actions: <Widget>[
                                                                   TextButton(
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         'ຍົກເລີກ'),
                                                                     onPressed:
                                                                         () {
@@ -218,7 +219,7 @@ class _Category_pageState extends State<Category_page> {
                                                                     },
                                                                   ),
                                                                   TextButton(
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         'ລົບ'),
                                                                     onPressed:
                                                                         () {
@@ -237,7 +238,7 @@ class _Category_pageState extends State<Category_page> {
                                                           );
                                                         },
                                                         child:
-                                                            Icon(Icons.delete),
+                                                            const Icon(Icons.delete),
                                                       ),
                                                     ),
                                                   ],
@@ -255,9 +256,9 @@ class _Category_pageState extends State<Category_page> {
                             ),
                           ),
                           if (!Responsive.isMobile(context))
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                           // On Mobile means if the screen is less than 850 we don't want to show it
-                          if (!Responsive.isMobile(context)) textbuttom()
+                          if (!Responsive.isMobile(context)) const textbuttom()
                         ],
                       ),
                     ),
@@ -277,8 +278,8 @@ class title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+    return const Padding(
+      padding: EdgeInsets.only(top: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -308,7 +309,7 @@ class detail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 50, left: 50),
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height / 1.5,
         child: SingleChildScrollView(
           child: Column(
@@ -317,7 +318,7 @@ class detail extends StatelessWidget {
                 children: List.generate(10, (i) {
                   // var prolist = state.listproduct;
                   return Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 3),
+                    margin: const EdgeInsets.only(top: 10, bottom: 3),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -330,21 +331,21 @@ class detail extends StatelessWidget {
                           Container(
                             height: MediaQuery.of(context).size.height * 0.06,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 10),
                             // child: Text(prolist![i].productName),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 40),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 40),
                             // child: Text(prolist[i].price.toString()),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             child: GestureDetector(
                               onTap: () {
                                 // cubit.onTypeSelectproduct(prolist[i]);
                               },
-                              child: Icon(Icons.edit),
+                              child: const Icon(Icons.edit),
                             ),
                           ),
                           Padding(
@@ -353,7 +354,7 @@ class detail extends StatelessWidget {
                               onTap: () {
                                 // cubit.deletepro(int.parse(prolist[i].productId));
                               },
-                              child: Icon(Icons.delete),
+                              child: const Icon(Icons.delete),
                             ),
                           ),
                         ],
@@ -390,7 +391,7 @@ class textbuttom extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   hintText: "Add Unit"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 70,
             ),
             GestureDetector(
@@ -400,7 +401,7 @@ class textbuttom extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.green),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   color: Colors.white,
                 ),

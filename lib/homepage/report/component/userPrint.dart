@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, deprecated_member_use, file_names
+
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -15,7 +17,7 @@ import 'package:pdf/widgets.dart' as pw;
 late final String title;
 Future UserPrint(BuildContext context) {
   //var orderproviders = context.read<orderprovider>();
-  var reportProvider = context.read<ReportProvider>();
+  context.read<ReportProvider>();
   var provide = context.read<getUserProvider>();
 return showDialog(
   context: context,
@@ -23,7 +25,7 @@ return showDialog(
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.8,
           child: Column(
@@ -77,7 +79,7 @@ return showDialog(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Date: " + DateTime.now().toString()),
+                    Text("Date: ${DateTime.now()}"),
                   ],
                 ),
               ),
@@ -276,44 +278,9 @@ Future<void> exportIncome(BuildContext context) async {
   final file = File('${directory?.path}/User-report.pdf');
 
   await file.writeAsBytes(await pdf.save());
-  print("PDF file created at: ${file.path}");
 }
 
 
-
-
-
-
-
-
-
-// Future<void> exportIncome() async {
-//   final pdf = pw.Document();
-
-//   // ... Add PDF content
-
-//   // Request storage permission if not granted already (for Android 6.0+)
-//   if (Platform.isAndroid) {
-//     final status = await Permission.storage.request();
-//     if (!status.isGranted) {
-//       // Handle permission denied scenario
-//       print('Permission denied');
-//       return; // Exit the function or handle the error appropriately
-//     }
-//   }
-
-//   // Continue with saving PDF file
-//   final directory = await getDownloadsDirectory();
-//   if (directory == null) {
-//     print('Unable to access downloads directory');
-//     return; // Handle error
-//   }
-
-//   final file = File('${directory.path}/income-report.pdf');
-//   await file.writeAsBytes(await pdf.save());
-
-//   print("PDF file created at: ${file.path}");
-// }
 
 
 

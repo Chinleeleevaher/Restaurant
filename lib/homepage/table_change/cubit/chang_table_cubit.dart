@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -5,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/component/my_progress.dart';
-import 'package:provider/provider.dart';
 import '../../../repository/authen_sipository.dart';
 import '../../table_page/cubit/provider/tableprovider.dart';
 import '../../table_page/model/order_table_Model.dart';
@@ -53,7 +54,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
           log('errro');
         },
         (datas) async {
-          log('success ' + datas.length.toString());
+          log('success ${datas.length}');
           emit(state.coppywith(
               listtable_c: datas, status_c: tableliststatuse.success));
         },
@@ -146,7 +147,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
        delete_move_table_getFromtable();
       updatetablestatus(); // <---this status update is working when the above finis update( it upda the from table to the emty status)
       getTables(); // <---this is make reload again the table
-      getTabletypes(); // <-----this is make reload the table type
+    //  getTabletypes(); // <-----this is make reload the table type
       tableprovider
           .clearTable(); // <---this is make clear the two table ble that i move above in the ui page
       tableprovider
@@ -256,7 +257,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
           log('errro');
         },
         (datas) async {
-          log('success ' + datas.length.toString());
+          log('success ${datas.length}');
           emit(state.coppywith(
               listtable_c: datas, status_c: tableliststatuse.success));
         },
@@ -279,7 +280,7 @@ class ChangTableCubit extends Cubit<ChangTableState> {
           log('errro');
         },
         (datas) async {
-          log('success ' + datas.length.toString());
+          log('success ${datas.length}');
           emit(state.coppywith(
               listtable_c: datas, status_c: tableliststatuse.success));
         },

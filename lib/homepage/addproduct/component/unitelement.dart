@@ -14,7 +14,7 @@ class UnitElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AddproductCubit, AddproductState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         var cubit = context.read<AddproductCubit>();
@@ -23,21 +23,21 @@ class UnitElement extends StatelessWidget {
             Container(
               width: 360,
               height: 60,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 251, 249, 249),
               ),
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: cubit.state.listunit!
                       .length, //cubit.state.listproductype!.length,
                   itemBuilder: (c, i) {
                     var list = state.listunit;
-                    Color _colcontrol = Colors.white;
-                    Color _textcolor = Colors.red;
+                    Color colcontrol = Colors.white;
+                    Color textcolor = Colors.red;
                     if (state.listunit![i] == state.typeSelectunit && state.typeSelectunit!.unitId !=0) {
-                      _colcontrol = Colors.red;
-                      _textcolor = Colors.white;
+                      colcontrol = Colors.red;
+                      textcolor = Colors.white;
                     }
                     return Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -53,22 +53,22 @@ class UnitElement extends StatelessWidget {
                           decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
-                                  offset: Offset(0, 5),
-                                  color: Color.fromARGB(77, 219, 216, 216)
+                                  offset: const Offset(0, 5),
+                                  color: const Color.fromARGB(77, 219, 216, 216)
                                       .withOpacity(1),
                                   spreadRadius: 2,
                                   blurRadius: 5,
                                 )
                               ],
                               borderRadius: BorderRadius.circular(20),
-                              color: _colcontrol),
+                              color: colcontrol),
                           child: Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Text(
                               //texttype,
                               list![i].unitName,
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: _textcolor),
+                              style: TextStyle(color: textcolor),
                             ),
                           ),
                         ),

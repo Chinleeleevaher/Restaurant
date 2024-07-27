@@ -1,6 +1,6 @@
+// ignore_for_file: library_prefixes
+
 import 'dart:async';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,15 +16,13 @@ class Location extends StatefulWidget {
 class _LocationState extends State<Location> {
 //----map launcher------------
 
-  final Completer<GoogleMapController> _controller = Completer();
-  static const LatLng sourceLocation = LatLng(17.976928, 102.626712);
   static const LatLng destination = LatLng(17.980687, 102.630596);
 //----of location-----------------
   Future<Position> getcurrentLocation() async {
     await Geolocator.requestPermission()
         .then((value) {})
         .onError((error, stackTrace) {
-      print("error" + error.toString());
+     
     });
     return await Geolocator.getCurrentPosition();
   }
@@ -44,7 +42,7 @@ class _LocationState extends State<Location> {
           mapType: MapType.hybrid,
           trafficEnabled: true,
           initialCameraPosition:
-              CameraPosition(target: destination, zoom: 14.5),
+              const CameraPosition(target: destination, zoom: 14.5),
           markers: {
             // const Marker(markerId: MarkerId("source"), position: sourceLocation),
             const Marker(
@@ -60,7 +58,7 @@ class _LocationState extends State<Location> {
                   onPressed: () {
                     getcurrentLocation().then((value) => gotoGoogleMape());
                   },
-                  child: Icon(Icons.map),
+                  child: const Icon(Icons.map),
                 )),
           ],
         ));

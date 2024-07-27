@@ -1,8 +1,8 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class UserReport extends StatelessWidget {
   const UserReport({Key? key});
@@ -39,27 +39,27 @@ class UserReport extends StatelessWidget {
                                   height: 60,
                                   fit: BoxFit.cover,
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.person,
                                   size: 30,
                                   color: Colors.red,
                                 ),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               provide.getUser![index].username,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               provide.getUser![index].email.toString(),
                               style: TextStyle(
@@ -76,7 +76,7 @@ class UserReport extends StatelessWidget {
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                            
                           ],
                         ),
@@ -85,15 +85,15 @@ class UserReport extends StatelessWidget {
                       
                        Row(
                          children: [
-                                Icon(
+                                const Icon(
                                   Icons.check_circle,
                                   color: Colors.green,
                                   size: 18,
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Text(
                                   provide.getUser![index].status.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.green,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,

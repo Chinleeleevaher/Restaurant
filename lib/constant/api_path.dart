@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class ApiPaths {
   // static const baseURL = 'https://';
   static const baseURL = 'http://192.168.1.4:3005';

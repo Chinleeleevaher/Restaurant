@@ -6,17 +6,15 @@ class TextMess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0),
-            child: Text(
-              texts,
-            ),
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: Text(
+            texts,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

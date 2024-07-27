@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 part of 'order_cubit.dart';
 
 enum orderproductstatuse { initial, loading, success, error }
@@ -33,12 +35,12 @@ class OrderState extends Equatable {
       orderproductstatuse? status_c,
       DateTime? or_datime_c}) {
     return OrderState(
-      or_amount: or_amount_c ?? this.or_amount,
-      or_qty: or_qty_c ?? this.or_qty,
-      or_table: or_table_c ?? this.or_table,
-      or_status: or_status_c ?? this.or_status,
-      or_datetime: or_datime_c ?? this.or_datetime,
-      status: status_c ?? this.status,
+      or_amount: or_amount_c ?? or_amount,
+      or_qty: or_qty_c ?? or_qty,
+      or_table: or_table_c ?? or_table,
+      or_status: or_status_c ?? or_status,
+      or_datetime: or_datime_c ?? or_datetime,
+      status: status_c ?? status,
     );
   }
 }

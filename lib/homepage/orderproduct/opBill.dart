@@ -1,10 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/homepage/orderproduct/component/listDailog.dart';
 import 'package:myproject/homepage/orderproduct/cubit/order_product_cubit.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
-import 'package:myproject/login/home_provider/provider.dart';
 import 'package:provider/provider.dart';
 
 class OrderProductListBill extends StatefulWidget {
@@ -22,7 +22,7 @@ class _OrderProductListBillState extends State<OrderProductListBill> {
 
     return BlocConsumer<OrderProductCubit, OrderProductState>(
       listener: (context, state) {
-        // TODO: implement listener
+       
       },
       builder: (context, state) {
         return Consumer<OrderProductProvider>(builder: (context, provider, widget)  { //....here iss to make access to the provider
@@ -57,7 +57,7 @@ class _OrderProductListBillState extends State<OrderProductListBill> {
                       if (orderlist.orpDate is String) {
                         orpDate = DateTime.parse(orderlist.orpDate as String);
                       } else {
-                        orpDate = orderlist.orpDate as DateTime;
+                        orpDate = orderlist.orpDate;
                       }
             
                       // Format the date
@@ -78,7 +78,7 @@ class _OrderProductListBillState extends State<OrderProductListBill> {
                                 const VerticalDivider(),
                                 Text(
                                   "Bill: ${orderlist.billnumber}",
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 ),
                                 const VerticalDivider(),
                                 Text(formattedDate),

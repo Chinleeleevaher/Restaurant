@@ -9,6 +9,7 @@
 # packages, and plugins designed to encourage good coding practices.
 analyzer:
   errors:
+    file_names: ignore
     sort_child_properties_last: ignore
 include: package:flutter_lints/flutter.yaml
 

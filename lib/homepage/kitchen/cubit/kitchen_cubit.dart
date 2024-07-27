@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -20,7 +22,7 @@ class KitchenCubit extends Cubit<KitchenState> {
     required this.authenRepository,
     required this.context,
     // required this.kitchenProvide
-  }) : super(KitchenState());
+  }) : super(const KitchenState());
 ///.........this function is for protect if the internet is slow.  ກັນ error.............
   bool mounted = true;
   @override
@@ -41,6 +43,7 @@ class KitchenCubit extends Cubit<KitchenState> {
         emit(state.coppywith(status_c: statuslist.error));
       }
     }, (data) {
+      // ignore: unnecessary_brace_in_string_interps
       log('data loading===${data}');
       if (mounted) {
         emit(state.coppywith(status_c: statuslist.success, listOrder_c: data));

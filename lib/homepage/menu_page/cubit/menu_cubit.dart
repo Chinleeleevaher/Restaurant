@@ -1,25 +1,18 @@
+// ignore_for_file: prefer_is_empty
+
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-import 'dart:math';
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/config/app_rount.dart';
-import 'package:myproject/config/navigation.dart';
 import 'package:myproject/constant/api_path.dart';
 import 'package:myproject/homepage/menu_page/menuProvider.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/orderproductModel.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
-import 'package:myproject/homepage/order/model/orderproductmodel.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
-import 'package:myproject/homepage/table_page/model/table.dart';
-import 'package:myproject/login/cubit/login_state.dart';
 import 'package:http/http.dart' as http;
 import 'package:myproject/repository/authen_sipository.dart';
 
@@ -57,7 +50,7 @@ class MenuCubit extends Cubit<MenuState> {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final productTypes = producttypeFromJson(jsonEncode(jsonData['data']));
-      print('print $jsonData');
+
       emit(state.coppywith(
           status_c: menuliststatuse.sucess,
           listproductype_c: state.listproductype! +
@@ -96,8 +89,7 @@ class MenuCubit extends Cubit<MenuState> {
                 product)); // <-- send value of product to listproduct_c
       }
     } else {
-      print("not success");
-      print(response.reasonPhrase);
+    
     }
   }
 

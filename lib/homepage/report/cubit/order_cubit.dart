@@ -1,20 +1,17 @@
-import 'dart:core';
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:core';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/report/component/printDailog.dart';
 import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
-import 'package:myproject/homepage/table_change/cubit/chang_table_cubit.dart';
 import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
-import 'package:provider/provider.dart';
-import '../../order/provider.dart';
 import '../component/dailogbill.dart';
 import '../orderModel/reportmodel.dart';
 part 'order_state.dart';
@@ -31,7 +28,7 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     required this.reportProvider,
     required this.userprovider,
     required this.context,
-  }) : super(OrderReportState());
+  }) : super(const OrderReportState());
 
   typeOrderReport(int orderTap) {
     emit(state.coppywith(orderType_c: orderTap));
@@ -56,7 +53,7 @@ class OrderReportCubit extends Cubit<OrderReportState> {
   //-----of date time picker-------------
   DateTime from_pickdate = DateTime.now().subtract(const Duration(
       days: 7)); // <--here is to set the default date to from 5 days ago
-  // ignore: non_constant_identifier_names
+  
   DateTime To_pickdate = DateTime.now();
 
 
@@ -88,7 +85,6 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     var resault = await authenRepository.SelectordertoReport(
         or_id: reportProvider.getorderlistReport.orId);
     resault!.fold((Left) {
-      print("No data it is error");
     }, (data) {
       emit(state.coppywith(status: orderlistreportstatus.success));
       reportProvider.selectOrderdetailreport(
@@ -102,7 +98,6 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     emit(state.coppywith(status: orderlistreportstatus.loading));
     var result = await authenRepository.getproductmakeReport();
     result!.fold((l) {
-      print("No data It is error");
     }, (r) {
       reportProvider.TogetgetprodutReport(r);
       selectorderdetail_makeReport();
@@ -116,7 +111,6 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     var result = await authenRepository.getorderdetailmakeReport(
         fromdate: from_pickdate, todate: To_pickdate);
     result!.fold((l) {
-      print("No data It is error");
     }, (r) {
       reportProvider.TogetorderdetailReport(r);
       emit(state.coppywith(status: orderlistreportstatus.success));
@@ -174,13 +168,10 @@ class OrderReportCubit extends Cubit<OrderReportState> {
   // Output totals
 
   totalsByMonth.forEach((month, total) {
-    print("Month: $month, Total Income: $total");
     data2.add(total);
   }
   
   );
-   var _datall = data2;
-    print(_datall.toString());
 }
 
 ///......of user report...............
@@ -190,7 +181,6 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     var result = await authenRepository.getUser();
     result!.fold(
       (f) {
-      print("error");
       },
       (data){
        userprovider.TogetgetUser(data);

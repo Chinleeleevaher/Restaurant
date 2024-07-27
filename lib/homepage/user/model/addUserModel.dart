@@ -2,6 +2,8 @@
 //
 //     final addUserModel = addUserModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<AddUserModel> addUserModelFromJson(String str) => List<AddUserModel>.from(json.decode(str).map((x) => AddUserModel.fromJson(x)));

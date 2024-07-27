@@ -1,4 +1,5 @@
-import 'package:badges/badges.dart';
+// ignore_for_file: camel_case_types
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +11,7 @@ import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
 import 'package:myproject/homepage/kitchen/kitchen.dart';
 import 'package:myproject/homepage/location/location.dart';
 import 'package:myproject/homepage/menu_page/menuProvider.dart';
-import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/order/provider.dart';
-import 'package:myproject/homepage/report/cubit/order_cubit.dart';
-import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/cubit/tabletype_cubit.dart';
 import 'package:myproject/homepage/table_page/table_page.dart';
@@ -23,9 +21,7 @@ import 'package:provider/provider.dart';
 import '../../generated/locale_keys.g.dart';
 import '../../repository/authen_sipository.dart';
 import '../menu_page/cubit/menu_cubit.dart';
-import '../menu_page/menu.dart';
 import '../nabar_page.dart';
-import 'package:badges/badges.dart' as badges;
 
 class Dashboard_page extends StatefulWidget {
   const Dashboard_page({super.key});
@@ -43,16 +39,16 @@ class _Dashboard_pageState extends State<Dashboard_page> {
     // if (userProvider.user != null) {
     //   status = userProvider.user!.status;
     // }
+
     return BlocConsumer<DashboardCubit, DashboardState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Consumer<UserProvider>(builder: (context, userProvider, widget) {
           var status = '';
           if (userProvider.user != null) {
             status = userProvider.user!.status;
           }
+
           return Scaffold(
               drawer: Nabar(
                 onChanged: (value) {
@@ -62,17 +58,24 @@ class _Dashboard_pageState extends State<Dashboard_page> {
               ),
               appBar: AppBar(
                 title: currentPageIndex == 0
-                    ? Text(LocaleKeys.Dashboard.tr())// Dashboard
-                    : Text(' Naban Restauran'),
+                    ? Text(LocaleKeys.Dashboard.tr()) // Dashboard
+                    : const Text(' Naban Restauran'),
               ),
               body: Builder(builder: (context) {
+                if (state.status == dashBoardstatus.loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.red,
+                    ),
+                  );
+                }
                 //........ກໍານົດສິດໃຫ້ພະນັກງານເຮືອນຄົວ................
                 if (status == "Chefs" && currentPageIndex == 0) {
                   return BlocProvider(
                     create: (context) => KitchenCubit(
                         authenRepository: context.read<AuthenRepository>(),
                         context: context),
-                    child: Center(child: Kitchen()),
+                    child: const Center(child: Kitchen()),
                   );
                 }
                 //........ກໍານົດສິດໃຫ້ພະນັກງານເສີບ................
@@ -83,7 +86,7 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                         tableprovider: context.read<tableProvider>())
                       ..getTabletypes()
                       ..getTables(), // <--here is becuse in the table page is use cubit therefore i have use blocProvider that i can access the table page
-                    child: Table_page(),
+                    child: const Table_page(),
                   );
                 }
                 //........ກໍານົດສິດໃຫ້ພະນັກງານເສີບ................
@@ -97,7 +100,7 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                       tablePros: context.read<tableProvider>(),
                       context: context,
                     ),
-                    child: Center(child: Homepage()),
+                    child: const Center(child: Homepage()),
                   );
                 }
                 //........ກໍານົດສິດໃຫ້ພະນັກງານເສີບ................
@@ -114,7 +117,7 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                       tablePros: context.read<tableProvider>(),
                       context: context,
                     ),
-                    child: Center(child: Homepage()),
+                    child: const Center(child: Homepage()),
                   );
                 }
                 //........ຂອງ Admin................
@@ -126,7 +129,7 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                         tableprovider: context.read<tableProvider>())
                       ..getTabletypes()
                       ..getTables(), // <--here is becuse in the table page is use cubit therefore i have use blocProvider that i can access the table page
-                    child: Table_page(),
+                    child: const Table_page(),
                   );
                 }
 
@@ -136,22 +139,23 @@ class _Dashboard_pageState extends State<Dashboard_page> {
 
                 return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
+                    child: SizedBox(
                       height: MediaQuery.of(context).size.height * 1,
                       width: MediaQuery.of(context).size.width * 2,
                       child: ListView(
-                        children:  [
+                        children: [
                           Padding(
-                            padding: EdgeInsets.all(15.0),
-                            child: Text(LocaleKeys.DailySell.tr()),//..daily sell
+                            padding: const EdgeInsets.all(15.0),
+                            child:
+                                Text(LocaleKeys.DailySell.tr()), //..daily sell
                           ),
-                          Dashboard(),
+                          const Dashboard(),
                           Padding(
-                            padding: EdgeInsets.all(15.0),
-                            child: Text("Meal"),
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(LocaleKeys.Meal.tr()),
                           ),
-                          MealContainner_page(),
-                          SizedBox(
+                          const MealContainner_page(),
+                          const SizedBox(
                             height: 10,
                           )
                         ],
@@ -165,7 +169,7 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                       : NavigationBarTheme(
                           data: NavigationBarThemeData(
                             indicatorColor: Colors.red,
-                            labelTextStyle: MaterialStateProperty.all(
+                            labelTextStyle: WidgetStateProperty.all(
                               const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -187,8 +191,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                                 destinations: status == "Waiter"
                                     ? [
                                         NavigationDestination(
-                                          icon: Icon(Icons.table_bar),
-                                          selectedIcon: Icon(
+                                          icon: const Icon(Icons.table_bar),
+                                          selectedIcon: const Icon(
                                             Icons.table_bar,
                                             color: Colors.white,
                                           ),
@@ -196,8 +200,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                                               .tr(), //-------it is text here of " Order "----------
                                         ),
                                         NavigationDestination(
-                                          icon: Icon(Icons.book),
-                                          selectedIcon: Icon(
+                                          icon: const Icon(Icons.book),
+                                          selectedIcon: const Icon(
                                             Icons.book,
                                             color: Colors.white,
                                           ),
@@ -205,8 +209,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                                               .tr(), //-------it is text here of " Manage "----------
                                         ),
                                         NavigationDestination(
-                                          icon: Icon(Icons.location_on),
-                                          selectedIcon: Icon(
+                                          icon: const Icon(Icons.location_on),
+                                          selectedIcon: const Icon(
                                             Icons.location_on,
                                             color: Colors.white,
                                           ),
@@ -218,8 +222,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                                     //.......nabr ຂອງ admin................
                                     [
                                         NavigationDestination(
-                                          icon: Icon(Icons.home),
-                                          selectedIcon: Icon(
+                                          icon: const Icon(Icons.home),
+                                          selectedIcon: const Icon(
                                             Icons.home,
                                             color: Colors.white,
                                           ),
@@ -227,8 +231,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                                               .tr(), //-------it is text here of " home "----------
                                         ),
                                         NavigationDestination(
-                                          icon: Icon(Icons.table_bar),
-                                          selectedIcon: Icon(
+                                          icon: const Icon(Icons.table_bar),
+                                          selectedIcon: const Icon(
                                             Icons.table_bar,
                                             color: Colors.white,
                                           ),
@@ -236,8 +240,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                                               .tr(), //-------it is text here of " Order "----------
                                         ),
                                         NavigationDestination(
-                                          icon: Icon(Icons.book),
-                                          selectedIcon: Icon(
+                                          icon: const Icon(Icons.book),
+                                          selectedIcon: const Icon(
                                             Icons.book,
                                             color: Colors.white,
                                           ),
@@ -245,8 +249,8 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                                               .tr(), //-------it is text here of " Manage "----------
                                         ),
                                         NavigationDestination(
-                                          icon: Icon(Icons.location_on),
-                                          selectedIcon: Icon(
+                                          icon: const Icon(Icons.location_on),
+                                          selectedIcon: const Icon(
                                             Icons.location_on,
                                             color: Colors.white,
                                           ),

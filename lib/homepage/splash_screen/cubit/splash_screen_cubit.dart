@@ -8,15 +8,12 @@ import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:myproject/constant/api_path.dart';
-import 'package:myproject/homepage/Dashboard/dashboard.dart';
 import 'package:myproject/login/home_provider/provider.dart';
 import 'package:myproject/model/loginmodel.dart';
 
-import '../../Dashboard/dashboard.dart';
-import '../../Dashboard/dashboard.dart';
-import '../../Dashboard/dashboard.dart';
 part 'splash_screen_state.dart';
 
+// ignore: prefer_const_declarations
 final storage = const FlutterSecureStorage();
 
 class SplashScreenCubit extends Cubit<SplashScreenState> {
@@ -58,7 +55,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
           
           }
         } else {
-          print(response.reasonPhrase);
+        //  print(response.reasonPhrase);
         }
       } catch (e) {
         log('Error $e');

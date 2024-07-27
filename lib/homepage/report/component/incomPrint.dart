@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, use_build_context_synchronously, deprecated_member_use
+
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -7,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
-import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -21,7 +22,7 @@ Future IncomePrint(BuildContext context) {
       return Dialog(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.8,
             child: Column(
@@ -78,7 +79,7 @@ Future IncomePrint(BuildContext context) {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Date: " + DateTime.now().toString()),
+                      Text("Date: ${DateTime.now()}"),
                     ],
                   ),
                 ),
@@ -90,7 +91,7 @@ Future IncomePrint(BuildContext context) {
                     children: <Widget>[
                       Text(
                         "ລາຍຮັບປະຈໍາອາທິດ : ",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -114,7 +115,7 @@ Future IncomePrint(BuildContext context) {
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 const Padding(
@@ -124,7 +125,7 @@ Future IncomePrint(BuildContext context) {
                     children: <Widget>[
                       Text(
                         "ລາຍຮັບປະຈໍາເດືອນ : ",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -148,7 +149,7 @@ Future IncomePrint(BuildContext context) {
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 const Padding(
@@ -158,7 +159,7 @@ Future IncomePrint(BuildContext context) {
                     children: <Widget>[
                       Text(
                         "ລາຍຮັບປະຈໍາປີ : ",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -182,7 +183,7 @@ Future IncomePrint(BuildContext context) {
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 const Divider(),
@@ -315,5 +316,5 @@ Future<void> exportIncome(BuildContext context) async {
 
   await file.writeAsBytes(await pdf.save());
 
-  print("PDF file created at: ${file.path}");
+  //print("PDF file created at: ${file.path}");
 }

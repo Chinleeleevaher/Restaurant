@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
@@ -18,7 +20,7 @@ class AddproductCubit extends Cubit<AddproductState> {
   AddproductCubit({
     required this.authenRepositorys,
     required this.productmodel,
-  }) : super(AddproductState());
+  }) : super(const AddproductState());
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final ProdcutId = TextEditingController();
@@ -78,15 +80,16 @@ class AddproductCubit extends Cubit<AddproductState> {
           log('errro 101');
         },
         (data) {
-          log('success ' + data.profileUrl.toString());
-          print('data: $data');
+          log('success ${data.profileUrl}');
+          //print('data: $data');
           imagename = data.profileUrl; // <---here is ເຂົ້າຫາ list in the model
         },
       );
       return imagename;
     } catch (e) {
-      print("Error: $e");
+     // print("Error: $e");
     }
+    return null;
   }
 
 //------of add product------------
@@ -112,7 +115,7 @@ class AddproductCubit extends Cubit<AddproductState> {
       },
       (data) async {
         //   log('success ' + data.length.toString());
-        print('data: $data');
+     //   print('data: $data');
         Fluttertoast.showToast(
             msg: "Upload sucessful", gravity: ToastGravity.CENTER);
         // make clear data
@@ -134,9 +137,7 @@ class AddproductCubit extends Cubit<AddproductState> {
     emit(state.coppywith(status_c: producttypestatuse.loading));
     String? imagname =
         await uploadImage(); // <--is from above and to send the image
-    if (imagname == null) {
-      imagname = state.imagenetword!;
-    }
+    imagname ??= state.imagenetword!;
     var result = await authenRepositorys.updatepro(
       Pro_id: ProdcutId.text,
       Pro_name: ProductName.text,
@@ -153,7 +154,7 @@ class AddproductCubit extends Cubit<AddproductState> {
       },
       (data) async {
         //   log('success ' + data.length.toString());
-        print('data: $data');
+        //print('data: $data');
         Fluttertoast.showToast(
             msg: "update sucessful", gravity: ToastGravity.CENTER);
         //----make clear data------

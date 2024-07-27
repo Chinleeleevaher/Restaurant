@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use, file_names
+
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -19,7 +21,7 @@ Future printdailog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.8,
           child: Column(

@@ -2,6 +2,8 @@
 //
 //     final incomeYearModel = incomeYearModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<IncomeYearModel> incomeYearModelFromJson(String str) => List<IncomeYearModel>.from(json.decode(str).map((x) => IncomeYearModel.fromJson(x)));

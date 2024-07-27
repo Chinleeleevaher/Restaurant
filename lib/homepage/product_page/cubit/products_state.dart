@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 part of 'products_cubit.dart';
 
 enum productliststatuse { initial, loading, success, error }
@@ -43,14 +45,14 @@ class ProductsState extends Equatable {
       ProductModel? typeSelectproductItem_c,
       String? product_id_c}) {
     return ProductsState(
-      listproducttype: listtabltype_c ?? this.listproducttype,
-      listunit: listunit_c ?? this.listunit,
-      listproduct: listtable_c ?? this.listproduct,
-      typeSelect: typeSelect_c ?? this.typeSelect,
-      typeSelectunit: typeSelectunit_c ?? this.typeSelectunit,
+      listproducttype: listtabltype_c ?? listproducttype,
+      listunit: listunit_c ?? listunit,
+      listproduct: listtable_c ?? listproduct,
+      typeSelect: typeSelect_c ?? typeSelect,
+      typeSelectunit: typeSelectunit_c ?? typeSelectunit,
       typeSelectproductItem:
-          typeSelectproductItem_c ?? this.typeSelectproductItem,
-      status: status_c ?? this.status,
+          typeSelectproductItem_c ?? typeSelectproductItem,
+      status: status_c ?? status,
       // changecolor: changecolor_c ?? this.changecolor,
     );
   }

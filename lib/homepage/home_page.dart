@@ -1,18 +1,13 @@
-import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/manage_page.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
-import 'package:myproject/homepage/nabar_page.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_change/change_table_page.dart';
-import 'package:myproject/homepage/table_page/table_page.dart';
 import 'package:myproject/login/home_provider/provider.dart';
 
 class Homepage extends StatefulWidget {
@@ -40,7 +35,7 @@ class _HomepageState extends State<Homepage>
 
   @override
   Widget build(BuildContext context) {
-    var orderproviders = context.read<orderprovider>();
+    context.read<orderprovider>();
     var userProvider = context.read<UserProvider>();
     var status = '';
     if (userProvider.user != null) {
@@ -49,7 +44,7 @@ class _HomepageState extends State<Homepage>
 
     return Scaffold(
       body: Container(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 255, 255, 255),
         child: ListView(
           children: [
             Expanded(
@@ -67,7 +62,7 @@ class _HomepageState extends State<Homepage>
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return Menu();
+                                return const Menu();
                               }));
                             },
                             child: GestureDetector(
@@ -83,7 +78,7 @@ class _HomepageState extends State<Homepage>
                                     boxShadow: [
                                       BoxShadow(
                                           offset: const Offset(0, 5),
-                                          color: Color.fromARGB(77, 11, 11, 11)
+                                          color: const Color.fromARGB(77, 11, 11, 11)
                                               .withOpacity(0.1),
                                           // color: Theme.of(context)
                                           //     .primaryColor
@@ -93,10 +88,10 @@ class _HomepageState extends State<Homepage>
                                     ]),
                                 child: Column(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.menu,
                                       size: 50,
                                       color: Colors.blue,
@@ -116,7 +111,7 @@ class _HomepageState extends State<Homepage>
                             onTap: () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
-                                return ChangeTable();
+                                return const ChangeTable();
                               }));
                             },
                             child: GestureDetector(
@@ -131,17 +126,17 @@ class _HomepageState extends State<Homepage>
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: const [
                                       BoxShadow(
-                                          offset: const Offset(0, 5),
+                                          offset: Offset(0, 5),
                                           color: Color.fromARGB(77, 11, 11, 11),
                                           spreadRadius: 2,
                                           blurRadius: 5)
                                     ]),
                                 child: Column(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.move_down,
                                       size: 50,
                                       color: Colors.blue,
@@ -161,7 +156,7 @@ class _HomepageState extends State<Homepage>
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return Manage_page();
+                                return const Manage_page();
                               }));
                             },
                             child: Container(
@@ -170,19 +165,19 @@ class _HomepageState extends State<Homepage>
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
-                                        offset: const Offset(0, 5),
+                                        offset: Offset(0, 5),
                                         color: Color.fromARGB(77, 11, 11, 11),
                                         spreadRadius: 2,
                                         blurRadius: 5)
                                   ]),
                               child: Column(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.manage_search,
                                     size: 50,
                                     color: Colors.blue,
@@ -214,19 +209,19 @@ class _HomepageState extends State<Homepage>
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
-                                        offset: const Offset(0, 5),
+                                        offset: Offset(0, 5),
                                         color: Color.fromARGB(77, 11, 11, 11),
                                         spreadRadius: 2,
                                         blurRadius: 5)
                                   ]),
                               child: Column(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.list,
                                     size: 50,
                                     color: Colors.blue,
@@ -249,9 +244,9 @@ class _HomepageState extends State<Homepage>
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
-                                        offset: const Offset(0, 5),
+                                        offset: Offset(0, 5),
                                         color: Color.fromARGB(77, 11, 11, 11),
                                         spreadRadius: 2,
                                         blurRadius: 5)
@@ -271,7 +266,7 @@ class _HomepageState extends State<Homepage>
                                       color: Colors.red,
                                     ),
                                   ),
-                                  Text("user") //<--- text of user-------
+                                Text(LocaleKeys.user.tr()) //<--- text of user-------
                                 ],
                               ),
                             ),
@@ -290,24 +285,24 @@ class _HomepageState extends State<Homepage>
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
-                                        offset: const Offset(0, 5),
+                                        offset: Offset(0, 5),
                                         color: Color.fromARGB(77, 11, 11, 11),
                                         spreadRadius: 2,
                                         blurRadius: 5)
                                   ]),
                               child: Column(
                                 children: [
-                                  SizedBox(
+                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.kitchen,
                                     size: 50,
                                     color: Colors.green,
                                   ),
-                                  Text("kitchen") //<--- text of kitchen-------
+                                  Text(LocaleKeys.kitchen.tr()) //<--- text of kitchen-------
                                 ],
                               ),
                             ),

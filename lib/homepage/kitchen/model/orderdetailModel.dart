@@ -2,6 +2,8 @@
 //
 //     final orderDetailModel = orderDetailModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<OrderDetailModel> orderDetailModelFromJson(String str) => List<OrderDetailModel>.from(json.decode(str).map((x) => OrderDetailModel.fromJson(x)));

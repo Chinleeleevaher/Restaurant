@@ -2,6 +2,8 @@
 //
 //     final incomeModel = incomeModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<IncomeModel> incomeModelFromJson(String str) => List<IncomeModel>.from(json.decode(str).map((x) => IncomeModel.fromJson(x)));

@@ -1,20 +1,12 @@
-import 'dart:developer';
+
+// ignore_for_file: camel_case_types, non_constant_identifier_names, unrelated_type_equality_checks
 
 import 'package:flutter/cupertino.dart';
-import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/order/model/orderproductmodel.dart';
-import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
 import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
-import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
-import 'package:myproject/homepage/table_page/model/orderlistmodel.dart';
-import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 
-import '../report/orderModel/reportmodel.dart';
-import '../report/orderModel/selecorderdetailreportModel.dart';
-import '../table_page/model/orderlistmodel.dart';
-import '../table_page/model/orderlistmodel.dart';
 
 class orderprovider extends ChangeNotifier {
   bool _isprocessing = true;
@@ -47,10 +39,8 @@ void collectOrderQty(int value) {
   _orderqty = value;
 
   if (getorderlist.isNotEmpty) {
-    bool found = false;
     for (int j = 0; j < getorderlist.length; j++) {
       if (orId == getorderlist[j].productId) {
-        found = true;
         // Update quantity in the order list
         getorderlist[j].qty = _orderqty;
 
@@ -58,8 +48,7 @@ void collectOrderQty(int value) {
         _orderqty = 0;
 
         // Print the updated quantity and reset _orderqty
-        print(getorderlist[j].qty);
-        print(_orderqty);
+      
 
         // Exit the loop since we found the item
         break;
@@ -115,7 +104,7 @@ void collectOrderQty(int value) {
   }
 
 // ------to get order list-----------
-  List<OrderproductModel> _getorderlist = [];
+  final List<OrderproductModel> _getorderlist = [];
   List<OrderproductModel> get getorderlist => _getorderlist;
 
   setOrderlist(OrderproductModel value) {
@@ -199,13 +188,13 @@ void collectOrderQty(int value) {
   //-----get back tableorderlist from Api when i finsh insert table and status. this purpos is to send to the orderlist for insert again--------------
   Ordertable? _Ordertable;
   Ordertable? get getOrdertables => _Ordertable;
-  int _order = 0;
+  final int _order = 0;
   int get order => _order;
   orderlisttable(Ordertable value) {
     if (getOrdertables != 0) {
       _Ordertable = value;
     }
-    print(getOrdertables);
+    
     notifyListeners();
   }
 

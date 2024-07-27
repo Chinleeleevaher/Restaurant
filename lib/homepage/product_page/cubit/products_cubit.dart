@@ -1,16 +1,14 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
-import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
-import '../../../provider/ProductProvider.dart';
 import '../../menu_page/model/product_model.dart';
 
 part 'products_state.dart';
@@ -79,7 +77,7 @@ class ProductsCubit extends Cubit<ProductsState> {
           log('errro');
         },
         (datas) async {
-          log('success ' + datas.length.toString());
+          log('success ${datas.length}');
           emit(state.coppywith(
               listtable_c: datas, status_c: productliststatuse.success));
         },
@@ -91,9 +89,9 @@ class ProductsCubit extends Cubit<ProductsState> {
   }
 
   //----of delete product------
-  Future<void> deletepro(int pro_id) async {
+  Future<void> deletepro(int proId) async {
     emit(state.coppywith(status_c: productliststatuse.loading));
-    var result = await authenRepositorys.deletepro(pro_id: pro_id);
+    var result = await authenRepositorys.deletepro(pro_id: proId);
     result!.fold((Left) {
       log("erro $Left");
     }, (Right) {

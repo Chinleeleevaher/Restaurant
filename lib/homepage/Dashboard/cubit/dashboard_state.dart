@@ -1,9 +1,11 @@
+// ignore_for_file: camel_case_types
+
 part of 'dashboard_cubit.dart';
 
 
 enum dashBoardstatus { initail, loading, success, error }
  class DashboardState extends Equatable {
-  DashboardState({
+  const DashboardState({
     this.status = dashBoardstatus.initail,
   });
   final dashBoardstatus status;

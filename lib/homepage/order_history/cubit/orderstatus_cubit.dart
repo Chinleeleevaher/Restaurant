@@ -1,7 +1,8 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/component/my_progress.dart';
@@ -22,7 +23,7 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
       required this.tableproviders,
       required this.context,
       required this.orderproviders})
-      : super(OrderstatusState());
+      : super(const OrderstatusState());
 //------of select order data to show to the order status page it is of order detail-------------
   Future<void> seletorderdata() async {
     emit(state.coppywith(status: selectorderdata.loading));
@@ -56,5 +57,6 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
         emit(state.coppywith(status: selectorderdata.success));
     });
      Navigator.pop(context);
+     return null;
   }
 }

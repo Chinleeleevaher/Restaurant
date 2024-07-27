@@ -1,10 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/homepage/orderproduct/cubit/order_product_cubit.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
-import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:provider/provider.dart';
 
 Future listdailog(BuildContext context) {
@@ -59,11 +57,11 @@ Future listdailog(BuildContext context) {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Date: " + formattedDate),
+                        Text("Date: $formattedDate"),
                       ],
                     ),
                   ),
@@ -123,9 +121,7 @@ Future listdailog(BuildContext context) {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text("ລາຄາທັງໝົດ : " +
-                              provider.listTotalPrice.toString() +
-                              "  ກີບ")
+                          Text("ລາຄາທັງໝົດ : ${provider.listTotalPrice}  ກີບ")
                         ],
                       )),
                   const Divider(),

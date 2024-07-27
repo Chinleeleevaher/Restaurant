@@ -1,10 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/homepage/orderproduct/cubit/order_product_cubit.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
-import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:provider/provider.dart';
 
 Future orderPrintDailog(BuildContext context) {
@@ -65,7 +64,7 @@ Future orderPrintDailog(BuildContext context) {
                 ),
               ),
              Padding(
-                padding: EdgeInsets.only(left: 8),
+                padding: const EdgeInsets.only(left: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -132,7 +131,7 @@ Future orderPrintDailog(BuildContext context) {
                 child: Row(
                   mainAxisAlignment:  MainAxisAlignment.spaceAround,
                   children: [
-                   Text("ລາຄາທັງໝົດ : " + provider.totalprice.toString() + "  ກີບ")
+                   Text("ລາຄາທັງໝົດ : ${provider.totalprice}  ກີບ")
                   ],
                 )
               
@@ -151,7 +150,7 @@ Future orderPrintDailog(BuildContext context) {
                   },
                 ),
                      ElevatedButton(
-                  child:  Text('print'),
+                  child:  const Text('print'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

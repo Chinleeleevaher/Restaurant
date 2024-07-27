@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 
 Future test(BuildContext context) {
@@ -11,21 +11,21 @@ Future test(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.8,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Order Detail',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -35,21 +35,20 @@ Future test(BuildContext context) {
                       size: 50,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: EdgeInsets.only(left: 20),
                       child: Text("Naban Restautrant"),
                     ),
                     Text(""),
                   ],
                 ),
               ),
-              Divider(),
+              const Divider(),
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Order Id:  " +
-                        (reportProvider.getorderlistReport.orId.toString())),
+                    Text("Order Id:  ${reportProvider.getorderlistReport.orId}"),
                   ],
                 ),
               ),
@@ -58,14 +57,13 @@ Future test(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Date: " +
-                        reportProvider.getorderlistReport.orDate.toString()),
+                    Text("Date: ${reportProvider.getorderlistReport.orDate}"),
                   ],
                 ),
               ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.only(right: 8, left: 8),
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.only(right: 8, left: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -75,7 +73,7 @@ Future test(BuildContext context) {
                   ],
                 ),
               ),
-              Divider(),
+              const Divider(),
               Expanded(
                 child: ListView(
                   children: List.generate(
@@ -88,11 +86,9 @@ Future test(BuildContext context) {
                           subtitle: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(reportProvider
-                                      .selectOrderDetailReport![index].amount
-                                      .toString() +
-                                  " Kip"),
-                              SizedBox(
+                              Text("${reportProvider
+                                      .selectOrderDetailReport![index].amount} Kip"),
+                              const SizedBox(
                                 width: 40,
                               ),
                               Text(reportProvider
@@ -102,10 +98,8 @@ Future test(BuildContext context) {
                           ),
                           trailing: Padding(
                             padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: Text(reportProvider
-                                    .selectOrderDetailReport![index].amount
-                                    .toString() +
-                                " Kip"),
+                            child: Text("${reportProvider
+                                    .selectOrderDetailReport![index].amount} Kip"),
                           ),
                           onTap: () {
                             // do something when the tile is tapped
@@ -121,32 +115,31 @@ Future test(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(""),
-                    Text(
+                    const Text(""),
+                    const Text(
                       "Total:",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Text(reportProvider.getorderlistReport.orAmount.toString() +
-                        " Kip"),
+                    Text("${reportProvider.getorderlistReport.orAmount} Kip"),
                   ],
                 ),
               ),
-              Divider(),
-              Text("thank you! Visit again"),
+              const Divider(),
+              const Text("thank you! Visit again"),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment:  MainAxisAlignment.spaceAround,
                   children: [
                       ElevatedButton(
-                  child: Text('wait'),
+                  child: const Text('wait'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                      ElevatedButton(
-                  child: Text('print'),
+                  child: const Text('print'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

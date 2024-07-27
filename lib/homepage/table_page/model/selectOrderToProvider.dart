@@ -2,6 +2,8 @@
 //
 //     final selectOrderToProviderMode = selectOrderToProviderModeFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 SelectOrderToProviderMode selectOrderToProviderModeFromJson(String str) => SelectOrderToProviderMode.fromJson(json.decode(str));

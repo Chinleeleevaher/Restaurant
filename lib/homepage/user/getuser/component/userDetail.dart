@@ -1,8 +1,9 @@
+// ignore_for_file: non_constant_identifier_names, file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
-import 'package:myproject/homepage/user/addUser/cubit/user_cubit.dart';
 import 'package:myproject/homepage/user/getuser/cubit/get_user_cubit.dart';
 import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
 
@@ -15,7 +16,7 @@ Future UserDetail(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.8,
           child: Column(
@@ -24,7 +25,7 @@ Future UserDetail(BuildContext context) {
               Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.close,
                     color: Colors.red,
                   ),
@@ -58,7 +59,7 @@ Future UserDetail(BuildContext context) {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Divider(),
+                      const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -67,7 +68,7 @@ Future UserDetail(BuildContext context) {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "Name :       ",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -79,7 +80,7 @@ Future UserDetail(BuildContext context) {
                                   TextSpan(
                                     text: provide.getUserDetail!.username
                                         .toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors
                                           .blue, // Set the color for the name value
                                     ),
@@ -90,7 +91,7 @@ Future UserDetail(BuildContext context) {
                           ),
                         ],
                       ),
-                      Divider(),
+                      const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -99,7 +100,7 @@ Future UserDetail(BuildContext context) {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "Gender :       ",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -110,7 +111,7 @@ Future UserDetail(BuildContext context) {
                                   TextSpan(
                                     text: provide.getUserDetail!.gender
                                         .toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors
                                           .blue, // Set the color for the gender value
                                     ),
@@ -121,7 +122,7 @@ Future UserDetail(BuildContext context) {
                           ),
                         ],
                       ),
-                      Divider(),
+                      const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -130,7 +131,7 @@ Future UserDetail(BuildContext context) {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "Email :        ",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -142,7 +143,7 @@ Future UserDetail(BuildContext context) {
                                   TextSpan(
                                     text:
                                         provide.getUserDetail!.email.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors
                                           .blue, // Set the color for the email value
                                     ),
@@ -153,7 +154,7 @@ Future UserDetail(BuildContext context) {
                           ),
                         ],
                       ),
-                      Divider(),
+                      const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -162,7 +163,7 @@ Future UserDetail(BuildContext context) {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "Phone :        ",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -173,7 +174,7 @@ Future UserDetail(BuildContext context) {
                                   TextSpan(
                                     text:
                                         provide.getUserDetail!.phone.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors
                                           .blue, // Set the color for the phone number
                                     ),
@@ -184,7 +185,7 @@ Future UserDetail(BuildContext context) {
                           ),
                         ],
                       ),
-                      Divider(),
+                      const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -193,7 +194,7 @@ Future UserDetail(BuildContext context) {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "Address :     ",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -205,7 +206,7 @@ Future UserDetail(BuildContext context) {
                                   TextSpan(
                                     text: provide.getUserDetail!.address
                                         .toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors
                                           .blue, // Set the color for the address value
                                     ),
@@ -216,7 +217,7 @@ Future UserDetail(BuildContext context) {
                           ),
                         ],
                       ),
-                      Divider(),
+                      const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -225,7 +226,7 @@ Future UserDetail(BuildContext context) {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "Status :        ",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -237,7 +238,7 @@ Future UserDetail(BuildContext context) {
                                   TextSpan(
                                     text: provide.getUserDetail!.status
                                         .toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors
                                           .green, // Set the color for the status value
                                     ),
@@ -258,20 +259,20 @@ Future UserDetail(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
-                        child: Text('Delete',style: TextStyle(color: Colors.red),),
+                        child: const Text('Delete',style: TextStyle(color: Colors.red),),
                         onPressed: () {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Confirmation'),
-                                content: Text('ຕ້ອງການລົບແທ້ບໍ່?'),
+                                title: const Text('Confirmation'),
+                                content: const Text('ຕ້ອງການລົບແທ້ບໍ່?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text('ບໍ່'),
+                                    child: const Text('ບໍ່'),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -280,7 +281,7 @@ Future UserDetail(BuildContext context) {
                                       getCubit.getuser();
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text('ແມ່ນ'),
+                                    child: const Text('ແມ່ນ'),
                                   ),
                                 ],
                               );
@@ -289,7 +290,7 @@ Future UserDetail(BuildContext context) {
                         },
                       ),
                       ElevatedButton(
-                        child: Text('Edit'),
+                        child: const Text('Edit'),
                         onPressed: () {
                           navService.pushNamed(AppRount.updateUser);
                          

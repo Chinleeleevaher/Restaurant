@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -27,7 +29,6 @@ import 'package:myproject/homepage/table_page/model/selectOrderToProvider.dart';
 import 'package:myproject/homepage/table_page/model/table.dart';
 import 'package:myproject/homepage/table_page/model/table_status.dart';
 import 'package:myproject/homepage/table_page/model/tabletype.dart';
-import 'package:myproject/homepage/user/model/addUserModel.dart';
 import 'package:myproject/homepage/user/model/getUserMoldel.dart';
 import 'package:myproject/service/authen_service.dart';
 

@@ -2,6 +2,8 @@
 //
 //     final selectOrderByTableModel = selectOrderByTableModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 List<SelectOrderByTableModel> selectOrderByTableModelFromJson(String str) =>
     List<SelectOrderByTableModel>.from(

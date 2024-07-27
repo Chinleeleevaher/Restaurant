@@ -1,8 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 part of 'order_product_cubit.dart';
 
 enum OrderProductStatus { initial, loading, success, error }
  class OrderProductState extends Equatable {
-   OrderProductState({
+   const OrderProductState({
     this.status = OrderProductStatus.initial,
     this.addqty
   });
@@ -24,8 +26,8 @@ final int? addqty;
       }){
 return OrderProductState(
     
-      status: status_c ?? this.status,
-      addqty: addqty_c ?? this.addqty,
+      status: status_c ?? status,
+      addqty: addqty_c ?? addqty,
 
     );
       }

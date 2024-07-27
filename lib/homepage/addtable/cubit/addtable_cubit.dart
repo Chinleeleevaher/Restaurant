@@ -2,9 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myproject/homepage/addtable/model/tableModel.dart';
 import 'package:myproject/homepage/addtable/provider.dart';
-import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
 part 'addtable_state.dart';
@@ -17,7 +15,7 @@ class AddtableCubit extends Cubit<AddtableState> {
     required this.authenRepositorys,
     required this.tableproviders,
 
-  }) : super(AddtableState());
+  }) : super(const AddtableState());
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   final tableName = TextEditingController();

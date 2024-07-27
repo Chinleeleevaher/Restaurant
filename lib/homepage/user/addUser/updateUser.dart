@@ -1,4 +1,6 @@
 // ignore: file_names
+// ignore_for_file: file_names, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -38,11 +40,11 @@ class _UpdateUserState extends State<UpdateUser> {
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        // TODO: implement listener
+    
       },
       builder: (context, state) {
         var cubits = context.read<UserCubit>();
-        var provide = context.read<getUserProvider>();
+        context.read<getUserProvider>();
         return Scaffold(
           appBar: AppBar(
             title: const Text(

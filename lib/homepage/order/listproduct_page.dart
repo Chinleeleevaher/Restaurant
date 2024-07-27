@@ -1,5 +1,6 @@
+// ignore_for_file: camel_case_types
+
 import 'package:badges/badges.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +8,6 @@ import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/order/cubit/lisproduct_cubit.dart';
 import 'package:myproject/homepage/order/provider.dart';
-import 'package:myproject/homepage/order_list/orderlist_page.dart';
 import 'package:provider/provider.dart';
 
 class ListProduct_page extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
   Widget build(BuildContext context) {
     return BlocConsumer<LisproductCubit, LisproductState>(
       listener: (context, state) {
-        // TODO: implement listener
+      
       },
       builder: (context, state) {
         //  var provides = context.read<orderprovider>();
@@ -36,17 +36,15 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                     .clearorderlist(); // to make clear the product list
                 Navigator.pop(context);
               },
-              child: Container(
-                child: Icon(Icons.arrow_back),
-              ),
+              child: const Icon(Icons.arrow_back),
             ),
             actions: [
               GestureDetector(
                   onTap: () {
                     cubit.getproduct();
                   }, // here is to make reflesh
-                  child: Icon(Icons.refresh_outlined)),
-              SizedBox(
+                  child: const Icon(Icons.refresh_outlined)),
+              const SizedBox(
                 width: 20,
               ),
               Consumer<orderprovider>(
@@ -65,7 +63,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                   badgeContent: Text(
                     orderstate.getbageqty.toString(),
                     // cubit.state.coppywith(orderproduct_c:),
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                   child: IconButton(
                     icon: const Icon(
@@ -78,7 +76,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                 );
               }),
             ],
-            title: Text('Naban Restaurant'),
+            title: const Text('Naban Restaurant'),
           ),
           body: ListView(
             children: [
@@ -92,12 +90,12 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       hintText: 'Search',
-                      suffixIcon: Icon(Icons.search),
+                      suffixIcon: const Icon(Icons.search),
                     ),
                   ),
                 ),
               ),
-              Row(
+              const Row(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 20.0),
@@ -110,7 +108,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -120,20 +118,20 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                     width: MediaQuery.of(context).size.width * 1,
                     // width: 400,
                     // height: 50,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 251, 249, 249),
                     ),
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: cubit.state.listproductype!.length,
                         itemBuilder: (c, i) {
                           var list = state.listproductype;
-                          Color _textcolor = Colors.red;
-                          Color _containercolor = Colors.white;
+                          Color textcolor = Colors.red;
+                          Color containercolor = Colors.white;
                           if (state.listproductype![i] == state.typeSelect) {
-                            _containercolor = Colors.red;
-                            _textcolor = Colors.white;
+                            containercolor = Colors.red;
+                            textcolor = Colors.white;
                           }
                           return Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -148,22 +146,22 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        offset: Offset(0, 5),
-                                        color: Color.fromARGB(77, 219, 216, 216)
+                                        offset: const Offset(0, 5),
+                                        color: const Color.fromARGB(77, 219, 216, 216)
                                             .withOpacity(1),
                                         spreadRadius: 2,
                                         blurRadius: 5,
                                       )
                                     ],
                                     borderRadius: BorderRadius.circular(20),
-                                    color: _containercolor),
+                                    color: containercolor),
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Text(
                                     list![i].protypeName,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      color: _textcolor,
+                                      color: textcolor,
                                       fontSize:
                                           MediaQuery.of(context).size.width *
                                               0.04,
@@ -177,7 +175,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -185,7 +183,7 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                   child: GridView.count(
                       crossAxisCount: 3,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: List.generate(cubit.state.listproduct!.length,
                           (index) {
                         var listproduct = state.listproduct;
@@ -195,14 +193,14 @@ class _ListProduct_pageState extends State<ListProduct_page> {
                           },
                           child: Container(
                             margin:
-                                EdgeInsets.only(bottom: 8, right: 5, left: 5),
+                                const EdgeInsets.only(bottom: 8, right: 5, left: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
-                                  offset: Offset(0, 5),
-                                  color: Color.fromARGB(77, 219, 216, 216)
+                                  offset: const Offset(0, 5),
+                                  color: const Color.fromARGB(77, 219, 216, 216)
                                       .withOpacity(1),
                                   spreadRadius: 2,
                                   blurRadius: 5,

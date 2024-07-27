@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 part of 'category_cubit.dart';
 
 enum Categorytatuse { initial, loading, success, error }
@@ -10,6 +12,6 @@ class CategoryState extends Equatable {
   @override
   List<Object?> get props => [status];
   CategoryState coppywith({Categorytatuse? status_c}) {
-    return CategoryState(status: status_c ?? this.status);
+    return CategoryState(status: status_c ?? status);
   }
 }

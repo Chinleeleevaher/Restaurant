@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore, empty_catches, avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -54,6 +56,7 @@ class AuthenService {
     } catch (e) {
       throw Exception('$e');
     }
+    return null;
   }
 
 // -----of table-------------
@@ -77,7 +80,7 @@ class AuthenService {
           return product;
         }
       } else {
-        print(response.reasonPhrase);
+      //  print(response.reasonPhrase);
       }
     } catch (e) {
       throw Exception('$e');
@@ -103,6 +106,7 @@ class AuthenService {
     } catch (e) {
       throw Exception('$e');
     }
+    return null;
   }
 
   //------add product type--------
@@ -123,8 +127,9 @@ class AuthenService {
         return protype;
       }
     } else {
-      print(response.reasonPhrase);
+     // print(response.reasonPhrase);
     }
+    return null;
   }
 
   //-----of delete product type-----------
@@ -145,8 +150,9 @@ class AuthenService {
         return false;
       }
     } else {
-      print(response.reasonPhrase);
+     // print(response.reasonPhrase);
     }
+    return null;
   }
 
   //-------< update Product type --------------
@@ -176,11 +182,12 @@ class AuthenService {
           return false;
         }
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
-      print("error $e");
+      //print("error $e");
     }
+    return null;
   }
 
 // -----of get Unit-----
@@ -200,6 +207,7 @@ class AuthenService {
     } catch (e) {
       throw Exception('$e');
     }
+    return null;
   }
 
   //------add Unit--------
@@ -219,8 +227,9 @@ class AuthenService {
         return protype;
       }
     } else {
-      print(response.reasonPhrase);
+      //print(response.reasonPhrase);
     }
+    return null;
   }
 
   //-----of delete Unit-----------
@@ -240,8 +249,9 @@ class AuthenService {
         return false;
       }
     } else {
-      print(response.reasonPhrase);
+      //print(response.reasonPhrase);
     }
+    return null;
   }
 
 //-------< update Unit --------------
@@ -271,11 +281,12 @@ class AuthenService {
           return false;
         }
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
-      print("error $e");
+     // print("error $e");
     }
+    return null;
   }
 
   //------add table--------
@@ -316,7 +327,7 @@ class AuthenService {
           return data;
         }
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
       throw Exception('$e');
@@ -367,8 +378,9 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-      print("error $e");
+      //print("error $e");
     }
+    return null;
   }
 
   // -----of product-------------
@@ -389,7 +401,7 @@ class AuthenService {
           return product;
         }
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
       throw Exception('$e');
@@ -414,9 +426,10 @@ class AuthenService {
         final product = imageFromJson(jsonEncode(body));
         return product;
       } else {
-        print(response.reasonPhrase);
+      //  print(response.reasonPhrase);
       }
     } else {}
+    return null;
   }
   //---------of add data of product--------------
 
@@ -454,8 +467,9 @@ class AuthenService {
         return false;
       }
     } else {
-      print(response.reasonPhrase);
+     // print(response.reasonPhrase);
     }
+    return null;
   }
   //-------<update method>--------------
 
@@ -495,11 +509,12 @@ class AuthenService {
           return false;
         }
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
-      print("error $e");
+     // print("error $e");
     }
+    return null;
   }
 
   //-----of delete product-----------
@@ -520,8 +535,9 @@ class AuthenService {
         return false;
       }
     } else {
-      print(response.reasonPhrase);
+     // print(response.reasonPhrase);
     }
+    return null;
   }
 
   //-----of order product-----------
@@ -559,11 +575,12 @@ class AuthenService {
           Exception('data is null');
         }
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
-      print("server Error: " + e.toString());
+     // print("server Error: " + e.toString());
     }
+    return null;
   }
 
   //----to post order detail------
@@ -594,8 +611,9 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-      print(e.toString());
+     // print(e.toString());
     }
+    return null;
   }
 
   //---of update table status-----
@@ -619,11 +637,12 @@ class AuthenService {
           Exception('data is null');
         }
       } else {
-        print(response.reasonPhrase);
+      //  print(response.reasonPhrase);
       }
     } catch (e) {
-      print(e.toString());
+     // print(e.toString());
     }
+    return null;
   }
 
   //-----to select the data of product that we have already order--------------------
@@ -652,6 +671,7 @@ class AuthenService {
     } catch (e) {
       log(e.toString());
     }
+    return null;
   }
 
 //----------------of cut stoke in tbproduct----------------------------
@@ -668,8 +688,9 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-      log("Error coneection " + e.toString());
+     // log("Error coneection " + e.toString());
     }
+    return null;
   }
 
   //-------update tborder-------------------
@@ -719,8 +740,9 @@ class AuthenService {
         Exception('data is null');
       }
     } else {
-      print(response.reasonPhrase);
+      //print(response.reasonPhrase);
     }
+    return null;
   }
 
   //---to update menu list of move table-----------------------
@@ -795,7 +817,7 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-      print(e.toString());
+     // print(e.toString());
     }
     return null;
   }
@@ -817,8 +839,9 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-      print(e.toString());
+     // print(e.toString());
     }
+    return null;
   }
 
   //----update table_id---------------
@@ -855,8 +878,8 @@ class AuthenService {
   Future<List<SelectOrderReportModel>?> getOrderReport(
       {required DateTime Fromdate, required DateTime Todate}) async {
     String from_pickdate =
-        DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00";
-    String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
+        "${DateFormat('yyyy-MM-dd ').format(Fromdate)}00:00:00";
+    String To_pickdate = "${DateFormat('yyyy-MM-dd ').format(Todate)}23:59:59";
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse(ApiPaths.getOrdrereports));
     request.body =
@@ -875,8 +898,9 @@ class AuthenService {
         Exception('data is null');
       }
     } else {
-      print(response.reasonPhrase);
+      //print(response.reasonPhrase);
     }
+    return null;
   }
 
   //-----to select the data of product that we want to select the order detail to report--------------------
@@ -897,11 +921,12 @@ class AuthenService {
             selectOrderReportModelsFromJson(jsonEncode(body["data"]));
         return seletOrderDetail;
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
       log(e.toString());
     }
+    return null;
   }
 
 //----get product low quantity to  make report-----------
@@ -912,10 +937,11 @@ class AuthenService {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+    //  print(await response.stream.bytesToString());
     } else {
-      print(response.reasonPhrase);
+    //  print(response.reasonPhrase);
     }
+    return null;
   }
 
   //----get product low quantity to  make report-----------
@@ -932,7 +958,7 @@ class AuthenService {
             peoductlowquantityFromJson(jsonEncode(body["products"]));
         return lowquantity;
       } else {
-        print(response.reasonPhrase);
+      //  print(response.reasonPhrase);
       }
     }
     return null;
@@ -957,8 +983,9 @@ class AuthenService {
           Exception('data is null');
         }
       } else {
-        print(response.reasonPhrase);
+      //  print(response.reasonPhrase);
       }
+    // ignore: empty_catches
     } catch (e) {}
     return null;
   }
@@ -966,9 +993,8 @@ class AuthenService {
   //----get orderdetail spacail for make loop for product report: i need sell qty, all qty......-----------
   Future<List<GetOrderDetailModel>?> getorderdetail_makeReport(
       {required DateTime Fromdate, required DateTime Todate}) async {
-    String from_pickdate = DateFormat('yyyy-MM-dd ').format(Fromdate) +
-        "00:00:00"; // <----for the 00:00:00 is to set the hours be for save to the databaes
-    String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
+    String from_pickdate = "${DateFormat('yyyy-MM-dd ').format(Fromdate)}00:00:00"; // <----for the 00:00:00 is to set the hours be for save to the databaes
+    String To_pickdate = "${DateFormat('yyyy-MM-dd ').format(Todate)}23:59:59";
     try {
       var headers = {'Content-Type': 'application/json'};
       var request =
@@ -986,18 +1012,19 @@ class AuthenService {
               getOrderDetailModelFromJson(jsonEncode(body["data"]));
           return selectproduct;
         } else {
-          print(response.reasonPhrase);
+        //  print(response.reasonPhrase);
         }
       }
     } catch (e) {}
+    return null;
   }
 
   //----get income to  make report-----------
   Future<List<IncomeModel>?> selectIncome(
       {required DateTime Fromdate, required DateTime Todate}) async {
     String from_pickdate =
-        DateFormat('yyyy-MM-dd ').format(Fromdate) + "00:00:00";
-    String To_pickdate = DateFormat('yyyy-MM-dd ').format(Todate) + "23:59:59";
+        "${DateFormat('yyyy-MM-dd ').format(Fromdate)}00:00:00";
+    String To_pickdate = "${DateFormat('yyyy-MM-dd ').format(Todate)}23:59:59";
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse(ApiPaths.income));
     request.body =
@@ -1015,7 +1042,7 @@ class AuthenService {
         Exception('data is null');
       }
     } else {
-      print(response.reasonPhrase);
+     // print(response.reasonPhrase);
     }
     return null;
   }
@@ -1039,8 +1066,9 @@ class AuthenService {
         Exception('data is null');
       }
     } else {
-      print(response.reasonPhrase);
+    //  print(response.reasonPhrase);
     }
+    return null;
   }
   // ..........get order by order status for kitchen.............
 
@@ -1059,11 +1087,12 @@ class AuthenService {
         final selectOrder = orderStatusModelFromJson(jsonEncode(body["data"]));
         return selectOrder;
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
-      print(e.toString());
+     // print(e.toString());
     }
+    return null;
   }
 
   // ..........get order detail by order_id for kitchen.............
@@ -1084,11 +1113,12 @@ class AuthenService {
         final selectOrder = orderDetailModelFromJson(jsonEncode(body["data"]));
         return selectOrder;
       } else {
-        print(response.reasonPhrase);
+       // print(response.reasonPhrase);
       }
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 
   // ..........get update order status and table status for kitchen.............
@@ -1145,6 +1175,7 @@ class AuthenService {
         print(response.reasonPhrase);
       }
     } catch (e) {}
+    return null;
   }
 
   // ..........post order Product and make return.............
@@ -1190,6 +1221,7 @@ class AuthenService {
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 
   ///............update order product status..............
@@ -1227,6 +1259,7 @@ class AuthenService {
     } else {
       print(response.reasonPhrase);
     }
+    return null;
   }
 
   //----order product list Bill  id---------------
@@ -1249,6 +1282,7 @@ class AuthenService {
     } else {
       print(response.reasonPhrase);
     }
+    return null;
   }
 
   ///................to select order product to make import...............
@@ -1298,6 +1332,7 @@ class AuthenService {
     } else {
       print(response.reasonPhrase);
     }
+    return null;
   }
 
 //----get user ----------
@@ -1316,6 +1351,7 @@ class AuthenService {
         print(response.reasonPhrase);
       }
     } catch (e) {}
+    return null;
   }
 
   ///................insert user and return data of user...............
@@ -1376,6 +1412,7 @@ class AuthenService {
         print(response.reasonPhrase);
       }
     } else {}
+    return null;
   }
 
   //----- delete User-----------
@@ -1392,6 +1429,7 @@ class AuthenService {
     } else {
       print(response.reasonPhrase);
     }
+    return null;
   }
 
   //----- update User-----------
@@ -1448,7 +1486,8 @@ class AuthenService {
         print("erer");
       }
     } else {
-      print("error 11111 ");
+     // print("error 11111 ");
     }
+    return null;
   }
 }

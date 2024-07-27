@@ -1,10 +1,10 @@
+// ignore_for_file: camel_case_types
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
-import 'package:myproject/homepage/addtable/addtable.dart';
-import 'package:myproject/homepage/addtable/addtable.dart';
-import 'package:myproject/homepage/nabar_page.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 
 class Manage_page extends StatefulWidget {
   const Manage_page({super.key});
@@ -33,10 +33,10 @@ class _Manage_pageState extends State<Manage_page>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manage '),
+        title:  Text(LocaleKeys.manage.tr()),// ...manage
       ),
       body: Container(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 255, 255, 255),
         child: ListView(
           children: [
             Padding(
@@ -59,7 +59,7 @@ class _Manage_pageState extends State<Manage_page>
                                 boxShadow: [
                                   BoxShadow(
                                       offset: const Offset(0, 5),
-                                      color: Color.fromARGB(77, 11, 11, 11)
+                                      color: const Color.fromARGB(77, 11, 11, 11)
                                           .withOpacity(0.1),
                                       // color: Theme.of(context)
                                       //     .primaryColor
@@ -67,17 +67,17 @@ class _Manage_pageState extends State<Manage_page>
                                       spreadRadius: 2,
                                       blurRadius: 5)
                                 ]),
-                            child: const Column(
+                            child:  Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.shop,
                                   size: 50,
                                   color: Colors.green,
                                 ),
-                                Text("Product")
+                                Text(LocaleKeys.product.tr())
                               ],
                             ),
                           ),
@@ -97,22 +97,22 @@ class _Manage_pageState extends State<Manage_page>
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: const [
                                   BoxShadow(
-                                      offset: const Offset(0, 5),
+                                      offset: Offset(0, 5),
                                       color: Color.fromARGB(77, 11, 11, 11),
                                       spreadRadius: 2,
                                       blurRadius: 5)
                                 ]),
-                            child: const Column(
+                            child:  Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.category,
                                   size: 50,
                                   color: Colors.blue,
                                 ),
-                                Text("category")
+                                Text(LocaleKeys.category.tr())
                               ],
                             ),
                           ),
@@ -130,22 +130,22 @@ class _Manage_pageState extends State<Manage_page>
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: const [
                                   BoxShadow(
-                                      offset: const Offset(0, 5),
+                                      offset: Offset(0, 5),
                                       color: Color.fromARGB(77, 11, 11, 11),
                                       spreadRadius: 2,
                                       blurRadius: 5)
                                 ]),
-                            child: const Column(
+                            child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.ac_unit,
                                   size: 50,
                                   color: Colors.blue,
                                 ),
-                                Text("Unit")
+                                Text(LocaleKeys.unit.tr())
                               ],
                             ),
                           ),
@@ -170,22 +170,22 @@ class _Manage_pageState extends State<Manage_page>
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: const [
                                   BoxShadow(
-                                      offset: const Offset(0, 5),
+                                      offset: Offset(0, 5),
                                       color: Color.fromARGB(77, 11, 11, 11),
                                       spreadRadius: 2,
                                       blurRadius: 5)
                                 ]),
-                            child: const Column(
+                            child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.add,
                                   size: 50,
                                   color: Colors.blue,
                                 ),
-                                Text("Order Product")
+                                Text(LocaleKeys.orderpro.tr())// order product
                               ],
                             ),
                           ),
@@ -201,7 +201,7 @@ class _Manage_pageState extends State<Manage_page>
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
                                 BoxShadow(
-                                    offset: const Offset(0, 5),
+                                    offset: Offset(0, 5),
                                     color: Color.fromARGB(77, 11, 11, 11),
                                     spreadRadius: 2,
                                     blurRadius: 5)
@@ -221,7 +221,7 @@ class _Manage_pageState extends State<Manage_page>
                                   color: Colors.green,
                                 ),
                               ),
-                              Text("import Product")
+                              Text(LocaleKeys.improtpro.tr())// improt product
                             ],
                           ),
                         ),
@@ -240,22 +240,22 @@ class _Manage_pageState extends State<Manage_page>
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: const [
                                   BoxShadow(
-                                      offset: const Offset(0, 5),
+                                      offset: Offset(0, 5),
                                       color: Color.fromARGB(77, 11, 11, 11),
                                       spreadRadius: 2,
                                       blurRadius: 5)
                                 ]),
-                            child: const Column(
+                            child:  Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.table_bar,
                                   size: 50,
                                   color: Colors.red,
                                 ),
-                                Text("Add Table")
+                                Text(LocaleKeys.addtable.tr())/// add table
                               ],
                             ),
                           ),

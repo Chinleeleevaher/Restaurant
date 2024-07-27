@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,12 +25,13 @@ class _AddUserState extends State<AddUser> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
+      // ignore: non_constant_identifier_names
       final ImageTemporary = File(image.path);
 
       setState(() => this.image = ImageTemporary);
       cubit.onTypeSelectimage(ImageTemporary);
-    } on PlatformException catch (e) {
-      print(e);
+    } on PlatformException {
+     // print(e);
     }
   }
 
@@ -36,11 +39,11 @@ class _AddUserState extends State<AddUser> {
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        // TODO: implement listener
+       
       },
       builder: (context, state) {
         var cubits = context.read<UserCubit>();
-        var provide = context.read<getUserProvider>();
+        context.read<getUserProvider>();
         return Scaffold(
           appBar: AppBar(
             title: const Text(
@@ -285,7 +288,7 @@ class _AddUserState extends State<AddUser> {
                 cubits.addUser();
               }
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
             backgroundColor: Colors.green,
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

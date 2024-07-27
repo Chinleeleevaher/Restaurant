@@ -16,7 +16,7 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<ProductsCubit, ProductsState>(
       listener: (context, state) {
-        // TODO: implement listener
+       
       },
       builder: (context, state) {
         var cubit = context.read<ProductsCubit>();
@@ -75,7 +75,7 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: cubit.state.listproducttype!
                             .length, //cubit.state.listproductype!.length,
                         itemBuilder: (c, i) {
@@ -100,8 +100,8 @@ class _ProductPageState extends State<ProductPage> {
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        offset: Offset(0, 5),
-                                        color: Color.fromARGB(77, 219, 216, 216)
+                                        offset: const Offset(0, 5),
+                                        color: const Color.fromARGB(77, 219, 216, 216)
                                             .withOpacity(1),
                                         spreadRadius: 2,
                                         blurRadius: 5,
@@ -110,7 +110,7 @@ class _ProductPageState extends State<ProductPage> {
                                     borderRadius: BorderRadius.circular(20),
                                     color: containercolor0),
                                 child: Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Text(
                                     list![i].protypeName.toString(),
                                     // list![i].protypeName,
@@ -167,8 +167,8 @@ class _ProductPageState extends State<ProductPage> {
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        offset: Offset(0, 5),
-                                        color: Color.fromARGB(77, 219, 216, 216)
+                                        offset: const Offset(0, 5),
+                                        color: const Color.fromARGB(77, 219, 216, 216)
                                             .withOpacity(1),
                                         spreadRadius: 2,
                                         blurRadius: 5,
@@ -177,7 +177,7 @@ class _ProductPageState extends State<ProductPage> {
                                     borderRadius: BorderRadius.circular(20),
                                     color: containercolor),
                                 child: Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Text(
                                     listunit![i].unitName.toString(),
                                     // list![i].protypeName,
@@ -210,7 +210,7 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 400,
                   width: 400,
                   child: SingleChildScrollView(
@@ -223,7 +223,7 @@ class _ProductPageState extends State<ProductPage> {
                             return Container(
                               height: 50,
                               width: double.infinity,
-                              margin: EdgeInsets.only(top: 3, bottom: 3),
+                              margin: const EdgeInsets.only(top: 3, bottom: 3),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
@@ -254,7 +254,7 @@ class _ProductPageState extends State<ProductPage> {
                                     child: Text(prolist[i].price.toString()),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(right: 10),
+                                    padding: const EdgeInsets.only(right: 10),
                                     child: GestureDetector(
                                         onTap: () {
                                           cubit.onTypeSelectproduct(prolist[i]);

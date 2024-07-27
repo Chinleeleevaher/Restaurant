@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
@@ -7,7 +9,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
 import 'package:myproject/constant/api_path.dart';
-import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/login/home_provider/provider.dart';
 import 'package:myproject/model/loginmodel.dart';
@@ -20,7 +21,7 @@ class CubitCubit extends Cubit<CubitState> {
   CubitCubit({
     required this.context,
     required this.homeProvider,
-  }) : super(CubitState());
+  }) : super(const CubitState());
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final UserNameControllerr = TextEditingController();
@@ -87,7 +88,7 @@ class CubitCubit extends Cubit<CubitState> {
           navService.pushReplacementNamed(AppRount.dashboard);
         }
       } else {
-        print(response.reasonPhrase);
+      
       }
     } catch (e) {
       log('Error $e');

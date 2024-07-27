@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 part of 'chang_table_cubit.dart';
 
 enum tableliststatuse { initial, loading, success, error }
@@ -36,12 +38,12 @@ class ChangTableState extends Equatable {
       SelectOrderByTableModel? totable_c,
       }) {
     return ChangTableState(
-      listtabletype: listtabltype_c ?? this.listtabletype,
-      listtable: listtable_c ?? this.listtable,
-      typeSelect: typeSelect_c ?? this.typeSelect,
-      status: status_c ?? this.status,
-      fromtable: fromtable_c ?? this.fromtable,
-      totable: totable_c ?? this.totable,
+      listtabletype: listtabltype_c ?? listtabletype,
+      listtable: listtable_c ?? listtable,
+      typeSelect: typeSelect_c ?? typeSelect,
+      status: status_c ?? status,
+      fromtable: fromtable_c ?? fromtable,
+      totable: totable_c ?? totable,
     );
   }
 }

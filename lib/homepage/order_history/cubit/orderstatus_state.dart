@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 part of 'orderstatus_cubit.dart';
 
 enum selectorderdata { initial, loading, success, error }

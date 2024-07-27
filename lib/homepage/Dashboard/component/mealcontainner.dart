@@ -1,5 +1,8 @@
+// ignore_for_file: camel_case_types
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myproject/generated/locale_keys.g.dart';
 import 'package:myproject/homepage/report/providerReport.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +15,7 @@ class MealContainner_page extends StatelessWidget {
     //var provide = context.read<ReportProvider>();
     return Consumer<ReportProvider>(builder: (context, provide, widget) {
         return Padding(
-          padding: EdgeInsets.only(top: 8),
+          padding: const EdgeInsets.only(top: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -21,7 +24,7 @@ class MealContainner_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.pink,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(50),
                       topLeft: Radius.circular(5),
                       bottomLeft: Radius.circular(5),
@@ -29,7 +32,7 @@ class MealContainner_page extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                         offset: const Offset(0, 5),
-                        color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                        color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                         spreadRadius: 2,
                         blurRadius: 5),
                   ],
@@ -42,23 +45,23 @@ class MealContainner_page extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "weekly sales",
-                          style: TextStyle(
+                          LocaleKeys.weeklysales.tr(),//...week sale
+                          style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Total Order : " + provide.weekQty.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          "${LocaleKeys.totaleOrder.tr()}: ${ provide.weekQty.toString()}",// qty week sale
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Price : " + provide.weekAmount.toString() + "kip",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                         "${LocaleKeys.price.tr()}: ${provide.weekAmount} kip",//..price of month
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                       Center(
@@ -68,7 +71,7 @@ class MealContainner_page extends StatelessWidget {
                           animationDuration: 1200,
                           lineWidth: 5.0,
                           percent:  0.7, // Ensure percent is between 0.0 and 1.0
-                          center: Text(
+                          center: const Text(
                             '70 %', // Display percentage with one decimal place
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -90,7 +93,7 @@ class MealContainner_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.blue,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(50),
                       topLeft: Radius.circular(5),
                       bottomLeft: Radius.circular(5),
@@ -98,7 +101,7 @@ class MealContainner_page extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                         offset: const Offset(0, 5),
-                        color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                        color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                         spreadRadius: 2,
                         blurRadius: 5),
                   ],
@@ -111,23 +114,23 @@ class MealContainner_page extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Month",
-                          style: TextStyle(
+                          LocaleKeys.month.tr(),//..month
+                          style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Total Order :" + provide.monthQty.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          LocaleKeys.totaleOrder.tr()+ provide.monthQty.toString(),//..month quty
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Price :" + provide.monthAmount.toString() + "Kip",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          "${LocaleKeys.price.tr()}: ${provide.monthAmount}Kip",//...of total price
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                       Center(
@@ -137,9 +140,9 @@ class MealContainner_page extends StatelessWidget {
                           animationDuration: 1200,
                           lineWidth: 5.0,
                           percent: 0.5,
-                          center: new Text(
+                          center: const Text(
                             "50 %",
-                            style: new TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12.0,
                                 color: Colors.white),
@@ -158,7 +161,7 @@ class MealContainner_page extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.green,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(50),
                       topLeft: Radius.circular(5),
                       bottomLeft: Radius.circular(5),
@@ -166,7 +169,7 @@ class MealContainner_page extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                         offset: const Offset(0, 5),
-                        color: Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                        color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                         spreadRadius: 2,
                         blurRadius: 5),
                   ],
@@ -176,26 +179,26 @@ class MealContainner_page extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
+                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Year",
-                          style: TextStyle(
+                          LocaleKeys.year.tr(),//...of year
+                          style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Total Order : " + provide.yearqty.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          "${LocaleKeys.totaleOrder.tr()} : ${provide.yearqty}",// total order
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "Price : " + provide.yearAmount.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          "${LocaleKeys.price.tr()} : ${provide.yearAmount}",// total price
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                       Center(
@@ -205,9 +208,9 @@ class MealContainner_page extends StatelessWidget {
                           animationDuration: 1200,
                           lineWidth: 5.0,
                           percent: 0.7,
-                          center: new Text(
+                          center: const Text(
                             "70 %",
-                            style: new TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12.0,
                                 color: Colors.white),

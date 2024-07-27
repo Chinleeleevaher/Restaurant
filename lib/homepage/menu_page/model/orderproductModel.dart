@@ -2,6 +2,8 @@
 //
 //     final product = productFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 List<OrderproductModelMenu> orderproductFromJson(String str) =>

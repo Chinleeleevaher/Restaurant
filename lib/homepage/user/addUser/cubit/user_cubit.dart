@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -7,10 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/homepage/user/getuser/getuserprovider.dart';
-import 'package:myproject/homepage/user/model/getUserDetailModel.dart';
-import 'package:myproject/login/home_provider/provider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
-import 'package:provider/provider.dart';
 
 part 'user_state.dart';
 
@@ -24,7 +23,7 @@ class UserCubit extends Cubit<UserState> {
      required this.context,
     required this.userprovider,
  
-  }) : super(UserState());
+  }) : super(const UserState());
 GlobalKey<FormState> formKey = GlobalKey<FormState>();
 final TextEditingController username = TextEditingController();
 final TextEditingController password = TextEditingController();
@@ -65,14 +64,13 @@ final TextEditingController status = TextEditingController();
           log('errro 101');
         },
         (data) {
-          log('success ' + data.profileUrl.toString());
-          print('data: $data');
+          log('success ${data.profileUrl}');
           imagename = data.profileUrl; // <---here is ເຂົ້າຫາ list in the model
         },
       );
       return imagename;
     } catch (e) {
-      print("Error: $e");
+    //  print("Error: $e");
     }
     return null;
   }
@@ -123,9 +121,7 @@ final TextEditingController status = TextEditingController();
     MyProgress().loadingProgress(context: context);
     emit(state.coppywith(status_c: addUserStatus.loading));
     String? imagname = await uploadImageUser(); // <--is from above
-    if (imagname == null) {
-      imagname = state.updateImage;
-    }
+    imagname ??= state.updateImage;
     var result = await authenRepository.updateUser( 
         uID: userprovider.getUserDetail!.uid,
         username: username.text, 

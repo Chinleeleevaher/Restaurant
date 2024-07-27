@@ -74,6 +74,25 @@
     "notEnoughMoney":"No enough money",
     "CheckBill":"Check Bill",
     "Dashboard":"Dashboard",
-    "DailySell":"Daily Sell"
+    "DailySell":"Daily Sell",
+    "Order":"order",
+    "totalprice":"Price",
+    "hours":"hours",
+    "bottleleft":"left",
+    "Meal":"Meal",
+    "weeklysales":"weekly sales",
+    "totaleOrder":"order ",
+    "price":"price",
+    "month":"Month",
+    "year":"Year",
+    "user":"user",
+    "kitchen":"kitchen",
+    "category":"category",
+    "unit":"unit",
+    "orderpro":"Order product",
+    "improtpro":"improt product",
+    "addtable":"add table"
+
+   
 
 }

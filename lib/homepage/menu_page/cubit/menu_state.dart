@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 part of 'menu_cubit.dart';
 
 enum menuliststatuse { initial, loading, sucess, error }
@@ -24,10 +26,10 @@ class MenuState extends Equatable {
     Producttype? typeSelect_c,
   }) {
     return MenuState(
-      listproductype: listproductype_c ?? this.listproductype,
-      listproduct: listproduct_c ?? this.listproduct,
-      status: status_c ?? this.status,
-      typeSelect: typeSelect_c ?? this.typeSelect,
+      listproductype: listproductype_c ?? listproductype,
+      listproduct: listproduct_c ?? listproduct,
+      status: status_c ?? status,
+      typeSelect: typeSelect_c ?? typeSelect,
     );
   }
 }

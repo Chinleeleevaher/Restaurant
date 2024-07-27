@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
-import 'package:myproject/homepage/orderproduct/model/orpBill_idModel.dart';
 
 class ImpProduct extends ChangeNotifier {
   bool _isprocessing = true;

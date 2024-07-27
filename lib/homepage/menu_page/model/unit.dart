@@ -2,6 +2,8 @@
 //
 //     final unit = unitFromJson(jsonString);
 
+// ignore_for_file: camel_case_types
+
 import 'dart:convert';
 
 List<punit> unitFromJson(String str) =>

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myproject/homepage/Dashboard/cubit/dashboard_cubit.dart';
@@ -20,12 +22,12 @@ import 'package:myproject/homepage/import_Product/importProduct.dart';
 import 'package:myproject/homepage/import_Product/provider/provider.dart';
 import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
 import 'package:myproject/homepage/kitchen/kitchen.dart';
+import 'package:myproject/homepage/manage_page.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
 import 'package:myproject/homepage/menu_page/menuProvider.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/orderlistmenu.dart';
-import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
 import 'package:myproject/homepage/order/cubit/lisproduct_cubit.dart';
 import 'package:myproject/homepage/order/listproduct_page.dart';
 import 'package:myproject/homepage/order/provider.dart';
@@ -86,6 +88,7 @@ class AppRount {
   static const String orderstatusWaiting = '/orderstatusWaiting';
   static const String checkbill = '/checkbill';
   static const String report = '/report';
+  static const String manage = '/manage';
   static const String kitchen = '/kitchen';
   static const String getuser = '/getuser';
   static const String adduser = '/adduser';
@@ -112,14 +115,14 @@ class AppRount {
               context: context,
               homeProvider: context.read<UserProvider>(),
             ),
-            child: Login_page(),
+            child: const Login_page(),
           ),
         );
       case signinpage:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => SignInCubit(),
-            child: SignIn_Page(),
+            child: const SignIn_Page(),
           ),
         );
       case menupage:
@@ -136,12 +139,12 @@ class AppRount {
               ..getproduct()
               ..menutable(), // <---here is mean to access to two fucntion in the cubit
 
-            child: Menu(),
+            child: const Menu(),
           ),
         );
       case homepage:
         return MaterialPageRoute(
-          builder: (context) => Homepage(),
+          builder: (context) => const Homepage(),
         );
       case dashboard:
         return MaterialPageRoute(
@@ -149,7 +152,8 @@ class AppRount {
             create: (context) => DashboardCubit(
                 authenRepository: context.read<AuthenRepository>(),
                 reportProvider: context.read<ReportProvider>())
-              ..selectWeekIncome()..lowquantityProduct()
+              ..selectWeekIncome()
+              ..lowquantityProduct()
               ..selectInccomeMoth()
               ..selectInccomeYear(),
             child: const Dashboard_page(),
@@ -175,7 +179,7 @@ class AppRount {
                 tableprovider: context.read<tableProvider>())
               ..getTabletypes()
               ..getTables(),
-            child: ChangeTable(),
+            child: const ChangeTable(),
           ),
         );
       case product:
@@ -187,7 +191,7 @@ class AppRount {
               ..producttypelist()
               ..unitlist()
               ..getproduct(), // <---here is mean to access to two fucntion in the cubit
-            child: ProductPage(),
+            child: const ProductPage(),
           ),
         );
       case orderProduct:
@@ -198,18 +202,19 @@ class AppRount {
                 provider: context.read<OrderProductProvider>(),
                 context: context)
               ..getOrderProdct(),
-            child: order_product(),
+            child: const OrderProduct(),
           ),
         );
-       case opListbill:
+      case opListbill:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => OrderProductCubit(
                 authenRepository: context.read<AuthenRepository>(),
                 provider: context.read<OrderProductProvider>(),
                 context: context)
-              ..getOrderProdct().. orderProductListBill(),
-            child: OrderProductListBill(),
+              ..getOrderProdct()
+              ..orderProductListBill(),
+            child: const OrderProductListBill(),
           ),
         );
       case addproduct:
@@ -222,7 +227,7 @@ class AppRount {
             )..producttypelist(),
             // ..unitlist()
             // ..initialDataForm(), // <---here is mean to access to two fucntion in the cubit
-            child: Addproduct(),
+            child: const Addproduct(),
           ),
         );
       case importProduct:
@@ -230,10 +235,10 @@ class AppRount {
           builder: (context) => BlocProvider(
             create: (context) => ImportProductCubit(
               authenRepository: context.read<AuthenRepository>(),
-              providers: context.read<ImpProduct>(), context: context,
-              
+              providers: context.read<ImpProduct>(),
+              context: context,
             ),
-            child: ImportProduct(),
+            child: const ImportProduct(),
           ),
         );
       case addcategory:
@@ -246,7 +251,7 @@ class AppRount {
                     productTypemodel: null,
                     context: context,
                   )..getproductype(),
-                  child: Category_page(),
+                  child: const Category_page(),
                 ));
       case addunit:
         return MaterialPageRoute(
@@ -258,19 +263,20 @@ class AppRount {
                     //    productTypemodel: null,
                     context: context,
                   )..getUnit(),
-                  child: AddUnit_page(),
+                  child: const AddUnit_page(),
                 ));
-        case addtable:
+      case addtable:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
                   create: (context) => AddtableCubit(
-                    authenRepositorys: context.read<AuthenRepository>(), tableproviders: context.read<tableProviderss>(),
-                 //   Unitprovider: context.read<UnitProvider>(),
+                    authenRepositorys: context.read<AuthenRepository>(),
+                    tableproviders: context.read<tableProviderss>(),
+                    //   Unitprovider: context.read<UnitProvider>(),
                     // productTypemodel: settings as  AddProductypeModel,
                     //    productTypemodel: null,
-                  //  context: context,
+                    //  context: context,
                   )..getTatble(),
-                  child: addtable_page(),
+                  child: const addtable_page(),
                 ));
       case ListProduct:
         return MaterialPageRoute(
@@ -283,7 +289,7 @@ class AppRount {
               ..getproduct()
             //..postorderlist()
             ,
-            child: ListProduct_page(),
+            child: const ListProduct_page(),
           ),
         );
       case orderlist:
@@ -295,7 +301,7 @@ class AppRount {
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
                 tableprovideMenuPage: context.read<tableprovide>()),
-            child: OrderList(),
+            child: const OrderList(),
           ),
         );
       case OrderListMenus:
@@ -307,7 +313,7 @@ class AppRount {
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
                 tableprovideMenuPage: context.read<tableprovide>()),
-            child: OrderListMenu(),
+            child: const OrderListMenu(),
           ),
         );
       case orderstatus:
@@ -316,9 +322,10 @@ class AppRount {
             create: (context) => OrderstatusCubit(
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
-                authenRepository: context.read<AuthenRepository>(), context: context)
+                authenRepository: context.read<AuthenRepository>(),
+                context: context)
               ..seletorderdata(),
-            child: OrderstatusPage(),
+            child: const OrderstatusPage(),
           ),
         );
       case orderstatusWaiting:
@@ -327,9 +334,10 @@ class AppRount {
             create: (context) => OrderstatusCubit(
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
-                authenRepository: context.read<AuthenRepository>(), context: context)
+                authenRepository: context.read<AuthenRepository>(),
+                context: context)
               ..seletorderdata(),
-            child: OrderStatusWaitingPage(),
+            child: const OrderStatusWaitingPage(),
           ),
         );
       case checkbill:
@@ -339,7 +347,7 @@ class AppRount {
                 authenRepository: context.read<AuthenRepository>(),
                 tableproviders: context.read<tableProvider>(),
                 context: context),
-            child: CheckBill_Page(),
+            child: const CheckBill_Page(),
           ),
         );
       case report:
@@ -353,9 +361,12 @@ class AppRount {
                       userprovider: context.read<getUserProvider>())
                     ..getOrderReport()
                     ..getuserReport(),
-                  child: ReportPage(),
+                  child: const ReportPage(),
                 ));
-
+      case manage:
+        return MaterialPageRoute(
+          builder: (context) => const Manage_page(),
+        );
       case kitchen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
@@ -384,7 +395,7 @@ class AppRount {
 
                     // userprovider: context.read<Userpro>(),
                   ),
-                  child: AddUser(),
+                  child: const AddUser(),
                 ));
       case updateUser:
         return MaterialPageRoute(
@@ -396,7 +407,7 @@ class AppRount {
 
                     // userprovider: context.read<Userpro>(),
                   )..userData(),
-                  child: UpdateUser(),
+                  child: const UpdateUser(),
                 ));
       default:
         return MaterialPageRoute(builder: (context) => const DefaulPage());
