@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:myproject/homepage/orderproduct/model/orderProListbillModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orpBill_idModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
 import 'package:myproject/homepage/report/orderModel/reportmodel.dart';
@@ -76,10 +78,14 @@ class OrderProductProvider extends ChangeNotifier {
   }
 
   // collect data of order product
-  List<PostorderProductModel>? _collectproductOrder = [];
+  String? _billNamber;
+  String? get billNamber => _billNamber;
   int listTotalPrice = 0;
+
+  List<PostorderProductModel>? _collectproductOrder = [];
   List<PostorderProductModel>? get collectproductOrder => _collectproductOrder;
   ToCollectprodutOrdert(List<PostorderProductModel> value) async {
+    _billNamber = value[0].billnumber;
     _collectproductOrder = value;
     if (listTotalPrice == 0) {
       for (int i = 0; i < collectproductOrder!.length; i++) {
@@ -93,5 +99,33 @@ class OrderProductProvider extends ChangeNotifier {
     }
   }
 
+/// ...........get order product list bill...................
+
+  List<OrderProductListBillModel>? _productListBill = [];
+  List<OrderProductListBillModel>? get productListBill => _productListBill;
+
+togetproductListBill(List<OrderProductListBillModel> value) async {
+    _productListBill = value;
+
+  notifyListeners();
+  }
+/// ...........get order product list bill...................
+
+  List<OpBillidModel>? _productListBillNumber = [];
+  List<OpBillidModel>? get productListBillNumber => _productListBillNumber;
+
+togetproductBillNumber(List<OpBillidModel> value) async {
+   _productListBillNumber = value;
+   if (listTotalPrice == 0) {
+      for (int i = 0; i < productListBillNumber!.length; i++) {
+        listTotalPrice += productListBillNumber![i].orpPrice;
+      }
+    } else {
+      listTotalPrice = 0;
+      for (int i = 0; i < productListBillNumber!.length; i++) {
+        listTotalPrice += productListBillNumber![i].orpPrice;
+      }
+    }
+  }
   notifyListeners();
 }

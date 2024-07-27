@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//await Future.delayed(const Duration(seconds: 1));
 class MyProgress {
   Future loadingProgress(
       {required BuildContext context, String? title, bool? canPop}) async {

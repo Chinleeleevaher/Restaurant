@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/config/app_rount.dart';
 import 'package:myproject/config/navigation.dart';
@@ -34,6 +35,11 @@ class OrderCubit extends Cubit<OrderState> {
   //-----to update table status--------------
 
   Future<void> updatetablestatus() async {
+     MyProgress().loadingProgress(
+      context: context,
+      title: 'ກໍາລັງສັ່ງຊື້',
+    );
+     await Future.delayed(const Duration(seconds: 1));
     emit(state.coppywith(status_c: orderproductstatuse.loading));
     var result = await authenRepositorys.updatetablestattus(
         tablestatus: 1, table_id: tableproviders.gettablelist.tableId);
@@ -44,7 +50,10 @@ class OrderCubit extends Cubit<OrderState> {
       orderproviders.ordertable(Right);
       //   tableproviders.tablenumber == ""; // ....here is to make clear table name
       postorderlist();
+      Navigator.pop(context);
+     
     });
+     
   }
 
 //----to order product list-------
@@ -91,6 +100,10 @@ class OrderCubit extends Cubit<OrderState> {
         emit(state.coppywith(status_c: orderproductstatuse.success));
       });
     }
+     Fluttertoast.showToast(
+      msg: "ໄດ້ຮັບອໍເດີແລ້ວອົດໃຈລໍຖ້າ",
+      gravity: ToastGravity.CENTER,
+    );
   }
 
   ///...update table id form order menu page

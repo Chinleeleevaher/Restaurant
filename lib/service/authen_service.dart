@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
-
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:myproject/constant/api_path.dart';
@@ -16,7 +16,9 @@ import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orderProListbillModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orpBill_idModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
 import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
@@ -348,8 +350,7 @@ class AuthenService {
   }) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request =
-          http.Request('PUT', Uri.parse(ApiPaths.updateTable));
+      var request = http.Request('PUT', Uri.parse(ApiPaths.updateTable));
       request.body = json.encode({
         "tableId": tableId,
         "tableName": tablename,
@@ -363,7 +364,7 @@ class AuthenService {
       if (response.statusCode == 200) {
         return true;
       } else {
-       return false;
+        return false;
       }
     } catch (e) {
       print("error $e");
@@ -1147,7 +1148,6 @@ class AuthenService {
   }
 
   // ..........post order Product and make return.............
-
   Future<List<PostorderProductModel>?> PostOrderProduct({
     // ignore: non_constant_identifier_names
     required String product_id,
@@ -1156,8 +1156,11 @@ class AuthenService {
     required int product_Qty,
     required int product_price,
     required int product_cost,
+    required String billNumber,
     required String product_image,
   }) async {
+    DateTime datenow = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(datenow);
     try {
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request('POST', Uri.parse(ApiPaths.postOrderproduct));
@@ -1168,6 +1171,8 @@ class AuthenService {
         "product_price": product_price,
         "product_cost": product_cost,
         "status": 1,
+        "billnumber": billNumber,
+        "orp_date": formattedDate,
         "product_image": product_image
       });
       request.headers.addAll(headers);
@@ -1208,40 +1213,82 @@ class AuthenService {
     return null;
   }
 
+  //----order product list Bill---------------
+  Future<List<OrderProductListBillModel>?> orderProductListBill() async {
+    var request = http.Request('GET', Uri.parse(ApiPaths.orderprodctListbill));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      final productListBill =
+          orderProductListBillModelFromJson(jsonEncode(body["data"]));
+      return productListBill;
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  //----order product list Bill  id---------------
+  Future<List<OpBillidModel>?> opBillId({
+   required String BillNumber,
+  }) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse(ApiPaths.orpBill_id));
+    request.body = json.encode({"billnumber": BillNumber});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      final orpbill_id =
+          opBillidModelFromJson(jsonEncode(body["data"]));
+      return orpbill_id;
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
   ///................to select order product to make import...............
-  Future<OrderproductImprotsModel?> selectOrderProductImport({
-    required String product_id,
+  Future<List<improtBillModel>?> selectOrderProductImport({
+    required String BillNumber,
   }) async {
     try {
-      var headers = {'Content-Type': 'application/json'};
-      var request =
-          http.Request('POST', Uri.parse(ApiPaths.slectorderproductForImport));
-      request.body = json.encode({"productId": product_id});
-      request.headers.addAll(headers);
+       var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse(ApiPaths.orpBill_id));
+    request.body = json.encode({"billnumber": BillNumber});
+    request.headers.addAll(headers);
 
-      http.StreamedResponse response = await request.send();
+    http.StreamedResponse response = await request.send();
 
-      if (response.statusCode == 200) {
-        var body = jsonDecode(await response.stream.bytesToString());
-        final seletOrderProduct =
-            orderproductImprotsModelFromJson(jsonEncode(body["data"]));
-        return seletOrderProduct;
-      } else {
-        print(response.reasonPhrase);
-      }
+    if (response.statusCode == 200) {
+      var body = jsonDecode(await response.stream.bytesToString());
+      final orpbill_id =
+          importBillidModelFromJson(jsonEncode(body["data"]));
+      return orpbill_id;
+    } else {
+      print(response.reasonPhrase);
+    }
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 
   ///..............update product of import................
   Future<bool?> UpdateImportProduct(
-      {required String product_id, required int quantity}) async {
+      {
+        required String product_id,
+        required String billnumber,
+         required int quantity}) async {
     var headers = {'Content-Type': 'application/json'};
     var request =
         http.Request('PATCH', Uri.parse(ApiPaths.updateProductImport));
     request.body =
-        json.encode({"product_id": product_id, "quantity": quantity});
+        json.encode({"product_id": product_id,"billnameber": billnumber, "quantity": quantity});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

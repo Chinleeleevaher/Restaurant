@@ -71,6 +71,8 @@
     "pay":"ຈ່າຍເງີນ",
     "enterMoney":"ກາລຸນາປອນຈໍານວນເງີນ",
     "notEnoughMoney":"ຈໍານວນເງີນບໍ່ພໍ",
-    "CheckBill":"ເຊັກບີນ"
+    "CheckBill":"ເຊັກບີນ",
+    "Dashboard":"ໜ້າຫຼັກ",
+    "DailySell":"ຍອດຂາຍລາຍມື້"
 
 }

@@ -14,7 +14,9 @@ import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orderProListbillModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orpBill_idModel.dart';
 import 'package:myproject/homepage/orderproduct/model/postOrderModel.dart';
 import 'package:myproject/homepage/report/incomeModel/INcomeModel.dart';
 import 'package:myproject/homepage/report/orderModel/orderDetailModels.dart';
@@ -580,6 +582,8 @@ class AuthenRepository {
     required int product_Qty,
     required int product_price,
     required int product_cost,
+    required String billNumber,
+    
     required String product_image,
   }) async {
     try {
@@ -589,7 +593,7 @@ class AuthenRepository {
         product_Qty: product_Qty,
         product_price: product_price,
         product_cost: product_cost,
-        product_image: product_image,
+        product_image: product_image, billNumber: billNumber,
       );
       return Right(result!);
     } catch (e) {
@@ -609,13 +613,33 @@ class AuthenRepository {
     }
   }
 
+   ///......... OrderProduct list bill...............
+  Future<Either<Failure,List<OrderProductListBillModel>>?> orderProductListBill() async {
+    try {
+      final result = await services.orderProductListBill();
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+   ///......... OrderProduct list bill by bill id...............
+  Future<Either<Failure,List<OpBillidModel>>?> opBillId({required String BillNumber}) async {
+    try {
+      final result = await services.opBillId(BillNumber: BillNumber);
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
   // ..........select order product for import.............
-  Future<Either<Failure, OrderproductImprotsModel>?> selectOrderporduct({
-    required String product_id,
+  Future<Either<Failure,List<improtBillModel>>?> selectOrderporduct({
+    required String BillNumber,
   }) async {
     try {
       final result = await services.selectOrderProductImport(
-        product_id: product_id,
+        BillNumber: BillNumber,
       );
       return Right(result!);
     } catch (e) {
@@ -626,12 +650,13 @@ class AuthenRepository {
   // ..........Update order product for import.............
   Future<Either<Failure, bool>?> updateProductImport({
     required String product_id,
+    required String billnumber,
     required int quantity,
   }) async {
     try {
       final result = await services.UpdateImportProduct(
         product_id: product_id,
-        quantity: quantity,
+        quantity: quantity, billnumber: billnumber,
       );
       return Right(result!);
     } catch (e) {

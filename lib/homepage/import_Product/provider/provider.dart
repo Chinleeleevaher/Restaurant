@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
+import 'package:myproject/homepage/orderproduct/model/orpBill_idModel.dart';
 
 class ImpProduct extends ChangeNotifier {
   bool _isprocessing = true;
@@ -12,10 +13,10 @@ class ImpProduct extends ChangeNotifier {
 
 
   // ------to get order list of report-----------
-  late OrderproductImprotsModel _getImportProduct;
-  OrderproductImprotsModel get getImportProduct => _getImportProduct;
+List<improtBillModel>? _getImportProduct = [];
+  List<improtBillModel>? get getImportProduct => _getImportProduct;
 
-  setImportProduct(OrderproductImprotsModel value) {
+  setImportProduct(List<improtBillModel> value) {
     _getImportProduct = value;
     notifyListeners();
   }

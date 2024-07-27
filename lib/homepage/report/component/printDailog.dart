@@ -155,7 +155,7 @@ Future<void> exportIncome(BuildContext context) async {
   var reportProvider = context.read<ReportProvider>();
   // Load custom font
   final Uint8List fontData =
-      (await rootBundle.load('lib/assets/fonts/NotoSansLao-Regular.ttf'))
+      (await rootBundle.load('lib/assets/fonts/saysettha_ot.ttf'))
           .buffer
           .asUint8List();
   final pw.Font customFont = pw.Font.ttf(fontData.buffer.asByteData());

@@ -1,7 +1,5 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-import 'package:myproject/homepage/kitchen/kitchen.dart';
-
 abstract class  LocaleKeys {
   static const hello = 'hello';
   static const userName = 'userName';
@@ -43,14 +41,14 @@ abstract class  LocaleKeys {
   static const changeTable = 'changeTable';
   static const product = 'product';
   static const report = 'report';
-  static const user = 'User Manager';
-  static const kichen = 'Kitchen';
+  static const scan = 'scan';
+  static const security = 'security';
   static const tabletype = 'tabletype';
   static const fromTable = 'fromTable';
   static const toTable = 'toTable';
   static const allTable = 'allTable';
-  static const tableAvailable = 'ຫວ່າງ';
-  static const tableunAvailable = 'ກໍາລັງລໍຖ້າ';
+  static const tableAvailable = 'tableAvailable';
+  static const tableunAvailable = 'tableunAvailable';
   static const no = 'no';
   static const item = 'item';
   static const quantity = 'quantity';
@@ -71,5 +69,7 @@ abstract class  LocaleKeys {
   static const enterMoney = 'enterMoney';
   static const notEnoughMoney = 'notEnoughMoney';
   static const CheckBill = 'CheckBill';
+  static const Dashboard = 'Dashboard';
+  static const DailySell = 'DailySell';
 
 }

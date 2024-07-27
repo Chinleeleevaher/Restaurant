@@ -87,7 +87,7 @@ return showDialog(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("ຊື້/ນໍາສະກຸນ"),
+                    Text("ຊື້/ນໍາສະກຸນ", style: TextStyle(fontFamily: 'lib/assets/fonts/saysettha_ot.ttf'),),
                     Text("ເພດ"),
                     Text("ຕໍາແໜ່ງ"),
                   ],
@@ -197,7 +197,7 @@ Future<void> exportIncome(BuildContext context) async {
   var provide = context.read<getUserProvider>();
   // Load custom font
   final Uint8List fontData =
-      (await rootBundle.load('lib/assets/fonts/NotoSansLao-Regular.ttf'))
+      (await rootBundle.load('lib/assets/fonts/saysettha_ot.ttf'))
           .buffer
           .asUint8List();
   final pw.Font customFont = pw.Font.ttf(fontData.buffer.asByteData());
@@ -276,7 +276,6 @@ Future<void> exportIncome(BuildContext context) async {
   final file = File('${directory?.path}/User-report.pdf');
 
   await file.writeAsBytes(await pdf.save());
-
   print("PDF file created at: ${file.path}");
 }
 

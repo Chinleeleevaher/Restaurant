@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myproject/config/app_rount.dart';
+import 'package:myproject/config/navigation.dart';
 import 'package:myproject/homepage/orderproduct/component/billDailog.dart';
 import 'package:myproject/homepage/orderproduct/component/listDailog.dart';
 import 'package:myproject/homepage/orderproduct/cubit/order_product_cubit.dart';
@@ -35,7 +37,8 @@ class _order_productState extends State<order_product> {
                       padding: EdgeInsets.only(right: 20),
                       child: GestureDetector(
                         onTap: () {
-                          listdailog(context);
+                           navService.pushNamed(AppRount.opListbill);
+                         // listdailog(context);
                         },
                         child: Icon(Icons.list)),
                     )
@@ -242,7 +245,7 @@ class _order_productState extends State<order_product> {
                                   ElevatedButton(
                                     onPressed: () {
                                       if (cubits.provider.totalprice != 0) {
-                                        cubits.PostOrderProduct();
+                                        cubits.generateBillNumber();
                                       } else {
                                         Fluttertoast.showToast(
                                             msg:

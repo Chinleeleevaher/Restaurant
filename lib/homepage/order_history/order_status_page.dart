@@ -78,11 +78,11 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
           ),
           body: Builder(
             builder: (context) {
-              if (state.status == selectorderdata.loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
+              // if (state.status == selectorderdata.loading) {
+              //   return const Center(
+              //     child: CircularProgressIndicator(),
+              //   );
+              // }
               if (orderlist.selectorderdata == null ||
                   orderlist.selectorderdata!.isEmpty) {
                 return const Center(

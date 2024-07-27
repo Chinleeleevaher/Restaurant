@@ -69,7 +69,8 @@ Future orderPrintDailog(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Date: " + formattedDate),
+                    Text("Bill Number: ${provider.billNamber}"),
+                    Text("Date: $formattedDate"),
                    
                   ],
                 ),
@@ -150,7 +151,7 @@ Future orderPrintDailog(BuildContext context) {
                   },
                 ),
                      ElevatedButton(
-                  child: const Text('print'),
+                  child:  Text('print'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

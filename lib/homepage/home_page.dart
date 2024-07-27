@@ -271,8 +271,7 @@ class _HomepageState extends State<Homepage>
                                       color: Colors.red,
                                     ),
                                   ),
-                                  Text(LocaleKeys.user
-                                      .tr()) //<--- text of user-------
+                                  Text("user") //<--- text of user-------
                                 ],
                               ),
                             ),
@@ -308,8 +307,7 @@ class _HomepageState extends State<Homepage>
                                     size: 50,
                                     color: Colors.green,
                                   ),
-                                  Text(LocaleKeys.kichen
-                                      .tr()) //<--- text of kitchen-------
+                                  Text("kitchen") //<--- text of kitchen-------
                                 ],
                               ),
                             ),

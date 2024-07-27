@@ -228,7 +228,7 @@ Future<void> exportIncome(BuildContext context) async {
   var provide = context.read<ReportProvider>();
   // Load custom font
   final Uint8List fontData =
-      (await rootBundle.load('lib/assets/fonts/NotoSansLao-Regular.ttf'))
+      (await rootBundle.load('lib/assets/fonts/saysettha_ot.ttf'))
           .buffer
           .asUint8List();
   final pw.Font customFont = pw.Font.ttf(fontData.buffer.asByteData());
@@ -286,14 +286,14 @@ Future<void> exportIncome(BuildContext context) async {
                     'ລາຍຮັບປະຈໍາອາທິດ',
                     provide.weekQty.toString(),
                     provide.weekAmount.toString(),
-                    (DateFormat('yyyy-MM-dd').format(DateTime.now()))
+                    (DateFormat('dd-MM-yyyy').format(DateTime.now()))
                   ],
                   [
                     '2',
                     'ລາຍຮັບປະຈໍາເດືອນ',
                     provide.monthQty.toString(),
                     provide.monthAmount.toString(),
-                    (DateFormat('yyyy-MM-dd').format(DateTime.now()))
+                    (DateFormat('dd-MM-yyyy').format(DateTime.now()))
                   ],
                   [
                     '3',

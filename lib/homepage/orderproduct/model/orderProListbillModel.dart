@@ -1,14 +1,14 @@
 // To parse this JSON data, do
 //
-//     final postorderProductModel = postorderProductModelFromJson(jsonString);
+//     final orderProductListBillModel = orderProductListBillModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<PostorderProductModel> postorderProductModelFromJson(String str) => List<PostorderProductModel>.from(json.decode(str).map((x) => PostorderProductModel.fromJson(x)));
+List<OrderProductListBillModel> orderProductListBillModelFromJson(String str) => List<OrderProductListBillModel>.from(json.decode(str).map((x) => OrderProductListBillModel.fromJson(x)));
 
-String postorderProductModelToJson(List<PostorderProductModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String orderProductListBillModelToJson(List<OrderProductListBillModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class PostorderProductModel {
+class OrderProductListBillModel {
     int orpId;
     String productId;
     String orpName;
@@ -17,10 +17,10 @@ class PostorderProductModel {
     int orCost;
     int status;
     String billnumber;
-    String orpDate;
+    DateTime orpDate;
     String image;
 
-    PostorderProductModel({
+    OrderProductListBillModel({
         required this.orpId,
         required this.productId,
         required this.orpName,
@@ -33,7 +33,7 @@ class PostorderProductModel {
         required this.image,
     });
 
-    factory PostorderProductModel.fromJson(Map<String, dynamic> json) => PostorderProductModel(
+    factory OrderProductListBillModel.fromJson(Map<String, dynamic> json) => OrderProductListBillModel(
         orpId: json["orp_id"],
         productId: json["product_id"],
         orpName: json["orpName"],
@@ -42,7 +42,7 @@ class PostorderProductModel {
         orCost: json["orCost"],
         status: json["status"],
         billnumber: json["billnumber"],
-        orpDate: json["orp_date"],
+        orpDate: DateTime.parse(json["orp_date"]),
         image: json["image"],
     );
 
@@ -55,7 +55,7 @@ class PostorderProductModel {
         "orCost": orCost,
         "status": status,
         "billnumber": billnumber,
-        "orp_date": orpDate,
+        "orp_date": orpDate.toIso8601String(),
         "image": image,
     };
 }

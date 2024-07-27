@@ -35,6 +35,7 @@ import 'package:myproject/homepage/order_history/order_status_waiting.dart';
 import 'package:myproject/homepage/order_list/cubit/order_cubit.dart';
 import 'package:myproject/homepage/order_list/orderlist_page.dart';
 import 'package:myproject/homepage/orderproduct/cubit/order_product_cubit.dart';
+import 'package:myproject/homepage/orderproduct/opBill.dart';
 import 'package:myproject/homepage/orderproduct/orderProduct.dart';
 import 'package:myproject/homepage/orderproduct/provider/orderProduct.dart';
 import 'package:myproject/homepage/product_page/cubit/products_cubit.dart';
@@ -90,6 +91,7 @@ class AppRount {
   static const String adduser = '/adduser';
   static const String updateUser = '/updateUser';
   static const String orderProduct = '/ordeProduct';
+  static const String opListbill = '/opListbill';
   static const String importProduct = '/importproduct';
 
   static Route<dynamic> generateRount(RouteSettings settings) {
@@ -147,7 +149,7 @@ class AppRount {
             create: (context) => DashboardCubit(
                 authenRepository: context.read<AuthenRepository>(),
                 reportProvider: context.read<ReportProvider>())
-              ..selectWeekIncome()
+              ..selectWeekIncome()..lowquantityProduct()
               ..selectInccomeMoth()
               ..selectInccomeYear(),
             child: const Dashboard_page(),
@@ -199,6 +201,17 @@ class AppRount {
             child: order_product(),
           ),
         );
+       case opListbill:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => OrderProductCubit(
+                authenRepository: context.read<AuthenRepository>(),
+                provider: context.read<OrderProductProvider>(),
+                context: context)
+              ..getOrderProdct().. orderProductListBill(),
+            child: OrderProductListBill(),
+          ),
+        );
       case addproduct:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -217,7 +230,8 @@ class AppRount {
           builder: (context) => BlocProvider(
             create: (context) => ImportProductCubit(
               authenRepository: context.read<AuthenRepository>(),
-              providers: context.read<ImpProduct>(),
+              providers: context.read<ImpProduct>(), context: context,
+              
             ),
             child: ImportProduct(),
           ),
@@ -302,7 +316,7 @@ class AppRount {
             create: (context) => OrderstatusCubit(
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
-                authenRepository: context.read<AuthenRepository>())
+                authenRepository: context.read<AuthenRepository>(), context: context)
               ..seletorderdata(),
             child: OrderstatusPage(),
           ),
@@ -313,7 +327,7 @@ class AppRount {
             create: (context) => OrderstatusCubit(
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
-                authenRepository: context.read<AuthenRepository>())
+                authenRepository: context.read<AuthenRepository>(), context: context)
               ..seletorderdata(),
             child: OrderStatusWaitingPage(),
           ),

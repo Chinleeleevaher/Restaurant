@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/repository/authen_sipository.dart';
@@ -25,8 +26,14 @@ class CheckbillCubit extends Cubit<CheckbillState> {
   String?selectedRadio = "cash"; 
   //----here is update payment -------
   Future<bool?> update_tbOrder() async {
+    
     if (formkey.currentState!.validate()) {
       formkey.currentState!.save();
+       MyProgress().loadingProgress(
+      context: context,
+      title: 'ກໍາລັງດໍາເນີນການ',
+    );
+    await Future.delayed(const Duration(seconds: 1));
       emit(state.coppywith(
         status_c: statuslist.loading,
       ));
@@ -46,6 +53,7 @@ class CheckbillCubit extends Cubit<CheckbillState> {
         });
         ;
       });
+      Navigator.pop(context, true);
     }
   }
 

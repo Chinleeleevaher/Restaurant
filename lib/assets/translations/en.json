@@ -72,6 +72,8 @@
     "pay":"Pay",
     "enterMoney":"Please enter money",
     "notEnoughMoney":"No enough money",
-    "CheckBill":"Check Bill"
+    "CheckBill":"Check Bill",
+    "Dashboard":"Dashboard",
+    "DailySell":"Daily Sell"
 
 }
