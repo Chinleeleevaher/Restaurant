@@ -20,7 +20,55 @@ class ReportPage extends StatefulWidget {
   State<ReportPage> createState() => _ReportPageState();
 }
 
+Future<void> selectDate(BuildContext context, TextEditingController controller) async {
+  // Get the current date
+  DateTime currentDate = DateTime.now();
+
+  // Show the date picker
+  DateTime? selectedDate = await showDatePicker(
+    context: context,
+    initialDate: currentDate,
+    firstDate: DateTime(currentDate.year - 10),
+    lastDate: DateTime(currentDate.year + 10),
+    builder: (BuildContext context, Widget? child) {
+      return Theme(
+        data: ThemeData.light().copyWith(
+          primaryColor: Colors.red, // Customize the color
+          hintColor: Colors.red, // Customize the color
+          buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+        ),
+        child: child!,
+      );
+    },
+  );
+
+  if (selectedDate != null && selectedDate != currentDate) {
+    // Format the date to a string
+    String formattedDate = "${selectedDate.toLocal()}".split(' ')[0]; // Change format as needed
+
+    // Update the controller text with the selected date
+    controller.text = formattedDate;
+  }
+}
+
 class _ReportPageState extends State<ReportPage> {
+  late TextEditingController _fromDateController;
+  late TextEditingController _toDateController;
+
+  @override
+  void initState() {
+    super.initState();
+    _fromDateController = TextEditingController();
+    _toDateController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _fromDateController.dispose();
+    _toDateController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OrderReportCubit, OrderReportState>(
@@ -62,6 +110,7 @@ class _ReportPageState extends State<ReportPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          controller: _fromDateController,
                           decoration: InputDecoration(
                             hintText: cubit.from_pickdate.toString(),
                             border: const OutlineInputBorder(),
@@ -69,7 +118,19 @@ class _ReportPageState extends State<ReportPage> {
                                 vertical: 8, horizontal: 12),
                             suffixIcon: IconButton(
                               onPressed: () async {
-                                // Date picker code here
+                            //    await selectDate(context, _fromDateController);
+                            final DateTime? selectedDate =
+                                    await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(
+                                      2100), //-----of date time picker-------------
+                                ).then((value) {
+                                  setState(() {
+                                    cubit.from_pickdate = value!;
+                                  });
+                                });
                               },
                               icon: const Icon(
                                 Icons.calendar_month_outlined,
@@ -82,6 +143,7 @@ class _ReportPageState extends State<ReportPage> {
                     const Icon(Icons.compare_arrows_sharp),
                     Expanded(
                       child: TextFormField(
+                        controller: _toDateController,
                         decoration: InputDecoration(
                           hintText: cubit.To_pickdate.toString(),
                           border: const OutlineInputBorder(),
@@ -89,7 +151,18 @@ class _ReportPageState extends State<ReportPage> {
                               vertical: 8, horizontal: 12),
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              // Date picker code here
+                             // await selectDate(context, _toDateController);
+                             final DateTime? selectedDate =
+                                  await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2100),
+                              ).then((value) {
+                                setState(() {
+                                  cubit.To_pickdate = value!;
+                                });
+                              });
                             },
                             icon: const Icon(
                               Icons.calendar_month_outlined,
@@ -283,9 +356,10 @@ class _ReportPageState extends State<ReportPage> {
                                   );
                                 }
                                 return ListView.builder(
-                                  itemCount: reportProvider.AllcollectReport!.length,
+                                  itemCount: reportProvider.getproductReport!.length,
                                   itemBuilder: (context, index) {
-                                    var report = reportProvider.AllcollectReport![index];
+                                    var report = reportProvider.getproductReport![index];
+                                    var total = reportProvider.AllcollectReport![index];
                                     return Card(
                                       child: ListTile(
                                         title: Row(
@@ -295,10 +369,10 @@ class _ReportPageState extends State<ReportPage> {
                                             const VerticalDivider(),
                                             Text(report.productName),
                                             const VerticalDivider(),
-                                            Text(report.protypeId.toString()), // <-- all qty
+                                            Text(total.protypeId.toString()), // <-- all qty
                                             const VerticalDivider(),
                                             Text(
-                                              report.unitId.toString(),
+                                              total.unitId.toString(),
                                               style: const TextStyle(color: Colors.red),
                                             ), // <-- sell qty
                                             const VerticalDivider(),
@@ -464,27 +538,32 @@ class _ReportPageState extends State<ReportPage> {
                                   var orderlist = reportProvider.orderReport![index];
                                   DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
                                   String formattedDate = formatter.format(orderlist.orDate);
-                                  return Card(
-                                    child: ListTile(
-                                      title: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text((index + 1).toString()),
-                                          const VerticalDivider(),
-                                          Text(
-                                            orderlist.orId.toString(),
-                                            style: const TextStyle(color: Colors.red),
-                                          ),
-                                          const VerticalDivider(),
-                                          Text(formattedDate),
-                                          const VerticalDivider(),
-                                          Text(orderlist.orQty.toString()),
-                                          const VerticalDivider(),
-                                          Text(
-                                            orderlist.payment.toString(),
-                                            style: const TextStyle(color: Colors.green),
-                                          ),
-                                        ],
+                                  return GestureDetector(
+                                    onTap: () {
+                                      cubit.getorderdetail(reportProvider.orderReport![index]);
+                                    },
+                                    child: Card(
+                                      child: ListTile(
+                                        title: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text((index + 1).toString()),
+                                            const VerticalDivider(),
+                                            Text(
+                                              orderlist.orId.toString(),
+                                              style: const TextStyle(color: Colors.red),
+                                            ),
+                                            const VerticalDivider(),
+                                            Text(formattedDate),
+                                            const VerticalDivider(),
+                                            Text(orderlist.orQty.toString()),
+                                            const VerticalDivider(),
+                                            Text(
+                                              orderlist.payment.toString(),
+                                              style: const TextStyle(color: Colors.green),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );

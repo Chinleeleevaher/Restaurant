@@ -124,7 +124,7 @@ Future productPrint(BuildContext context) {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20),
                                     child: Text(Repotprovider
-                                        .AllcollectReport![index].productId
+                                        .AllcollectReport![index].unitId
                                         .toString()),
                                   ),
                                   Text(

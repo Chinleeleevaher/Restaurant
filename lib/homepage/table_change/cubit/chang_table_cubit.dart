@@ -147,7 +147,6 @@ class ChangTableCubit extends Cubit<ChangTableState> {
        delete_move_table_getFromtable();
       updatetablestatus(); // <---this status update is working when the above finis update( it upda the from table to the emty status)
       getTables(); // <---this is make reload again the table
-    //  getTabletypes(); // <-----this is make reload the table type
       tableprovider
           .clearTable(); // <---this is make clear the two table ble that i move above in the ui page
       tableprovider

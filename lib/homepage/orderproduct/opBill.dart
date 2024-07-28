@@ -17,15 +17,13 @@ class OrderProductListBill extends StatefulWidget {
 class _OrderProductListBillState extends State<OrderProductListBill> {
   @override
   Widget build(BuildContext context) {
-   // var provider = context.read<OrderProductProvider>();
     var cubits = context.read<OrderProductCubit>();
 
     return BlocConsumer<OrderProductCubit, OrderProductState>(
-      listener: (context, state) {
-       
-      },
+      listener: (context, state) {},
       builder: (context, state) {
-        return Consumer<OrderProductProvider>(builder: (context, provider, widget)  { //....here iss to make access to the provider
+        return Consumer<OrderProductProvider>(
+          builder: (context, provider, widget) {
             return Scaffold(
               appBar: AppBar(
                 title: const Text("List Bill"),
@@ -39,19 +37,19 @@ class _OrderProductListBillState extends State<OrderProductListBill> {
                       ),
                     );
                   }
-            
+
                   if (provider.productListBill == null || provider.productListBill!.isEmpty) {
                     return const Center(
-                      child: Text("ບໍ່ມີຂໍ້ມູນ"),
+                      child: Text("ບໍ່ມີຂໍໍ້ມູນ"),
                     );
                   }
-            
+
                   return ListView.builder(
                     itemCount: provider.productListBill!.length,
                     itemBuilder: (context, index) {
                       var orderlist = provider.productListBill![index];
-                      DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm'); // Format for displaying the date
-            
+                      DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
+
                       // Ensure orpDate is a DateTime object
                       DateTime orpDate;
                       if (orderlist.orpDate is String) {
@@ -59,40 +57,49 @@ class _OrderProductListBillState extends State<OrderProductListBill> {
                       } else {
                         orpDate = orderlist.orpDate;
                       }
-            
+
                       // Format the date
                       String formattedDate = formatter.format(orpDate);
-            
+
                       return GestureDetector(
-                        onTap: ()async {
-                         await cubits.ontypeselectBillid(orderlist.billnumber);
-                        
-                        
+                        onTap: () async {
+                          await cubits.ontypeselectBillid(orderlist.billnumber);
                         },
                         child: Card(
+                          margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                           child: ListTile(
+                            contentPadding: const EdgeInsets.all(8),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text((index + 1).toString()),
-                                const VerticalDivider(),
-                                Text(
-                                  "Bill: ${orderlist.billnumber}",
-                                  style: const TextStyle(color: Colors.red),
+                                Expanded(
+                                  child: Text(
+                                    'Bill: ${orderlist.billnumber}',
+                                    style: const TextStyle(color: Colors.red),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                                 const VerticalDivider(),
-                                Text(formattedDate),
+                                Expanded(
+                                  child: Text(
+                                    formattedDate,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                                 const VerticalDivider(),
-                                Text(
-                                  orderlist.status == 2
-                                      ? 'ກໍາລັງລໍຖ້າ' // Done in Lao
-                                      : orderlist.status == 0
-                                          ? 'ສໍາເລັດ'
-                                          : 'Unknown',
-                                  style: TextStyle(
-                                    color: orderlist.status == 2
-                                        ? Colors.red
-                                        : Colors.green,
+                                Expanded(
+                                  child: Text(
+                                    orderlist.status == 2
+                                        ? 'ກໍາລັງລໍຖ້າ' // Pending in Lao
+                                        : orderlist.status == 0
+                                            ? 'ສໍາເລັດ' // Completed in Lao
+                                            : 'Unknown',
+                                    style: TextStyle(
+                                      color: orderlist.status == 2
+                                          ? Colors.red
+                                          : Colors.green,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ],
@@ -105,7 +112,7 @@ class _OrderProductListBillState extends State<OrderProductListBill> {
                 },
               ),
             );
-          }
+          },
         );
       },
     );
