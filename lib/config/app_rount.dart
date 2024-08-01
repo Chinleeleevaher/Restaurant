@@ -21,7 +21,9 @@ import 'package:myproject/homepage/import_Product/cubit/import_product_cubit.dar
 import 'package:myproject/homepage/import_Product/importProduct.dart';
 import 'package:myproject/homepage/import_Product/provider/provider.dart';
 import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
+import 'package:myproject/homepage/kitchen/cubit/provider/providerOrder_kitchen.dart';
 import 'package:myproject/homepage/kitchen/kitchen.dart';
+import 'package:myproject/homepage/kitchen/kitchenOrderlist.dart';
 import 'package:myproject/homepage/manage_page.dart';
 import 'package:myproject/homepage/menu_page/cubit/menu_cubit.dart';
 import 'package:myproject/homepage/menu_page/menu.dart';
@@ -90,6 +92,7 @@ class AppRount {
   static const String report = '/report';
   static const String manage = '/manage';
   static const String kitchen = '/kitchen';
+  static const String kitchenOrderlist = '/kitchenOrderlist';
   static const String getuser = '/getuser';
   static const String adduser = '/adduser';
   static const String updateUser = '/updateUser';
@@ -323,7 +326,7 @@ class AppRount {
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
                 authenRepository: context.read<AuthenRepository>(),
-                context: context)
+                context: context, kitchenProviders: context.read<kitchenProvider>())
               ..seletorderdata(),
             child: const OrderstatusPage(),
           ),
@@ -335,8 +338,8 @@ class AppRount {
                 tableproviders: context.read<tableProvider>(),
                 orderproviders: context.read<orderprovider>(),
                 authenRepository: context.read<AuthenRepository>(),
-                context: context)
-              ..seletorderdata(),
+                context: context, kitchenProviders: context.read<kitchenProvider>())
+              ..seletorderdata()..getrejectOrder(),
             child: const OrderStatusWaitingPage(),
           ),
         );
@@ -367,12 +370,21 @@ class AppRount {
         return MaterialPageRoute(
           builder: (context) => const Manage_page(),
         );
-      case kitchen:
+      case kitchenOrderlist:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
                   create: (context) => KitchenCubit(
                     authenRepository: context.read<AuthenRepository>(),
-                    context: context,
+                    context: context, productId: '', kitchenProviders: context.read<kitchenProvider>(),
+                  )..SelectorderbyOrderStatus()..GetOrdeinkitchen(),
+                  child: const KitchenOrderList(),
+                ));
+        case kitchen:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => KitchenCubit(
+                    authenRepository: context.read<AuthenRepository>(),
+                    context: context, productId: '', kitchenProviders: context.read<kitchenProvider>(),
                   )..SelectorderbyOrderStatus(),
                   child: const Kitchen(),
                 ));

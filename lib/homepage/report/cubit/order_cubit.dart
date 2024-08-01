@@ -98,7 +98,7 @@ class OrderReportCubit extends Cubit<OrderReportState> {
     emit(state.coppywith(status: orderlistreportstatus.loading));
     var result = await authenRepository.getproductmakeReport();
     result!.fold((l) {
-    }, (r) {
+    }, (r) { 
       reportProvider.TogetgetprodutReport(r);
       selectorderdetail_makeReport();
       emit(state.coppywith(status: orderlistreportstatus.success));

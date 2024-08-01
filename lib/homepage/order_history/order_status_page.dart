@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,8 +51,8 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                         style: const TextStyle(fontSize: 16),
                       ),
                       Container(
-                        height: 15,
-                        width: 25,
+                        height: 20,
+                        width: 50,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
@@ -63,6 +65,9 @@ class _OrderstatusPageState extends State<OrderstatusPage> {
                           ),
                         ),
                       ),
+                      IconButton(onPressed: (){
+                       navService.pushNamed(AppRount.ListProduct);
+                      }, icon: const Icon(Icons.add))
                     ],
                   ))
             ],

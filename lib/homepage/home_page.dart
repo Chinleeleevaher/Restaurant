@@ -277,7 +277,7 @@ class _HomepageState extends State<Homepage>
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
                             onTap: () {
-                              navService.pushNamed(AppRount.kitchen);
+                              navService.pushNamed(AppRount.kitchenOrderlist);
                             },
                             child: Container(
                               height: 100,

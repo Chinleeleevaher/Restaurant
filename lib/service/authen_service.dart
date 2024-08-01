@@ -14,10 +14,12 @@ import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addtable/model/tableModel.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
+import 'package:myproject/homepage/kitchen/model/kitchenOrderlistModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
+import 'package:myproject/homepage/order_history/rejectModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderProListbillModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orpBill_idModel.dart';
@@ -80,7 +82,7 @@ class AuthenService {
           return product;
         }
       } else {
-      //  print(response.reasonPhrase);
+        //  print(response.reasonPhrase);
       }
     } catch (e) {
       throw Exception('$e');
@@ -127,7 +129,7 @@ class AuthenService {
         return protype;
       }
     } else {
-     // print(response.reasonPhrase);
+      // print(response.reasonPhrase);
     }
     return null;
   }
@@ -150,7 +152,7 @@ class AuthenService {
         return false;
       }
     } else {
-     // print(response.reasonPhrase);
+      // print(response.reasonPhrase);
     }
     return null;
   }
@@ -182,7 +184,7 @@ class AuthenService {
           return false;
         }
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
       //print("error $e");
@@ -281,10 +283,10 @@ class AuthenService {
           return false;
         }
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
-     // print("error $e");
+      // print("error $e");
     }
     return null;
   }
@@ -327,7 +329,7 @@ class AuthenService {
           return data;
         }
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
       throw Exception('$e');
@@ -401,7 +403,7 @@ class AuthenService {
           return product;
         }
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
       throw Exception('$e');
@@ -426,7 +428,7 @@ class AuthenService {
         final product = imageFromJson(jsonEncode(body));
         return product;
       } else {
-      //  print(response.reasonPhrase);
+        //  print(response.reasonPhrase);
       }
     } else {}
     return null;
@@ -467,7 +469,7 @@ class AuthenService {
         return false;
       }
     } else {
-     // print(response.reasonPhrase);
+      // print(response.reasonPhrase);
     }
     return null;
   }
@@ -509,10 +511,10 @@ class AuthenService {
           return false;
         }
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
-     // print("error $e");
+      // print("error $e");
     }
     return null;
   }
@@ -535,7 +537,7 @@ class AuthenService {
         return false;
       }
     } else {
-     // print(response.reasonPhrase);
+      // print(response.reasonPhrase);
     }
     return null;
   }
@@ -575,10 +577,10 @@ class AuthenService {
           Exception('data is null');
         }
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
-     // print("server Error: " + e.toString());
+      // print("server Error: " + e.toString());
     }
     return null;
   }
@@ -611,7 +613,7 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-     // print(e.toString());
+      // print(e.toString());
     }
     return null;
   }
@@ -637,10 +639,10 @@ class AuthenService {
           Exception('data is null');
         }
       } else {
-      //  print(response.reasonPhrase);
+        //  print(response.reasonPhrase);
       }
     } catch (e) {
-     // print(e.toString());
+      // print(e.toString());
     }
     return null;
   }
@@ -674,6 +676,35 @@ class AuthenService {
     return null;
   }
 
+//----get order reject-------------------
+  Future<List<RejectOrderModel>?> getrejectOrder({
+    required int table_id,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request('POST', Uri.parse(ApiPaths.getorderreject));
+      request.body = json.encode({"tableId": table_id, "status": 1});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        if (body["status"] == 200) {
+          final rejectdata = rejectOrderModelFromJson(jsonEncode(body["data"]));
+          return rejectdata;
+        } else {
+          Exception('data is null');
+        }
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
 //----------------of cut stoke in tbproduct----------------------------
   Future<bool?> cut_stock({required int table_id}) async {
     try {
@@ -688,36 +719,42 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-     // log("Error coneection " + e.toString());
+      // log("Error coneection " + e.toString());
     }
     return null;
   }
 
   //-------update tborder-------------------
   Future<bool?> upadte_tbOrder({
-    required int or_id,
+   // required int or_id,
+    required int tableId,
     required double getmoney,
     required double backmoney,
     required String payment,
   }) async {
-    var headers = {'Content-Type': 'application/json'};
-    var request = http.Request('PATCH', Uri.parse(ApiPaths.update_tbOrders));
-    request.body = json.encode({
-      "orId": or_id,
-      "receives": getmoney,
-      "returns": backmoney,
-      "payment": payment,
-      "orStatus": 0
-    });
-    request.headers.addAll(headers);
+   var headers = {
+  'Content-Type': 'application/json'
+};
+var request = http.Request('PATCH', Uri.parse(ApiPaths.update_tbOrders));
+request.body = json.encode({
+  "tableId": tableId,
+  "orStatus": 2,
+  "receives": getmoney,
+  "returns": backmoney,
+  "payment": payment,
+  "newOrStatus": 0
+});
+request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
+http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+if (response.statusCode == 200) {
+ return true;
+}
+else {
+return false;
+}
+
   }
 
   //-----Select order By table to provider------------
@@ -817,7 +854,7 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-     // print(e.toString());
+      // print(e.toString());
     }
     return null;
   }
@@ -839,7 +876,7 @@ class AuthenService {
         return false;
       }
     } catch (e) {
-     // print(e.toString());
+      // print(e.toString());
     }
     return null;
   }
@@ -921,7 +958,7 @@ class AuthenService {
             selectOrderReportModelsFromJson(jsonEncode(body["data"]));
         return seletOrderDetail;
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
       log(e.toString());
@@ -937,9 +974,9 @@ class AuthenService {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-    //  print(await response.stream.bytesToString());
+      //  print(await response.stream.bytesToString());
     } else {
-    //  print(response.reasonPhrase);
+      //  print(response.reasonPhrase);
     }
     return null;
   }
@@ -958,7 +995,7 @@ class AuthenService {
             peoductlowquantityFromJson(jsonEncode(body["products"]));
         return lowquantity;
       } else {
-      //  print(response.reasonPhrase);
+        //  print(response.reasonPhrase);
       }
     }
     return null;
@@ -983,9 +1020,9 @@ class AuthenService {
           Exception('data is null');
         }
       } else {
-      //  print(response.reasonPhrase);
+        //  print(response.reasonPhrase);
       }
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
     return null;
   }
@@ -993,7 +1030,8 @@ class AuthenService {
   //----get orderdetail spacail for make loop for product report: i need sell qty, all qty......-----------
   Future<List<GetOrderDetailModel>?> getorderdetail_makeReport(
       {required DateTime Fromdate, required DateTime Todate}) async {
-    String from_pickdate = "${DateFormat('yyyy-MM-dd ').format(Fromdate)}00:00:00"; // <----for the 00:00:00 is to set the hours be for save to the databaes
+    String from_pickdate =
+        "${DateFormat('yyyy-MM-dd ').format(Fromdate)}00:00:00"; // <----for the 00:00:00 is to set the hours be for save to the databaes
     String To_pickdate = "${DateFormat('yyyy-MM-dd ').format(Todate)}23:59:59";
     try {
       var headers = {'Content-Type': 'application/json'};
@@ -1012,7 +1050,7 @@ class AuthenService {
               getOrderDetailModelFromJson(jsonEncode(body["data"]));
           return selectproduct;
         } else {
-        //  print(response.reasonPhrase);
+          //  print(response.reasonPhrase);
         }
       }
     } catch (e) {}
@@ -1042,7 +1080,7 @@ class AuthenService {
         Exception('data is null');
       }
     } else {
-     // print(response.reasonPhrase);
+      // print(response.reasonPhrase);
     }
     return null;
   }
@@ -1066,7 +1104,7 @@ class AuthenService {
         Exception('data is null');
       }
     } else {
-    //  print(response.reasonPhrase);
+      //  print(response.reasonPhrase);
     }
     return null;
   }
@@ -1087,14 +1125,36 @@ class AuthenService {
         final selectOrder = orderStatusModelFromJson(jsonEncode(body["data"]));
         return selectOrder;
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
-     // print(e.toString());
+      // print(e.toString());
     }
     return null;
   }
 
+////.....get order in kitchen that done..................
+
+  Future<List<OrderForKitchen>?> GetOrdeinkitchen() async {
+    try {
+      var request = http.Request(
+          'POST', Uri.parse(ApiPaths.getOrderToday));
+      request.body = '''''';
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        final data = orderforktchenModelFromJson(jsonEncode(body["data"]));
+        return data;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      // print(e.toString());
+    }
+    return null;
+  }
   // ..........get order detail by order_id for kitchen.............
 
   Future<List<OrderDetailModel>?> getOrderdetail_kitchen(
@@ -1113,7 +1173,7 @@ class AuthenService {
         final selectOrder = orderDetailModelFromJson(jsonEncode(body["data"]));
         return selectOrder;
       } else {
-       // print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
       print(e.toString());
@@ -1146,6 +1206,65 @@ class AuthenService {
         return true;
       } else {
         print(response.reasonPhrase);
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  //....reject order............
+
+  Future<bool?> rejectOrder({
+    required int orId,
+    required String pId,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request('DELETE', Uri.parse(ApiPaths.rejectorder));
+      request.body = json.encode({"or_id": orId, "product_id": pId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+//....post reject order ............
+  Future<bool?> postrejectOrder({
+    required int ordId,
+    required int orId,
+    required String pid,
+    required int qty,
+    required int amount,
+    required int table_id,
+  }) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request('POST', Uri.parse(ApiPaths.postrejectorder));
+      request.body = json.encode({
+        "or_id": orId,
+        "product_id": pid,
+        "qty": qty,
+        "amount": amount,
+        "table_id": table_id
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
         return false;
       }
     } catch (e) {
@@ -1264,11 +1383,10 @@ class AuthenService {
 
   //----order product list Bill  id---------------
   Future<List<OpBillidModel>?> opBillId({
-   required String BillNumber,
+    required String BillNumber,
   }) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse(ApiPaths.orpBill_id));
+    var request = http.Request('POST', Uri.parse(ApiPaths.orpBill_id));
     request.body = json.encode({"billnumber": BillNumber});
     request.headers.addAll(headers);
 
@@ -1276,8 +1394,7 @@ class AuthenService {
 
     if (response.statusCode == 200) {
       var body = jsonDecode(await response.stream.bytesToString());
-      final orpbill_id =
-          opBillidModelFromJson(jsonEncode(body["data"]));
+      final orpbill_id = opBillidModelFromJson(jsonEncode(body["data"]));
       return orpbill_id;
     } else {
       print(response.reasonPhrase);
@@ -1290,22 +1407,20 @@ class AuthenService {
     required String BillNumber,
   }) async {
     try {
-       var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse(ApiPaths.orpBill_id));
-    request.body = json.encode({"billnumber": BillNumber});
-    request.headers.addAll(headers);
+      var headers = {'Content-Type': 'application/json'};
+      var request = http.Request('POST', Uri.parse(ApiPaths.orpBill_id));
+      request.body = json.encode({"billnumber": BillNumber});
+      request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
+      http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
-      var body = jsonDecode(await response.stream.bytesToString());
-      final orpbill_id =
-          importBillidModelFromJson(jsonEncode(body["data"]));
-      return orpbill_id;
-    } else {
-      print(response.reasonPhrase);
-    }
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        final orpbill_id = importBillidModelFromJson(jsonEncode(body["data"]));
+        return orpbill_id;
+      } else {
+        print(response.reasonPhrase);
+      }
     } catch (e) {
       print(e.toString());
     }
@@ -1314,15 +1429,17 @@ class AuthenService {
 
   ///..............update product of import................
   Future<bool?> UpdateImportProduct(
-      {
-        required String product_id,
-        required String billnumber,
-         required int quantity}) async {
+      {required String product_id,
+      required String billnumber,
+      required int quantity}) async {
     var headers = {'Content-Type': 'application/json'};
     var request =
         http.Request('PATCH', Uri.parse(ApiPaths.updateProductImport));
-    request.body =
-        json.encode({"product_id": product_id,"billnameber": billnumber, "quantity": quantity});
+    request.body = json.encode({
+      "product_id": product_id,
+      "billnameber": billnumber,
+      "quantity": quantity
+    });
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -1486,7 +1603,7 @@ class AuthenService {
         print("erer");
       }
     } else {
-     // print("error 11111 ");
+      // print("error 11111 ");
     }
     return null;
   }

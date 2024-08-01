@@ -42,8 +42,9 @@ class CheckbillCubit extends Cubit<CheckbillState> {
       var result = await authenRepository.update_tbOrder(
           backmoney: double.parse(backmoney.text),
           getmoney: double.parse(getmoney.text),
-          or_id: tableproviders.getorderid!.orId,
-          payment: selectedRadio.toString());
+        //  or_id: tableproviders.getorderid!.orId,
+          payment: selectedRadio.toString(),
+           tableId: tableproviders.getorderid!.tableId);
       result!.fold((l) {
         log("error");
       }, (r) {

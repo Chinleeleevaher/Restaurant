@@ -131,7 +131,7 @@ class _ImportProductState extends State<ImportProduct> {
                                       color: Colors
                                           .red), // Optional: style for the suffix text
                                 ),
-                                readOnly: true,
+                              //  readOnly: true,
                               ),
                             )
                           ],

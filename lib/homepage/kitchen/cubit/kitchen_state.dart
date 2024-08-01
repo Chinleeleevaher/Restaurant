@@ -10,6 +10,7 @@ enum statuslist { initial, loading, success, error }
     this.listOrder = const [],
     this.listOrderdetail = const [],
     this.typeSeletOrderId,
+    this.totalqty,
     this.loadBillStatus = statuslist.initial,
   });
 
@@ -19,6 +20,7 @@ final List<OrderDetailModel>? listOrderdetail;
 //final int? typeSeletOrderId;
 final OrderStatusModel? typeSeletOrderId;
 final statuslist loadBillStatus;
+final int? totalqty;
 
   @override
     List<Object?> get props => [
@@ -27,6 +29,7 @@ final statuslist loadBillStatus;
         listOrderdetail,
         typeSeletOrderId,
         loadBillStatus,
+        totalqty
         
       ];
   KitchenState coppywith({
@@ -35,9 +38,11 @@ final statuslist loadBillStatus;
      List<OrderDetailModel>? listOrderdetail_c,
      OrderStatusModel? typeSeletOrderId_c,
      statuslist? loadBillStatus,
+     int? totalqty_c
   }) {
     return KitchenState(
       status: status_c ?? status,
+      totalqty: totalqty_c ?? totalqty,
       listOrder: listOrder_c ?? listOrder,
       listOrderdetail: listOrderdetail_c ?? listOrderdetail,
       typeSeletOrderId: typeSeletOrderId_c ?? typeSeletOrderId,

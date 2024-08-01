@@ -31,7 +31,10 @@ Future productPrint(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     IconButton(
-                      icon: const Icon(Icons.close,color: Colors.red,),
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -82,19 +85,22 @@ Future productPrint(BuildContext context) {
                 const Divider(),
                 const Padding(
                   padding: EdgeInsets.only(right: 8, left: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("ລ/ດ"),
-                      VerticalDivider(),
-                      Text("ລາຍການ"),
-                      VerticalDivider(),
-                      Text("ທັງໝົດ"),
-                      VerticalDivider(),
-                      Text("ຂາຍອອກ"),
-                      VerticalDivider(),
-                      Text("ຍັງເຫຼືອ"),
-                    ],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("ລ/ດ"),
+                        VerticalDivider(),
+                        Text("ລາຍການ"),
+                        VerticalDivider(),
+                        Text("ທັງໝົດ"),
+                        VerticalDivider(),
+                        Text("ຂາຍອອກ"),
+                        VerticalDivider(),
+                        Text("ຍັງເຫຼືອ"),
+                      ],
+                    ),
                   ),
                 ),
                 const Divider(),
@@ -265,5 +271,4 @@ Future<void> exportIncome(BuildContext context) async {
   final file = File('${directory?.path}/Product-report.pdf');
 
   await file.writeAsBytes(await pdf.save());
-
 }

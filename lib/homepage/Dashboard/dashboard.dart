@@ -8,6 +8,7 @@ import 'package:myproject/homepage/Dashboard/component/mealcontainner.dart';
 import 'package:myproject/homepage/Dashboard/cubit/dashboard_cubit.dart';
 import 'package:myproject/homepage/home_page.dart';
 import 'package:myproject/homepage/kitchen/cubit/kitchen_cubit.dart';
+import 'package:myproject/homepage/kitchen/cubit/provider/providerOrder_kitchen.dart';
 import 'package:myproject/homepage/kitchen/kitchen.dart';
 import 'package:myproject/homepage/location/location.dart';
 import 'package:myproject/homepage/menu_page/menuProvider.dart';
@@ -74,7 +75,7 @@ class _Dashboard_pageState extends State<Dashboard_page> {
                   return BlocProvider(
                     create: (context) => KitchenCubit(
                         authenRepository: context.read<AuthenRepository>(),
-                        context: context),
+                        context: context, productId: '', kitchenProviders: context.read<kitchenProvider>()),
                     child: const Center(child: Kitchen()),
                   );
                 }

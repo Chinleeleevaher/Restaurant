@@ -1,14 +1,17 @@
-
+import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:myproject/generated/locale_keys.g.dart';
+import 'package:myproject/homepage/kitchen/cubit/provider/providerOrder_kitchen.dart';
 import 'package:myproject/homepage/order/provider.dart';
+import 'package:myproject/homepage/order_history/component/rejectorderDailog.dart';
 import 'package:myproject/homepage/order_history/cubit/orderstatus_cubit.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
-
-
+import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 const List<Color> _kDefaultRainbowColors = [
   Colors.red,
@@ -19,6 +22,7 @@ const List<Color> _kDefaultRainbowColors = [
   Colors.indigo,
   Colors.purple,
 ];
+
 class OrderStatusWaitingPage extends StatefulWidget {
   const OrderStatusWaitingPage({super.key});
 
@@ -31,10 +35,9 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
   Widget build(BuildContext context) {
     var orderlist = context.read<orderprovider>();
     var tableprovide = context.read<tableProvider>();
+    var provide = context.read<kitchenProvider>();
     return BlocConsumer<OrderstatusCubit, OrderstatusState>(
-      listener: (context, state) {
-     
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         context.read<OrderstatusCubit>();
         return Scaffold(
@@ -67,11 +70,51 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                           padding: const EdgeInsets.only(top: 0),
                           child: Text(
                             tableprovide.tablenumber.toString(),
-                            style: const TextStyle(fontSize: 10, color: Colors.red),
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.red),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ),
+                      ////...............
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Consumer<kitchenProvider>(
+                          // // <----here is to make notifier for reject order.......
+                          builder: (context, reject, child) {
+                        return badges.Badge(
+                          badgeAnimation: const BadgeAnimation.rotation(
+                            animationDuration: Duration(seconds: 1),
+                            colorChangeAnimationDuration: Duration(seconds: 1),
+                            loopAnimation: false,
+                            curve: Curves.fastOutSlowIn,
+                            colorChangeAnimationCurve: Curves.easeInCubic,
+                          ),
+                          badgeStyle:
+                              const badges.BadgeStyle(badgeColor: Colors.white),
+                          position: BadgePosition.topEnd(top: -1, end: -1),
+                          badgeContent: Text(
+                            reject.getrejectorder.length.toString(),
+                            // cubit.state.coppywith(orderproduct_c:),
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.notification_add,
+                            ),
+                            onPressed: () {
+                              if (provide.getrejectorder.isNotEmpty) {
+                                RejectOrder(context);
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "ບໍ່ມີຂໍ້ມູນ",
+                                    gravity: ToastGravity.CENTER);
+                              }
+                            },
+                          ),
+                        );
+                      }),
                     ],
                   ))
             ],
@@ -91,22 +134,19 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
               }
 
               return Column(
-                children: [  
+                children: [
                   const SizedBox(
                     height: 50,
-                  
                     child: LoadingIndicator(
-                              indicatorType: Indicator.ballBeat,
-                              colors: _kDefaultRainbowColors,
-                              strokeWidth: 4,
-                              backgroundColor: Colors.white,
-                              pathBackgroundColor: Colors.black
-                              ),
+                        indicatorType: Indicator.ballBeat,
+                        colors: _kDefaultRainbowColors,
+                        strokeWidth: 4,
+                        backgroundColor: Color.fromRGBO(254, 247, 255, 1),
+                        pathBackgroundColor: Colors.black),
                   ),
                   const SizedBox(
                     height: 2,
                   ),
-                
                   Expanded(
                     child: // orderlist.orderlist.productId != null && orderlist.orderlist.productId.isNotEmpty?
                         ListView.builder(
@@ -136,8 +176,8 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                                           children: [
                                             Text(
                                               "${list[i].price} Kip  ",
-                                              style:
-                                                  const TextStyle(color: Colors.red),
+                                              style: const TextStyle(
+                                                  color: Colors.red),
                                             ),
                                             const SizedBox(
                                               width: 60,
@@ -151,7 +191,8 @@ class _OrderStatusWaitingPageState extends State<OrderStatusWaitingPage> {
                                             const EdgeInsets.only(left: 20),
                                         child: Text(
                                           "${list[i].amount} Kip  ",
-                                          style: const TextStyle(color: Colors.red),
+                                          style: const TextStyle(
+                                              color: Colors.red),
                                         ),
                                       ),
                                     ),

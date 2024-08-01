@@ -23,6 +23,28 @@ class OrderProductCubit extends Cubit<OrderProductState> {
     required this.provider,
     required this.context,
   }) : super(const OrderProductState());
+
+
+  
+  typeOrderReport(int orderTap) {
+    emit(state.coppywith(orderType_c: orderTap));
+    if (orderTap == 1) {
+      /// fetch order data
+    //  getOrderReport();
+    }
+    if (orderTap == 2) {
+      /// fetch product
+    //  selectproduct_makeReport();
+    }
+    if (orderTap == 3) {
+      /// fetch income
+     // selectIncome();
+
+    }
+    if (orderTap == 4) {
+   //  getuserReport();
+    }
+  }
   //------ select Order product-------------------------
   Future<void> getOrderProdct() async {
     emit(state.coppywith(status_c: OrderProductStatus.loading));

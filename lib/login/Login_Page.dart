@@ -1,4 +1,3 @@
-
 // ignore_for_file: camel_case_types, file_names
 
 import 'package:easy_localization/easy_localization.dart';
@@ -10,7 +9,6 @@ import 'package:myproject/login/cubit/login_state.dart';
 import 'package:myproject/login/cubit/login_cubit.dart';
 import 'package:myproject/signin/Sign_page.dart';
 import 'package:myproject/signin/cubit/sign_in_cubit.dart';
-
 
 class Login_page extends StatefulWidget {
   const Login_page({super.key});
@@ -26,7 +24,7 @@ class _Login_pageState extends State<Login_page> {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = context.read<CubitCubit>();
-   
+
         return Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -56,8 +54,10 @@ class _Login_pageState extends State<Login_page> {
                               color: Colors.white,
                             ),
                             Text(
-                              LocaleKeys.changeLanguage
-                                  .tr(), // <-- here is make change language
+                              LocaleKeys.changeLanguage.tr(),
+                              style: const TextStyle(
+                                  color: Colors
+                                      .white), // <-- here is make change language
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],
@@ -69,6 +69,7 @@ class _Login_pageState extends State<Login_page> {
               ],
             ),
             body: Container(
+              
               color: Colors.white,
               alignment: Alignment.center,
               padding: const EdgeInsets.all(20),
@@ -80,6 +81,19 @@ class _Login_pageState extends State<Login_page> {
                         children: [
                           const SizedBox(
                             height: 100,
+                          ),
+                          Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              CircleAvatar(
+                                  radius: 50,
+                                  backgroundColor: Colors.grey[200],
+                                  child: Image.asset(
+                                      "lib/assets/images/restaurant.png")),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 30,
                           ),
                           Container(
                             alignment: Alignment.center,
@@ -102,13 +116,11 @@ class _Login_pageState extends State<Login_page> {
                           const SizedBox(
                             height: 10,
                           ),
-                         
                           const SizedBox(
                             height: 10,
                           ),
                           TextFormField(
                             controller: cubit.PasswordeControllerr,
-                            
                             decoration: InputDecoration(
                               hintText: LocaleKeys.password.tr(),
                               border: const OutlineInputBorder(),
@@ -124,7 +136,7 @@ class _Login_pageState extends State<Login_page> {
                               },
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.start,
                                 children: [
                                   Checkbox(
                                     checkColor: Colors.white,
@@ -137,6 +149,12 @@ class _Login_pageState extends State<Login_page> {
                                       cubit.onChangedRemember();
                                     },
                                   ),
+                                 
+                                  const Text(
+                                    "ຈໍາຂ້ອຍ",
+                                    // Use TextAlign values like TextAlign.center, TextAlign.left, etc.
+                                  ),
+                                  const SizedBox(width: 170),
                                   TextButton(
                                       onPressed: () {},
                                       child:
@@ -168,26 +186,27 @@ class _Login_pageState extends State<Login_page> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(1),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(LocaleKeys.noAccount.tr()),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return BlocProvider(
-                                          create: (context) => SignInCubit(),
-                                          child: const SignIn_Page(),
-                                        );
-                                      }));
-                                    },
-                                    child: Text(LocaleKeys.signin.tr()))
-                              ],
-                            ),
-                          ),
+                          ////.......of signin.........
+                          // Padding(
+                          //   padding: const EdgeInsets.all(1),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Text(LocaleKeys.noAccount.tr()),
+                          //       TextButton(
+                          //           onPressed: () {
+                          //             Navigator.push(context,
+                          //                 MaterialPageRoute(builder: (context) {
+                          //               return BlocProvider(
+                          //                 create: (context) => SignInCubit(),
+                          //                 child: const SignIn_Page(),
+                          //               );
+                          //             }));
+                          //           },
+                          //           child: Text(LocaleKeys.signin.tr()))
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       )
                     ],

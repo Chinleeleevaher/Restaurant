@@ -30,9 +30,7 @@ class _ChangeTableState extends State<ChangeTable> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChangTableCubit, ChangTableState>(
-      listener: (context, state) {
-      
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = context.read<ChangTableCubit>();
         //var tableprovider = context.read<tableProvider>();
@@ -68,67 +66,104 @@ class _ChangeTableState extends State<ChangeTable> {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 360,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 251, 249, 249),
-                        ),
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: cubit.state.listtabletype!.length,
-                            itemBuilder: (c, i) {
-                              var list = state.listtabletype;
-                              Color textcolor = Colors.red;
-                              Color containercolor = Colors.white;
-                              if (state.listtabletype![i] ==
-                                  state.typeSelect) {
-                                containercolor = Colors.red;
-                                textcolor = Colors.white;
-                              }
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    cubit.onTypeSelect(list[i]);
-                                    // cubit.onTypeSelect(list[
-                                    //     i]); // <--here is to make ontap and select in productype
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.only(left: 15),
-                                    height: 50,
-                                    width: 80,
-                                    decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            offset: const Offset(0, 5),
-                                            color: const Color.fromARGB(
-                                                    77, 219, 216, 216)
-                                                .withOpacity(1),
-                                            spreadRadius: 2,
-                                            blurRadius: 5,
-                                          )
-                                        ],
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                        color: containercolor),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(11.0),
-                                      child: Text(
-                                        list![i].tabletypeName,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(color: textcolor),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 251, 249, 249),
+                            ),
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height *
+                                  0.08, // Height relative to screen size
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: cubit.state.listtabletype!.length,
+                                itemBuilder: (context, i) {
+                                  var list = cubit.state.listtabletype;
+                                  Color textColor = Colors.red;
+                                  Color containerColor = Colors.white;
+                                  if (list![i] == cubit.state.typeSelect) {
+                                    containerColor = Colors.red;
+                                    textColor = Colors.white;
+                                  }
+
+                                  // Calculate font size based on screen width
+                                  double screenWidth =
+                                      MediaQuery.of(context).size.width;
+                                  double baseFontSize = 16.0;
+
+                                  // Different scaling factors for mobile and desktop
+                                  double fontSize;
+                                  if (screenWidth < 600) {
+                                    // Mobile
+                                    fontSize = baseFontSize;
+                                  } else if (screenWidth >= 600 &&
+                                      screenWidth < 1200) {
+                                    // Tablet
+                                    fontSize = baseFontSize * 1.2;
+                                  } else {
+                                    // Desktop
+                                    fontSize = baseFontSize * 1.5;
+                                  }
+
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        cubit.onTypeSelect(list[i]);
+                                      },
+                                      child: Container(
+                                        constraints: BoxConstraints(
+                                          minWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25, // Minimum width relative to screen width
+                                        ),
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              offset: const Offset(0, 5),
+                                              color: const Color.fromARGB(
+                                                      77, 219, 216, 216)
+                                                  .withOpacity(1),
+                                              spreadRadius: 2,
+                                              blurRadius: 5,
+                                            ),
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: containerColor,
+                                        ),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: Text(
+                                              list[i].tabletypeName,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: textColor,
+                                                fontSize:
+                                                    fontSize, // Use the scaled font size
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            }),
-                      )
-                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -161,7 +196,8 @@ class _ChangeTableState extends State<ChangeTable> {
                                     offset: const Offset(0, 5),
                                     color: tableprovider.FromTable == "1"
                                         ? Colors.red
-                                        : const Color.fromARGB(77, 219, 216, 216)
+                                        : const Color.fromARGB(
+                                                77, 219, 216, 216)
                                             .withOpacity(
                                                 1), // <--- here  is a condition of change color
                                     spreadRadius: 2,
@@ -200,7 +236,7 @@ class _ChangeTableState extends State<ChangeTable> {
                       ),
                       // GestureDetector(
                       //   onTap: ()async {
-              
+
                       //     cubit.getOrderFromTable(context);
                       //   },
                       //   child: Icon(
@@ -229,7 +265,7 @@ class _ChangeTableState extends State<ChangeTable> {
                           ],
                         ),
                       ),
-              
+
                       GestureDetector(
                         onTap: () {
                           cubit.onTypeSelecttablefrom("2");
@@ -243,7 +279,8 @@ class _ChangeTableState extends State<ChangeTable> {
                                     offset: const Offset(0, 5),
                                     color: tableprovider.ToTable == "2"
                                         ? Colors.red
-                                        : const Color.fromARGB(77, 219, 216, 216)
+                                        : const Color.fromARGB(
+                                                77, 219, 216, 216)
                                             .withOpacity(1),
                                     spreadRadius: 2,
                                     blurRadius: 5,
@@ -306,8 +343,8 @@ class _ChangeTableState extends State<ChangeTable> {
                           shrinkWrap: false,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          children: List.generate(
-                              cubit.state.listtable!.length, (index) {
+                          children: List.generate(cubit.state.listtable!.length,
+                              (index) {
                             var listtable = state.listtable;
                             if (listtable![index].tableStatus == 0) {
                               _containercolor = Colors.green;
@@ -324,7 +361,7 @@ class _ChangeTableState extends State<ChangeTable> {
                               _containercolor = Colors.red;
                               textcontrol = "ບໍ່ຫວ່າງ";
                             }
-              
+
                             return itemDashboard(
                                 // -- here is to send the value to the (itemDashboard)---
                                 cubit, // <-- this line is to connect the cubit to below code (itemDashboard)
@@ -391,7 +428,8 @@ class _ChangeTableState extends State<ChangeTable> {
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 5),
-                    color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                    color:
+                        const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                     spreadRadius: 2,
                     blurRadius: 5)
               ]),

@@ -155,6 +155,7 @@ class Dashboard extends StatelessWidget {
               Row(
                 children: [
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:
                     [
@@ -167,7 +168,7 @@ class Dashboard extends StatelessWidget {
                         ),
                       ),
                       LinearPercentIndicator(
-                        width: MediaQuery.of(context).size.width - 280,
+                        width: 100, //MediaQuery.of(context).size.width - 280,
                         animation: true,
                         lineHeight: MediaQuery.of(context).size.height * 0.02,
                         animationDuration: 2000,
@@ -197,7 +198,7 @@ class Dashboard extends StatelessWidget {
                         ),
                       ),
                       LinearPercentIndicator(
-                        width: MediaQuery.of(context).size.width - 280,
+                        width: 100, //MediaQuery.of(context).size.width - 280,
                         animation: true,
                         lineHeight: MediaQuery.of(context).size.height * 0.02,
                         animationDuration: 2000,
@@ -227,7 +228,7 @@ class Dashboard extends StatelessWidget {
                         ),
                       ),
                       LinearPercentIndicator(
-                        width: MediaQuery.of(context).size.width - 280,
+                        width: 100,//MediaQuery.of(context).size.width - 280,
                         animation: true,
                         lineHeight: MediaQuery.of(context).size.height * 0.02,
                         animationDuration: 2000,

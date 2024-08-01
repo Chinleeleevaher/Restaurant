@@ -1,4 +1,3 @@
-
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
@@ -39,9 +38,7 @@ class _Table_pageState extends State<Table_page>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TabletypeCubit, TabletypeState>(
-      listener: (context, state) {
-       
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = context.read<TabletypeCubit>();
         context.read<orderprovider>();
@@ -58,75 +55,87 @@ class _Table_pageState extends State<Table_page>
                   children: [
                     Text(
                       "ປະເພດໂຕະ",
-                      style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
               ),
               Row(
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    width: MediaQuery.of(context).size.width * 1,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 251, 249, 249),
-                    ),
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: cubit.state.listtabletype!.length,
-                        itemBuilder: (c, i) {
-                          var list = state.listtabletype;
-                          Color textcolor = Colors.red;
-                          Color containercolor = Colors.white;
-                          if (state.listtabletype![i] == state.typeSelect) {
-                            containercolor = Colors.red;
-                            textcolor = Colors.white;
-                          }
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                cubit.onTypeSelect(list[i]);
-                                // cubit.onTypeSelect(list[
-                                //     i]); // <--here is to make ontap and select in productype
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(left: 15),
-                                height: 50,
-                                width: 80,
-                                decoration: BoxDecoration(
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 251, 249, 249),
+                      ),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height *
+                            0.08, // Height relative to screen size
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: cubit.state.listtabletype!.length,
+                          itemBuilder: (context, i) {
+                            var list = cubit.state.listtabletype;
+                            Color textColor = Colors.red;
+                            Color containerColor = Colors.white;
+                            if (list![i] == cubit.state.typeSelect) {
+                              containerColor = Colors.red;
+                              textColor = Colors.white;
+                            }
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  cubit.onTypeSelect(list[i]);
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 10), // Margin for spacing
+                                  height: MediaQuery.of(context).size.height *
+                                      0.05, // Height relative to screen size
+                                  constraints: BoxConstraints(
+                                    minWidth: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                        0.2, // Minimum width to ensure readability
+                                  ),
+                                  decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
                                         offset: const Offset(0, 5),
-                                        color:
-                                            const Color.fromARGB(77, 219, 216, 216)
-                                                .withOpacity(1),
+                                        color: const Color.fromARGB(
+                                                77, 219, 216, 216)
+                                            .withOpacity(1),
                                         spreadRadius: 2,
                                         blurRadius: 5,
-                                      )
+                                      ),
                                     ],
                                     borderRadius: BorderRadius.circular(10),
-                                    color: containercolor),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Text(
-                                    list![i].tabletypeName,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: textcolor,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04,
+                                    color: containerColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      list[i].tabletypeName,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: textColor,
+                                        fontSize: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                            0.03, // Font size relative to screen width
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                  )
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -154,22 +163,23 @@ class _Table_pageState extends State<Table_page>
                       shrinkWrap: false,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      children: List.generate(cubit.state.listtable!.length,
-                          (index) {
+                      children:
+                          List.generate(cubit.state.listtable!.length, (index) {
                         var listtable = state.listtable;
                         if (listtable![index].tableStatus == 0) {
                           _containercolor = Colors.green;
                           textcontrol = "ຫວ່າງ";
                         }
                         if (listtable[index].tableStatus == 1) {
-                          _containercolor = const Color.fromARGB(255, 226, 203, 1);
+                          _containercolor =
+                              const Color.fromARGB(255, 226, 203, 1);
                           textcontrol = "ກໍາລັງລໍຖ້າ";
                         }
                         if (listtable[index].tableStatus == 2) {
                           _containercolor = Colors.red;
                           textcontrol = "ບໍ່ຫວ່າງ";
                         }
-          
+
                         return itemDashboard(
                             // -- here is to send the value to the (itemDashboard)---
                             cubit, // <-- this line is to connect the cubit to below code (itemDashboard)
@@ -212,7 +222,7 @@ class _Table_pageState extends State<Table_page>
               }
             });
           }
-          if (table.tableStatus == 1 ) {
+          if (table.tableStatus == 1) {
             navService.pushNamed(AppRount.orderstatusWaiting).then((value) {
               /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
               if (value == true) {
@@ -220,7 +230,7 @@ class _Table_pageState extends State<Table_page>
               }
             });
           }
-          if (table.tableStatus == 2 ) {
+          if (table.tableStatus == 2) {
             navService.pushNamed(AppRount.orderstatus).then((value) {
               /// here is get the value true from the check bill page to refresh here i use pop then can uderstand auto
               if (value == true) {
@@ -236,7 +246,8 @@ class _Table_pageState extends State<Table_page>
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 5),
-                    color: const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
+                    color:
+                        const Color.fromARGB(77, 219, 216, 216).withOpacity(1),
                     spreadRadius: 2,
                     blurRadius: 5)
               ]),

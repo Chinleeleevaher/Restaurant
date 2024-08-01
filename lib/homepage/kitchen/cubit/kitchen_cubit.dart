@@ -10,17 +10,22 @@ import 'package:myproject/component/my_progress.dart';
 import 'package:myproject/homepage/kitchen/cubit/provider/providerOrder_kitchen.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
+import 'package:myproject/homepage/kitchen/model/rejectModel.dart';
 import 'package:myproject/repository/authen_sipository.dart';
 
 part 'kitchen_state.dart';
 
 class KitchenCubit extends Cubit<KitchenState> {
   final AuthenRepository authenRepository;
+  final kitchenProvider kitchenProviders;
   final BuildContext context;
+ String productId;
   // final kitchenProvider kitchenProvide;
   KitchenCubit({
     required this.authenRepository,
+    required this.kitchenProviders,
     required this.context,
+    required this.productId,
     // required this.kitchenProvide
   }) : super(const KitchenState());
 ///.........this function is for protect if the internet is slow.  ກັນ error.............
@@ -51,12 +56,28 @@ class KitchenCubit extends Cubit<KitchenState> {
     });
   }
 
+//.........get order in kitchen to day...............
+  Future<void> GetOrdeinkitchen() async {
+ 
+      emit(state.coppywith(status_c: statuslist.loading));
+    var result = await authenRepository.GetOrdeinkitchen();
+    result!.fold((l) {
+      log("Update status error $l");
+    }, (data) {
+        kitchenProviders.TogetgetOrderlist(data);
+      
+        emit(state.coppywith(status_c: statuslist.success,));
+   
+    });
+  }
 //..........type select order id.................
   Future<void> ontypeSelect(OrderStatusModel? value) async {
     emit(state.coppywith(typeSeletOrderId_c: value!));
     // kitchenProvide.TogetgetOrderlist(value);
     log("select already");
     await SelectOrderdetail_kitchen();
+
+  
   }
 
   // ...........of get order detail by order status for kitchen............
@@ -76,9 +97,9 @@ class KitchenCubit extends Cubit<KitchenState> {
 
   // ...........of get update tatble status and order status for kitchen............
   Future<void> getupdateTableStatus_orStatus() async {
-    //emit(state.coppywith(status_c: statuslist.loading));
-    Navigator.of(context).pop();
+      Navigator.of(context).pop();
     MyProgress().loadingProgress(context: context,title: 'Updating');
+    emit(state.coppywith(status_c: statuslist.loading));
     //await Future.delayed(const Duration(seconds: 1)); // ....here is to waiting time........
 
     var result = await authenRepository.getupdateTableStatus_OrderStatus(
@@ -87,12 +108,77 @@ class KitchenCubit extends Cubit<KitchenState> {
     result!.fold((l) {
       log("Update status error $l");
       Navigator.of(context).pop();
-    }, (success) {
+    }, (data) {
+
       Navigator.of(context).pop();
       SelectorderbyOrderStatus();
-      //emit(state.coppywith(status_c: statuslist.success));
+      emit(state.coppywith(status_c: statuslist.success));
     });
   }
+
+
+rejectorder(value) async {
+  productId = value;
+  for (int i = 0; i < state.listOrderdetail!.length; i++) {
+    if (productId == state.listOrderdetail![i].productId) {
+      // // Convert OrderDetailModel to RejectModel
+      // RejectModel rejectModel = state.listOrderdetail![i].toRejectModel();
+
+      // // Call the method that requires RejectModel
+      // kitchenProviders.TogetgetrejecModel(rejectModel);
+      MyProgress().loadingProgress(
+        context: context,
+        title: 'ກໍາລັງດໍາເນີນການ'
+      );
+
+      await Future.delayed(const Duration(seconds: 1)); // Simulate waiting time
+///......of post reject order to reject table.......
+      emit(state.coppywith(status_c: statuslist.loading));
+      var result = await authenRepository.postrejectOrder(
+        orId: state.listOrderdetail![i].orId,
+        ordId: state.listOrderdetail![i].ordId,
+        pid: state.listOrderdetail![i].productId,
+        qty: state.listOrderdetail![i].qty,
+        amount:state.listOrderdetail![i].amount,
+        table_id: state.listOrderdetail![i].tableId,
+      );
+      result!.fold(
+        (l) {
+          log("post status error $l");
+          Navigator.of(context).pop();
+        },
+        (success) async {
+          emit(state.coppywith(status_c: statuslist.success));
+        },
+      );
+
+///......of reject order then delete in tborderdetail.......
+      emit(state.coppywith(status_c: statuslist.loading));
+      var results = await authenRepository.rejectOrder(
+        orId: state.listOrderdetail![i].orId,
+        pId: productId,
+      );
+
+      results!.fold(
+        (l) {
+          log("Update status error $l");
+          Navigator.of(context).pop();
+        },
+        (success) async {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+          await SelectorderbyOrderStatus(); // Ensure this completes before continuing
+          SelectOrderdetail_kitchen(); // Refresh order details
+          ontypeSelect(state.listOrder![i]); // Call after the above completes
+          emit(state.coppywith(status_c: statuslist.success));
+        },
+      );
+
+      return;
+    }
+  }
+}
+
 
   billDialog() {
     return showDialog(
@@ -108,7 +194,7 @@ class KitchenCubit extends Cubit<KitchenState> {
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    'Bill',
+                    'ລາຍການສີນຄ້າ',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
@@ -161,6 +247,7 @@ class KitchenCubit extends Cubit<KitchenState> {
                       Text("ລ/ດ"),
                       Text("ຊື້ອາຫານ"),
                       Text("ຈໍານວນ "),
+                      Text("ປະຕິເສດ "),
                     ],
                   ),
                 ),
@@ -189,6 +276,40 @@ class KitchenCubit extends Cubit<KitchenState> {
                                       .listOrderdetail![index].productName),
                                   Text(state.listOrderdetail![index].qty
                                       .toString()),
+                                  IconButton(onPressed: (){
+                                    ///....confirm dailog.....
+                                     showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Confirm'),
+                                              content: const Text(
+                                                  'ຕ້ອງການປະຕິເສດແທ້ບໍ່?'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('ບໍ່', style: TextStyle(color: Colors.red),),
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text('ແມ່ນ'),
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                    rejectorder(state
+                                                        .listOrderdetail![index]
+                                                        .productId);
+                                                     // Close the dialog
+                                                    // Add your confirmation action here
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                  }, icon: const Icon(Icons.cancel, color: Colors.red,))
                                 ],
                               ),
                             ),
@@ -230,15 +351,18 @@ class KitchenCubit extends Cubit<KitchenState> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       ElevatedButton(
-                        child: const Text('wait'),
+                        child: const Text('ຖ້າກ່ອນ', style: TextStyle(color: Colors.red),),
                         onPressed: () {
+                          GetOrdeinkitchen();
                           Navigator.of(context).pop();
                         },
                       ),
                       ElevatedButton(
-                        child: const Text('Print'),
+                        child: const Text('ສໍາເລັດ',style: TextStyle(color: Colors.green)),
                         onPressed: () {
                           getupdateTableStatus_orStatus();
+                          GetOrdeinkitchen();
+                       //    Navigator.of(context).pop();
                         },
                       ),
                     ],

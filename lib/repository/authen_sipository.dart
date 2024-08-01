@@ -10,12 +10,14 @@ import 'package:myproject/homepage/addproduct/component/model.dart';
 import 'package:myproject/homepage/addtable/model/tableModel.dart';
 import 'package:myproject/homepage/addunit/component/model.dart';
 import 'package:myproject/homepage/import_Product/model/importModel.dart';
+import 'package:myproject/homepage/kitchen/model/kitchenOrderlistModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderbyOrderStatusModel.dart';
 import 'package:myproject/homepage/kitchen/model/orderdetailModel.dart';
 import 'package:myproject/homepage/menu_page/model/model.dart';
 import 'package:myproject/homepage/menu_page/model/product_model.dart';
 import 'package:myproject/homepage/menu_page/model/unit.dart';
 import 'package:myproject/homepage/menu_page/tablemenuModel.dart';
+import 'package:myproject/homepage/order_history/rejectModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderProListbillModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orderproductModel.dart';
 import 'package:myproject/homepage/orderproduct/model/orpBill_idModel.dart';
@@ -358,6 +360,17 @@ class AuthenRepository {
     }
   }
 
+  //-----to select the data of product that we have already order--------------------
+  Future<Either<Failure, List<RejectOrderModel>>?> getrejectOrder(
+      {required int table_id, }) async {
+    try {
+      final result = await services.getrejectOrder(
+          table_id: table_id);
+      return Right(result!);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
   //--------------of cut stock-----------------
   Future<Either<Failure, bool>?> cut_Stock({required int table_id}) async {
     try {
@@ -370,7 +383,8 @@ class AuthenRepository {
 
   //-----of update tbproduct-----------
   Future<Either<Failure, bool>?> update_tbOrder({
-    required int or_id,
+   // required int or_id,
+    required int tableId,
     required double getmoney,
     required double backmoney,
     required String payment,
@@ -379,8 +393,8 @@ class AuthenRepository {
       final result = await services.upadte_tbOrder(
           backmoney: backmoney,
           getmoney: getmoney,
-          or_id: or_id,
-          payment: payment);
+        //  or_id: or_id,
+          payment: payment, tableId: tableId);
       return right(result!);
     } catch (e) {
       return Left(Failure(e.toString()));
@@ -550,7 +564,15 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
-
+  //------------get order for kithcen to day---------------
+  Future<Either<Failure, List<OrderForKitchen>>?>GetOrdeinkitchen() async {
+    try {
+      final result = await services.GetOrdeinkitchen();
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
   //------------select order detail for kitchen---------------
   Future<Either<Failure, List<OrderDetailModel>>?> getOrderdetail_kitchen(
       {required int or_ids}) async {
@@ -575,7 +597,42 @@ class AuthenRepository {
       return left(Failure(e.toString()));
     }
   }
-
+///.......reject order.........
+  Future<Either<Failure, bool>?> rejectOrder({
+    required int orId,
+    required String pId,
+  }) async {
+    try {
+      final result = await services.rejectOrder(orId: orId, pId: pId
+          );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+///.......reject order.........
+  Future<Either<Failure, bool>?> postrejectOrder({
+    required int ordId,
+    required int orId,
+    required String pid,
+    required int qty,
+    required int amount,
+    required int table_id,
+  }) async {
+    try {
+      final result = await services.postrejectOrder(
+        ordId: ordId,
+         orId: orId,
+          pid: pid, 
+          qty:qty, 
+          amount: amount,
+           table_id: table_id
+          );
+      return Right(result!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
   // ..........post order Product and make return.............
   Future<Either<Failure, List<PostorderProductModel>>?> PostOrderProduct({
     required String product_id,

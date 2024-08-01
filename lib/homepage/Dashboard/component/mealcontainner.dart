@@ -39,52 +39,54 @@ class MealContainner_page extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10, left: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          LocaleKeys.weeklysales.tr(),//...week sale
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          "${LocaleKeys.totaleOrder.tr()}: ${ provide.weekQty.toString()}",// qty week sale
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                         "${LocaleKeys.price.tr()}: ${provide.weekAmount} kip",//..price of month
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                      Center(
-                        child: CircularPercentIndicator(
-                          radius: 25.0,
-                          animation: true,
-                          animationDuration: 1200,
-                          lineWidth: 5.0,
-                          percent:  0.7, // Ensure percent is between 0.0 and 1.0
-                          center: const Text(
-                            '70 %', // Display percentage with one decimal place
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                              color: Colors.white,
-                            ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            LocaleKeys.weeklysales.tr(),//...week sale
+                            style: const TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
                           ),
-                          circularStrokeCap: CircularStrokeCap.butt,
-                          backgroundColor: Colors.white,
-                          progressColor: Colors.green,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            "${LocaleKeys.totaleOrder.tr()}: ${ provide.weekQty.toString()}",// qty week sale
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                           "${LocaleKeys.price.tr()}: ${provide.weekAmount} kip",//..price of month
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                        Center(
+                          child: CircularPercentIndicator(
+                            radius: 25.0,
+                            animation: true,
+                            animationDuration: 1200,
+                            lineWidth: 5.0,
+                            percent:  0.7, // Ensure percent is between 0.0 and 1.0
+                            center: const Text(
+                              '70 %', // Display percentage with one decimal place
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            circularStrokeCap: CircularStrokeCap.butt,
+                            backgroundColor: Colors.white,
+                            progressColor: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -108,51 +110,53 @@ class MealContainner_page extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10, left: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          LocaleKeys.month.tr(),//..month
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          LocaleKeys.totaleOrder.tr()+ provide.monthQty.toString(),//..month quty
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          "${LocaleKeys.price.tr()}: ${provide.monthAmount}Kip",//...of total price
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                      Center(
-                        child: CircularPercentIndicator(
-                          radius: 25.0,
-                          animation: true,
-                          animationDuration: 1200,
-                          lineWidth: 5.0,
-                          percent: 0.5,
-                          center: const Text(
-                            "50 %",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12.0,
-                                color: Colors.white),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            LocaleKeys.month.tr(),//..month
+                            style: const TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
                           ),
-                          circularStrokeCap: CircularStrokeCap.butt,
-                          backgroundColor: Colors.white,
-                          progressColor: Colors.red,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            LocaleKeys.totaleOrder.tr()+ provide.monthQty.toString(),//..month quty
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            "${LocaleKeys.price.tr()}: ${provide.monthAmount}Kip",//...of total price
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                        Center(
+                          child: CircularPercentIndicator(
+                            radius: 25.0,
+                            animation: true,
+                            animationDuration: 1200,
+                            lineWidth: 5.0,
+                            percent: 0.5,
+                            center: const Text(
+                              "50 %",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0,
+                                  color: Colors.white),
+                            ),
+                            circularStrokeCap: CircularStrokeCap.butt,
+                            backgroundColor: Colors.white,
+                            progressColor: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -176,51 +180,53 @@ class MealContainner_page extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10, left: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          LocaleKeys.year.tr(),//...of year
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          "${LocaleKeys.totaleOrder.tr()} : ${provide.yearqty}",// total order
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          "${LocaleKeys.price.tr()} : ${provide.yearAmount}",// total price
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                      Center(
-                        child: CircularPercentIndicator(
-                          radius: 25.0,
-                          animation: true,
-                          animationDuration: 1200,
-                          lineWidth: 5.0,
-                          percent: 0.7,
-                          center: const Text(
-                            "70 %",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12.0,
-                                color: Colors.white),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                         Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            LocaleKeys.year.tr(),//...of year
+                            style: const TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
                           ),
-                          circularStrokeCap: CircularStrokeCap.butt,
-                          backgroundColor: Colors.white,
-                          progressColor: Colors.yellow,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            "${LocaleKeys.totaleOrder.tr()} : ${provide.yearqty}",// total order
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            "${LocaleKeys.price.tr()} : ${provide.yearAmount}",// total price
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                        Center(
+                          child: CircularPercentIndicator(
+                            radius: 25.0,
+                            animation: true,
+                            animationDuration: 1200,
+                            lineWidth: 5.0,
+                            percent: 0.7,
+                            center: const Text(
+                              "70 %",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0,
+                                  color: Colors.white),
+                            ),
+                            circularStrokeCap: CircularStrokeCap.butt,
+                            backgroundColor: Colors.white,
+                            progressColor: Colors.yellow,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

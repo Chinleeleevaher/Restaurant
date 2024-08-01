@@ -2,7 +2,7 @@
 
 class ApiPaths {
   // static const baseURL = 'https://';
-  static const baseURL = 'http://192.168.135.84:3005';
+  static const baseURL = 'http://192.168.59.84:3005';
 
   /// HTTP request methods 
   static const String getRequest = 'get';
@@ -39,6 +39,7 @@ class ApiPaths {
     static const String order_detail = '$baseURL/order-details';
     static const String order_by_table = '$baseURL/order-by-table';
     static const String cut_stocks = '$baseURL/cut-stock';
+    static const String getorderreject = '$baseURL/getrejectorder';
     static const String update_tbOrders = '$baseURL/update-Order_payment';
     static const String getOrderby_table = '$baseURL/getOrderBytable';
     static const String update_move_table = '$baseURL/update-move-tables';
@@ -52,10 +53,13 @@ class ApiPaths {
     static const String getproductlowquantity= '$baseURL/Pquantity';
     static const String getOrderdetail_makeReports = '$baseURL/getOrderDetailforProductReport';
     static const String getOrderByOrderStatus = '$baseURL/getOrderstatus';
+    static const String getOrderToday = '$baseURL/getOrdertoday';
     static const String getOrderDetail_kitchen = '$baseURL/getOrderDetail_Kitchen';
     static const String getOrderDetail_report = '$baseURL/getOrderDetailReport';
     static const String getUpdateTableStatus_orderStatus = '$baseURL/updateTables-orderstatus';
     static const String postOrderproduct = '$baseURL/add-OrderProduct';
+    static const String rejectorder = '$baseURL/rejectorder';
+    static const String postrejectorder = '$baseURL/postrejectorder';
     static const String updateOrderproduct = '$baseURL/update-OrderProduct';
     static const String slectorderproductForImport = '$baseURL/OrderProduct_for_improt';
     static const String updateProductImport = '$baseURL/update-product-quantity-import';

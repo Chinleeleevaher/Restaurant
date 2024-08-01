@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/component/my_progress.dart';
+import 'package:myproject/homepage/kitchen/cubit/provider/providerOrder_kitchen.dart';
 import 'package:myproject/homepage/order/provider.dart';
 import 'package:myproject/homepage/table_page/cubit/provider/tableprovider.dart';
 import 'package:myproject/homepage/table_page/model/order_table_Model.dart';
@@ -17,10 +18,12 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
   final AuthenRepository authenRepository;
   final tableProvider tableproviders;
   final orderprovider orderproviders;
+  final kitchenProvider kitchenProviders;
   final BuildContext context;
   OrderstatusCubit(
       {required this.authenRepository,
       required this.tableproviders,
+      required this.kitchenProviders,
       required this.context,
       required this.orderproviders})
       : super(const OrderstatusState());
@@ -58,5 +61,21 @@ class OrderstatusCubit extends Cubit<OrderstatusState> {
     });
      Navigator.pop(context);
      return null;
+  }
+
+  ///... reject order.....
+   Future<void> getrejectOrder() async {
+    emit(state.coppywith(status: selectorderdata.loading));
+    var resault = await authenRepository.getrejectOrder(
+        table_id: tableproviders.gettablelist.tableId,
+        );
+    resault!.fold((Left) {
+      log("No data it is error");
+    }, (data) {
+      kitchenProviders.Togetgetrejectorder(data);
+      emit(state.coppywith(
+          status: selectorderdata.success));
+       
+    });
   }
 }
